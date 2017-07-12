@@ -4,8 +4,13 @@ using System.Collections; // IEnumerator
 using UnityEngine;
 using UnityEngine.AI;
 
+#pragma warning disable CS0162 // Unreachable code detected
+#pragma warning disable CS0414 // Var assigned but never used
+
 [RequireComponent( typeof(NavMeshAgent) )]
 public class Player : MonoBehaviour {
+
+	const bool bDebug = true;
 
 	[SerializeField]	private 	float			fMoveSpeed				= 3.0f;
 						private		bool			bAllowDiagonals			= true;
@@ -26,11 +31,19 @@ public class Player : MonoBehaviour {
 
 						private		List<Vector3>	vPlanes;
 
+						private		CapsuleCollider	pCollider				= null;
+
 
 	private void Start() {
 		
-		pNavAgent	= this.GetComponent<NavMeshAgent>();
-		vPlanes		= new List<Vector3>();
+		pCollider		= GetComponent<CapsuleCollider>();
+
+		pNavAgent		= this.GetComponent<NavMeshAgent>();
+		pNavAgent.updateRotation = false;
+
+		vPlanes			= new List<Vector3>();
+
+		pCurrentPath	= new NavMeshPath();
 
 	}
 
@@ -42,7 +55,7 @@ public class Player : MonoBehaviour {
 			// if mouse button is pressed
 			if ( Input.GetMouseButtonDown( 0 ) ) {
 
-				Debug.Log( "Mouse press" );
+				if ( bDebug ) Debug.Log( "Mouse press" );
 
 				// trace a ray from camera to game world
 				Ray pRay = Camera.main.ScreenPointToRay( Input.mousePosition );
@@ -51,66 +64,55 @@ public class Player : MonoBehaviour {
 				// if ray hit something
 				if ( Physics.Raycast( pRay, out pMouseHitted ) ) {
 
-					Debug.Log( "Mouse hit" );
+					if ( bDebug ) Debug.Log( "Mouse hit" );
 
 					Vector3 vMouseCollision = pMouseHitted.collider.gameObject.transform.position;
 
 					// try calculate path to collided object position
-					pCurrentPath = new NavMeshPath();
+					pCurrentPath.ClearCorners();
 					bool bResult = pNavAgent.CalculatePath( vMouseCollision, pCurrentPath );
 
 					// if path if not founded return
 					if ( !bResult ) {
-						pCurrentPath = null;
 						return;
 					}
 
-					Debug.Log( "path found, length " + pCurrentPath.corners.Length );
+					transform.position = pCurrentPath.corners[ 0 ];
+
+					if ( bDebug ) Debug.Log( "path found, length " + pCurrentPath.corners.Length );
 
 
 					vPlanes.Clear();
-					foreach( Vector3 vec in pCurrentPath.corners ) {
+					if ( bDebug )  foreach( Vector3 vec in pCurrentPath.corners )
 						Debug.Log( "Corner  " + vec );
-					}
+
 
 					for ( int i = 0; i < pCurrentPath.corners.Length - 1; i++ ) {
 
-						Vector3 vStartPoint = Vector3.zero;
-						if ( i == 0 ) {
-							vStartPoint = transform.position;
-						}
-						else {
-							vStartPoint = pCurrentPath.corners[ i ];
-						}
+						if ( bDebug ) Debug.Log( "Corner " + i );
 
-						Debug.Log( "Corner " + i );
+						Vector3 f0ffset = new Vector3( 0.0f, 0.01f, 0.0f );
+
+						Vector3 vStartPoint	= pCurrentPath.corners[ i ] - f0ffset;
+						Vector3 vEndPoint	= pCurrentPath.corners[ i + 1 ] - f0ffset;
+						Vector3 vDirection	= ( vStartPoint - vEndPoint ).normalized;
+						float fDistance		= Vector3.Distance( vStartPoint, vEndPoint );
 						
-						foreach( Vector3 vec in pCurrentPath.corners ) {
-							vPlanes.Add( vec );
-						}
-						/*
-
-						Vector3 vDirection = ( vStartPoint - pCurrentPath.corners[i + 1] ).normalized;
-						RaycastHit[] vHits = Physics.BoxCastAll(
-									vStartPoint,
-									new Vector3( 0.01f, 300.0f, Vector3.Distance( vStartPoint, pCurrentPath.corners[i + 1] ) ),
-									vDirection,
-									Quaternion.LookRotation( vDirection )
-								);
-
-						Debug.Log( "Hits " + vHits.Length );
+						RaycastHit [] vHits = Physics.RaycastAll( vStartPoint, vDirection, fDistance);
 
 						foreach( RaycastHit pHit in vHits ) {
-							if ( pHit.collider.tag == "Plane" )
+							if ( pHit.collider.tag == "Plane" ) {
 								vPlanes.Add( pHit.collider.gameObject.transform.position );
+								if ( bDebug ) Debug.Log( "Plane added " );
+							}
 						}
-						*/
+						
 					}
 					
 					iNodeIdx = -1;
 
 					if ( vPlanes.Count > 0 ) {
-						Debug.Log( "Destination set" );
+						if ( bDebug ) Debug.Log( "Destination set" );
 						bHasDestination = true;
 					}
 
@@ -119,27 +121,36 @@ public class Player : MonoBehaviour {
 		}
 
 		// if actually has destination but is not set to move
-		if ( !bIsMoving && bHasDestination ) {
+		if ( bHasDestination && !bIsMoving ) {
 
 			iNodeIdx++;
-			StartCoroutine( Action_Move( this.transform, /*pCurrentPath.corners[ iNodeIdx ]*/ vPlanes[iNodeIdx]) );
+			if ( iNodeIdx < pCurrentPath.corners.Length ) {
+				bIsMoving = true;
+				StartCoroutine( Action_Move( pCurrentPath.corners[ iNodeIdx ] ) );
+				return;
+			}
+
+			if ( bDebug ) Debug.Log( "Reset state" );
+			bHasDestination			= false;
 
 		}
 		
 
     }
 
-    public IEnumerator Action_Move( Transform transform, Vector3 vDestination ) {
+    public IEnumerator Action_Move( Vector3 vDestination ) {
 
 		// Set as moving
-		bIsMoving = true;
+		
 		float fInterpolant = 0.0f;
-
+		
 		// if Diagonal movement enabled, scale movement
 		float fDiagonalFactor = 1.0f;
-		if( bAllowDiagonals && ( vDestination.x != 0.0f ) && ( vDestination.z != 0.0f ) ) {
-			fDiagonalFactor = 0.7071f;
-		}
+//		if( bAllowDiagonals && ( vDestination.x != 0.0f ) && ( vDestination.z != 0.0f ) ) {
+//			fDiagonalFactor = 0.7071f;
+//		}
+		
+		Debug.Log( "Coroutine Start" );
 
 		// While interpolant is not full
 		while ( fInterpolant < 1.0f ) {
@@ -148,16 +159,22 @@ public class Player : MonoBehaviour {
 			fInterpolant += Time.deltaTime * fMoveSpeed * fDiagonalFactor;
 
 			// Set next lerped position
-			transform.position = Vector3.Lerp( transform.position, vDestination, fInterpolant );
+			transform.position = Vector3.Lerp( transform.position, vDestination, Mathf.Clamp01( fInterpolant ) );
 
 			yield return null;
 
 		}
 
+		Debug.Log( "Coroutine End" );
+
+		transform.position = vDestination;
+
 		// Now that movement is finished, set as not moving and return
 		bIsMoving = false;
-		if ( iNodeIdx >= pCurrentPath.corners.Length ) bHasDestination = false;
 		yield return 0;
     }
 
 }
+
+#pragma warning restore CS0414 // Var assigned but never used
+#pragma warning restore CS0162 // Unreachable code detected
