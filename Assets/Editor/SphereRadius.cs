@@ -53,18 +53,23 @@ public class SphereRadius : EditorWindow
 			// If no onject selected
 			if ( !Selection.activeObject ) {
 
-				// Set position to center of editor view
-				pObject.transform.position = new Vector2( pCamera.transform.position.x, pCamera.transform.position.y );
+				Vector3 vCamPosition = pCamera.transform.position;
+				Vector3 vCamRotation = pCamera.transform.rotation.eulerAngles.normalized;
+
+				RaycastHit pHit;
+				if ( Physics.Raycast( vCamPosition, vCamRotation, out pHit, 10.0f ) )
+					pObject.transform.position = pHit.point;
+				else
+					// Set position to center of editor view
+					pObject.transform.position = vCamPosition - ( vCamRotation * 1.0f );
 
 			}
 
 			else {
 
 				// set position to object one
-				pObject.transform.position = new Vector2( 
-					( ( GameObject ) Selection.activeObject ).transform.position.x, 
-					( ( GameObject ) Selection.activeObject ).transform.position.y
-				);
+				pObject.transform.position = ( ( GameObject ) Selection.activeObject ).transform.position;
+
 			}
 
 			Selection.activeObject = pObject;

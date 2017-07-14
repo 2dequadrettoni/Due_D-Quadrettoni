@@ -1,10 +1,12 @@
 ﻿// Ref: http://wiki.unity3d.com/index.php/GridMove
 
-//	#define PATHFINDING
+	#define PATHFINDING
 
 using System.Collections.Generic; // IEnumerator
 using System.Collections; // IEnumerator
 using UnityEngine;
+
+using NodeList = System.Collections.Generic.List<Node>;
 
 #pragma warning disable CS0162 // Unreachable code detected
 #pragma warning disable CS0414 // Var assigned but never used
@@ -37,9 +39,7 @@ public class Player : MonoBehaviour {
 
 
 
-#if PATHFINDING
 	//					PATHFINDING
-
 	private struct Pathpoints_t {
 		public	Vector3	vStart;
 		public	Vector3	vCurrentDest;
@@ -47,20 +47,20 @@ public class Player : MonoBehaviour {
 		public void Reset() { vStart = vCurrentDest = vFinal = Vector3.zero; }
 	}
 
-	private	Pathpoints_t PathPoints;
+	private		Pathpoints_t	PathPoints;
 
 	private		Pathfinding		pPathFinder				= null;		// Pathfinding Script
 	private		bool			bHasDestination			= false;	// Flag for coroutines run
 	private		bool			bIsMoving				= false;	// Flag for global moving state
 						
 	private		int				iNodeIdx				= -1;		// Store actual index of path node list
-	private		List<Node>		pNodeList				= null;		// Is the node list for target position
+	private		NodeList		pNodeList				= null;		// Is the node list for target position
 	private		IEnumerator 	pMoveCoroutine			= null;     // Store the Enumerator reference to Move Coroutine
 
 
 	// UTILS
-	public 		bool 		IsMoving() 					{ return bIsMoving;		}
-#endif
+	public 		bool 			IsMoving() 					{ return bIsMoving;		}
+
 
 	// UNITY STUFF
 	private		CapsuleCollider	pCollider				= null;
@@ -70,20 +70,23 @@ public class Player : MonoBehaviour {
 	////////////////////////////////////////////////////////////////////////
 	////////////////			PLAYER CLASS
 
-#if PATHFINDING
 	private void Start() {
 		
 		pCollider	= GetComponent<CapsuleCollider>();
 
 		pPathFinder = GameObject.Find( "PathFinder" ).GetComponent<Pathfinding>();
 
-		pNodeList	= new List<Node>();
+		pNodeList	= new NodeList();
+
+//		GameManager p = new GameManager();
+//		p.SetMaxActionsCallback( new MaxActionsCallback([ void( void ) ]) );
 
 	}
 	
 
 	private void Update() {
 
+		// If CAnnot parse user input skip
 		if ( !bCanParseInput ) return;
 
 		this.ParseInput();
@@ -122,17 +125,17 @@ public class Player : MonoBehaviour {
 	private void UpdateNavigation() {
 
 		// sanity check
-		if ( !pNodeList ) {
+		if ( pNodeList == null ) {
 			bHasDestination = bIsMoving = false;
 			PathPoints.Reset();
 			return;
 		}
 			
 		iNodeIdx++;
-		if (  && ( iNodeIdx < pNodeList.Count ) ) {
+		if (iNodeIdx < pNodeList.Count ) {
 				
 			pMoveCoroutine = Action_Move( PathPoints.vCurrentDest = pNodeList[ iNodeIdx ].worldPosition );
-			StartCoroutine( pMoveCoroutine ) );
+			StartCoroutine( pMoveCoroutine );
 			return;
 		}
 
@@ -152,16 +155,15 @@ public class Player : MonoBehaviour {
 		}
 		
 	}
-	
-	
-#endif
+
+
 	private IEnumerator Action_Move( Vector3 vDestination ) {
 
 		float fInterpolant		= 0.0f;		// Will store interpolation vale [ 0.0f, 1.0f ]
 		float fDiagonalFactor	= 1.0f;		// Used to avoid diagonal speed bug
 
 		// Set as moving
-//		bIsMoving = true;
+		bIsMoving = true;
 		
 		// if diagonal movement, scale movement
 		if( ( vDestination.x != 0.0f ) && ( vDestination.z != 0.0f ) ) {
@@ -197,7 +199,7 @@ public class Player : MonoBehaviour {
 		}
 
 		// Now that movement is finished, set as not moving and return
-//		bIsMoving = false;
+		bIsMoving = false;
 		yield return 0; // yield break in cycles
     }
 	
