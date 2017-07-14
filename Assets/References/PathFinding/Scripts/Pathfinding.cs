@@ -85,15 +85,21 @@ public class Pathfinding : MonoBehaviour {
 
 		CalculatePath( vStartPosition, vEndPosition );
 
-		pNodeList = pCurrentPath;
+		pNodeList = new List<Node>( pCurrentPath );
 
 		return ( pCurrentPath.Count > 0 );
+	}
+
+	public void UpdateGrid() {
+
+		grid.UpdateGrid();
+
 	}
 
 
 
 
-	
+
 
 
 }

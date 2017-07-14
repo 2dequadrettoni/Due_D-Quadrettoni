@@ -1,9 +1,5 @@
 ﻿// Ref: http://wiki.unity3d.com/index.php/GridMove
 
-	#define PATHFINDING
-
-using System.Collections.Generic; // IEnumerator
-using System.Collections; // IEnumerator
 using UnityEngine;
 
 using NodeList = System.Collections.Generic.List<Node>;
@@ -11,7 +7,8 @@ using NodeList = System.Collections.Generic.List<Node>;
 #pragma warning disable CS0162 // Unreachable code detected
 #pragma warning disable CS0414 // Var assigned but never used
 
-public class Player : MonoBehaviour {
+
+public class PlayerMgr : MonoBehaviour {
 
 				const bool		bDebug 					= true;
 
@@ -50,12 +47,14 @@ public class Player : MonoBehaviour {
 	private		Pathpoints_t	PathPoints;
 
 	private		Pathfinding		pPathFinder				= null;		// Pathfinding Script
-	private		bool			bHasDestination			= false;	// Flag for coroutines run
+	private		bool			bHasDestination			= false;	// 
 	private		bool			bIsMoving				= false;	// Flag for global moving state
+	private		float			fNavInterpolant			= 0.0f;
 						
 	private		int				iNodeIdx				= -1;		// Store actual index of path node list
 	private		NodeList		pNodeList				= null;		// Is the node list for target position
-	private		IEnumerator 	pMoveCoroutine			= null;     // Store the Enumerator reference to Move Coroutine
+
+	private		NodeList		pPreview				= null;
 
 
 	// UTILS
@@ -64,11 +63,12 @@ public class Player : MonoBehaviour {
 
 	// UNITY STUFF
 	private		CapsuleCollider	pCollider				= null;
+	private		int				iInstance				= -1;
 
 
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
-	////////////////			PLAYER CLASS
+	////////////////			PLAYERn CLASS
 
 	private void Start() {
 		
@@ -77,6 +77,8 @@ public class Player : MonoBehaviour {
 		pPathFinder = GameObject.Find( "PathFinder" ).GetComponent<Pathfinding>();
 
 		pNodeList	= new NodeList();
+
+		iInstance	= this.GetInstanceID();
 
 //		GameManager p = new GameManager();
 //		p.SetMaxActionsCallback( new MaxActionsCallback([ void( void ) ]) );
@@ -92,11 +94,17 @@ public class Player : MonoBehaviour {
 		this.ParseInput();
 
 		// if actually has destination but is not set to move
-		if ( bHasDestination && !bIsMoving )
+		if ( bHasDestination )
 			this.UpdateNavigation();
 
     }
-	
+
+
+	////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
+	/////////////////////////		PLAN MODE
 
 	private void ParseInput() {
 		
@@ -110,17 +118,30 @@ public class Player : MonoBehaviour {
 
 				// Search for a path to destination
 				pNodeList.Clear();
+				pPathFinder.UpdateGrid();
 				if ( !pPathFinder.FindPath( transform.position, pMouseHitted.point, out pNodeList  ) ) return;
 				
 				// If path is found start moving
 				PathPoints.vStart = pNodeList[0].worldPosition;
 				PathPoints.vFinal = pNodeList[ pNodeList.Count - 1 ].worldPosition;
 				bHasDestination = true;
-				iNodeIdx = -1;
+				iNodeIdx = 0;
+
 			}
 		}
+
 	}
-	
+
+
+
+
+	////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
+	/////////////////////////		PLAY MODE
+
+
 
 	private void UpdateNavigation() {
 
@@ -130,80 +151,34 @@ public class Player : MonoBehaviour {
 			PathPoints.Reset();
 			return;
 		}
-			
-		iNodeIdx++;
-		if (iNodeIdx < pNodeList.Count ) {
-				
-			pMoveCoroutine = Action_Move( PathPoints.vCurrentDest = pNodeList[ iNodeIdx ].worldPosition );
-			StartCoroutine( pMoveCoroutine );
+		
+		if ( fNavInterpolant > 0.99999f ) {
+			iNodeIdx++;
+			fNavInterpolant = 0.0f;
+		}
+
+		// If run out of nodes
+		if ( iNodeIdx >= pNodeList.Count ) {
+			bHasDestination = false;
+			PathPoints.Reset();
+			fNavInterpolant = 0.0f;
+			bIsMoving = false;
 			return;
 		}
 
-		// After path node is reached reset input receiver
-		bHasDestination = false;
-		PathPoints.Reset();
 
-	}
-	
-	
-	private void Action_Stop() {
-		
-		if ( bHasDestination ) {
-			StopCoroutine( pMoveCoroutine );
-			bHasDestination = false;
-			PathPoints.Reset();
-		}
-		
-	}
+		// DESTINATION
+		Vector3 vDestination = PathPoints.vCurrentDest = pNodeList[ iNodeIdx ].worldPosition;
 
+		// Increase interpolant
+		fNavInterpolant += Time.deltaTime * fMoveSpeed;
 
-	private IEnumerator Action_Move( Vector3 vDestination ) {
+		// Set next lerped position
+		transform.position = Vector3.Lerp( transform.position, vDestination, fNavInterpolant );
 
-		float fInterpolant		= 0.0f;		// Will store interpolation vale [ 0.0f, 1.0f ]
-		float fDiagonalFactor	= 1.0f;		// Used to avoid diagonal speed bug
-
-		// Set as moving
 		bIsMoving = true;
-		
-		// if diagonal movement, scale movement
-		if( ( vDestination.x != 0.0f ) && ( vDestination.z != 0.0f ) ) {
-			fDiagonalFactor = 0.7071f;
-		}
 
-		{//	UPDATE DIRECTION
-			if ( ( transform.position.x - vDestination.x ) < 0.001f ) {
-				RemDir( DIRECTION.LEFT ); RemDir( DIRECTION.RIGHT );
-			}
-			else AddDir( ( transform.position.x < vDestination.x ) ? DIRECTION.LEFT : DIRECTION.RIGHT );
-
-			if ( ( transform.position.z - vDestination.z ) < 0.001f ) {
-				RemDir( DIRECTION.UP ); RemDir( DIRECTION.DOWN );
-			}
-			else AddDir( ( transform.position.z < vDestination.z ) ? DIRECTION.DOWN : DIRECTION.UP );
-		}
-
-		
-		{//	COROUTINE CORE
-			// While interpolant is not full
-			while ( fInterpolant < 1.0f ) {
-
-				// Increase interpolant
-				fInterpolant += Time.deltaTime * fMoveSpeed * fDiagonalFactor;
-
-				// Set next lerped position
-				transform.position = Vector3.Lerp( transform.position, vDestination, fInterpolant );
-
-				yield return null;
-
-			}
-		}
-
-		// Now that movement is finished, set as not moving and return
-		bIsMoving = false;
-		yield return 0; // yield break in cycles
-    }
-	
-	
+	}
 
 }
 

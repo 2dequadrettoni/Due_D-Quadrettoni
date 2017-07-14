@@ -3,65 +3,20 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-using NodeList = System.Collections.Generic.List<Node>;
-
-public enum GAME_PHASE : byte {
-	PLANNING, PLAYING
-}
-
-public static class GamePhase {
-	
-	private	static	GAME_PHASE	iActuaPahse = GAME_PHASE.PLANNING;
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
 
-	public static void Switch() {
-		
-		if ( iActuaPahse == GAME_PHASE.PLAYING ) return;
-		
-		iActuaPahse = GAME_PHASE.PLAYING;
-		
-	}
-	
-	public static  GAME_PHASE GetCurrent() {
-		return iActuaPahse;
-	}
-	
-}
+
+	//   GESTISCE LE AZIONI DI ENTRAMBI I GIOCATORI
 
 
-public class PhaseAction {
-
-	public		enum			Action		{ WAIT, USE, MOVE };
-	private		Action			iAction		= 0;
-
-	// Action:USE
-	private		GameObject		pObject		= null;
-
-	// Action:MOVE
-	private		NodeList		vNodeList	= null;
-
-	// Create as User
-	public		PhaseAction( GameObject _Object ) { 
-		iAction	= Action.USE;
-		pObject = _Object;
-	}
-
-	// Create as Mover
-	public		PhaseAction( NodeList _PathList ) { 
-		iAction	= Action.USE;
-		vNodeList = _PathList;
-	}
-
-	// Create as waiter
-	public		PhaseAction() { 
-		iAction	= Action.WAIT;
-	}
-
-}
 
 public delegate void	MaxActionsCallback();
 
-public class GameManager : MonoBehaviour {
+public class PhaseManager : MonoBehaviour {
 
 	const int iMaxActions = 10;
 
@@ -73,14 +28,14 @@ public class GameManager : MonoBehaviour {
 
 	private	bool				bIsOK			= false;
 
-	private	Player				pPlayer			= null;
+//	private	PlayerMgr				pPlayer			= null;
 
 	private void	Start() {
 		
-		// if Player is not found then cannot execute play action
+/*		// if Player is not found then cannot execute play action
 		GameObject PlayerObject = GameObject.Find( "Player" );
-		if ( ( !PlayerObject ) || ( pPlayer = PlayerObject.GetComponent<Player>() ) ) return;
-
+		if ( ( !PlayerObject ) || ( pPlayer = PlayerObject.GetComponent<PlayerMgr1>() ) ) return;
+**/
 		bIsOK = true;
 
 	}
@@ -150,7 +105,7 @@ public class GameManager : MonoBehaviour {
 		if ( GamePhase.GetCurrent() == GAME_PHASE.PLANNING ) {
 
 			GamePhase.Switch();
-			pPlayer.CanParseInput = false;
+//			pPlayer.CanParseInput = false;
 
 		}
 
@@ -164,10 +119,47 @@ public class GameManager : MonoBehaviour {
 
 	private	IEnumerator	CycleActions(){
 
+		PhaseAction pAction = vActions[ iMaxActions - iActionsCount ];
 
+//		if ( pAction. )
+
+
+
+		iActionsCount--;
 
 		yield return 0;
 
 	}
 
+}
+
+
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+
+public enum GAME_PHASE : byte { PLANNING, PLAYING }
+
+public static class GamePhase {
+	
+	private	static	GAME_PHASE	iActuaPahse = GAME_PHASE.PLANNING;
+
+
+	public static Vector3 P1Position, P2Position;
+
+	public static void Switch() {
+		
+		if ( iActuaPahse == GAME_PHASE.PLAYING ) return;
+		
+		iActuaPahse = GAME_PHASE.PLAYING;
+		
+	}
+	
+	public static  GAME_PHASE GetCurrent() {
+		return iActuaPahse;
+	}
+	
 }
