@@ -67,6 +67,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	[SerializeField]
 	private 	float			fMoveSpeed				= 3.0f;
 	private		Vector3			vSpawnPostion			= Vector3.zero;
+	private		bool			bIsOK					= false;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		PlayerAction	pAction					= null;
@@ -118,6 +119,11 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 		pPathFinder			= GameObject.Find( "PathFinder" ).GetComponent<Pathfinding>();
 
+		if ( !pPathFinder ) {
+			Debug.Log( "Pathfinder not found" );
+			return;
+		}
+
 		pNodeList			= new NodeList();
 
 		vPrevPostion = vSpawnPostion = transform.position;
@@ -125,10 +131,14 @@ public partial class Player: MonoBehaviour, IPlayer {
 //		GameManager p = new GameManager();
 //		p.SetMaxActionsCallback( new MaxActionsCallback([ void( void ) ]) );
 
+		bIsOK = true;
+
 	}
 	
 
 	private void Update() {
+
+		if ( !bIsOK ) return;
 
 		////////////////////////////////////////////////////////////////////////
 		//		PLAN MODE

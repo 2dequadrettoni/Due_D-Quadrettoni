@@ -82,6 +82,8 @@ public partial class Player {
 	// Clear current path
 	public void ClearPath() {
 		
+		if ( !bIsOK ) return;
+
 		// reret current position to previous position
 		transform.position = vPrevPostion;
 
@@ -95,6 +97,8 @@ public partial class Player {
 
 	private NodeList GetPreviewPath() {
 		
+		if ( !bIsOK ) return null;
+
 		// Sanity list check
 		if ( pNodeList.Count == 0 ) return null;
 

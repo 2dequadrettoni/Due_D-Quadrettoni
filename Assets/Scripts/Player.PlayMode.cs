@@ -12,6 +12,8 @@ public partial class Player {
 
 	public	void	OnPlay() {
 
+		if ( !bIsOK ) return;
+
 		bCanParseInput = false;
 
 		// reset current position to spawn position
@@ -20,6 +22,8 @@ public partial class Player {
 	}
 
 	public void SetPath( NodeList _NodeList ) {
+
+		if ( !bIsOK ) return;
 
 		// List sanity check
 		if ( ( _NodeList == null ) || ( _NodeList.Count < 1 ) ) {
@@ -34,6 +38,8 @@ public partial class Player {
 
 
 	public void Move() {
+
+		if ( !bIsOK ) return;
 
 		// List sanity check
 		if ( ( pNodeList == null ) || ( pNodeList.Count < 1 ) ) return;
