@@ -44,6 +44,13 @@ public partial class StageManager {
 
 	private void Update() {
 
+		// If manager had bad initialization
+		if ( !bIsOK ) return;
+
+		if ( bIsPlaying ) {
+			Debug.Log( "NIEN" );
+			return;
+		}
 
 		if ( Input.GetKeyDown( KeyCode.Alpha1 ) ) {
 			SelectPlayer( 1 );
