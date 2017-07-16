@@ -14,10 +14,8 @@ public class UsableObject : MonoBehaviour {
 	// decide se si può utilizzare
 
 
-	private	bool	bActivated;
+//	private	bool	bActivated;
 	// decide se si può utilizzare
-
-
 
 
 	// Use this for initialization
@@ -30,7 +28,7 @@ public class UsableObject : MonoBehaviour {
 		
 	}
 
-	public void OnUse() {
+	public void OnUse( Player User ) {
 
 		// se non può esere usato skipp
 		if ( !bCanbeUsed ) return;
