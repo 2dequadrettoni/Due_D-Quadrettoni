@@ -47,7 +47,13 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 	private		List<Stage>			vStages			= null;
 	private		int					iTotalStages	= 1;
+
+	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		int					iCurrentStage	= 0;
+	public		int StageCount
+	{
+		get { return iCurrentStage;  }
+	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		int					iSelectedPlayer	= 1;

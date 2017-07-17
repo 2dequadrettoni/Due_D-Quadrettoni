@@ -5,7 +5,7 @@ using UnityEngine;
 // Similar to typedef
 using NodeList = System.Collections.Generic.List<Node>;
 
-public		enum			ActionType		{ WAIT, USE, MOVE };
+public		enum			ActionType		{ MOVE, USE, WAIT };
 public		delegate void	ActionEndCallBack();
 
 interface iPlayerAction {
@@ -50,7 +50,6 @@ public class PlayerAction : iPlayerAction {
 	//////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////
-
 	
 	// Create as User
 	public		PlayerAction( UsableObject _Object ) { 

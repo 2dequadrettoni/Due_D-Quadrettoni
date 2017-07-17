@@ -43,6 +43,8 @@ public partial class StageManager {
 
 		Debug.Log( "Action set for player " + iSelectedPlayer );
 
+		
+
 		pPlayer.Action = null;
 
 	}

@@ -9,6 +9,7 @@ public class Grid : MonoBehaviour {
 	public Vector2 gridWorldSize;
 	public float nodeRadius;
 	Node[,] grid;
+	Plane pPlane;
 
 	public List<Node> path;
 
@@ -20,6 +21,18 @@ public class Grid : MonoBehaviour {
 		gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
 		gridSizeY = Mathf.RoundToInt(gridWorldSize.y/nodeDiameter);
 		CreateGrid();
+
+		// Create a plane
+		GameObject p = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		p.transform.position = this.transform.position;
+		p.transform.localScale = new Vector3( gridWorldSize.x / 10.0f, 0.01f, gridWorldSize.y / 10.0f );
+
+		Material m = new Material(Shader.Find("Standard"));
+		m.color = Color.blue;
+		p.GetComponent<MeshRenderer>().material = m;
+		p.GetComponent<MeshRenderer>().enabled = false;
+		p.transform.SetParent( transform );
+
 	}
 
 	public int MaxSize {
@@ -31,6 +44,10 @@ public class Grid : MonoBehaviour {
 	void CreateGrid() {
 
 		grid = new Node[gridSizeX,gridSizeY];
+
+
+
+
 		UpdateGrid();
 
 	}
