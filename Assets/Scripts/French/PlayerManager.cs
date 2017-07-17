@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    RaycastHit cameraRay;
+    public RaycastHit cameraRay;
+    public bool bHitting = false;
     public Material selectedMaterial, p1Material, p2Material;
     public bool p1isMove = false, p1isActions = false, p1isWhait = false, p1isSelected = false;
     public bool p2isMove = false, p2isActions = false, p2isWhait = false, p2isSelected = false;
     public GameObject player1, player2;
+    public Camera cam = null;
     //public Camera camera;
 
     // Use this for initialization
@@ -17,11 +19,12 @@ public class PlayerManager : MonoBehaviour
        
     }
 
+
     // Update is called once per frame
     void Update()
     {
         //Raycast from the camera to mouse position for made a selector
-        Physics.Raycast(gameObject.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition), out cameraRay);
+        bHitting = Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out cameraRay);
 
         if (cameraRay.collider != null && Input.GetMouseButtonDown(0))
         {
@@ -47,7 +50,8 @@ public class PlayerManager : MonoBehaviour
             if (p1isSelected == true && cameraRay.transform.tag == "Plane")
             {
                 p1isMove = true;
-                player1.transform.position = new Vector3(cameraRay.transform.position.x, cameraRay.transform.position.y + 1, cameraRay.transform.position.z);
+                player1.transform.position = cameraRay.transform.position + Vector3.up * 10;
+
 
             }
 
@@ -55,7 +59,8 @@ public class PlayerManager : MonoBehaviour
             if (p2isSelected == true && cameraRay.transform.tag == "Plane")
             {
                 p2isMove = true;
-                player2.transform.position = new Vector3(cameraRay.transform.position.x, cameraRay.transform.position.y + 1, cameraRay.transform.position.z);
+                player2.transform.position = cameraRay.transform.position + Vector3.up*10;
+//                    new Vector3(cameraRay.transform.position.x, cameraRay.transform.position.y + 1, cameraRay.transform.position.z);
             }
         }
 

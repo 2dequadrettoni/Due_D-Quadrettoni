@@ -5,22 +5,23 @@ using UnityEngine;
 public class PlaneManager : MonoBehaviour
 {
 
-    public Camera camera;
+    private Camera cam;
     public Material selectedMaterial, defaultMaterial;
     Renderer[] plane;
     public RaycastHit hitInfo;
+    public PlayerManager playerManager;
 
     // Use this for initialization
     void Start()
     {
         plane = this.GetComponentsInChildren<Renderer>();
         hitInfo = new RaycastHit();
+        cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hitInfo);
             
         foreach (Renderer mat in plane)
         {
@@ -30,9 +31,11 @@ public class PlaneManager : MonoBehaviour
             }
         }
 
-        if (hitInfo.collider != null && hitInfo.transform.tag == "Plane")
+
+        RaycastHit hit = playerManager.cameraRay;
+        if ( playerManager.bHitting && hit.collider != null && hit.transform.tag == "Plane")
         {
-            hitInfo.transform.gameObject.GetComponent<Renderer>().material = selectedMaterial;
+            hit.transform.gameObject.GetComponent<Renderer>().material = selectedMaterial;
 
         }
 

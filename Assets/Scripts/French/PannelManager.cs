@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class PannelManager : MonoBehaviour
 {
 
-    public GameObject player1, player2, playerVariables;
-    private PlayerManager player_v;
+
+    public GameObject players;
+    private GameObject player1, player2;
+    private PlayerManager playerManager;
     public int turn = 1;
     public Sprite[,] tab = new Sprite[2, 10];
     public Sprite moveSprite, waitSprite, useSprite;
@@ -19,8 +21,10 @@ public class PannelManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        playerManager = players.GetComponent<PlayerManager>();
 
-        player_v = playerVariables.GetComponent<PlayerManager>();
+        player1 = playerManager.player1;
+        player2 = playerManager.player2;
 
     }
 
@@ -37,13 +41,14 @@ public class PannelManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (player_v.p1isSelected && player_v.p1isMove)
+            if (playerManager.p1isSelected && playerManager.p1isMove)
             {
+                Debug.Log("ilDioladrobastardo e porco!!!!!");
                 changeIcon(turn, 1, useSprite);
                 player1Finish = true;
             }
 
-            if (player_v.p2isSelected && player_v.p2isMove)
+            if (playerManager.p2isSelected && playerManager.p2isMove)
             {
                 changeIcon(turn, 2, useSprite);
                 player2Finish = true;
@@ -55,6 +60,7 @@ public class PannelManager : MonoBehaviour
 
     public void changeIcon(int turn, int player, Sprite icon)
     {
+       
         if (turn == 1)
         {
             if (player == 1)
