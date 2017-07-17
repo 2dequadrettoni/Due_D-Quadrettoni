@@ -12,11 +12,6 @@ public partial class StageManager {
 		// If manager had bad initialization
 		if ( !bIsOK ) return;
 
-		if ( bIsPlaying ) {
-			Debug.Log( "ANSIA, EH???" );
-			return;
-		}
-
 		if ( vStages.Count < 1 ) {
 			Debug.Log( "Stages have to be at last one" );
 			return;
@@ -47,8 +42,8 @@ public partial class StageManager {
 		// If manager had bad initialization
 		if ( !bIsOK ) return;
 
-		if ( bIsPlaying ) {
-			Debug.Log( "NIEN" );
+		if ( bIsPlaying && Input.anyKeyDown ) {
+			Debug.Log( "ANSIA, EH???" );
 			return;
 		}
 
