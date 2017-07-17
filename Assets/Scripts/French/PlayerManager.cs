@@ -6,58 +6,72 @@ public class PlayerManager : MonoBehaviour
 {
     RaycastHit cameraRay;
     public Material selectedMaterial, p1Material, p2Material;
-    bool p1isMove, p1isActions, p1isWhait, p1isSelected;
-    bool p2isMove, p2isActions, p2isWhait, p2isSelected;
+    public bool p1isMove = false, p1isActions = false, p1isWhait = false, p1isSelected = false;
+    public bool p2isMove = false, p2isActions = false, p2isWhait = false, p2isSelected = false;
     public GameObject player1, player2;
     //public Camera camera;
 
     // Use this for initialization
     void Start()
     {
-        p1isMove = GetComponent<Player1>().isMove;
-        p1isActions = GetComponent<Player1>().isActions;
-        p1isWhait = GetComponent<Player1>().isWhait;
-        p1isSelected = GetComponent<Player1>().isSelected;
-        p2isMove = GetComponent<Player2>().isMove;
-        p2isActions = GetComponent<Player2>().isActions;
-        p2isWhait = GetComponent<Player2>().isWhait;
-        p2isSelected = GetComponent<Player2>().isSelected;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //Raycast from the camera to mouse position for made a selector
         Physics.Raycast(gameObject.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition), out cameraRay);
 
-        if (cameraRay.collider != null && Input.GetMouseButtonDown(0)  && cameraRay.transform.tag == "Player1")
+        if (cameraRay.collider != null && Input.GetMouseButtonDown(0))
         {
-            p1isSelected = true;
-            p2isSelected = false;
-            player1.GetComponent<Renderer>().material = selectedMaterial;
-            player2.GetComponent<Renderer>().material = p2Material;
+            //Select player1 
+            if (cameraRay.transform.tag == "Player1")
+            {
+                p1isSelected = true;
+                p2isSelected = false;
+                player1.GetComponent<Renderer>().material = selectedMaterial;
+                player2.GetComponent<Renderer>().material = p2Material;
+            }
+
+            //Select player2
+            if (cameraRay.transform.tag == "Player2")
+            {
+                p2isSelected = true;
+                p1isSelected = false;
+                player2.GetComponent<Renderer>().material = selectedMaterial;
+                player1.GetComponent<Renderer>().material = p1Material;
+            }
+
+            //Move player1 
+            if (p1isSelected == true && cameraRay.transform.tag == "Plane")
+            {
+                p1isMove = true;
+                player1.transform.position = new Vector3(cameraRay.transform.position.x, cameraRay.transform.position.y + 1, cameraRay.transform.position.z);
+
+            }
+
+            //Move player2
+            if (p2isSelected == true && cameraRay.transform.tag == "Plane")
+            {
+                p2isMove = true;
+                player2.transform.position = new Vector3(cameraRay.transform.position.x, cameraRay.transform.position.y + 1, cameraRay.transform.position.z);
+            }
         }
 
-        //else
-
-        if (cameraRay.collider != null && Input.GetMouseButtonDown(0) && cameraRay.transform.tag == "Player2")
+        if (Input.GetMouseButtonUp(0))
         {
-            p2isSelected = true;
-            p1isSelected = false;
-            player2.GetComponent<Renderer>().material = selectedMaterial;
-            player1.GetComponent<Renderer>().material = p1Material;
-        }
+           
+            p1isActions = false;
+            p1isWhait = false;
+            p1isMove = false;
+           
+            p2isActions = false;
+            p2isWhait = false;
+            p2isMove = false;
 
-        //else
-
-        if (cameraRay.collider != null && p1isSelected == true && Input.GetMouseButtonDown(0) && cameraRay.transform.tag == "Plane")
-        {
-            player1.transform.position = cameraRay.transform.position;          
         }
-
-        if (cameraRay.collider != null && p2isSelected == true && Input.GetMouseButtonDown(0) && cameraRay.transform.tag == "Plane")
-        {
-            player2.transform.position = cameraRay.transform.position;
-        }
+        
     }
+
 }
