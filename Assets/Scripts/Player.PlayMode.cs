@@ -63,10 +63,10 @@ public partial class Player {
 
 
 
-		//		if ( transform.position.x < vDestination.x ) { AddDir( DIRECTION.LEFT ); RemDir( DIRECTION.RIGHT ); } else { RemDir( DIRECTION.LEFT ); AddDir( DIRECTION.RIGHT ); }
-		//		if ( transform.position.z < vDestination.z ) { AddDir( DIRECTION.DOWN ); RemDir( DIRECTION.UP );    } else { RemDir( DIRECTION.DOWN ); AddDir( DIRECTION.UP );    }
+//		if ( transform.position.x < vDestination.x ) { AddDir( DIRECTION.LEFT ); RemDir( DIRECTION.RIGHT ); } else { RemDir( DIRECTION.LEFT ); AddDir( DIRECTION.RIGHT ); }
+//		if ( transform.position.z < vDestination.z ) { AddDir( DIRECTION.DOWN ); RemDir( DIRECTION.UP );    } else { RemDir( DIRECTION.DOWN ); AddDir( DIRECTION.UP );    }
 
-		// If is under destination
+/*		// If is under destination
 		string sDirection;
 		if ( transform.position.z < vDestination.z )
 			sDirection = "Up";
@@ -80,7 +80,7 @@ public partial class Player {
 		else
 			pRenderer.flipX = true;
 
-
+	*/
 
 		// If next node is reached
 		if ( fNavInterpolant > 0.99999f ) {
@@ -93,11 +93,14 @@ public partial class Player {
 			bHasDestination = false;            // Restination is reached, make input avaibla again
 			bIsMoving		= false;			// Set as not moving
 			fNavInterpolant = 0.0f;				// Reset interpolant
-			pAnimator.Play( "Idle_" + sDirection );
+
+			if ( pUsableObject )  { pUsableObject.OnUse( this ); pUsableObject = null; }
+
+//			pAnimator.Play( "Idle_" + sDirection );
 			return;
 		}
 
-		pAnimator.Play( "Walk_" + sDirection );
+//		pAnimator.Play( "Walk_" + sDirection );
 
 		// Increase interpolant ( with deltatime )
 		fNavInterpolant += Time.deltaTime * fMoveSpeed;

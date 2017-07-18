@@ -58,9 +58,10 @@ public class PlayerAction : iPlayerAction {
 	}
 
 	// Create as Mover
-	public		PlayerAction( NodeList _PathList ) { 
+	public		PlayerAction( NodeList _PathList, UsableObject _Object = null ) { 
 		iType		= ActionType.MOVE;
 		vNodeList	=  new NodeList( _PathList );
+		pObject		= _Object;
 	}
 
 	// Create as waiter

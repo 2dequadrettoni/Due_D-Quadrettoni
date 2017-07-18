@@ -19,17 +19,33 @@ public partial class Player {
 			RaycastHit pMouseHitted;
 			if ( Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitted ) ) {
 
+
+				UsableObject	pEndTurnUsableObject = null;
+
+
 				// Usable object check
-				UsableObject pUsableScript = null;
-				if ( pUsableScript = pMouseHitted.collider.gameObject.GetComponent<UsableObject>() ) {
+				UsableObject _UsableObject = null;
+				if ( _UsableObject = pMouseHitted.collider.gameObject.GetComponent<UsableObject>() ) {
 
 					// is usable object and in use radius
 					if ( Vector3.Distance( transform.position, pMouseHitted.transform.position ) < fUseDistance ) {
 						// Set as action to use it
-						pAction = new PlayerAction( pUsableScript );
-						return;
+						Debug.Log( "Usable action set" );
+						if ( _UsableObject.Type == UsableObject.Usabletypes.ON_USE ) {
+							_UsableObject.OnUse( this );
+							pAction = new PlayerAction( _UsableObject );
+							pStageManager.SetAction();
+							pUsableObject = _UsableObject;
+							return;
+						}
 					}
+					pUsableObject = pEndTurnUsableObject = _UsableObject;
 					
+				}
+
+				if ( _UsableObject == null && pUsableObject != null ) {
+					pUsableObject.OnReset();
+					pUsableObject = null;
 				}
 
 
@@ -45,11 +61,16 @@ public partial class Player {
 				////////////////////////////////////////////////////////////
 				// finally show the preview
 				this.ShowPreview();
+				
 				// preset as current action
-				pAction = new PlayerAction( pNodeList );
+				if ( pEndTurnUsableObject )
+					pAction = new PlayerAction( pNodeList, pEndTurnUsableObject );
+				else
+					pAction = new PlayerAction( pNodeList );
+
+				pStageManager.SetAction();					
 			}
 		}
-
 	}
 
 	public void ShowPreview() {

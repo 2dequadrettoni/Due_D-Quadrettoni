@@ -40,7 +40,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	//	DEBUG
 				const bool		bDebug 					= true;
-				const float		fUseDistance			= 0.0f;
+				const float		fUseDistance			= 5.0f;
 
 	//	DIRECTION
 	public		enum			DIRECTION				{ NONE, UP, RIGHT, DOWN, LEFT };
@@ -55,6 +55,13 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	//	PATHFINDING
 	private		Pathfinding		pPathFinder				= null;		// Pathfinding Script
+	////////////////////////////////////////////////////////////////////////////////////
+	public		Pathfinding	PathFinder {
+		get{ return pPathFinder; }
+	}
+
+
+
 	private		bool			bHasDestination			= false;	// 
 	private		bool			bIsMoving				= false;	// Flag for global moving state
 	private		float			fNavInterpolant			= 0.0f;
@@ -72,12 +79,22 @@ public partial class Player: MonoBehaviour, IPlayer {
 	private		bool			bFlipped				= false;
 	private		bool			bDirUP					= false;
 
+
+	// ACTIONS
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		PlayerAction	pAction					= null;
 	public		PlayerAction Action
 	{
 		get { return pAction;  }
 		set { pAction = value; }
+	}
+
+	private		StageManager	pStageManager			= null;
+	private		UsableObject	pUsableObject			= null;
+	public		UsableObject UsableObject
+	{
+		get { return pUsableObject;  }
+		set { pUsableObject = value; }
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,6 +145,8 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 		pPathFinder			= GameObject.Find( "PathFinder" ).GetComponent<Pathfinding>();
 
+		pStageManager		= GameObject.Find( "GameManager" ).GetComponent<StageManager>();
+
 		if ( !pPathFinder ) {
 			Debug.Log( "Pathfinder not found" );
 			return;
@@ -140,7 +159,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 //		GameManager p = new GameManager();
 //		p.SetMaxActionsCallback( new MaxActionsCallback([ void( void ) ]) );
 
-		pAnimator.Play( "Idle_Down" );
+//		pAnimator.Play( "Idle_Down" );
 
 		bIsOK = true;
 

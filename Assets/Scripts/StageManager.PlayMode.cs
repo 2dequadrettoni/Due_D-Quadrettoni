@@ -17,6 +17,17 @@ public partial class StageManager {
 			return;
 		}
 
+
+
+		GameObject c = GameObject.Find("UsableObjects");
+		for ( int i = 0; i < c.transform.childCount; i++ ) {
+
+			Transform child = c.transform.GetChild( i );
+			UsableObject script = child.GetComponent<UsableObject>();
+			script.OnReset();
+
+		}
+
 		PlayerAction PA1 = vStages[ iCurrentStage ].GetAction( 1 );
 		PlayerAction PA2 = vStages[ iCurrentStage ].GetAction( 2 );
 
@@ -61,10 +72,6 @@ public partial class StageManager {
 				pPlayer2.ClearPath();
 
 			Debug.Log( "Path cleard for player " + iSelectedPlayer );
-		}
-
-		if ( Input.GetKeyDown( KeyCode.Return ) ) {
-			SetAction();
 		}
 
 		if ( Input.GetKeyDown( KeyCode.Space ) ) {
@@ -129,6 +136,15 @@ public partial class StageManager {
 			if ( PA1.GetType() == ActionType.MOVE ) {
 				pPlayer1.SetPath( PA1.GetPath() );
 				pPlayer1.Move();
+
+				if ( PA1.GetUsableObject() != null ) {
+
+					PA1.SetEndActionCallback(
+						delegate { PA1.GetUsableObject().OnUse( pPlayer1 ); }
+					);
+
+				}
+
 			}
 		}
 
@@ -139,8 +155,17 @@ public partial class StageManager {
 			}
 
 			if ( PA2.GetType() == ActionType.MOVE ) {
-				pPlayer2 .SetPath( PA2.GetPath() );
+				pPlayer2.SetPath( PA2.GetPath() );
 				pPlayer2.Move();
+
+				if ( PA2.GetUsableObject() != null ) {
+
+					PA2.SetEndActionCallback(
+						delegate { PA1.GetUsableObject().OnUse( pPlayer1 ); }
+					);
+
+				}
+
 			}
 		}
 
@@ -149,7 +174,10 @@ public partial class StageManager {
 
 			// Wait for next frame
 			yield return null;
-		 }
+		}
+
+		PA1.ExecuteCallBack();
+		PA2.ExecuteCallBack();
 
 		// player are not busy, so stop cycle
 		bIsInCycle = false;

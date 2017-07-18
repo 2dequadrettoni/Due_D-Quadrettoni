@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class UsableObject : MonoBehaviour {
 
-	// object size
-	private float	radius;
-	// però esendo un solido quello che può essere usato per gli oggetti, mettendo un collider non triggerato.
-	// Da solo dovrebbe oscacolare il path del giocatore
+	public Transform Porta  = null;
 
 
-	private	bool	bCanbeUsed;
-	// decide se si può utilizzare
+	public enum Usabletypes { ON_USE, ON_TURN_END }
 
-
-//	private	bool	bActivated;
-	// decide se si può utilizzare
+	public Usabletypes Type;
 
 
 	// Use this for initialization
@@ -28,13 +22,20 @@ public class UsableObject : MonoBehaviour {
 		
 	}
 
+	public void OnReset() {
+		
+		Porta.GetComponent<BoxCollider>().enabled = true;
+		Porta.GetComponent<MeshRenderer>().enabled = true;
+
+	}
+
 	public void OnUse( Player User ) {
 
-		// se non può esere usato skipp
-		if ( !bCanbeUsed ) return;
+		Porta.GetComponent<BoxCollider>().enabled = false;
+		Porta.GetComponent<MeshRenderer>().enabled = false;
+		User.PathFinder.UpdateGrid();
 
-		// Use it once
-		bCanbeUsed = false;
+		Debug.Log( "Usato" );
 
 
 	}
