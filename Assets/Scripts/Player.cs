@@ -40,7 +40,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	//	DEBUG
 				const bool		bDebug 					= true;
-				const float		fUseDistance			= 5.0f;
+				const float		fUseDistance			= 0.5f;
 
 	//	DIRECTION
 	public		enum			DIRECTION				{ NONE, UP, RIGHT, DOWN, LEFT };
