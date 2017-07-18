@@ -31,33 +31,15 @@ public partial class StageManager {
 	}
 
 
-	public	void	SetAction() {
+	public	void	SetAction( PlayerAction Action, int PlayerID ) {
 
 		if ( !bIsOK ) return;
 
-		Player pPlayer = ( iSelectedPlayer == 1 ) ? pPlayer1 : pPlayer2;
+		if ( Action == null ) return;
 
-		if ( pPlayer.Action == null ) return;
-
-		vStages[ iCurrentStage ].SetAction( iSelectedPlayer, pPlayer.Action );
+		vStages[ iCurrentStage ].SetAction( PlayerID, Action );
 
 		Debug.Log( "Action set for player " + iSelectedPlayer );
-
-		
-
-		pPlayer.Action = null;
-
-	}
-
-	// Clear actions in current stage
-	public void		ClearStage() {
-
-		if ( !bIsOK ) return;
-
-		pPlayer1.Action = pPlayer2.Action = null;
-
-		vStages[ iCurrentStage ].SetAction( 1, null );
-		vStages[ iCurrentStage ].SetAction( 2, null );
 
 	}
 
@@ -67,36 +49,16 @@ public partial class StageManager {
 
 		if ( !bIsOK ) return;
 
+		pPlayer1.OnNextStage();
+		pPlayer2.OnNextStage();
+
 		// If actions are not assigned warn player
 		if ( !vStages[ iCurrentStage ].IsOK() ) {
 			Debug.Log( "both player have to had proper action set" );
 			return;
 		}
-
+		
 		Debug.Log( "Next stage" );
-
-		PlayerAction P1Action = vStages[ iCurrentStage ].GetAction(1);
-		PlayerAction P2Action = vStages[ iCurrentStage ].GetAction(2);
-
-		// If in current stage player moves
-		if ( P1Action.GetType() == ActionType.MOVE  ) {
-			// set prev position to actual posititon
-			pPlayer1.PrevPostion = pPlayer1.transform.position;
-			pPlayer1.ClearPath();
-			if ( pPlayer1.UsableObject ) {
-				pPlayer1 .UsableObject.OnUse( pPlayer1 );
-				pPlayer1.UsableObject = null;
-			}
-		}
-		// same for player 2
-		if ( P2Action.GetType() == ActionType.MOVE  ) {
-			pPlayer2.PrevPostion = pPlayer2.transform.position;
-			pPlayer2.ClearPath();
-			if ( pPlayer2.UsableObject ) {
-				pPlayer2 .UsableObject.OnUse( pPlayer2 );
-				pPlayer2.UsableObject = null;
-			}
-		}
 
 		// set next stage
 		iCurrentStage++;
@@ -108,38 +70,27 @@ public partial class StageManager {
 	public	void	PrevStage() {
 
 		if ( iCurrentStage < 1 ) return;
-
-		// Get previous actions
-		PlayerAction P1Action = vStages[ iCurrentStage - 1 ].GetAction(1);
-		PlayerAction P2Action = vStages[ iCurrentStage - 1 ].GetAction(2);
-
-		// for player 1 a path was set
-		if ( P1Action.GetType() == ActionType.MOVE  ) {
-			// restore actual position on prev last node position
-			pPlayer1.transform.position = P1Action.GetFinalPosition().worldPosition;
-			// restore actual start position on prev start node position
-			pPlayer1.PrevPostion = P1Action.GetPath()[0].worldPosition;
-			// Set prev nodelist as pcurent path
-			pPlayer1.SetPath( P1Action.GetPath() );
-			// Show preview
-			pPlayer1.ShowPreview();
-		}
-		// same for player 2
-		if ( P2Action.GetType() == ActionType.MOVE  ) {
-			pPlayer2.transform.position = P2Action.GetFinalPosition().worldPosition;
-			pPlayer2.PrevPostion = P2Action.GetPath()[0].worldPosition;
-			pPlayer2.SetPath( P2Action.GetPath() );
-			pPlayer2.ShowPreview();
-		}
 		
-		// invaldate current stage actions
-		vStages[ iCurrentStage ].SetAction( 1, null );
-		vStages[ iCurrentStage ].SetAction( 2, null );
+		pPlayer1.OnPrevStage();
+		pPlayer2.OnPrevStage();
 
 		// set prev stage
 		vStages.RemoveAt( iCurrentStage );
 		iCurrentStage--;
 		
+
+	}
+
+	// Clear actions in current stage
+	public void		ClearStage() {
+
+		if ( !bIsOK ) return;
+
+		pPlayer1.OnClearStage();
+		pPlayer1.OnClearStage();
+
+		vStages[ iCurrentStage ].SetAction( 1, null );
+		vStages[ iCurrentStage ].SetAction( 2, null );
 
 	}
 

@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-// Similar to typedef
-using NodeList = System.Collections.Generic.List<Node>;
+public		enum			ActionType		{ MOVE, USE, WAIT, NONE };
 
-public		enum			ActionType		{ MOVE, USE, WAIT };
 public		delegate void	ActionEndCallBack();
 
 interface iPlayerAction {
@@ -23,10 +19,7 @@ interface iPlayerAction {
 	UsableObject GetUsableObject();
 
 	// Return the path if set
-	NodeList GetPath();
-
-	// Return the final position if path is set ( return value is a NODE )
-	Node GetFinalPosition();
+	Vector3 GetDestination();
 
 }
 
@@ -35,13 +28,13 @@ interface iPlayerAction {
 public class PlayerAction : iPlayerAction {
 	
 	// WAIT, USE, MOVE
-	private		ActionType		iType		= 0;
+	private		ActionType		iType		= ActionType.NONE;
 
 	// Action:USE
 	private		UsableObject	pObject		= null;
 
 	// Action:MOVE
-	private		NodeList		vNodeList	= null;
+	private		Vector3			vDestination = Vector3.zero;
 
 	// Callback called at end of action
 	private ActionEndCallBack	pCallback	= null;
@@ -53,21 +46,24 @@ public class PlayerAction : iPlayerAction {
 	
 	// Create as User
 	public		PlayerAction( UsableObject _Object ) { 
-		iType		= ActionType.USE;
-		pObject		= _Object;
+		iType			= ActionType.USE;
+		pObject			= _Object;
 	}
 
 	// Create as Mover
-	public		PlayerAction( NodeList _PathList, UsableObject _Object = null ) { 
-		iType		= ActionType.MOVE;
-		vNodeList	=  new NodeList( _PathList );
-		pObject		= _Object;
+	public		PlayerAction( Vector3 _Destination, UsableObject _Object = null ) {
+		if ( _Destination == Vector3.zero ) return;
+
+		iType			= ActionType.MOVE;
+		vDestination	=  _Destination;
+		pObject			= _Object;
 	}
 
 	// Create as waiter
 	public		PlayerAction() { 
-		iType		= ActionType.WAIT;
+		iType			= ActionType.WAIT;
 	}
+
 
 	//////////////////////////////////////////////////////////////////
 
@@ -75,7 +71,6 @@ public class PlayerAction : iPlayerAction {
 	public void		SetEndActionCallback( ActionEndCallBack _Callback ) {
 		pCallback = _Callback;
 	}
-
 
 
 	// Execute the callback if set
@@ -88,10 +83,8 @@ public class PlayerAction : iPlayerAction {
 	}
 
 
-
 	// "override" of object.GetType()
 	public new ActionType GetType() { return iType; }
-
 
 
 	// Return the usable object if set
@@ -100,22 +93,10 @@ public class PlayerAction : iPlayerAction {
 		return pObject;
 	}
 
+	// Return path start and end points
+	public Vector3	GetDestination() {
 
-
-	// Return the path if set
-	public NodeList	GetPath() {
-
-		if ( vNodeList.Count < 1 ) return null;
-
-		return vNodeList;
-	}
-
-	public Node GetFinalPosition() {
-
-		if ( vNodeList.Count < 1 ) return null;
-
-		return vNodeList[ vNodeList.Count - 1 ];
-
+		return vDestination;
 	}
 
 }

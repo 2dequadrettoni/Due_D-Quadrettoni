@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public		enum			UsageType		{ NONE, INSTANT, ON_ACTION_END };
+
 public class UsableObject : MonoBehaviour {
 
-	public Transform Porta  = null;
+	public	Transform			Porta  = null;
 
-
-	public enum Usabletypes { ON_USE, ON_TURN_END }
-
-	public Usabletypes Type;
-
+	public	UsageType			iUseType = UsageType.NONE;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +18,10 @@ public class UsableObject : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public	UsageType GetUseType() {
+		return iUseType;
 	}
 
 	public void OnReset() {

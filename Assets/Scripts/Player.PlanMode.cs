@@ -8,30 +8,83 @@ public partial class Player {
 
     ////////////////////////////////////////////////////////////////////////
     /////////////////////////		PLAN MODE
-    /*
-    private void ParseInput()
-    {
-        if (vPaths.Count < pStageManager.StageCount) {
-
-            if (Input.GetMouseButtonDown(0))
-            {
-
-                RaycastHit pMouseHitted;
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out pMouseHitted))
-                {
-                    vPaths.Add(new Positions(transform.position, pMouseHitted.point));
-
-                }
-            }
-        }
-    }
-    */
-
     
+	private void ParseInput() {
+
+		if ( Input.GetMouseButtonDown( 0 ) ) {
+
+			pAction = null;
+
+			RaycastHit pMouseHitted;
+			if ( Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitted ) ) {
+				
+				UsableObject pUsableObject = pMouseHitted.collider.gameObject.GetComponent<UsableObject>();
+				if ( pUsableObject ) {
+
+				//////////////////////////////////////////////////////////////////////////////
+				//				OBJECTS INSTANT
+					if ( pUsableObject.GetUseType() == UsageType.INSTANT ) {
+
+						if ( Vector3.Distance( transform.position, pMouseHitted.transform.position ) < fUseDistance ) {
+							// Usable object hitted
+							pAction = new PlayerAction( pUsableObject );
+							Debug.Log( "Usable object set" );
+						}
+
+					}
+
+				//////////////////////////////////////////////////////////////////////////////
+				//				OBJECTS WITH USE AT DESTIANTION REACHED
+					if ( pUsableObject.GetUseType() == UsageType.ON_ACTION_END ) {
+						transform.position = pMouseHitted.point;
+						pAction = new PlayerAction( transform.position, pUsableObject );
+						Debug.Log( "Movement to object set" );
+					}
+				}
+
+				//////////////////////////////////////////////////////////////////////////////
+				//				MOVEMENT ONLY
+				if ( !pUsableObject ) {
+					transform.position = pMouseHitted.point;
+					pAction = new PlayerAction( transform.position );
+					Debug.Log( "Movement only set" );
+
+				}
+			}
+			
+			// Finally set action
+			if ( pAction != null ) {
+				pStageManager.SetAction( this.pAction, this.iID );
+				// TODO: UpdateUI
+			}
+		}
+	}
+
+
+	public	void	OnNextStage() {
+
+		
+
+	}
+
+	public	void	OnPrevStage() {
+
+
+
+	}
+
+	public	void	OnClearStage() {
+
+
+
+	}
+
+
+    /*
 	private void ParseInput() {
 		
 		// if has not a destination and mouse button is pressed
-		if ( pPathFinder && !bHasDestination && Input.GetMouseButtonDown( 0 ) ) {
+		if ( Input.GetMouseButtonDown( 0 ) ) {
 
 			// trace a ray from camera to game world
 			// if ray hit something
@@ -91,59 +144,7 @@ public partial class Player {
 			}
 		}
 	}
-    
-	public void ShowPreview() {
+    */
 
-		if ( pNodeList.Count < 1 ) return;
-
-		// Destroy if already exists
-		if ( pPathPreviewContainer )
-			Destroy( pPathPreviewContainer );
-
-		// Create new one
-		pPathPreviewContainer = new GameObject( "NodeListPreviewContainer" );
-
-		// for each node of path
-		foreach ( Node pNode in pNodeList ) {
-
-			// create a cube on the node
-			GameObject p = GameObject.CreatePrimitive( PrimitiveType.Cube );
-			p.transform.localScale = new Vector3( p.transform.localScale.x, 0.001f, p.transform.localScale.z ) * pNode.radius;
-			p.transform.position = pNode.worldPosition;
-			p.transform.SetParent( pPathPreviewContainer.transform );
-
-		}
-
-		// set new position on last node of path
-		transform.position = pNodeList[ pNodeList.Count - 1 ].worldPosition;
-
-	}
-
-	// Clear current path
-	public void ClearPath() {
-		
-		if ( !bIsOK ) return;
-
-		// reret current position to previous position
-		transform.position = vPrevPostion;
-
-		// clear current node list
-		pNodeList.Clear();
-
-		// Destroy if already exists
-		Destroy( pPathPreviewContainer );
-
-	}
-
-	private NodeList GetPreviewPath() {
-		
-		if ( !bIsOK ) return null;
-
-		// Sanity list check
-		if ( pNodeList.Count == 0 ) return null;
-
-		// Return a copy of current preview path
-		return new NodeList( pNodeList );
-	}
 
 }

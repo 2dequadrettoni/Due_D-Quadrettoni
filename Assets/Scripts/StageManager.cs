@@ -20,7 +20,7 @@ interface IStageManager {
 	Stage	GetCurrentStage();
 
 	// Set the action for the current player in current stage
-	void	SetAction();
+	void	SetAction( PlayerAction Action, int PlayerID );
 
 	// Clear actions in current stage
 	void	ClearStage();
@@ -47,6 +47,10 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 	private		List<Stage>			vStages			= null;
 	private		int					iTotalStages	= 1;
+	public		int TotalStages
+	{
+		get { return iTotalStages;  }
+	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		int					iCurrentStage	= 0;
@@ -85,9 +89,6 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 		vStages = new List<Stage>();
 		vStages.Add( new Stage() );
 
-		// Fill up with empty stage
-//		for( int i = 0; i < iTotalStages; i++ ) vStages.Add (new Stage() );
-
 		// First stage set
 		iCurrentStage = 0;
 
@@ -104,7 +105,7 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 	private		bool	CompletedLevelCheck() {
 
-		Debug.Log( "Level completed" );
+		Debug.Log( "CompletedLevelCheck" );
 
 		return false;
 

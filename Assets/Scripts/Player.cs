@@ -19,9 +19,6 @@ interface IPlayer {
 	// Check if player is busy( now only moving )
 	bool IsBusy();
 
-	// Clear the current Path
-	void ClearPath();
-
 	////////////////////////////////////////////////////////////////////////
 	//		PLAY MODE
 
@@ -36,30 +33,13 @@ interface IPlayer {
 
 }
 
-public struct Positions
-{
-    public Vector3 vStart;
-    public Vector3 vEnd;
-    public  Positions( Vector3 s, Vector3 e ) { vStart = s; vEnd = e; }
-}
-
 
 public partial class Player: MonoBehaviour, IPlayer {
 
 	//	DEBUG
 				const bool		bDebug 					= true;
-				const float		fUseDistance			= 1.5f;
-
-	//	DIRECTION
-	public		enum			DIRECTION				{ NONE, UP, RIGHT, DOWN, LEFT };
-	private		DIRECTION		iDirection				= DIRECTION.NONE;
-	private 	void			SetDir( DIRECTION ii ) 	{ iDirection = ii; }
-	private 	bool			HasDir( DIRECTION ii )	{ return ( (iDirection&ii) == ii ); }
-	private		void			AddDir( DIRECTION ii )	{ if ( !HasDir( ii ) ) iDirection &= ii; }
-	private 	void			RemDir( DIRECTION ii )	{ if (  HasDir( ii ) ) iDirection |= ii; }
-	private		bool			IsDir(  DIRECTION ii )	{ return ( iDirection == ii ); }
-	public		DIRECTION 		GetDir() 				{ DIRECTION ii = iDirection; return ii; }
-
+	[SerializeField]
+	private		float			fUseDistance			= 1.5f;
 
 	//	PATHFINDING
 	private		Pathfinding		pPathFinder				= null;		// Pathfinding Script
@@ -68,17 +48,17 @@ public partial class Player: MonoBehaviour, IPlayer {
 		get{ return pPathFinder; }
 	}
 
-
-
-	private		bool			bHasDestination			= false;	// 
-	private		bool			bIsMoving				= false;	// Flag for global moving state
-	private		float			fNavInterpolant			= 0.0f;
-	private		int				iNodeIdx				= -1;		// Store actual index of path node list
-	private		NodeList		pNodeList				= null;		// Is the node list for target position
-
-	private		GameObject		pPathPreviewContainer	= null;
+	struct Navigation {
+		public	bool			bHasDestination;
+		public	bool			bIsMoving;				// Flag for global moving state
+		public	float			fNavInterpolant;
+		public	int				iNodeIdx;				// Store actual index of path node list
+		public	NodeList		pNodeList;				// Is the node list for target position
+	};
+	private		Navigation		pNavigation				= new Navigation();	
 
 	//	INTERNAL VARS
+	//////////////////////////////////////////////////////////////////////////////////////////////
 	[SerializeField]
 	private 	float			fMoveSpeed				= 3.0f;
 	private		Vector3			vSpawnPostion			= Vector3.zero;
@@ -106,8 +86,6 @@ public partial class Player: MonoBehaviour, IPlayer {
 	}
 
 
-    private     List<Positions>  vPaths                  = null;
-
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		Vector3			vPrevPostion			= Vector3.zero;
 	public		Vector3 PrevPostion
@@ -133,13 +111,16 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 
 	//	UTILS
-	public 		bool 			IsBusy() 				{ return bHasDestination;		}
+	public 		bool 			IsBusy() 				{ return pNavigation.bHasDestination;		}
 
 
 	//	UNITY STUFF
 	private		CapsuleCollider	pCollider				= null;
 	private		SpriteRenderer	pRenderer				= null;
 	private		Animator		pAnimator				= null;
+	[SerializeField]
+	private		Sprite			pPlanSprite				= null;
+	private		Sprite			pOriginalSprite			= null;
 
 
 	////////////////////////////////////////////////////////////////////////
@@ -151,11 +132,14 @@ public partial class Player: MonoBehaviour, IPlayer {
 		pCollider			= GetComponent<CapsuleCollider>();
 
 		pRenderer			= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
+		pOriginalSprite		= pRenderer.sprite;
+		if ( pPlanSprite )
+			pRenderer.sprite	= pPlanSprite;
 
-		pAnimator			= transform.GetChild( 0 ) .GetComponent<Animator>();
+		pAnimator			= transform.GetChild( 0 ).GetComponent<Animator>();
+		pAnimator.enabled	= false;
 
 		pPathFinder			= GameObject.Find( "PathFinder" ).GetComponent<Pathfinding>();
-
 		pStageManager		= GameObject.Find( "GameManager" ).GetComponent<StageManager>();
 
 		if ( !pPathFinder ) {
@@ -163,13 +147,14 @@ public partial class Player: MonoBehaviour, IPlayer {
 			return;
 		}
 
-		pNodeList			= new NodeList();
-        vPaths              = new List<Positions>();
+		if ( !pStageManager ) {
+			Debug.Log( "StageManager not found" );
+			return;
+		}
+
+		pNavigation.pNodeList	= new NodeList();
 
 		vPrevPostion = vSpawnPostion = transform.position;
-
-//		GameManager p = new GameManager();
-//		p.SetMaxActionsCallback( new MaxActionsCallback([ void( void ) ]) );
 
 //		pAnimator.Play( "Idle_Down" );
 
@@ -191,12 +176,8 @@ public partial class Player: MonoBehaviour, IPlayer {
 		////////////////////////////////////////////////////////////////////////
 		//		PLAY MODE
 		//
-		if ( bHasDestination )
+		if ( pNavigation.bHasDestination )
 			this.UpdateNavigation();
-
-
-		if ( HasDir( DIRECTION.UP ) )	bDirUP = true;	else bDirUP = false;
-		if ( HasDir( DIRECTION.LEFT ) ) bFlipped = true; 	else bFlipped = false;
 
     }
 

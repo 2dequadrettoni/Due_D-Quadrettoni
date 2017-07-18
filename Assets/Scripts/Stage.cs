@@ -7,6 +7,7 @@ public class Stage {
 	PlayerAction Player1Action = null;
 	PlayerAction Player2Action = null;
 
+	/// <summary>Check if both PGs have actions</summary>
 	public	bool	IsOK() {
 		return ( ( Player1Action != null ) && ( Player2Action != null ) );
 	}
