@@ -68,6 +68,9 @@ public partial class Player: MonoBehaviour, IPlayer {
 	private 	float			fMoveSpeed				= 3.0f;
 	private		Vector3			vSpawnPostion			= Vector3.zero;
 	private		bool			bIsOK					= false;
+	// anims
+	private		bool			bFlipped				= false;
+	private		bool			bDirUP					= false;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		PlayerAction	pAction					= null;
@@ -107,6 +110,8 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	//	UNITY STUFF
 	private		CapsuleCollider	pCollider				= null;
+	private		SpriteRenderer	pRenderer				= null;
+	private		Animator		pAnimator				= null;
 
 
 	////////////////////////////////////////////////////////////////////////
@@ -116,6 +121,10 @@ public partial class Player: MonoBehaviour, IPlayer {
 	private void Start() {
 		
 		pCollider			= GetComponent<CapsuleCollider>();
+
+		pRenderer			= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
+
+		pAnimator			= transform.GetChild( 0 ) .GetComponent<Animator>();
 
 		pPathFinder			= GameObject.Find( "PathFinder" ).GetComponent<Pathfinding>();
 
@@ -130,6 +139,8 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 //		GameManager p = new GameManager();
 //		p.SetMaxActionsCallback( new MaxActionsCallback([ void( void ) ]) );
+
+		pAnimator.Play( "Idle_Down" );
 
 		bIsOK = true;
 
@@ -151,6 +162,10 @@ public partial class Player: MonoBehaviour, IPlayer {
 		//
 		if ( bHasDestination )
 			this.UpdateNavigation();
+
+
+		if ( HasDir( DIRECTION.UP ) )	bDirUP = true;	else bDirUP = false;
+		if ( HasDir( DIRECTION.LEFT ) ) bFlipped = true; 	else bFlipped = false;
 
     }
 

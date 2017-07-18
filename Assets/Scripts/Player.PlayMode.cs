@@ -55,6 +55,33 @@ public partial class Player {
 
 	private void UpdateNavigation() {
 
+
+		// Pick current destination point vector
+		Vector3 vDestination = pNodeList[ iNodeIdx ].worldPosition;
+
+		// Set direction
+
+
+
+		//		if ( transform.position.x < vDestination.x ) { AddDir( DIRECTION.LEFT ); RemDir( DIRECTION.RIGHT ); } else { RemDir( DIRECTION.LEFT ); AddDir( DIRECTION.RIGHT ); }
+		//		if ( transform.position.z < vDestination.z ) { AddDir( DIRECTION.DOWN ); RemDir( DIRECTION.UP );    } else { RemDir( DIRECTION.DOWN ); AddDir( DIRECTION.UP );    }
+
+		// If is under destination
+		string sDirection;
+		if ( transform.position.z < vDestination.z )
+			sDirection = "Up";
+		else // else
+			sDirection = "Down";
+
+
+		// 
+		if ( transform.position.x < vDestination.x )
+			pRenderer.flipX = false;
+		else
+			pRenderer.flipX = true;
+
+
+
 		// If next node is reached
 		if ( fNavInterpolant > 0.99999f ) {
 			iNodeIdx++;							// Set new index for the next node
@@ -66,12 +93,11 @@ public partial class Player {
 			bHasDestination = false;            // Restination is reached, make input avaibla again
 			bIsMoving		= false;			// Set as not moving
 			fNavInterpolant = 0.0f;				// Reset interpolant
+			pAnimator.Play( "Idle_" + sDirection );
 			return;
 		}
 
-
-		// Pick current destination point vector
-		Vector3 vDestination = pNodeList[ iNodeIdx ].worldPosition;
+		pAnimator.Play( "Walk_" + sDirection );
 
 		// Increase interpolant ( with deltatime )
 		fNavInterpolant += Time.deltaTime * fMoveSpeed;
