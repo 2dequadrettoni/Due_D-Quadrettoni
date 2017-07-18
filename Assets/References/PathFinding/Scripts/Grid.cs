@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Grid : MonoBehaviour {
 
 	public bool onlyDisplayPathGizmos;
+	public bool bShowPlane;
 	public LayerMask unwalkableMask;
 	public Vector2 gridWorldSize;
 	public float nodeRadius;
@@ -30,7 +31,7 @@ public class Grid : MonoBehaviour {
 		Material m = new Material(Shader.Find("Standard"));
 		m.color = Color.blue;
 		p.GetComponent<MeshRenderer>().material = m;
-		p.GetComponent<MeshRenderer>().enabled = false;
+		p.GetComponent<MeshRenderer>().enabled = bShowPlane;
 		p.transform.SetParent( transform );
 
 	}

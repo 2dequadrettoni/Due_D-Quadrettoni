@@ -83,11 +83,19 @@ public partial class StageManager {
 			// set prev position to actual posititon
 			pPlayer1.PrevPostion = pPlayer1.transform.position;
 			pPlayer1.ClearPath();
+			if ( pPlayer1.UsableObject ) {
+				pPlayer1 .UsableObject.OnUse( pPlayer1 );
+				pPlayer1.UsableObject = null;
+			}
 		}
 		// same for player 2
 		if ( P2Action.GetType() == ActionType.MOVE  ) {
 			pPlayer2.PrevPostion = pPlayer2.transform.position;
 			pPlayer2.ClearPath();
+			if ( pPlayer2.UsableObject ) {
+				pPlayer2 .UsableObject.OnUse( pPlayer2 );
+				pPlayer2.UsableObject = null;
+			}
 		}
 
 		// set next stage
