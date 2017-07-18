@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PannelManager : MonoBehaviour
 {
 
-
+    
     public GameObject players;
     private GameObject player1, player2;
     private PlayerManager playerManager;
@@ -46,10 +46,12 @@ public class PannelManager : MonoBehaviour
                 Debug.Log("ilDioladrobastardo e porco!!!!!");
                 changeIcon(turn, 1, useSprite);
                 player1Finish = true;
+             
             }
 
             if (playerManager.p2isSelected && playerManager.p2isMove)
             {
+                Debug.Log("laMadonnaPorca");
                 changeIcon(turn, 2, useSprite);
                 player2Finish = true;
             }
@@ -58,6 +60,8 @@ public class PannelManager : MonoBehaviour
 
     }
 
+   
+
     public void changeIcon(int turn, int player, Sprite icon)
     {
        
@@ -65,7 +69,7 @@ public class PannelManager : MonoBehaviour
         {
             if (player == 1)
             {
-                Debug.Log("ilDioladrobastardo e porco!!!!!");
+                //Debug.Log("ilDioladrobastardo e porco!!!!!");
                  
                 Instantiate(useSprite);
 
@@ -77,7 +81,7 @@ public class PannelManager : MonoBehaviour
 
             if (player == 2)
             {
-                Debug.Log("laMadonna");
+                //Debug.Log("laMadonna");
                 Instantiate(icon, new Vector3(initialPosition.x, -initialPosition.y, initialPosition.z), Quaternion.identity);
             }
         }

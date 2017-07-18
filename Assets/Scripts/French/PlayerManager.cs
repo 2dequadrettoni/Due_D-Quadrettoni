@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     public bool p1isMove = false, p1isActions = false, p1isWhait = false, p1isSelected = false;
     public bool p2isMove = false, p2isActions = false, p2isWhait = false, p2isSelected = false;
     public GameObject player1, player2;
-    public Camera cam = null;
+    public Camera cam;
     //public Camera camera;
 
     // Use this for initialization
@@ -31,6 +31,7 @@ public class PlayerManager : MonoBehaviour
             //Select player1 
             if (cameraRay.transform.tag == "Player1")
             {
+                Debug.Log("Player1 Selected");
                 p1isSelected = true;
                 p2isSelected = false;
                 player1.GetComponent<Renderer>().material = selectedMaterial;
@@ -40,6 +41,7 @@ public class PlayerManager : MonoBehaviour
             //Select player2
             if (cameraRay.transform.tag == "Player2")
             {
+                Debug.Log("Player2 Selected");
                 p2isSelected = true;
                 p1isSelected = false;
                 player2.GetComponent<Renderer>().material = selectedMaterial;
@@ -50,17 +52,14 @@ public class PlayerManager : MonoBehaviour
             if (p1isSelected == true && cameraRay.transform.tag == "Plane")
             {
                 p1isMove = true;
-                player1.transform.position = cameraRay.transform.position + Vector3.up * 10;
-
-
+                player1.transform.position = cameraRay.transform.position + Vector3.up * 3;
             }
 
             //Move player2
             if (p2isSelected == true && cameraRay.transform.tag == "Plane")
             {
                 p2isMove = true;
-                player2.transform.position = cameraRay.transform.position + Vector3.up*10;
-//                    new Vector3(cameraRay.transform.position.x, cameraRay.transform.position.y + 1, cameraRay.transform.position.z);
+                player2.transform.position = cameraRay.transform.position + Vector3.up * 3;               
             }
         }
 
