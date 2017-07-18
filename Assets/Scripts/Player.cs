@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 using NodeList = System.Collections.Generic.List<Node>;
 
@@ -35,12 +36,19 @@ interface IPlayer {
 
 }
 
+public struct Positions
+{
+    public Vector3 vStart;
+    public Vector3 vEnd;
+    public  Positions( Vector3 s, Vector3 e ) { vStart = s; vEnd = e; }
+}
+
 
 public partial class Player: MonoBehaviour, IPlayer {
 
 	//	DEBUG
 				const bool		bDebug 					= true;
-				const float		fUseDistance			= 0.5f;
+				const float		fUseDistance			= 1.5f;
 
 	//	DIRECTION
 	public		enum			DIRECTION				{ NONE, UP, RIGHT, DOWN, LEFT };
@@ -96,6 +104,9 @@ public partial class Player: MonoBehaviour, IPlayer {
 		get { return pUsableObject;  }
 		set { pUsableObject = value; }
 	}
+
+
+    private     List<Positions>  vPaths                  = null;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		Vector3			vPrevPostion			= Vector3.zero;
@@ -153,6 +164,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 		}
 
 		pNodeList			= new NodeList();
+        vPaths              = new List<Positions>();
 
 		vPrevPostion = vSpawnPostion = transform.position;
 

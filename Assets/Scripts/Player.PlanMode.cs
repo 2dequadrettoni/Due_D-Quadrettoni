@@ -6,9 +6,28 @@ using NodeList = System.Collections.Generic.List<Node>;
 
 public partial class Player {
 
-	////////////////////////////////////////////////////////////////////////
-	/////////////////////////		PLAN MODE
+    ////////////////////////////////////////////////////////////////////////
+    /////////////////////////		PLAN MODE
+    /*
+    private void ParseInput()
+    {
+        if (vPaths.Count < pStageManager.StageCount) {
 
+            if (Input.GetMouseButtonDown(0))
+            {
+
+                RaycastHit pMouseHitted;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out pMouseHitted))
+                {
+                    vPaths.Add(new Positions(transform.position, pMouseHitted.point));
+
+                }
+            }
+        }
+    }
+    */
+
+    
 	private void ParseInput() {
 		
 		// if has not a destination and mouse button is pressed
@@ -72,7 +91,7 @@ public partial class Player {
 			}
 		}
 	}
-
+    
 	public void ShowPreview() {
 
 		if ( pNodeList.Count < 1 ) return;
