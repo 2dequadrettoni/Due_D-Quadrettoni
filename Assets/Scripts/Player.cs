@@ -64,6 +64,13 @@ public partial class Player: MonoBehaviour, IPlayer {
 	private		bool			bFlipped				= false;
 	private		bool			bDirUP					= false;
 	private		Vector3			vPlanPosition			= Vector3.zero;
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	private		bool			bLinked					= false;
+	public		bool	Linked {
+		get { return bLinked; }
+		set { bLinked = value; }
+	}
+	private		Platform		pLinkedObject			= null;
 
 
 	// ACTIONS

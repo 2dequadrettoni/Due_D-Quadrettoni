@@ -95,6 +95,21 @@ public partial class Player {
 		
 	}
 
+
+	public void Link( Platform pPlatform ) {
+
+		bLinked = true;
+		pLinkedObject = pPlatform;
+
+	}
+
+	public void UnLink( Platform pPlatform ) {
+
+		bLinked = false;
+		pLinkedObject = null;
+
+	}
+
 	
 	void OnDrawGizmos() {
 
