@@ -89,7 +89,7 @@ public partial class StageManager {
 		if ( !bIsOK ) return;
 
 		pPlayer1.OnClearStage();
-		pPlayer1.OnClearStage();
+		pPlayer2.OnClearStage();
 
 		vStages[ iCurrentStage ].SetAction( 1, null );
 		vStages[ iCurrentStage ].SetAction( 2, null );

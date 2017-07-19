@@ -76,7 +76,6 @@ public class Pathfinding : MonoBehaviour {
 			}
 		}
 
-
 	}
 
 	public bool FindPath( Vector3 vStartPosition, Vector3 vEndPosition, out List<Node> pNodeList ) {

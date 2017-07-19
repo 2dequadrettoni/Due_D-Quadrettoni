@@ -101,7 +101,7 @@ public class Grid : MonoBehaviour {
 		return grid[x,y];
 	}
 
-	
+	/*
 	void OnDrawGizmos() {
 		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y));
 
@@ -126,4 +126,5 @@ public class Grid : MonoBehaviour {
 			}
 		}
 	}
+	*/
 }

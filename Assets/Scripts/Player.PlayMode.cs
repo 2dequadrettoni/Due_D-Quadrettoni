@@ -16,6 +16,8 @@ public partial class Player {
 
 		bCanParseInput = false;
 
+		pAction = null;
+
 		// restore default
 		pRenderer.sprite = pOriginalSprite;
 
@@ -26,29 +28,12 @@ public partial class Player {
 		
 	}
 
-	public NodeList	FindPath( Vector3 Destination ) {
+	public bool	FindPath( Vector3 Destination ) {
 
-		NodeList pPath = null;
-		if ( pPathFinder.FindPath( transform.position, Destination, out pPath ) )
-			return pPath;
+		pNavigation.pNodeList = null;
 
-		return null;
+		return pPathFinder.FindPath( transform.position, Destination, out pNavigation.pNodeList );
 
-	}
-
-	public void SetPath( NodeList _NodeList ) {
-		
-		if ( !bIsOK ) return;
-
-		// List sanity check
-		if ( ( _NodeList == null ) || ( _NodeList.Count < 1 ) ) {
-			Debug.Log( "Trying to set an invalid path to player " + iID );
-			return;
-		}
-
-		// Copy list in execution one
-		pNavigation.pNodeList = new NodeList( _NodeList );
-		
 	}
 
 
@@ -70,33 +55,6 @@ public partial class Player {
 
 	private void UpdateNavigation() {
 		
-
-		// Pick current destination point vector
-		Vector3 vDestination = pNavigation.pNodeList[ pNavigation.iNodeIdx ].worldPosition;
-
-		// Set direction
-
-
-
-//		if ( transform.position.x < vDestination.x ) { AddDir( DIRECTION.LEFT ); RemDir( DIRECTION.RIGHT ); } else { RemDir( DIRECTION.LEFT ); AddDir( DIRECTION.RIGHT ); }
-//		if ( transform.position.z < vDestination.z ) { AddDir( DIRECTION.DOWN ); RemDir( DIRECTION.UP );    } else { RemDir( DIRECTION.DOWN ); AddDir( DIRECTION.UP );    }
-
-/*		// If is under destination
-		string sDirection;
-		if ( transform.position.z < vDestination.z )
-			sDirection = "Up";
-		else // else
-			sDirection = "Down";
-
-
-		// 
-		if ( transform.position.x < vDestination.x )
-			pRenderer.flipX = false;
-		else
-			pRenderer.flipX = true;
-
-	*/
-		
 		// If next node is reached
 		if ( pNavigation.fNavInterpolant > 0.99999f ) {
 			pNavigation.iNodeIdx++;							// Set new index for the next node
@@ -109,13 +67,14 @@ public partial class Player {
 			pNavigation.bIsMoving		= false;			// Set as not moving
 			pNavigation.fNavInterpolant = 0.0f;				// Reset interpolant
 
-			if ( pUsableObject )  { pUsableObject.OnUse( this ); pUsableObject = null; }
-
 //			pAnimator.Play( "Idle_" + sDirection );
 			return;
 		}
 
 //		pAnimator.Play( "Walk_" + sDirection );
+
+		// Pick current destination point vector
+		Vector3 vDestination = pNavigation.pNodeList[ pNavigation.iNodeIdx ].worldPosition;
 
 		// Increase interpolant ( with deltatime )
 		pNavigation.fNavInterpolant += Time.deltaTime * fMoveSpeed;
@@ -125,8 +84,19 @@ public partial class Player {
 
 		// Set as moving
 		pNavigation.bIsMoving = true;
-
 		
+	}
+
+
+	void OnDrawGizmos() {
+
+		if (pNavigation.pNodeList != null) {
+			foreach (Node n in pNavigation.pNodeList) {
+				Gizmos.color = Color.black;
+				Gizmos.DrawCube(n.worldPosition, Vector3.one * (n.radius-.1f));
+			}
+		}
+
 	}
 
 }

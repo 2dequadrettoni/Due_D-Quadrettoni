@@ -25,9 +25,6 @@ interface IPlayer {
 	// Called on play
 	void OnPlay();
 
-	// Set a new path
-	void SetPath( NodeList _NodeList );
-
 	// Play move sequence
 	void Move();
 
@@ -39,7 +36,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	//	DEBUG
 				const bool		bDebug 					= true;
 	[SerializeField]
-	private		float			fUseDistance			= 1.5f;
+	private		float			fUseDistance			= 1.0f;
 
 	//	PATHFINDING
 	private		Pathfinding		pPathFinder				= null;		// Pathfinding Script
@@ -70,29 +67,9 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	// ACTIONS
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	private		PlayerAction	pAction					= null;
-	public		PlayerAction Action
-	{
-		get { return pAction;  }
-		set { pAction = value; }
-	}
-
 	private		StageManager	pStageManager			= null;
-	private		UsableObject	pUsableObject			= null;
-	public		UsableObject UsableObject
-	{
-		get { return pUsableObject;  }
-		set { pUsableObject = value; }
-	}
+	private		PlayerAction	pAction					= null;
 
-
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	private		Vector3			vPrevPostion			= Vector3.zero;
-	public		Vector3 PrevPostion
-	{
-		get { return vPrevPostion;  }
-		set { vPrevPostion = value; }
-	}
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		bool			bCanParseInput			= false;
 	public		bool CanParseInput
@@ -154,7 +131,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 		pNavigation.pNodeList	= new NodeList();
 
-		vPrevPostion = vSpawnPostion = transform.position;
+		vSpawnPostion.Set( transform.position.x, transform.position.y, transform.position.z );
 
 //		pAnimator.Play( "Idle_Down" );
 

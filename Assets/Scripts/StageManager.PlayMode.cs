@@ -31,6 +31,8 @@ public partial class StageManager {
 		// HAVE FUN
 		bIsPlaying = true;
 
+		Time.timeScale = 0.1f;
+
 	}
 
 
@@ -103,15 +105,17 @@ public partial class StageManager {
 			}
 
 			if ( PA1.GetType() == ActionType.MOVE ) {
-
-				NodeList pPath = pPlayer1.FindPath( PA1.GetDestination() );
-				if ( pPath == null ) {
-					Debug.Log( "Cannot find path for player 1" );
+				if ( !pPlayer1.FindPath( PA1.GetDestination() ) ) {
 					bIsPlaying = false;
 					yield return 0;
 				}
 
-				pPlayer1.SetPath( pPath );
+				if ( pPlayer1.transform == pPlayer2.transform ) {
+					print( "stronzo" );
+					bIsPlaying = false;
+					yield return 0;
+				}
+
 				pPlayer1.Move();
 
 				if ( PA1.GetUsableObject() != null ) {
@@ -128,15 +132,17 @@ public partial class StageManager {
 			}
 
 			if ( PA2.GetType() == ActionType.MOVE ) {
-				
-				NodeList pPath = pPlayer2.FindPath( PA2.GetDestination() );
-				if ( pPath == null ) {
-					Debug.Log( "Cannot find path for player 2" );
+				if ( !pPlayer2.FindPath( PA2.GetDestination() ) ) {
 					bIsPlaying = false;
 					yield return 0;
 				}
 
-				pPlayer2.SetPath( pPath );
+				if ( pPlayer1.transform == pPlayer2.transform ) {
+					print( "stronzo2" );
+					bIsPlaying = false;
+					yield return 0;
+				}
+
 				pPlayer2.Move();
 
 				if ( PA2.GetUsableObject() != null ) {
@@ -145,6 +151,16 @@ public partial class StageManager {
 
 			}
 		}
+
+
+		if ( PA2.GetDestination() == PA1.GetDestination() ) {
+
+			print ( "MA PERCHEEEEEEEEE" );
+			bIsPlaying = false;
+			yield return 0;
+
+		}
+
 
 		// WHILE players are busy
 		while ( pPlayer1.IsBusy() || pPlayer2.IsBusy() ) {
@@ -155,6 +171,9 @@ public partial class StageManager {
 
 		PA1.ExecuteCallBack();
 		PA2.ExecuteCallBack();
+
+		PA1 = null;
+		PA2 = null;
 
 		// player are not busy, so stop cycle
 		bIsInCycle = false;

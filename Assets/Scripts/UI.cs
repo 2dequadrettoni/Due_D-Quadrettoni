@@ -47,9 +47,6 @@ public class UI : MonoBehaviour
 
 	public	void	UpdateIcon( int PlayerID, ActionType ActionType, int CurrentStage ) {
 
-		Debug.Log( "UpdateIcon " + PlayerID + ", " + (int)ActionType + ", " + CurrentStage );
-
-
 		Image pImage = vIcons[(int)ActionType].GetComponent<Image>();
 		vPlayerIcons[ PlayerID-1, CurrentStage ].enabled = true;
 		vPlayerIcons[ PlayerID-1, CurrentStage ].sprite = pImage.sprite;
