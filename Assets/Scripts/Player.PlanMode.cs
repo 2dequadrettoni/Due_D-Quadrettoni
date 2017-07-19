@@ -25,7 +25,8 @@ public partial class Player {
 				//				OBJECTS INSTANT
 					if ( pUsableObject.GetUseType() == UsageType.INSTANT ) {
 
-						if ( Vector3.Distance( transform.position, pMouseHitted.point ) < fUseDistance ) {
+						if ( Vector3.Distance( vPlanPosition, pMouseHitted.point ) < fUseDistance ) {
+//							transform.position = pMouseHitted.point;
 							// Usable object hitted
 							pAction = new PlayerAction( pUsableObject );
 							Debug.Log( "Usable object set" );
@@ -36,8 +37,8 @@ public partial class Player {
 				//////////////////////////////////////////////////////////////////////////////
 				//				OBJECTS WITH USE AT DESTIANTION REACHED
 					if ( pUsableObject.GetUseType() == UsageType.ON_ACTION_END ) {
-						transform .position = pMouseHitted.point;
-						pAction = new PlayerAction( pMouseHitted.point, pUsableObject );
+						transform.position = pMouseHitted.point;
+						pAction = new PlayerAction( transform.position, pUsableObject );
 						Debug.Log( "Movement to object set" );
 					}
 				}
@@ -45,8 +46,8 @@ public partial class Player {
 				//////////////////////////////////////////////////////////////////////////////
 				//				MOVEMENT ONLY
 				if ( !pUsableObject ) {
-					transform .position = pMouseHitted.point;
-					pAction = new PlayerAction( pMouseHitted.point );
+					transform.position = pMouseHitted.point;
+					pAction = new PlayerAction( transform.position );
 					Debug.Log( "Movement only set" );
 
 				}
@@ -63,7 +64,7 @@ public partial class Player {
 
 	public	void	OnNextStage() {
 
-		
+		vPlanPosition.Set( transform.position.x, transform.position.y, transform.position.z );
 
 	}
 

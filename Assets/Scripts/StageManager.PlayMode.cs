@@ -31,8 +31,6 @@ public partial class StageManager {
 		// HAVE FUN
 		bIsPlaying = true;
 
-		Time.timeScale = 0.1f;
-
 	}
 
 
@@ -98,22 +96,23 @@ public partial class StageManager {
 		PlayerAction PA1 = vStages[ iCurrentStage ].GetAction( 1 );
 		PlayerAction PA2 = vStages[ iCurrentStage ].GetAction( 2 );
 
+
+		if ( PA1.GetType() == ActionType.USE ) {
+			PA1.GetUsableObject().OnUse( pPlayer1 );
+		}
+
+		if ( PA2.GetType() == ActionType.USE ) {
+			PA2.GetUsableObject().OnUse( pPlayer2 );
+		}
+
 		////////////////////////////////////////////////////////
 		{//	PLAYER 1
-			if ( PA1.GetType() == ActionType.USE ) {
-				PA1.GetUsableObject().OnUse( pPlayer1 );
-			}
 
 			if ( PA1.GetType() == ActionType.MOVE ) {
 				if ( !pPlayer1.FindPath( PA1.GetDestination() ) ) {
+					Debug.Log( "PG 1 Dice: pirla, non ci posso andare" );
 					bIsPlaying = false;
-					yield return 0;
-				}
-
-				if ( pPlayer1.transform == pPlayer2.transform ) {
-					print( "stronzo" );
-					bIsPlaying = false;
-					yield return 0;
+					yield break;
 				}
 
 				pPlayer1.Move();
@@ -127,20 +126,13 @@ public partial class StageManager {
 
 		////////////////////////////////////////////////////////
 		{//	PLAYER 2
-			if ( PA2.GetType() == ActionType.USE ) {
-				PA2.GetUsableObject().OnUse( pPlayer2 );
-			}
 
 			if ( PA2.GetType() == ActionType.MOVE ) {
 				if ( !pPlayer2.FindPath( PA2.GetDestination() ) ) {
+					Debug.Log( "PG 2 Dice: pirla, non ci posso andare" );
 					bIsPlaying = false;
-					yield return 0;
-				}
-
-				if ( pPlayer1.transform == pPlayer2.transform ) {
-					print( "stronzo2" );
-					bIsPlaying = false;
-					yield return 0;
+					pPlayer1.Stop();
+					yield break;
 				}
 
 				pPlayer2.Move();
@@ -151,16 +143,6 @@ public partial class StageManager {
 
 			}
 		}
-
-
-		if ( PA2.GetDestination() == PA1.GetDestination() ) {
-
-			print ( "MA PERCHEEEEEEEEE" );
-			bIsPlaying = false;
-			yield return 0;
-
-		}
-
 
 		// WHILE players are busy
 		while ( pPlayer1.IsBusy() || pPlayer2.IsBusy() ) {

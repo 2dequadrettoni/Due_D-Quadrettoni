@@ -52,6 +52,14 @@ public partial class Player {
 		
 	}
 
+	public void	Stop() {
+
+		pNavigation.pNodeList.Clear();
+		pNavigation.pNodeList = null;
+		pNavigation.bHasDestination = false;
+
+	}
+
 
 	private void UpdateNavigation() {
 		

@@ -51,7 +51,7 @@ public class Pathfinding : MonoBehaviour {
 			closedSet.Add(currentNode);
 
 			if (currentNode == targetNode) {
-				pCurrentPath.Clear();
+				
 				RetracePath(startNode,targetNode);
 				return;
 			}
@@ -75,19 +75,24 @@ public class Pathfinding : MonoBehaviour {
 				}
 			}
 		}
-
 	}
+
 
 	public bool FindPath( Vector3 vStartPosition, Vector3 vEndPosition, out List<Node> pNodeList ) {
 
+		pCurrentPath.Clear();
 		pNodeList = null;
 
 		CalculatePath( vStartPosition, vEndPosition );
 
-		pNodeList = new List<Node>( pCurrentPath );
+		if ( pCurrentPath.Count > 0 ) {
+			pNodeList = new List<Node>( pCurrentPath );
+			return true;
+		}
 
-		return ( pCurrentPath.Count > 0 );
+		return false;
 	}
+
 
 	public void UpdateGrid() {
 

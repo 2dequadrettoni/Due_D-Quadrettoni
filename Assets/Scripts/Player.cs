@@ -63,6 +63,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	// anims
 	private		bool			bFlipped				= false;
 	private		bool			bDirUP					= false;
+	private		Vector3			vPlanPosition			= Vector3.zero;
 
 
 	// ACTIONS
@@ -132,6 +133,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 		pNavigation.pNodeList	= new NodeList();
 
 		vSpawnPostion.Set( transform.position.x, transform.position.y, transform.position.z );
+		vPlanPosition.Set( transform.position.x, transform.position.y, transform.position.z );
 
 //		pAnimator.Play( "Idle_Down" );
 
