@@ -95,7 +95,7 @@ public partial class Player {
 		
 	}
 
-
+	
 	void OnDrawGizmos() {
 
 		if (pNavigation.pNodeList != null) {
@@ -106,5 +106,5 @@ public partial class Player {
 		}
 
 	}
-
+	
 }

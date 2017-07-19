@@ -5,11 +5,9 @@ using System.Collections.Generic;
 public class Pathfinding : MonoBehaviour {
 	
 	private	Grid		grid;
-	private	List<Node>	pCurrentPath;
 
 	void Awake() {
 		grid = GetComponent<Grid>();
-		pCurrentPath = new List<Node>();
 
 	}
 
@@ -23,7 +21,7 @@ public class Pathfinding : MonoBehaviour {
 		}
 		path.Reverse();
 
-		pCurrentPath = grid.path = path;
+		grid.path = path;
 
 	}
 
@@ -37,12 +35,12 @@ public class Pathfinding : MonoBehaviour {
 	}
 
 
-	void CalculatePath( Vector3 startPos, Vector3 targetPos ) {
+	bool CalculatePath( Vector3 startPos, Vector3 targetPos ) {
 
-		Node startNode = grid.NodeFromWorldPoint(startPos);
+		Node startNode	= grid.NodeFromWorldPoint(startPos);
 		Node targetNode = grid.NodeFromWorldPoint(targetPos);
 
-		Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
+		Heap<Node> openSet		= new Heap<Node>(grid.MaxSize);
 		HashSet<Node> closedSet = new HashSet<Node>();
 		openSet.Add(startNode);
 
@@ -53,7 +51,7 @@ public class Pathfinding : MonoBehaviour {
 			if (currentNode == targetNode) {
 				
 				RetracePath(startNode,targetNode);
-				return;
+				return true;
 			}
 
 			foreach (Node neighbour in grid.GetNeighbours(currentNode)) {
@@ -67,30 +65,24 @@ public class Pathfinding : MonoBehaviour {
 					neighbour.hCost = GetDistance(neighbour, targetNode);
 					neighbour.parent = currentNode;
 
-					if (!openSet.Contains(neighbour))
+					if (!openSet.Contains(neighbour)) {
 						openSet.Add(neighbour);
-					else {
-						//openSet.UpdateItem(neighbour);
 					}
 				}
 			}
 		}
+		return false;
 	}
 
 
 	public bool FindPath( Vector3 vStartPosition, Vector3 vEndPosition, out List<Node> pNodeList ) {
 
-		pCurrentPath.Clear();
 		pNodeList = null;
 
-		CalculatePath( vStartPosition, vEndPosition );
+		if ( !CalculatePath( vStartPosition, vEndPosition ) ) return false;
 
-		if ( pCurrentPath.Count > 0 ) {
-			pNodeList = new List<Node>( pCurrentPath );
-			return true;
-		}
-
-		return false;
+		pNodeList = new List<Node>( grid.path );
+		return true;
 	}
 
 

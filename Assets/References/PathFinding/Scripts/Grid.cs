@@ -34,6 +34,8 @@ public class Grid : MonoBehaviour {
 		p.GetComponent<MeshRenderer>().enabled = bShowPlane;
 		p.transform.SetParent( transform );
 
+		path = new List<Node>();
+
 	}
 
 	public int MaxSize {
@@ -101,11 +103,11 @@ public class Grid : MonoBehaviour {
 		return grid[x,y];
 	}
 
-	/*
+	
 	void OnDrawGizmos() {
 		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y));
 
-		if (onlyDisplayPathGizmos) {
+/*		if (onlyDisplayPathGizmos) {
 			if (path != null) {
 				foreach (Node n in path) {
 					Gizmos.color = Color.black;
@@ -114,7 +116,7 @@ public class Grid : MonoBehaviour {
 			}
 		}
 		else {
-
+		*/
 			if (grid != null) {
 				foreach (Node n in grid) {
 					Gizmos.color = (n.walkable)?Color.white:Color.red;
@@ -124,7 +126,7 @@ public class Grid : MonoBehaviour {
 					Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter-.1f));
 				}
 			}
-		}
+//		}
 	}
-	*/
+	
 }

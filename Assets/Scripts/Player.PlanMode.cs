@@ -23,7 +23,7 @@ public partial class Player {
 
 				//////////////////////////////////////////////////////////////////////////////
 				//				OBJECTS INSTANT
-					if ( pUsableObject.GetUseType() == UsageType.INSTANT ) {
+					if ( pUsableObject.UseType == UsageType.INSTANT ) {
 
 						if ( Vector3.Distance( vPlanPosition, pMouseHitted.point ) < fUseDistance ) {
 //							transform.position = pMouseHitted.point;
@@ -36,7 +36,7 @@ public partial class Player {
 
 				//////////////////////////////////////////////////////////////////////////////
 				//				OBJECTS WITH USE AT DESTIANTION REACHED
-					if ( pUsableObject.GetUseType() == UsageType.ON_ACTION_END ) {
+					if ( pUsableObject.UseType == UsageType.ON_ACTION_END ) {
 						transform.position = pMouseHitted.point;
 						pAction = new PlayerAction( transform.position, pUsableObject );
 						Debug.Log( "Movement to object set" );

@@ -1,6 +1,7 @@
 
 using System.Collections.Generic; // List
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 ////////////////////////////////////////////////////////////////////////
 //   GESTISCE LE AZIONI DI ENTRAMBI I GIOCATORI
@@ -115,6 +116,12 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 		Debug.Log( "CompletedLevelCheck" );
 
 		return false;
+
+	}
+
+	public void RestartGame() {
+
+		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 
 	}
 
