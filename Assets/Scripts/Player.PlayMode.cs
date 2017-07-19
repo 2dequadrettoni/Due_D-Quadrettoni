@@ -42,7 +42,7 @@ public partial class Player {
 
 		// List sanity check
 		if ( ( _NodeList == null ) || ( _NodeList.Count < 1 ) ) {
-			Debug.Log( "Trying to set an invalid path to a player" );
+			Debug.Log( "Trying to set an invalid path to player " + iID );
 			return;
 		}
 
