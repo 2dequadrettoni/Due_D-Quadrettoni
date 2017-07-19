@@ -76,6 +76,11 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 	private		bool				bIsOK			= false;
 
+	private		UI					pUI				= null;
+	public		UI	UI {
+		get { return pUI; }
+	}
+
 	private		void	Start() {
 		
 		// if Player is not found then cannot execute play action
@@ -84,6 +89,8 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 		GameObject _P2 = GameObject.Find( "Player2" );
 		if ( ( !_P2 ) || !( pPlayer2 = _P2.GetComponent<Player>() ) ) return;
+
+		pUI = GameObject.Find( "UI" ).GetComponent<UI>();
 
 		// Create Stage list, and first stage
 		vStages = new List<Stage>();

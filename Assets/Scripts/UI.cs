@@ -7,65 +7,53 @@ public class UI : MonoBehaviour
 {
 
     // UI
-    private     Transform       pTable              = null;
+    private     Transform		pTable              = null;
 
-    private     GameObject[]    vIcons              = null;
-    private     Sprite[,]       vPlayerIcons        = null;
+    private     GameObject[]	vIcons              = null;
+    private     Image[,]		vPlayerIcons        = null;
 
     // Use this for initialization
     void Start()
     {
 
         // Canvas
-        Transform pCanvasObject = transform.GetChild(0);
+		Transform pCanvasObject = transform.GetChild(0);
 
         // Table sprite
-        pTable = pCanvasObject.GetChild(0);
+		pTable = pCanvasObject.GetChild(0);
 
-        vIcons = new GameObject[3];
-        for (int i = 1; i < 4; i++)
-        {
-            vIcons[i-1] = pCanvasObject.transform.GetChild(i).gameObject;
-        }
+		vIcons = new GameObject[3];
+		for (int i = 1; i < 4; i++) {
+		vIcons[i-1] = pCanvasObject.transform.GetChild(i).gameObject;
+		}
 
-        // Player action icons
-        // Player 1
-        vPlayerIcons = new Sprite[2, 10];
-        for (int i = 0; i < 9; i++)
-        {
-            Image pImage = pTable.transform.GetChild(i).GetComponent<Image>();
-            pImage.enabled = false;
-            vPlayerIcons[0, i] = pImage.sprite;
-        }
-        // Player 2
-        for (int i = 9; i < 18; i++)
-        {
-            Image pImage = pTable.transform.GetChild(i).GetComponent<Image>();
-            pImage.enabled = false;
-            vPlayerIcons[1, i - 9] = pImage.sprite;
-        }
+		// Player action icons
+		// Player 1
+		vPlayerIcons = new Image[2, 10];
+        for (int i = 0; i < 9; i++) {
+			Image pImage = pTable.transform.GetChild(i).GetComponent<Image>();
+			pImage.enabled = false;
+			vPlayerIcons[0, i] = pImage;
+		}
+		// Player 2
+		for (int i = 9; i < 18; i++)
+		{
+			Image pImage = pTable.transform.GetChild(i).GetComponent<Image>();
+			pImage.enabled = false;
+			vPlayerIcons[1, i - 9] = pImage;
+		}
 
     }
 
+	public	void	UpdateIcon( int PlayerID, ActionType ActionType, int CurrentStage ) {
 
-    void UpdateUI(int _SelectedPlayer, int _ActionType, int _CurrentStage)
-    {
+		Debug.Log( "UpdateIcon " + PlayerID + ", " + (int)ActionType + ", " + CurrentStage );
 
-       
 
-    }
+		Image pImage = vIcons[(int)ActionType].GetComponent<Image>();
+		vPlayerIcons[ PlayerID-1, CurrentStage ].enabled = true;
+		vPlayerIcons[ PlayerID-1, CurrentStage ].sprite = pImage.sprite;
 
-    bool done = false;
-    // Update is called once per frame
-    void Update()
-    {
+	}
 
-        if ( !done )
-        {
-//            UpdateUI(0, 0, 0);
-            done = true;
-
-        }
-
-    }
 }
