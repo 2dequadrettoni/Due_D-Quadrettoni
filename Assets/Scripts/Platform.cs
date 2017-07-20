@@ -13,7 +13,9 @@ public class Platform : MonoBehaviour {
 
 	private	int		iDirection			= 1;
 
-	public	float	fMoveSpeed			= 0.0f;
+	public	float	fMoveSpeed			= 5.0f;
+
+	public	bool	bActive = false;
 
 	// Use this for initialization
 	void Start () {
@@ -25,13 +27,16 @@ public class Platform : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void UpdatePosition() {
+	public void UpdatePosition() {
+
+		if ( !bActive ) return;
 
 		fInterpolant += ( Time.deltaTime * fMoveSpeed ) * iDirection;
 
-		if ( ( fInterpolant > 0.9999f ) || ( fInterpolant < 0.1111f ) ) {
+		if ( ( fInterpolant < 0.0f ) || ( fInterpolant > 1.0f ) ) {
+			bActive = false;
 			iDirection *= -1;
-			fInterpolant = Mathf.RoundToInt( fInterpolant );
+			fInterpolant = Mathf.Clamp01( fInterpolant );
 		}
 
 		CanUnLink = true;
@@ -47,10 +52,16 @@ public class Platform : MonoBehaviour {
 
 	}
 
+	public void	OnUse( Player User ) {
+		print( "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" );
+		bActive = true;
+
+	}
+
 
 	private void OnTriggerEnter( Collider other ) {
 		
-		if ( other.tag == "Player" ) {
+		if ( bActive && other.tag == "Player" ) {
 
 			Player pScript = other.GetComponent<Player>();
 			if ( !pScript.Linked ) {
@@ -63,7 +74,7 @@ public class Platform : MonoBehaviour {
 
 	private void OnTriggerExit( Collider other ) {
 		
-		if ( other.tag == "Player" ) {
+		if ( bActive && other.tag == "Player" ) {
 
 			Player pScript = other.GetComponent<Player>();
 			if ( pScript.Linked ) {

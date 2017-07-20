@@ -82,6 +82,12 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 		get { return pUI; }
 	}
 
+	////////////////////////////////////////////////////////////////////
+	// PLATFORMS
+
+	Platform[] vPlatforms = null;
+
+
 	private		void	Start() {
 		
 		// if Player is not found then cannot execute play action
@@ -96,6 +102,18 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 		// Create Stage list, and first stage
 		vStages = new List<Stage>();
 		vStages.Add( new Stage() );
+
+		// Get all platforms Scripts
+		GameObject[] vPlatformObjs = GameObject.FindGameObjectsWithTag( "Platform" );
+		vPlatforms = new Platform[vPlatformObjs.Length];
+		for ( int i = 0; i < vPlatformObjs.Length; i++ ) {
+
+			GameObject o = vPlatformObjs [ i ];
+			o.transform.GetChild( 0 ).GetComponent<MeshRenderer>().enabled = false;
+			o.transform.GetChild( 1 ).GetComponent<MeshRenderer>().enabled = false;
+			vPlatforms [ i ] = o.GetComponent<Platform>();
+		}
+
 
 		// First stage set
 		iCurrentStage = 0;

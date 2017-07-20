@@ -36,7 +36,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	//	DEBUG
 				const bool		bDebug 					= true;
 	[SerializeField]
-	private		float			fUseDistance			= 1.0f;
+	private		float			fUseDistance			= 0.3f;
 
 	//	PATHFINDING
 	private		Pathfinding		pPathFinder				= null;		// Pathfinding Script
@@ -150,6 +150,8 @@ public partial class Player: MonoBehaviour, IPlayer {
 	
 
 	private void Update() {
+
+		if ( Input.GetKeyDown( KeyCode.Escape ) ) Application.Quit();
 
 		if ( !bIsOK ) return;
 

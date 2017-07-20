@@ -28,6 +28,11 @@ public partial class StageManager {
 		pPlayer1.OnPlay();
 		pPlayer2.OnPlay();
 
+		// Set frist stage as current
+		iCurrentStage = 0;
+
+		GamePhase.Switch();
+
 		// HAVE FUN
 		bIsPlaying = true;
 
@@ -56,20 +61,8 @@ public partial class StageManager {
 			return; 
 		}
 
+
 		/// PLAY PHASE
-		if ( GamePhase.GetCurrent() == GAME_PHASE.PLANNING ) {
-
-			// We ar going to have fun so:
-			// Set frist stage as current
-			iCurrentStage = 0;
-
-			// To Playing phase
-			GamePhase.Switch();
-
-			// Prey!!
-
-		}
-
 		// If is not cycling
 		if ( !bIsInCycle ) {
 
@@ -82,6 +75,15 @@ public partial class StageManager {
 			}
 
 		}
+	}
+
+	private bool MovingPlatforms() {
+
+		foreach ( Platform p in vPlatforms ) {
+			p.UpdatePosition();
+			if ( p.bActive ) return true;
+		}
+		return false;
 	}
 
 	private	IEnumerator	ExecuteActions() {
@@ -144,11 +146,13 @@ public partial class StageManager {
 			}
 		}
 
-		// WHILE players are busy
-		while ( pPlayer1.IsBusy() || pPlayer2.IsBusy() ) {
 
+		// WHILE players are busy
+		while ( MovingPlatforms() || pPlayer1.IsBusy() || pPlayer2.IsBusy() ) {
+			
 			// Wait for next frame
 			yield return null;
+			
 		}
 
 		PA1.ExecuteCallBack();
