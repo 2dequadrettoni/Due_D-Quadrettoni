@@ -5,19 +5,36 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour {
 
-	private		Platform pPlatform = null;
+	[SerializeField]
+	private		Platform		pPlatform		= null;
+
+	private		UI				pUI				= null;
+	private		StageManager	pStageManager	= null;
+
+	private		bool			bTriggered		= false;
+
+	private void Start() {
+		
+		pUI = GameObject.Find( "UI" ).GetComponent<UI>();
+
+		pStageManager = GameObject.Find( "GameManager" ).GetComponent<StageManager>();
+
+	}
 
 	private void OnTriggerStay( Collider other ) {
-		
-		if ( !pPlatform ) return;
 
-		if ( other.tag == "Player" ) {
+		if ( !pPlatform || bTriggered ) return;
+
+		if ( pStageManager.IsPlaying && other.tag == "Player" ) {
+
 			if ( pPlatform.HasPlayerInside ) return;
 
 			print( "Player is dead" );
 
+			pUI.ShowDeathMsg( other.name );
+			bTriggered = true;
+
 		}
 
 	}
-
 }

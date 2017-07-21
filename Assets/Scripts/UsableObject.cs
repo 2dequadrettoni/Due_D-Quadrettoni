@@ -22,7 +22,14 @@ public class UsableObject : MonoBehaviour {
 
 	public void OnUse( Player User ) {
 
-		pObject.SendMessage( "OnUse", User );
+		print( "SendMessage" );
+
+		if ( pObject ) {
+			pObject.SendMessage( "OnUse", User );
+		}
+		else {
+//			transform.SendMessage( "OnUse", User );
+		}
 
 	}
 }

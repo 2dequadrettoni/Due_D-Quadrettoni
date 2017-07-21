@@ -92,6 +92,12 @@ public class Pathfinding : MonoBehaviour {
 
 	}
 
+	public	Node NodeFromWorldPoint( Vector3 vPosition ) {
+
+		return grid.NodeFromWorldPoint( vPosition );
+
+	}
+
 
 
 

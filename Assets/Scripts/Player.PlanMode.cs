@@ -11,6 +11,15 @@ public partial class Player {
     
 	private void ParseInput() {
 
+		if ( Input.GetMouseButtonDown( 1 ) ) {
+
+			pAction = new PlayerAction();
+			pStageManager.SetAction( this.pAction, this.iID );
+			transform.position = vPlanPosition;
+			Debug .Log( "Wait action set" );
+
+		}
+
 		if ( Input.GetMouseButtonDown( 0 ) ) {
 
 			pAction = null;
@@ -37,8 +46,8 @@ public partial class Player {
 				//////////////////////////////////////////////////////////////////////////////
 				//				OBJECTS WITH USE AT DESTIANTION REACHED
 					if ( pUsableObject.UseType == UsageType.ON_ACTION_END ) {
-						transform.position = pMouseHitted.point;
-						pAction = new PlayerAction( transform.position, pUsableObject );
+						transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
+						pAction = new PlayerAction( pMouseHitted.point, pUsableObject );
 						Debug.Log( "Movement to object set" );
 					}
 				}
@@ -46,7 +55,8 @@ public partial class Player {
 				//////////////////////////////////////////////////////////////////////////////
 				//				MOVEMENT ONLY
 				if ( !pUsableObject ) {
-					transform.position = pMouseHitted.point;
+
+					transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
 					pAction = new PlayerAction( transform.position );
 					Debug.Log( "Movement only set" );
 

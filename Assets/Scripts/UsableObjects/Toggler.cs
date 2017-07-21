@@ -17,7 +17,7 @@ public class Toggler : MonoBehaviour {
 		
 	}
 	*/
-	public void OnUse( Player User ) {
+	public void OnUse( Player User, bool Internal = true ) {
 		print( "Obj Used" );
 
 		bActive = !bActive;

@@ -1,4 +1,5 @@
 
+using System.Collections;
 using System.Collections.Generic; // List
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -73,6 +74,13 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 	private		Player				pPlayer2		= null;
 
 	private		bool				bIsPlaying		= false;
+	public		bool IsPlaying {
+		get { return bIsPlaying; }
+	}
+
+	private		IEnumerator			pCoroutine		= null;
+
+
 	private		bool				bIsInCycle		= false;
 
 	private		bool				bIsOK			= false;
@@ -97,7 +105,10 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 		GameObject _P2 = GameObject.Find( "Player2" );
 		if ( ( !_P2 ) || !( pPlayer2 = _P2.GetComponent<Player>() ) ) return;
 
-		pUI = GameObject.Find( "UI" ).GetComponent<UI>();
+		GameObject pUI_Obj = GameObject.Find( "UI" );
+		if ( pUI_Obj ) {
+			pUI = pUI_Obj.GetComponent<UI>();
+		}
 
 		// Create Stage list, and first stage
 		vStages = new List<Stage>();
@@ -114,6 +125,7 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 			vPlatforms [ i ] = o.GetComponent<Platform>();
 		}
 
+		Time.timeScale = 0.2f;
 
 		// First stage set
 		iCurrentStage = 0;
@@ -139,7 +151,7 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 	public void RestartGame() {
 
-		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+		SceneManager.LoadScene( SceneManager.GetActiveScene().name );
 
 	}
 

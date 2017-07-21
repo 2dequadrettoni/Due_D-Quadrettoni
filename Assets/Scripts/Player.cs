@@ -35,8 +35,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	//	DEBUG
 				const bool		bDebug 					= true;
-	[SerializeField]
-	private		float			fUseDistance			= 0.3f;
+
 
 	//	PATHFINDING
 	private		Pathfinding		pPathFinder				= null;		// Pathfinding Script
@@ -45,25 +44,30 @@ public partial class Player: MonoBehaviour, IPlayer {
 		get{ return pPathFinder; }
 	}
 
-	struct Navigation {
+	public struct Navigation_t {
 		public	bool			bHasDestination;
 		public	bool			bIsMoving;				// Flag for global moving state
-		public	float			fNavInterpolant;
 		public	int				iNodeIdx;				// Store actual index of path node list
 		public	NodeList		pNodeList;				// Is the node list for target position
 	};
-	private		Navigation		pNavigation				= new Navigation();	
+	private		Navigation_t	pNavigation				= new Navigation_t();
+	public		Navigation_t Navigation {
+		get { return pNavigation; }
+	}
+
 
 	//	INTERNAL VARS
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	[SerializeField]
 	private 	float			fMoveSpeed				= 3.0f;
+	[SerializeField]
+	private		float			fUseDistance			= 0.3f;
 	private		Vector3			vSpawnPostion			= Vector3.zero;
+	private		Vector3			vPlanPosition			= Vector3.zero;
 	private		bool			bIsOK					= false;
 	// anims
 	private		bool			bFlipped				= false;
 	private		bool			bDirUP					= false;
-	private		Vector3			vPlanPosition			= Vector3.zero;
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		bool			bLinked					= false;
 	public		bool	Linked {
@@ -71,6 +75,18 @@ public partial class Player: MonoBehaviour, IPlayer {
 		set { bLinked = value; }
 	}
 	private		Platform		pLinkedObject			= null;
+	public		Platform LinkedObject {
+		get{ return pLinkedObject; }
+	}
+
+
+	// INVENTORY
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	private		byte			iActualKey				= 0;
+	public		byte ActuaKey {
+		get { return ActuaKey; }
+		set { iActualKey = value; }
+	}
 
 
 	// ACTIONS

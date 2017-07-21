@@ -45,12 +45,14 @@ public class PlayerAction : iPlayerAction {
 	//////////////////////////////////////////////////////////////////
 	
 	// Create as User
+	/// <summary>Object use</summary>
 	public		PlayerAction( UsableObject _Object ) { 
 		iType			= ActionType.USE;
 		pObject			= _Object;
 	}
 
 	// Create as Mover
+	/// <summary>Move action, secondary is usable object at movement anction</summary>
 	public		PlayerAction( Vector3 _Destination, UsableObject _Object = null ) {
 		if ( _Destination == Vector3.zero ) return;
 
@@ -60,6 +62,7 @@ public class PlayerAction : iPlayerAction {
 	}
 
 	// Create as waiter
+	/// <summary>Alias for WAIT action</summary>
 	public		PlayerAction() { 
 		iType			= ActionType.WAIT;
 	}

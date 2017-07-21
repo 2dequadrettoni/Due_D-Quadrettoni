@@ -38,8 +38,8 @@ public partial class StageManager {
 		if ( Action == null ) return;
 
 		vStages[ iCurrentStage ].SetAction( PlayerID, Action );
-
-		pUI.UpdateIcon( PlayerID, Action.GetType(), iCurrentStage );
+		if ( pUI )
+			pUI.UpdateIcon( PlayerID, Action.GetType(), iCurrentStage );
 
 		Debug.Log( "Action set for player " + iSelectedPlayer );
 

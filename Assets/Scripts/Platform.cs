@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour {
 
-	public  bool    HasPlayerInside		= false;
-	public	bool	CanUnLink			= false;
-	private	Vector3	vStartPosition		= Vector3.zero;
-	private	Vector3	vEndPosition		= Vector3.zero;
-	private	float	fInterpolant		= 0.0f;
+	// LINK
+	public		bool		HasPlayerInside		= false;
+	public		bool		CanUnLink			= false;
+	private		Player		pPlayer				= null;
 
-	private	int		iDirection			= 1;
+	// MOVEMENT
+	private		Vector3		vStartPosition		= Vector3.zero;
+	private		Vector3		vEndPosition		= Vector3.zero;
+	private		float		fInterpolant		= 0.0f;
+	private		int			iDirection			= 1;
+	public		float		fMoveSpeed			= 5.0f;
 
-	public	float	fMoveSpeed			= 5.0f;
+	public		bool		bActive				= false;
 
-	public	bool	bActive = false;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +29,7 @@ public class Platform : MonoBehaviour {
 
 	}
 	
+
 	// Update is called once per frame
 	public void UpdatePosition() {
 
@@ -33,24 +37,17 @@ public class Platform : MonoBehaviour {
 
 		fInterpolant += ( Time.deltaTime * fMoveSpeed ) * iDirection;
 
+		// PATROL POINT REACHED
 		if ( ( fInterpolant < 0.0f ) || ( fInterpolant > 1.0f ) ) {
-			bActive = false;
-			iDirection *= -1;
-			fInterpolant = Mathf.Clamp01( fInterpolant );
+			bActive			= false;
+			iDirection		*= -1;
+			fInterpolant	= Mathf.Clamp01( fInterpolant );
 		}
 
-		CanUnLink = true;
-		if ( ( fInterpolant > 0.2f ) || ( fInterpolant < 0.8f ) ) CanUnLink = false;
-
-		Vector3 vNewPosition = new Vector3(
-			Mathf.Lerp( vStartPosition.x, vEndPosition.x, fInterpolant ),
-			Mathf.Lerp( vStartPosition.y, vEndPosition.y, fInterpolant ),
-			Mathf.Lerp( vStartPosition.z, vEndPosition.z, fInterpolant )
-		);
-
-		transform.position = vNewPosition;
-
+		transform.position = Vector3.Lerp( vStartPosition, vEndPosition, fInterpolant );
+		if ( pPlayer ) pPlayer.transform.position = transform.position;
 	}
+
 
 	public void	OnUse( Player User ) {
 		print( "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" );
@@ -61,12 +58,14 @@ public class Platform : MonoBehaviour {
 
 	private void OnTriggerEnter( Collider other ) {
 		
-		if ( bActive && other.tag == "Player" ) {
+		if ( !HasPlayerInside && other.tag == "Player" ) {
 
-			Player pScript = other.GetComponent<Player>();
-			if ( !pScript.Linked ) {
-				pScript.Link( this );
+			Player pPlayer = other.GetComponent<Player>();
+			if ( !pPlayer.Linked ) {
+				pPlayer.Link( this );
 				HasPlayerInside = true;
+				this.pPlayer = pPlayer;
+				print( "Player " + pPlayer.ID + " ENTER platform" );
 			}
 		}
 
@@ -74,12 +73,14 @@ public class Platform : MonoBehaviour {
 
 	private void OnTriggerExit( Collider other ) {
 		
-		if ( bActive && other.tag == "Player" ) {
+		if ( HasPlayerInside && other.tag == "Player" ) {
 
-			Player pScript = other.GetComponent<Player>();
-			if ( pScript.Linked ) {
-				pScript.UnLink( this );
+			Player pPlayer = other.GetComponent<Player>();
+			if ( pPlayer.Linked ) {
+				pPlayer.UnLink( this );
 				HasPlayerInside = false;
+				this.pPlayer = null;
+				print( "Player " + pPlayer.ID + " EXIT platform" );
 			}
 		}
 

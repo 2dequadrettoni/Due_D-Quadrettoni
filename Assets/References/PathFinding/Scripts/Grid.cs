@@ -12,6 +12,9 @@ public class Grid : MonoBehaviour {
 	Node[,] grid;
 	Plane pPlane;
 
+	public float OffsetX, OffsetY;
+	public float NodeDistX, NodeDistY;
+
 	public List<Node> path;
 
 	float nodeDiameter;
@@ -48,9 +51,6 @@ public class Grid : MonoBehaviour {
 
 		grid = new Node[gridSizeX,gridSizeY];
 
-
-
-
 		UpdateGrid();
 
 	}
@@ -59,14 +59,24 @@ public class Grid : MonoBehaviour {
 
 		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.forward * gridWorldSize.y/2;
 		for (int x = 0; x < gridSizeX; x ++) {
+
 			for (int y = 0; y < gridSizeY; y ++) {
-				Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
+
+
+				Vector3 worldPoint = worldBottomLeft + 
+					// => RIGHT
+					Vector3.right   * ( x * nodeDiameter + nodeRadius ) + ( Vector3.right   * NodeDistX * x ) + ( Vector3.right   * OffsetX ) +
+					// => FORWARD
+					Vector3.forward * ( y * nodeDiameter + nodeRadius ) + ( Vector3.forward * NodeDistY * y ) + ( Vector3.forward * OffsetY );
+
+
 				bool walkable = !(Physics.CheckSphere(worldPoint,nodeRadius,unwalkableMask));
 				if ( grid [x,y]  == null ) {
 					grid [x,y] = new Node( walkable, worldPoint, nodeRadius, x, y );
 				}
 				else grid [x,y].walkable = walkable;
 			}
+
 		}
 
 	}
@@ -105,7 +115,7 @@ public class Grid : MonoBehaviour {
 
 	
 	void OnDrawGizmos() {
-		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y));
+//		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y));
 
 /*		if (onlyDisplayPathGizmos) {
 			if (path != null) {
@@ -126,6 +136,7 @@ public class Grid : MonoBehaviour {
 					Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter-.1f));
 				}
 			}
+			
 //		}
 	}
 	

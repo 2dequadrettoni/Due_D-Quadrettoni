@@ -31,10 +31,17 @@ public partial class StageManager {
 		// Set frist stage as current
 		iCurrentStage = 0;
 
-		GamePhase.Switch();
-
 		// HAVE FUN
 		bIsPlaying = true;
+
+	}
+
+	public	void	Stop() {
+
+		bIsPlaying = false;
+		StopCoroutine( pCoroutine );
+		pPlayer1.Stop();
+		pPlayer2.Stop();
 
 	}
 
@@ -69,8 +76,10 @@ public partial class StageManager {
 			// if there stage to process
 			if ( iCurrentStage < vStages.Count ) {
 
+				pCoroutine = ExecuteActions();
+
 				// Execute actions in stage
-				StartCoroutine( ExecuteActions() );
+				StartCoroutine( pCoroutine );
 
 			}
 
@@ -97,7 +106,6 @@ public partial class StageManager {
 		// Retrieve players action
 		PlayerAction PA1 = vStages[ iCurrentStage ].GetAction( 1 );
 		PlayerAction PA2 = vStages[ iCurrentStage ].GetAction( 2 );
-
 
 		if ( PA1.GetType() == ActionType.USE ) {
 			PA1.GetUsableObject().OnUse( pPlayer1 );
