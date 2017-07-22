@@ -4,16 +4,17 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour {
 
-	public bool onlyDisplayPathGizmos;
 	public bool bShowPlane;
 	public LayerMask unwalkableMask;
 	public Vector2 gridWorldSize;
 	public float nodeRadius;
+	public float TraslateX, TraslateY;
+	public float NodedistanceX, NodedistanceY;
+
+
+
 	Node[,] grid;
 	Plane pPlane;
-
-	public float OffsetX, OffsetY;
-	public float NodeDistX, NodeDistY;
 
 	public List<Node> path;
 
@@ -22,14 +23,14 @@ public class Grid : MonoBehaviour {
 
 	void Start() {
 		nodeDiameter = nodeRadius*2;
-		gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
-		gridSizeY = Mathf.RoundToInt(gridWorldSize.y/nodeDiameter);
+		gridSizeX = Mathf.RoundToInt(gridWorldSize.x);
+		gridSizeY = Mathf.RoundToInt(gridWorldSize.y);
 		CreateGrid();
 
 		// Create a plane
 		GameObject p = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		p.transform.position = this.transform.position;
-		p.transform.localScale = new Vector3( gridWorldSize.x / 10.0f, 0.01f, gridWorldSize.y / 10.0f );
+		p.transform.localScale = new Vector3( gridWorldSize.x, 0.01f, gridWorldSize.y );
 
 		Material m = new Material(Shader.Find("Standard"));
 		m.color = Color.blue;
@@ -58,23 +59,27 @@ public class Grid : MonoBehaviour {
 	public void UpdateGrid() {
 
 		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.forward * gridWorldSize.y/2;
-		for (int x = 0; x < gridSizeX; x ++) {
 
+		for (int x = 0; x < gridSizeX; x ++) {
 			for (int y = 0; y < gridSizeY; y ++) {
 
-
-				Vector3 worldPoint = worldBottomLeft + 
-					// => RIGHT
-					Vector3.right   * ( x * nodeDiameter + nodeRadius ) + ( Vector3.right   * NodeDistX * x ) + ( Vector3.right   * OffsetX ) +
-					// => FORWARD
-					Vector3.forward * ( y * nodeDiameter + nodeRadius ) + ( Vector3.forward * NodeDistY * y ) + ( Vector3.forward * OffsetY );
-
+				Vector3 worldPoint = worldBottomLeft +
+					// Offset
+					( Vector3.forward	* TraslateX * x ) + ( Vector3.right	* TraslateY * y ) +
+					// Node distance
+					( Vector3.right	* NodedistanceX * x ) + ( Vector3.forward	* NodedistanceY * y ) +
+					// Horizzontal
+					Vector3.right	* ( x * nodeDiameter + nodeRadius ) + 
+					// Vertical
+					Vector3.forward * ( y * nodeDiameter + nodeRadius );
 
 				bool walkable = !(Physics.CheckSphere(worldPoint,nodeRadius,unwalkableMask));
 				if ( grid [x,y]  == null ) {
 					grid [x,y] = new Node( walkable, worldPoint, nodeRadius, x, y );
 				}
 				else grid [x,y].walkable = walkable;
+
+				grid [x,y].worldPosition = worldPoint;
 			}
 
 		}
@@ -103,6 +108,24 @@ public class Grid : MonoBehaviour {
 	
 
 	public Node NodeFromWorldPoint(Vector3 worldPosition) {
+
+		float fDistance = float.MaxValue;
+		Node pBestNode = null;
+
+		if ( grid != null ) {
+			foreach (Node n in grid) {
+				float fCurrentDistance = Vector3.Distance( n.worldPosition, worldPosition );
+				if ( fCurrentDistance < fDistance ) {
+					fDistance = fCurrentDistance;
+					pBestNode = n;
+				}
+			}
+		}
+		return pBestNode;
+
+		/*
+
+
 		float percentX = (worldPosition.x + gridWorldSize.x/2) / gridWorldSize.x;
 		float percentY = (worldPosition.z + gridWorldSize.y/2) / gridWorldSize.y;
 		percentX = Mathf.Clamp01(percentX);
@@ -111,33 +134,23 @@ public class Grid : MonoBehaviour {
 		int x = Mathf.RoundToInt((gridSizeX-1) * percentX);
 		int y = Mathf.RoundToInt((gridSizeY-1) * percentY);
 		return grid[x,y];
+		*/
 	}
 
 	
 	void OnDrawGizmos() {
-//		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y));
 
-/*		if (onlyDisplayPathGizmos) {
-			if (path != null) {
-				foreach (Node n in path) {
-					Gizmos.color = Color.black;
-					Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter-.1f));
-				}
+//		UpdateGrid();
+
+		if (grid != null) {
+			foreach (Node n in grid) {
+				Gizmos.color = (n.walkable)?Color.white:Color.red;
+				if (path != null)
+					if (path.Contains(n))
+						Gizmos.color = Color.black;
+				Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter-.1f));
 			}
 		}
-		else {
-		*/
-			if (grid != null) {
-				foreach (Node n in grid) {
-					Gizmos.color = (n.walkable)?Color.white:Color.red;
-					if (path != null)
-						if (path.Contains(n))
-							Gizmos.color = Color.black;
-					Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter-.1f));
-				}
-			}
-			
-//		}
 	}
 	
 }

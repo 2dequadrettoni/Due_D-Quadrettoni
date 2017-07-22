@@ -27,6 +27,8 @@ public partial class Player {
 			RaycastHit pMouseHitted;
 			if ( Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitted ) ) {
 				
+				if ( pMouseHitted.collider.gameObject.tag != "Tiles" ) return;
+
 				UsableObject pUsableObject = pMouseHitted.collider.gameObject.GetComponent<UsableObject>();
 				if ( pUsableObject ) {
 
@@ -35,7 +37,6 @@ public partial class Player {
 					if ( pUsableObject.UseType == UsageType.INSTANT ) {
 
 						if ( Vector3.Distance( vPlanPosition, pMouseHitted.point ) < fUseDistance ) {
-//							transform.position = pMouseHitted.point;
 							// Usable object hitted
 							pAction = new PlayerAction( pUsableObject );
 							Debug.Log( "Usable object set" );
@@ -47,6 +48,8 @@ public partial class Player {
 				//				OBJECTS WITH USE AT DESTIANTION REACHED
 					if ( pUsableObject.UseType == UsageType.ON_ACTION_END ) {
 						transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
+
+				//		transform.position = pMouseHitted.point;
 						pAction = new PlayerAction( pMouseHitted.point, pUsableObject );
 						Debug.Log( "Movement to object set" );
 					}
@@ -55,8 +58,8 @@ public partial class Player {
 				//////////////////////////////////////////////////////////////////////////////
 				//				MOVEMENT ONLY
 				if ( !pUsableObject ) {
-
 					transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
+				//	transform.position = pMouseHitted.point;
 					pAction = new PlayerAction( transform.position );
 					Debug.Log( "Movement only set" );
 
