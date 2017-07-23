@@ -24,7 +24,6 @@ public class LevelSwitch : MonoBehaviour {
 
 			// Switch to next level
 			SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex + 1 );
-			
 
 		}
 

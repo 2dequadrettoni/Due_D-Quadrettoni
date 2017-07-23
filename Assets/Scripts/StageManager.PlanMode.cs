@@ -1,7 +1,12 @@
 ﻿
 using UnityEngine;
 
+#pragma warning disable CS0162 // Unreachable code detected
+#pragma warning disable CS0414 // Var assigned but never used
+
 public partial class StageManager {
+
+	const	bool	bPlanDebug		= false;
 
 	////////////////////////////////////////////////////////////////////////
 	/////////////////////////		PLAN MODE
@@ -22,7 +27,7 @@ public partial class StageManager {
 			pPlayer2.CanParseInput = true;
 		}
 		iSelectedPlayer = PlayerID;
-		Debug.Log( "player " + PlayerID + " selected" );
+		if ( bPlanDebug ) Debug.Log( "player " + PlayerID + " selected" );
 	}
 
 
@@ -41,7 +46,7 @@ public partial class StageManager {
 		if ( pUI )
 			pUI.UpdateIcon( PlayerID, Action.GetType(), iCurrentStage );
 
-		Debug.Log( "Action set for player " + iSelectedPlayer );
+		if ( bPlanDebug ) Debug.Log( "Action set for player " + iSelectedPlayer );
 
 	}
 
@@ -60,7 +65,7 @@ public partial class StageManager {
 			return;
 		}
 		
-		Debug.Log( "Next stage" );
+		if ( bPlanDebug ) Debug.Log( "Next stage" );
 
 		// set next stage
 		iCurrentStage++;
@@ -97,3 +102,6 @@ public partial class StageManager {
 	}
 
 }
+
+#pragma warning restore CS0414 // Var assigned but never used
+#pragma warning restore CS0162 // Unreachable code detected

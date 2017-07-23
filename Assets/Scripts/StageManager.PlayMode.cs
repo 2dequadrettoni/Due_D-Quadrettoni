@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Collections; // IEnumerator
 using UnityEngine;
 
-using NodeList = System.Collections.Generic.List<Node>;
+#pragma warning disable CS0162 // Unreachable code detected
+#pragma warning disable CS0414 // Var assigned but never used
 
 public partial class StageManager {
+
+	const	bool	bPlayDebug		= false;
 
 	////////////////////////////////////////////////////////////////////////
 	/////////////////////////		PLAY MODE
@@ -52,16 +55,16 @@ public partial class StageManager {
 		if ( !bIsOK ) return;
 
 		if ( !bIsPlaying ) {
-			if ( Input.GetKeyDown( KeyCode.Alpha1 ) ) {
+			if ( Input.GetKeyDown( KeyCode.Alpha1 ) ) {		// 1
 				SelectPlayer( 1 );
 			}
-			if ( Input.GetKeyDown( KeyCode.Alpha2 ) ) {
+			if ( Input.GetKeyDown( KeyCode.Alpha2 ) ) {		// 2
 				SelectPlayer( 2 );
 			}
-			if ( Input.GetKeyDown( KeyCode.Space ) ) {
+			if ( Input.GetKeyDown( KeyCode.Space ) ) {		// Spazio
 				NextStage();
 			}
-			if ( Input.GetKeyDown( KeyCode.Keypad0 ) ) {
+			if ( Input.GetKeyDown( KeyCode.Keypad0 ) ) {	// 0 TN
 				Play();
 			}
 
@@ -86,12 +89,22 @@ public partial class StageManager {
 		}
 	}
 
-	private bool MovingPlatforms() {
+	public	void AddActiveObject()		{ iActiveObjects++; }
+	public	void RemoveActiveObject()	{ iActiveObjects = Mathf.Max( 0, iActiveObjects - 1 ); }
 
+	public bool WorldAnimsPending() {
+
+		// SWITCHERS
+		if ( iActiveObjects > 0 ) return true;
+
+		// PLATFORMS
 		foreach ( Platform p in vPlatforms ) {
-			p.UpdatePosition();
-			if ( p.bActive ) return true;
+			if ( p.bActive ) {
+				p.UpdatePosition();
+				return true;
+			}
 		}
+
 		return false;
 	}
 
@@ -100,8 +113,8 @@ public partial class StageManager {
 		// stop cycling to allow coroutine run
 		bIsInCycle = true;
 
-		Debug.Log( "coroutine start" );
-		Debug.Log( "stage " + iCurrentStage + "/" + ( vStages.Count - 1) );
+		if ( bPlayDebug ) Debug.Log( "coroutine start" );
+		if ( bPlayDebug ) Debug.Log( "stage " + iCurrentStage + "/" + ( vStages.Count - 1) );
 
 		// Retrieve players action
 		PlayerAction PA1 = vStages[ iCurrentStage ].GetAction( 1 );
@@ -122,6 +135,7 @@ public partial class StageManager {
 				if ( !pPlayer1.FindPath( PA1.GetDestination() ) ) {
 					Debug.Log( "PG 1 Dice: pirla, non ci posso andare" );
 					bIsPlaying = false;
+					pPlayer2.Stop();
 					yield break;
 				}
 
@@ -155,36 +169,34 @@ public partial class StageManager {
 		}
 
 
-		// WHILE players are busy
-		while ( MovingPlatforms() || pPlayer1.IsBusy() || pPlayer2.IsBusy() ) {
+		// WHILE platforms or players are busy
+		while ( WorldAnimsPending() || pPlayer1.IsBusy() || pPlayer2.IsBusy() ) {
 			
 			// Wait for next frame
 			yield return null;
 			
 		}
 
+		// at end of all actions of all elements
 		PA1.ExecuteCallBack();
 		PA2.ExecuteCallBack();
-
-		PA1 = null;
-		PA2 = null;
 
 		// player are not busy, so stop cycle
 		bIsInCycle = false;
 		
-		Debug.Log( "Coroutine end" );
+		if ( bPlayDebug ) Debug.Log( "Coroutine end" );
 
-		// Check victory condition
-		if ( CompletedLevelCheck() ) {
-			yield return 0;
-		}
+		// if not victory condition is reached
+		if ( !CompletedLevelCheck() )
+			// Set for next stage
+			iCurrentStage++;
 
-		// Set for next stage
-		iCurrentStage++;
-
-		//	stage completed
+		// exit coroutine
 		yield return 0;
 
 	}
 
 }
+
+#pragma warning restore CS0414 // Var assigned but never used
+#pragma warning restore CS0162 // Unreachable code detected

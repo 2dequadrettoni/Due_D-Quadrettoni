@@ -1,67 +1,80 @@
 ﻿
 using UnityEngine;
 
-using NodeList = System.Collections.Generic.List<Node>;
-
+#pragma warning disable CS0162 // Unreachable code detected
+#pragma warning disable CS0414 // Var assigned but never used
 
 public partial class Player {
+
+	const	bool	bPlanDebug		= false;
 
     ////////////////////////////////////////////////////////////////////////
     /////////////////////////		PLAN MODE
     
 	private void ParseInput() {
 
+		// WAIT ACTION
 		if ( Input.GetMouseButtonDown( 1 ) ) {
 
 			pAction = new PlayerAction();
 			pStageManager.SetAction( this.pAction, this.iID );
 			transform.position = vPlanPosition;
-			Debug .Log( "Wait action set" );
+			if ( bPlanDebug ) Debug.Log( "Wait action set" );
 
 		}
 
+		// MOVE - USE ACTION
 		if ( Input.GetMouseButtonDown( 0 ) ) {
 
 			pAction = null;
 
 			RaycastHit pMouseHitted;
 			if ( Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitted ) ) {
-				
-				if ( pMouseHitted.collider.gameObject.tag != "Tiles" ) return;
+
+				string objTag = pMouseHitted.collider.tag;
 
 				UsableObject pUsableObject = pMouseHitted.collider.gameObject.GetComponent<UsableObject>();
 				if ( pUsableObject ) {
 
-				//////////////////////////////////////////////////////////////////////////////
-				//				OBJECTS INSTANT
-					if ( pUsableObject.UseType == UsageType.INSTANT ) {
+					// skip non usable objects
+					if ( pUsableObject.UseType == UsageType.NONE ) return;
 
-						if ( Vector3.Distance( vPlanPosition, pMouseHitted.point ) < fUseDistance ) {
-							// Usable object hitted
-							pAction = new PlayerAction( pUsableObject );
-							Debug.Log( "Usable object set" );
+					// KEY
+					// USABLE OBJECT
+					if ( objTag == "Key" || objTag == "Door" || objTag == "Switcher" ) {
+
+				//////////////////////////////////////////////////////////////////////////////
+				//		OBJECTS INSTANT
+						if (  pUsableObject.UseType == UsageType.INSTANT ) {
+							if ( Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position ) < fUseDistance ) {
+								// Usable object hitted
+								pAction = new PlayerAction( pUsableObject );
+								pStageManager.SetAction( this.pAction, this.iID );
+								if ( bPlanDebug ) Debug.Log( "Usable object set" );
+								return;
+							};
+
+						}
+
+
+				//////////////////////////////////////////////////////////////////////////////
+				//		OBJECTS WITH USE AT DESTINATION REACHED
+						if ( pUsableObject.UseType == UsageType.ON_ACTION_END ) {
+							transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
+							pAction = new PlayerAction( pMouseHitted.point, pUsableObject );
+							if ( bPlanDebug ) Debug.Log( "Movement to object set" );
 						}
 
 					}
-
-				//////////////////////////////////////////////////////////////////////////////
-				//				OBJECTS WITH USE AT DESTIANTION REACHED
-					if ( pUsableObject.UseType == UsageType.ON_ACTION_END ) {
-						transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
-
-				//		transform.position = pMouseHitted.point;
-						pAction = new PlayerAction( pMouseHitted.point, pUsableObject );
-						Debug.Log( "Movement to object set" );
-					}
 				}
 
+
 				//////////////////////////////////////////////////////////////////////////////
-				//				MOVEMENT ONLY
-				if ( !pUsableObject ) {
+				//		MOVEMENT ONLY
+				if ( objTag == "Tiles" ) {
 					transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
-				//	transform.position = pMouseHitted.point;
 					pAction = new PlayerAction( transform.position );
-					Debug.Log( "Movement only set" );
+					if ( bPlanDebug ) Debug.Log( "Movement only set" );
 
 				}
 			}
@@ -95,3 +108,6 @@ public partial class Player {
 
 
 }
+
+#pragma warning restore CS0414 // Var assigned but never used
+#pragma warning restore CS0162 // Unreachable code detected

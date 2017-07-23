@@ -49,6 +49,8 @@ public partial class Player {
 
 		// Reset node index
 		pNavigation.iNodeIdx = 0;
+
+		pNavigation.vDestination = pNavigation.pNodeList[ 0 ].worldPosition;
 		
 	}
 
@@ -64,34 +66,40 @@ public partial class Player {
 
 	private void UpdateNavigation() {
 
-		// always start from zero
-		// Pick current destination point vector
-		Vector3 vDestination = pNavigation.pNodeList[ pNavigation.iNodeIdx ].worldPosition;
+		// DIRECTION
+		string sDirection = "Down";
+		{
+			if ( pNavigation.vDestination.x > transform.position.x )
+				sDirection = "Up";
+
+			pRenderer.flipX = false;
+			if ( pNavigation.vDestination.z > transform.position.z )
+				pRenderer.flipX = true;
+		}
+
 
 		// is arrived
-		if ( Vector3.Distance( transform.position, vDestination ) < .2f ) {
+		if ( Vector3.Distance( transform.position, pNavigation.vDestination ) < .2f ) {
 			pNavigation.iNodeIdx++;
+
+			// If there is no list or doesnt contains at last one node or last node is reached
+			if ( pNavigation.iNodeIdx == pNavigation.pNodeList.Count ) {
+				pNavigation.bHasDestination = false;            // Destination reached, make input avaible again
+				pNavigation.bIsMoving		= false;			// Set as not moving
+				transform.position			= pNavigation.vDestination;
+
+				pAnimator.Play( "Idle_" + sDirection );
+				return;
+			}
+
+			pNavigation.vDestination = pNavigation.pNodeList[ pNavigation.iNodeIdx ].worldPosition;
 		}
 
-		
-		// If there is no list or doesnt contains at last one node or last node is reached
-		if ( pNavigation.iNodeIdx == pNavigation.pNodeList.Count ) {
-			pNavigation.bHasDestination = false;            // Destination reached, make input avaible again
-			pNavigation.bIsMoving		= false;			// Set as not moving
-			transform.position			= vDestination;
 
-//			pAnimator.Play( "Idle_" + sDirection );
-			return;
-		}
-
-		Vector3 vDirection = ( vDestination - transform.position ).normalized;
-
+		Vector3 vDirection = ( pNavigation.vDestination - transform.position ).normalized;
 		transform.position += Time.deltaTime * ( fMoveSpeed * vDirection );
-
 		pNavigation.bIsMoving = true;
-
-//		pAnimator.Play( "Walk_" + sDirection );
-
+		pAnimator.Play( "Walk_" + sDirection );
 		
 	}
 
@@ -113,7 +121,7 @@ public partial class Player {
 	
 	void OnDrawGizmos() {
 
-		if (pNavigation.pNodeList != null) {
+		if ( pNavigation.pNodeList != null ) {
 			foreach (Node n in pNavigation.pNodeList) {
 				Gizmos.color = Color.black;
 				Gizmos.DrawCube(n.worldPosition, Vector3.one * (n.radius-.1f));

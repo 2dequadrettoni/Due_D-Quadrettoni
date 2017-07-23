@@ -50,9 +50,7 @@ public class Platform : MonoBehaviour {
 
 
 	public void	OnUse( Player User ) {
-		print( "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" );
 		bActive = true;
-
 	}
 
 
@@ -75,7 +73,7 @@ public class Platform : MonoBehaviour {
 		
 		if ( HasPlayerInside && other.tag == "Player" ) {
 
-			Player pPlayer = other.GetComponent<Player>();
+			Player pPlayer = ( other.name == "Player1" ) ? GLOBALS.Player1 : GLOBALS.Player2;
 			if ( pPlayer.Linked ) {
 				pPlayer.UnLink( this );
 				HasPlayerInside = false;

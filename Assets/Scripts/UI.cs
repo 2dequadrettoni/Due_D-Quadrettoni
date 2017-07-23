@@ -9,7 +9,6 @@ interface IUI {
 
 	void	UpdateIcon( int PlayerID, ActionType ActionType, int CurrentStage );
 
-
 	void	ShowDeathMsg( string PlayerName );
 
 }
@@ -58,9 +57,11 @@ public class UI : MonoBehaviour, IUI {
 			vPlayerIcons[1, i - 9] = pImage;
 		}
 
-		pStageManager = GameObject.Find( "GameManager" ).GetComponent<StageManager>();
+		pStageManager = GLOBALS.StageManager;
 
     }
+
+
 
 	public	void	UpdateIcon( int PlayerID, ActionType ActionType, int CurrentStage ) {
 
@@ -69,6 +70,8 @@ public class UI : MonoBehaviour, IUI {
 		vPlayerIcons[ PlayerID-1, CurrentStage ].sprite = pImage.sprite;
 
 	}
+
+
 
 	public	void	ShowDeathMsg( string PlayerName ) {
 		sPlayerName = PlayerName;

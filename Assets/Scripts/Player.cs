@@ -34,7 +34,7 @@ interface IPlayer {
 public partial class Player: MonoBehaviour, IPlayer {
 
 	//	DEBUG
-				const bool		bDebug 					= true;
+				const bool		bDebug 					= false;
 
 
 	//	PATHFINDING
@@ -49,6 +49,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 		public	bool			bIsMoving;				// Flag for global moving state
 		public	int				iNodeIdx;				// Store actual index of path node list
 		public	NodeList		pNodeList;				// Is the node list for target position
+		public	Vector3			vDestination;
 	};
 	private		Navigation_t	pNavigation				= new Navigation_t();
 	public		Navigation_t Navigation {
@@ -138,10 +139,10 @@ public partial class Player: MonoBehaviour, IPlayer {
 			pRenderer.sprite	= pPlanSprite;
 
 		pAnimator			= transform.GetChild( 0 ).GetComponent<Animator>();
-		pAnimator.enabled	= false;
 
-		pPathFinder			= GameObject.Find( "PathFinder" ).GetComponent<Pathfinding>();
-		pStageManager		= GameObject.Find( "GameManager" ).GetComponent<StageManager>();
+		pPathFinder			= GLOBALS.PathFinder;
+
+		pStageManager		= GLOBALS.StageManager;
 
 		if ( !pPathFinder ) {
 			Debug.Log( "Pathfinder not found" );

@@ -5,9 +5,27 @@ using UnityEngine;
 public class Openable : MonoBehaviour {
 
 	[Header("Value [ 1 - 255 ], zero is no valid ID")]
-	public	byte	KeyID	= 0;
-	private	bool	bUnlocked	= false;
-	private	bool	bUsed		= false;
+	[SerializeField]
+	private	byte	KeyID				= 0;
+	private	bool	bUnlocked			= false;
+	private	bool	bUsed				= false;
+
+	public	enum	OpenableTypes {
+		DOOR, TREASURE
+	}
+
+	[SerializeField]
+	private	OpenableTypes	Type		= OpenableTypes.DOOR;
+
+	private	Animator		pAnimator	= null;
+
+	private void Start() {
+		
+		if ( transform.childCount > 0 ) {
+			pAnimator = transform.GetChild( 0 ).GetComponent<Animator>();
+		}
+
+	}
 
 
 	public void OnUse( Player User ) {
@@ -19,18 +37,11 @@ public class Openable : MonoBehaviour {
 		bUnlocked = true;
 
 		if ( bUsed ) {
-
-			// object reset
-			GetComponent<BoxCollider>().enabled = true;
-			GetComponent<MeshRenderer>().enabled = true;
 			bUsed = false;
-
+			pAnimator.Play( "OnUse" );
 		} else {
-
-			GetComponent<BoxCollider>().enabled = false;
-			GetComponent<MeshRenderer>().enabled = false;
 			bUsed = true;
-
+			pAnimator.Play( "OnUse" );
 		}
 
 	}

@@ -68,7 +68,7 @@ public class Grid : MonoBehaviour {
 					( Vector3.forward	* TraslateX * x ) + ( Vector3.right	* TraslateY * y ) +
 					// Node distance
 					( Vector3.right	* NodedistanceX * x ) + ( Vector3.forward	* NodedistanceY * y ) +
-					// Horizzontal
+					// Horizontal
 					Vector3.right	* ( x * nodeDiameter + nodeRadius ) + 
 					// Vertical
 					Vector3.forward * ( y * nodeDiameter + nodeRadius );
@@ -145,9 +145,6 @@ public class Grid : MonoBehaviour {
 		if (grid != null) {
 			foreach (Node n in grid) {
 				Gizmos.color = (n.walkable)?Color.white:Color.red;
-				if (path != null)
-					if (path.Contains(n))
-						Gizmos.color = Color.black;
 				Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter-.1f));
 			}
 		}

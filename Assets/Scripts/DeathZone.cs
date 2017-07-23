@@ -14,24 +14,23 @@ public class DeathZone : MonoBehaviour {
 	private		bool			bTriggered		= false;
 
 	private void Start() {
-		
-		pUI = GameObject.Find( "UI" ).GetComponent<UI>();
 
-		pStageManager = GameObject.Find( "GameManager" ).GetComponent<StageManager>();
+		pUI = GLOBALS.UI;
+		pStageManager = GLOBALS.StageManager;
 
 	}
 
 	private void OnTriggerStay( Collider other ) {
 
-		if ( !pPlatform || bTriggered ) return;
+		if ( bTriggered ) return;
 
-		if ( pStageManager.IsPlaying && other.tag == "Player" ) {
+		if ( pStageManager && pStageManager.IsPlaying && other.tag == "Player" ) {
 
-			if ( pPlatform.HasPlayerInside ) return;
+			if ( pPlatform && pPlatform.HasPlayerInside ) return;
 
 			print( "Player is dead" );
 
-			pUI.ShowDeathMsg( other.name );
+			if ( pUI ) pUI.ShowDeathMsg( other.name );
 			bTriggered = true;
 
 		}

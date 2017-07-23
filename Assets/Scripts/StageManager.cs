@@ -78,8 +78,10 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 		get { return bIsPlaying; }
 	}
 
-	private		IEnumerator			pCoroutine		= null;
+	private		int					iActiveObjects	= 0;
 
+
+	private		IEnumerator			pCoroutine		= null;
 
 	private		bool				bIsInCycle		= false;
 
@@ -97,18 +99,15 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 
 	private		void	Start() {
-		
+
 		// if Player is not found then cannot execute play action
-		GameObject _P1 = GameObject.Find( "Player1" );
-		if ( ( !_P1 ) || !( pPlayer1 = _P1.GetComponent<Player>() ) ) return;
 
-		GameObject _P2 = GameObject.Find( "Player2" );
-		if ( ( !_P2 ) || !( pPlayer2 = _P2.GetComponent<Player>() ) ) return;
 
-		GameObject pUI_Obj = GameObject.Find( "UI" );
-		if ( pUI_Obj ) {
-			pUI = pUI_Obj.GetComponent<UI>();
-		}
+		
+		if ( !( pPlayer1 = GLOBALS.Player1 ) ) return;
+		if ( !( pPlayer2 = GLOBALS.Player2 ) ) return;
+
+		pUI = GLOBALS.UI;
 
 		// Create Stage list, and first stage
 		vStages = new List<Stage>();
@@ -146,12 +145,6 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 		Debug.Log( "CompletedLevelCheck" );
 
 		return false;
-
-	}
-
-	public void RestartGame() {
-
-		SceneManager.LoadScene( SceneManager.GetActiveScene().name );
 
 	}
 

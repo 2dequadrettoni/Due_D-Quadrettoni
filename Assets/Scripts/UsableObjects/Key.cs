@@ -19,6 +19,7 @@ public class Key : MonoBehaviour {
 
 	public void OnUse( Player User ) {
 
+		print( "key picked" );
 		User.ActuaKey = KeyID;
 		Destroy( gameObject );
 
