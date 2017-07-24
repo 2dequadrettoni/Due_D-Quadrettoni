@@ -44,17 +44,17 @@ public class UI : MonoBehaviour, IUI {
 		// Player action icons
 		// Player 1
 		vPlayerIcons = new Image[2, 10];
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
 			Image pImage = pTable.transform.GetChild(i).GetComponent<Image>();
 			pImage.enabled = false;
 			vPlayerIcons[0, i] = pImage;
 		}
 		// Player 2
-		for (int i = 9; i < 18; i++)
+		for (int i = 10; i < 20; i++)
 		{
 			Image pImage = pTable.transform.GetChild(i).GetComponent<Image>();
 			pImage.enabled = false;
-			vPlayerIcons[1, i - 9] = pImage;
+			vPlayerIcons[1, i - 10] = pImage;
 		}
 
 		pStageManager = GLOBALS.StageManager;
