@@ -67,7 +67,7 @@ public class Platform : MonoBehaviour {
 
 	private void OnTriggerEnter( Collider other ) {
 		
-		if ( !HasPlayerInside && other.tag == "Player" ) {
+		if ( GLOBALS.StageManager.IsPlaying && !HasPlayerInside && other.tag == "Player" ) {
 
 			Player pPlayer = other.GetComponent<Player>();
 			if ( !pPlayer.Linked ) {
@@ -83,7 +83,7 @@ public class Platform : MonoBehaviour {
 
 	private void OnTriggerExit( Collider other ) {
 		
-		if ( HasPlayerInside && other.tag == "Player" ) {
+		if ( GLOBALS.StageManager.IsPlaying && HasPlayerInside && other.tag == "Player" ) {
 
 			Player pPlayer = ( other.name == "Player1" ) ? GLOBALS.Player1 : GLOBALS.Player2;
 			if ( pPlayer.Linked ) {

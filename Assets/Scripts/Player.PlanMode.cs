@@ -1,6 +1,8 @@
 ﻿
 using UnityEngine;
 
+//	using UnityEngine.EventSystems;
+
 #pragma warning disable CS0162 // Unreachable code detected
 #pragma warning disable CS0414 // Var assigned but never used
 
@@ -12,6 +14,8 @@ public partial class Player {
     /////////////////////////		PLAN MODE
     
 	private void ParseInput() {
+
+//		if ( EventSystem.current.IsPointerOverGameObject() ) return;
 
 		// WAIT ACTION
 		if ( Input.GetMouseButtonDown( 1 ) ) {
