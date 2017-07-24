@@ -85,7 +85,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		byte			iActualKey				= 0;
 	public		byte ActuaKey {
-		get { return ActuaKey; }
+		get { return iActualKey; }
 		set { iActualKey = value; }
 	}
 

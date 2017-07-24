@@ -36,6 +36,13 @@ public partial class UsableObject : MonoBehaviour {
 	public void OnUse( Player User ) {
 
 
+		if ( transform.tag == "Plane_Switcher" ) {
+
+			if ( pAnimator && pAnimator.HasState( 0, Animator.StringToHash( "OnUse" ) ) ) pAnimator.Play( "OnUse" );
+//			GLOBALS.StageManager.AddActiveObject();
+		}
+
+
 		if ( transform.tag == "Door" || transform.tag == "Switcher" ) {
 			GLOBALS.StageManager.AddActiveObject();
 		}

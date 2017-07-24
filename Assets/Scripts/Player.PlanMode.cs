@@ -41,7 +41,7 @@ public partial class Player {
 
 					// KEY
 					// USABLE OBJECT
-					if ( objTag == "Key" || objTag == "Door" || objTag == "Switcher" ) {
+					if ( objTag == "Key" || objTag == "Door" || objTag == "Switcher" || objTag == "Plane_Switcher" ) {
 
 				//////////////////////////////////////////////////////////////////////////////
 				//		OBJECTS INSTANT
@@ -71,7 +71,7 @@ public partial class Player {
 
 				//////////////////////////////////////////////////////////////////////////////
 				//		MOVEMENT ONLY
-				if ( objTag == "Tiles" ) {
+				if ( objTag == "Tiles" || objTag == "Platform" ) {
 					transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
 					pAction = new PlayerAction( transform.position );
 					if ( bPlanDebug ) Debug.Log( "Movement only set" );
