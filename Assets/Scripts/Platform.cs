@@ -49,6 +49,10 @@ public class Platform : MonoBehaviour {
 	}
 
 
+	public void	OnReset() {
+		bActive = true;
+	}
+
 	public void	OnUse( Player User ) {
 		bActive = true;
 	}
@@ -60,6 +64,7 @@ public class Platform : MonoBehaviour {
 
 			Player pPlayer = other.GetComponent<Player>();
 			if ( !pPlayer.Linked ) {
+				pPlayer.Stop();
 				pPlayer.Link( this );
 				HasPlayerInside = true;
 				this.pPlayer = pPlayer;
