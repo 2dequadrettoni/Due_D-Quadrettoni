@@ -29,29 +29,45 @@ public partial class UsableObject : MonoBehaviour {
 
 	public void OnReset() {
 
-		pObject.SendMessage( "OnReset" );
+		bUsed = false;
+
 	}
 
 	public void OnUse( Player User ) {
 
-//		print( "SendMessage" );
+
+		if ( transform.tag == "Door" || transform.tag == "Switcher" ) {
+			GLOBALS.StageManager.AddActiveObject();
+		}
+
+
+		////////////////////////////////////////////////////////////////////////////
+		// ALREADY USED
+		if ( bUsed ) {
+
+			if ( pObject )
+				pObject.SendMessage( "OnReset" );
+
+			if ( pAnimator && pAnimator.HasState( 0, Animator.StringToHash( "OnReset" ) ) ) pAnimator.Play( "OnReset", 0, 0 );
+
+			bUsed = false;
+			return;
+		}
+
+		////////////////////////////////////////////////////////////////////////////
+		// USE
+
+		bUsed = true;
 
 		if ( transform.tag == "Key" ) {
 			this.transform.GetComponent<Key>().OnUse( User );
 			return;
 		}
 
-		if ( transform.tag == "Door" || transform.tag == "Switcher" ) {
-			GLOBALS.StageManager.AddActiveObject();
-		}
-
-		if ( pAnimator/* && pAnimator.HasState( 0, Animator.StringToHash( "OnUse" ) ) */ ) pAnimator.Play( "OnUse" );
+		if ( pAnimator && pAnimator.HasState( 0, Animator.StringToHash( "OnUse" ) ) ) pAnimator.Play( "OnUse" );
 
 		if ( pObject ) {
 			pObject.SendMessage( "OnUse", User );
-		}
-		else {
-//			transform.SendMessage( "OnUse", User );
 		}
 
 	}
