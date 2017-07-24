@@ -10,20 +10,11 @@ public class AnimationEvents : MonoBehaviour {
 	void Start () {
 
 		pStagemanage = GLOBALS.StageManager;
-		bIsOK = true;
-
-	}
-
-	void	AddActiveObject() {
-
-		if ( !bIsOK ) return;
-		pStagemanage.AddActiveObject();
 
 	}
 
 	void	RemoveActiveObject()	{
-
-		if ( !bIsOK ) return;
+		print( "RemoveActiveObject" );
 		pStagemanage.RemoveActiveObject();
 
 	}

@@ -38,7 +38,7 @@ public class Openable : MonoBehaviour {
 
 		if ( bUsed ) {
 			bUsed = false;
-			pAnimator.Play( "OnUse" );
+			pAnimator.Play( "OnReset" );
 		} else {
 			bUsed = true;
 			pAnimator.Play( "OnUse" );

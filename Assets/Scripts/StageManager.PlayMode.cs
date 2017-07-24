@@ -89,12 +89,12 @@ public partial class StageManager {
 		}
 	}
 
-	public	void AddActiveObject()		{ iActiveObjects++; }
+	public	void AddActiveObject()		{ print( "AddActiveObject" ); iActiveObjects++; }
 	public	void RemoveActiveObject()	{ iActiveObjects = Mathf.Max( 0, iActiveObjects - 1 ); }
 
 	public bool WorldAnimsPending() {
-
-		// SWITCHERS
+		
+		// SWITCHERS - DOORS
 		if ( iActiveObjects > 0 ) return true;
 
 		// PLATFORMS
@@ -114,7 +114,7 @@ public partial class StageManager {
 		bIsInCycle = true;
 
 		if ( bPlayDebug ) Debug.Log( "coroutine start" );
-		if ( bPlayDebug ) Debug.Log( "stage " + iCurrentStage + "/" + ( vStages.Count - 1) );
+		Debug.Log( "stage " + iCurrentStage + "/" + ( vStages.Count - 1) );
 
 		// Retrieve players action
 		PlayerAction PA1 = vStages[ iCurrentStage ].GetAction( 1 );

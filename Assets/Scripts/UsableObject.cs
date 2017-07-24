@@ -15,6 +15,8 @@ public partial class UsableObject : MonoBehaviour {
 		set { iUseType = value; }
 	}
 
+	private	bool				bUsed		= false;
+
 	private	Animator			pAnimator	= null;
 
 	private void Start() {
@@ -32,16 +34,16 @@ public partial class UsableObject : MonoBehaviour {
 
 	public void OnUse( Player User ) {
 
-		print( "SendMessage" );
-
+//		print( "SendMessage" );
 
 		if ( transform.tag == "Key" ) {
 			this.transform.GetComponent<Key>().OnUse( User );
 			return;
 		}
 
-
-		if ( transform.tag == "Door" ) print( "Door used" );
+		if ( transform.tag == "Door" || transform.tag == "Switcher" ) {
+			GLOBALS.StageManager.AddActiveObject();
+		}
 
 		if ( pAnimator/* && pAnimator.HasState( 0, Animator.StringToHash( "OnUse" ) ) */ ) pAnimator.Play( "OnUse" );
 

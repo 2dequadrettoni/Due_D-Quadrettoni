@@ -117,7 +117,6 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 
 	//	UNITY STUFF
-	private		CapsuleCollider	pCollider				= null;
 	private		SpriteRenderer	pRenderer				= null;
 	private		Animator		pAnimator				= null;
 	[SerializeField]
@@ -130,8 +129,6 @@ public partial class Player: MonoBehaviour, IPlayer {
 	////////////////			PLAYERn CLASS
 
 	private void Start() {
-		
-		pCollider			= GetComponent<CapsuleCollider>();
 
 		pRenderer			= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
 		pOriginalSprite		= pRenderer.sprite;

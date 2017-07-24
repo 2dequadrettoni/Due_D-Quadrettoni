@@ -142,7 +142,7 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 	private		bool	CompletedLevelCheck() {
 
-		Debug.Log( "CompletedLevelCheck" );
+//		Debug.Log( "CompletedLevelCheck" );
 
 		return false;
 
