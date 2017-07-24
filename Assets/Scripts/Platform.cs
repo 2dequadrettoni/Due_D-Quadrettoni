@@ -9,6 +9,7 @@ public class Platform : MonoBehaviour {
 	public		bool		HasPlayerInside		= false;
 	public		bool		CanUnLink			= false;
 	private		Player		pPlayer				= null;
+	public		int			iStartpoint			= 1;
 
 	// MOVEMENT
 	private		Vector3		vStartPosition		= Vector3.zero;
@@ -23,9 +24,15 @@ public class Platform : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		vStartPosition	= transform.GetChild( 0 ).position;
-		vEndPosition	= transform.GetChild( 1 ).position;
-		transform.position = vStartPosition;
+		if ( iStartpoint == 1 ) {
+			vStartPosition	= transform.GetChild( 0 ).position;
+			vEndPosition	= transform.GetChild( 1 ).position;
+		}
+		else {
+			vStartPosition	= transform.GetChild( 1 ).position;
+			vEndPosition	= transform.GetChild( 0 ).position;
+		}
+		transform .position = vStartPosition;
 
 	}
 	

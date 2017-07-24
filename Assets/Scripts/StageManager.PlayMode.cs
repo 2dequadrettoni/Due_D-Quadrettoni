@@ -181,6 +181,9 @@ public partial class StageManager {
 		PA1.ExecuteCallBack();
 		PA2.ExecuteCallBack();
 
+		while ( WorldAnimsPending() )
+			yield return null;
+
 		// player are not busy, so stop cycle
 		bIsInCycle = false;
 		

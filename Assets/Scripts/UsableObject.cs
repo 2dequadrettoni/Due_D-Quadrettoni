@@ -39,7 +39,7 @@ public partial class UsableObject : MonoBehaviour {
 		if ( transform.tag == "Plane_Switcher" ) {
 
 			if ( pAnimator && pAnimator.HasState( 0, Animator.StringToHash( "OnUse" ) ) ) pAnimator.Play( "OnUse" );
-//			GLOBALS.StageManager.AddActiveObject();
+			GLOBALS.StageManager.AddActiveObject();
 		}
 
 
