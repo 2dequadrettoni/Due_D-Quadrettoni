@@ -93,7 +93,7 @@ public class UI : MonoBehaviour, IUI {
 	void OnGUI() {
 		
 		if ( bShowDeathMSg ) {
-			GUI.Window( 0, WindowRect, ShowGUI, "Error" );
+			GUI.Window( 0, WindowRect, ShowGUI, "Player is dead!!" );
 		}
 
 	}
