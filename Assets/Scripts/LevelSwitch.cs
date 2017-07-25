@@ -24,8 +24,7 @@ public class LevelSwitch : MonoBehaviour {
 			bPlayer2Arrived = true;
 		}
 
-		if ( bPlayer1Arrived && bPlayer1Arrived ) {
-
+		if ( bPlayer1Arrived && bPlayer2Arrived ) {
 			bShowWinMSg = true;
 			if ( GLOBALS.StageManager.IsPlaying )
 				GLOBALS.StageManager.Stop();
@@ -36,7 +35,7 @@ public class LevelSwitch : MonoBehaviour {
 
 
 
-	Rect WindowRect = new Rect( Screen.width / 2f, Screen.height / 2f, 400f, 100f );
+	Rect WindowRect = new Rect( Screen.width / 2f - 200, Screen.height / 2f - 50, 400, 100 );
 	void OnGUI() {
 		
 		if ( bShowWinMSg ) {
@@ -48,12 +47,12 @@ public class LevelSwitch : MonoBehaviour {
 
 	void ShowGUI( int windowID ) {
 
-		if ( SceneManager.sceneCount > SceneManager.GetActiveScene().buildIndex )
+		if ( SceneManager.sceneCount > ( SceneManager.GetActiveScene().buildIndex + 1 ) ) {
 
 			if ( GUI.Button( new Rect( ( WindowRect.width / 6f ) - 50.0f, WindowRect.height / 1.5f, 100f, 20f ), "NEXT LEVEL" ) ) {
 				SceneManager .LoadScene( SceneManager.GetActiveScene().buildIndex + 1 );
 			}
-
+		}
 		else {
 
 			if ( GUI.Button( new Rect( ( WindowRect.width / 2f ) + 50.0f, WindowRect.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
