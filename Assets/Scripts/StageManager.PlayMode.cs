@@ -122,10 +122,10 @@ public partial class StageManager {
 
 	}
 
-	public	void AddActiveObject()		{ print( "AddActiveObject" ); iActiveObjects++; }
+	public	void AddActiveObject()		{ iActiveObjects++; }
 	public	void RemoveActiveObject()	{ iActiveObjects = Mathf.Max( 0, iActiveObjects - 1 ); }
 
-	public bool WorldAnimsPending() {
+	private bool WorldAnimsPending() {
 		
 		// SWITCHERS - DOORS
 		if ( iActiveObjects > 0 ) return true;

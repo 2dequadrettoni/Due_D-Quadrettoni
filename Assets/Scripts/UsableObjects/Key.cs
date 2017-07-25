@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Key : MonoBehaviour {
+public class Key : UsableObject {
 
 	[Header("Value [ 1 - 255 ], zero is no valid Key ID")]
 	public	byte	KeyID	= 0;
@@ -17,7 +17,7 @@ public class Key : MonoBehaviour {
 
 	}
 
-	public void OnUse( Player User ) {
+	new public void OnUse( Player User ) {
 
 		print( "key picked" );
 		User.ActuaKey = KeyID;

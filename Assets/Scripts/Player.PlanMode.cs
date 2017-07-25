@@ -27,11 +27,11 @@ public partial class Player {
 
 			if ( objTag == "Key" || objTag == "Switcher" || objTag == "Plane_Switcher" || objTag == "Tiles" || objTag == "Platform" ) {
 
-				Vector3 position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
+				Vector3 pos = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;;
 
 				// make visible the sprite
-				pCurrentDestSprite.localRotation = Quaternion.Euler( 90.0f, 0.0f, -150.0f );
-				pCurrentDestSprite.position = position;
+				pCurrentDestSprite.localRotation = Quaternion.Euler( 90.0f, 0.0f, -90.0f );
+				pCurrentDestSprite.position = pos;
 
 			}
 
