@@ -34,6 +34,9 @@ public partial class StageManager {
 		// Set frist stage as current
 		iCurrentStage = 0;
 
+		// Prepare cursors for play sequence
+		pUI.PrepareForPlay();
+
 		// HAVE FUN
 		bIsPlaying = true;
 
@@ -43,6 +46,7 @@ public partial class StageManager {
 
 		bIsPlaying = false;
 		StopCoroutine( pCoroutine );
+		StopCoroutine( pUICoroutine );
 		pPlayer1.Stop();
 		pPlayer2.Stop();
 
@@ -53,6 +57,8 @@ public partial class StageManager {
 
 		// If manager had bad initialization
 		if ( !bIsOK ) return;
+
+		if (  iSelectedPlayer == 0 ) return;
 
 		if ( !bIsPlaying ) {
 			if ( Input.GetKeyDown( KeyCode.Alpha1 ) ) {		// 1
@@ -74,19 +80,46 @@ public partial class StageManager {
 
 		/// PLAY PHASE
 		// If is not cycling
-		if ( !bIsInCycle ) {
+		if ( !bIsInCycle && !bIsInUICycle ) {
 
 			// if there stage to process
 			if ( iCurrentStage < vStages.Count ) {
 
-				pCoroutine = ExecuteActions();
+				fUIInterpolant	= 0.0f;
+
+				pCoroutine		= ExecuteActions();
+				pUICoroutine	= UpdateUISequence();
 
 				// Execute actions in stage
 				StartCoroutine( pCoroutine );
+				StartCoroutine( pUICoroutine );
 
 			}
 
 		}
+	}
+
+	private	IEnumerator	UpdateUISequence() {
+
+		// stop cycling to allow coroutine run
+		bIsInUICycle = true;
+
+		while( fUIInterpolant < 1.0f ) {
+
+			fUIInterpolant += 10.0f * Time.deltaTime;
+			
+			pUI.PlaySequence( iCurrentStage, fUIInterpolant );
+
+			// Wait for next frame
+			yield return null;
+
+		}
+		
+		bIsInUICycle = false;
+
+		// exit coroutine
+		yield return 0;
+
 	}
 
 	public	void AddActiveObject()		{ print( "AddActiveObject" ); iActiveObjects++; }
@@ -189,10 +222,8 @@ public partial class StageManager {
 		
 		if ( bPlayDebug ) Debug.Log( "Coroutine end" );
 
-		// if not victory condition is reached
-		if ( !CompletedLevelCheck() )
-			// Set for next stage
-			iCurrentStage++;
+		// Set for next stage
+		iCurrentStage++;
 
 		// exit coroutine
 		yield return 0;

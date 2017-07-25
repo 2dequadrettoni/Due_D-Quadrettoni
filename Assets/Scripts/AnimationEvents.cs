@@ -22,6 +22,18 @@ public class AnimationEvents : MonoBehaviour {
 	void	DoorOpened() {
 
 		transform.parent.GetComponent<BoxCollider>().enabled = false;
+		transform.parent.gameObject.layer = 0;
+		GLOBALS.PathFinder.UpdateGrid();
 
 	}
+
+	void	SetGameAsRunning() {
+		
+		GLOBALS.StageManager.SelectedPlayer = 1;
+		GLOBALS.Player1.CanParseInput = true;
+		GLOBALS.UI.SelectPlayer( 1 );
+
+	}
+
+
 }

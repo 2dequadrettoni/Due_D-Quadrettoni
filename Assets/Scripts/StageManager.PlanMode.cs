@@ -14,6 +14,8 @@ public partial class StageManager {
 
 	public	void	SelectPlayer( int PlayerID ) {
 
+		if ( iSelectedPlayer == 0 ) return;
+
 		PlayerID = Mathf.Clamp( PlayerID, 1, 2 );
 
 		// Switch to player 1
@@ -27,6 +29,9 @@ public partial class StageManager {
 			pPlayer2.CanParseInput = true;
 		}
 		iSelectedPlayer = PlayerID;
+
+		// Update avatars
+		pUI.SelectPlayer( PlayerID );
 		if ( bPlanDebug ) Debug.Log( "player " + PlayerID + " selected" );
 	}
 
@@ -44,7 +49,7 @@ public partial class StageManager {
 
 		vStages[ iCurrentStage ].SetAction( PlayerID, Action );
 		if ( pUI )
-			pUI.UpdateIcon( PlayerID, Action.GetType(), iCurrentStage );
+			pUI.UpdateAction( PlayerID, Action.GetType(), iCurrentStage );
 
 		if ( bPlanDebug ) Debug.Log( "Action set for player " + iSelectedPlayer );
 
@@ -66,6 +71,9 @@ public partial class StageManager {
 		}
 		
 		if ( bPlanDebug ) Debug.Log( "Next stage" );
+
+		// Update cursors position
+		pUI.CursorsNextStep();
 
 		// set next stage
 		iCurrentStage++;

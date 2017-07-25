@@ -15,8 +15,28 @@ public partial class Player {
     
 	private void ParseInput() {
 
-//		if ( EventSystem.current.IsPointerOverGameObject() ) return;
+		//		if ( EventSystem.current.IsPointerOverGameObject() ) return;
 
+		// Trace always mouse poited position
+		RaycastHit pMouseHitted;
+		bool pHittResult = Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitted );
+
+		// Semi trasparent sqare sprite for current destination tile
+		{
+			string objTag = pMouseHitted.collider.tag;
+
+			if ( objTag == "Key" || objTag == "Switcher" || objTag == "Plane_Switcher" || objTag == "Tiles" || objTag == "Platform" ) {
+
+				Vector3 position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
+
+				// make visible the sprite
+				pCurrentDestSprite.localRotation = Quaternion.Euler( 90.0f, 0.0f, -150.0f );
+				pCurrentDestSprite.position = position;
+
+			}
+
+		}
+		
 		// WAIT ACTION
 		if ( Input.GetMouseButtonDown( 1 ) ) {
 
@@ -32,8 +52,7 @@ public partial class Player {
 
 			pAction = null;
 
-			RaycastHit pMouseHitted;
-			if ( Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitted ) ) {
+			if ( pHittResult ) {
 
 				string objTag = pMouseHitted.collider.tag;
 

@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 
 interface IUI {
 
-	void	UpdateIcon( int PlayerID, ActionType ActionType, int CurrentStage );
+	void	SelectPlayer( int ID );
+
+	void	UpdateAction( int PlayerID, ActionType ActionType, int CurrentStage );
 
 	void	ShowDeathMsg( string PlayerName );
 
@@ -16,11 +18,36 @@ interface IUI {
 
 public class UI : MonoBehaviour, IUI {
 
-    // UI
-    private     Transform		pTable              = null;
+	[SerializeField]
+	private		Sprite			AvatarPG1Enabled	= null;
+	[SerializeField]
+	private		Sprite			AvatarPG1Disabled	= null;
 
-    private     GameObject[]	vIcons              = null;
-    private     Image[,]		vPlayerIcons        = null;
+	[Space()][SerializeField]
+	private		Sprite			AvatarPG2Enabled	= null;
+	[SerializeField]
+	private		Sprite			AvatarPG2Disabled	= null;
+
+    // Avatars
+	private		Image			AvatarPG1			= null;
+	private		Image			AvatarPG2			= null;
+
+	// Actions Tables
+    private		Transform		pTablePG1			= null;
+	private		Transform		pTablePG2			= null;
+
+	// Cursors
+	private		RectTransform	pCursorPG1			= null;
+	private		RectTransform	pCursorPG2			= null;
+
+	private		Vector3			pCursorPG1SpawnPos	= Vector3.zero;
+	private		Vector3			pCursorPG2SpawnPos	= Vector3.zero;
+
+	// Actions Icons
+	private		GameObject[]	vIcons              = null;
+
+	// Actions Slots
+	private		Image[,]		vActionsSlots        = null;
 
 	private		bool			bShowDeathMSg		= false;
 	private		string			sPlayerName = "";
@@ -31,30 +58,45 @@ public class UI : MonoBehaviour, IUI {
     void Start() {
 
         // Canvas
-		Transform pCanvasObject = transform.GetChild(0);
+		Transform pCanvasObject = transform.GetChild( 0 );
 
-        // Table sprite
-		pTable = pCanvasObject.GetChild(0);
 
+		// Avatars
+		AvatarPG1 = pCanvasObject.GetChild( 0 ).GetComponent<Image>();
+		AvatarPG2 = pCanvasObject.GetChild( 1 ).GetComponent<Image>();
+
+
+        // Actions Tables
+		pTablePG1 = pCanvasObject.GetChild( 2 );
+		pTablePG2 = pCanvasObject.GetChild( 3 );
+
+		// Cursors
+		pCursorPG1 = pTablePG1.GetChild( 10 ).transform as RectTransform;
+		pCursorPG2 = pTablePG2.GetChild( 10 ).transform as RectTransform;
+		pCursorPG1SpawnPos = pCursorPG1.localPosition;
+		pCursorPG2SpawnPos = pCursorPG2.localPosition;
+
+
+		// Actions Icons
 		vIcons = new GameObject[3];
-		for (int i = 1; i < 4; i++) {
-		vIcons[i-1] = pCanvasObject.transform.GetChild(i).gameObject;
-		}
+		vIcons[ (int) ActionType.MOVE ] = pCanvasObject.GetChild( 4 ).gameObject;
+		vIcons[ (int) ActionType.USE  ] = pCanvasObject.GetChild( 5 ).gameObject;
+		vIcons[ (int) ActionType.WAIT ] = pCanvasObject.GetChild( 6 ).gameObject;
 
-		// Player action icons
+
+		// Actions Slots
 		// Player 1
-		vPlayerIcons = new Image[2, 10];
+		vActionsSlots = new Image[ 2, 10 ];
         for (int i = 0; i < 10; i++) {
-			Image pImage = pTable.transform.GetChild(i).GetComponent<Image>();
+			Image pImage = pTablePG1.transform.GetChild(i).GetComponent<Image>();
 			pImage.enabled = false;
-			vPlayerIcons[0, i] = pImage;
+			vActionsSlots[0, i] = pImage;
 		}
 		// Player 2
-		for (int i = 10; i < 20; i++)
-		{
-			Image pImage = pTable.transform.GetChild(i).GetComponent<Image>();
+		for (int i = 0; i < 10; i++) {
+			Image pImage = pTablePG2.transform.GetChild(i).GetComponent<Image>();
 			pImage.enabled = false;
-			vPlayerIcons[1, i - 10] = pImage;
+			vActionsSlots[1, i] = pImage;
 		}
 
 		pStageManager = GLOBALS.StageManager;
@@ -62,14 +104,59 @@ public class UI : MonoBehaviour, IUI {
     }
 
 
+	public	void	SelectPlayer( int ID ) {
 
-	public	void	UpdateIcon( int PlayerID, ActionType ActionType, int CurrentStage ) {
-
-		Image pImage = vIcons[(int)ActionType].GetComponent<Image>();
-		vPlayerIcons[ PlayerID-1, CurrentStage ].enabled = true;
-		vPlayerIcons[ PlayerID-1, CurrentStage ].sprite = pImage.sprite;
+		// Update avatars
+		if ( ID == 1 ) {
+			AvatarPG1.sprite = AvatarPG1Enabled;
+			AvatarPG2.sprite = AvatarPG2Disabled;
+		}
+		else {
+			AvatarPG1.sprite = AvatarPG1Disabled;
+			AvatarPG2.sprite = AvatarPG2Enabled;
+		}
 
 	}
+
+
+	public	void	UpdateAction( int PlayerID, ActionType ActionType, int CurrentStage ) {
+
+		Image pImage = vIcons[ (int)ActionType ].GetComponent<Image>();
+		vActionsSlots[ PlayerID-1, CurrentStage ].enabled = true;
+		vActionsSlots[ PlayerID-1, CurrentStage ].sprite = pImage.sprite;
+
+	}
+
+
+	public	void	CursorsNextStep() {
+		pCursorPG1.localPosition += Vector3.right * 26.0f;
+		pCursorPG2.localPosition += Vector3.left  * 26.0f;
+	}
+
+
+	public	void	PrepareForPlay() {
+		pCursorPG1.localPosition = pCursorPG1SpawnPos;
+		pCursorPG2.localPosition = pCursorPG2SpawnPos;
+	}
+
+	public	void	PlaySequence( int iStage, float fInterpolant ) {
+
+		pCursorPG1.localPosition = new Vector3 (
+			Mathf.Lerp( pCursorPG1.localPosition.x, vActionsSlots[ 0, iStage ].rectTransform.anchoredPosition.x, fInterpolant ),
+			pCursorPG1.localPosition.y,
+			pCursorPG1.localPosition.z
+		);
+
+		pCursorPG2.localPosition = new Vector3 (
+			Mathf.Lerp( pCursorPG2.localPosition.x, vActionsSlots[ 1, iStage ].rectTransform.anchoredPosition.x, fInterpolant ),
+			pCursorPG2.localPosition.y,
+			pCursorPG2.localPosition.z
+		);
+
+	}
+
+	
+
 
 
 
@@ -89,7 +176,7 @@ public class UI : MonoBehaviour, IUI {
 
 
 
-	Rect WindowRect = new Rect( Screen.width / 2f, Screen.height / 2f, 400f, 100f );
+	Rect WindowRect = new Rect( Screen.width / 2f-200f, Screen.height / 2f-200f, 400f, 100f );
 	void OnGUI() {
 		
 		if ( bShowDeathMSg ) {

@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
+	private void Update() {
+
+		if ( Input.GetKeyDown( KeyCode.Escape ) ) Application.Quit();
+
+	}
+
 	public void RestartGame() {
 
 		SceneManager.LoadScene( SceneManager.GetActiveScene().name );

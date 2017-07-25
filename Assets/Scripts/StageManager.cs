@@ -62,11 +62,11 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	private		int					iSelectedPlayer	= 1;
+	private		int					iSelectedPlayer	= 0;
 	public		int SelectedPlayer
 	{
 		get { return iSelectedPlayer;  }
-		set { SelectPlayer( value ); }
+		set { iSelectedPlayer = value; }
 	}
 
 
@@ -82,8 +82,12 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 
 	private		IEnumerator			pCoroutine		= null;
+	private		IEnumerator			pUICoroutine	= null;
+
+	private		float				fUIInterpolant	= 0.0f;
 
 	private		bool				bIsInCycle		= false;
+	private		bool				bIsInUICycle	= false;
 
 	private		bool				bIsOK			= false;
 
@@ -100,14 +104,11 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 	private		void	Start() {
 
-		// if Player is not found then cannot execute play action
-
-
-		
+		// Bad initialization
 		if ( !( pPlayer1 = GLOBALS.Player1 ) ) return;
 		if ( !( pPlayer2 = GLOBALS.Player2 ) ) return;
+		if ( !( pUI = GLOBALS.UI ) ) return;
 
-		pUI = GLOBALS.UI;
 
 		// Create Stage list, and first stage
 		vStages = new List<Stage>();
@@ -124,27 +125,14 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 			vPlatforms [ i ] = o.GetComponent<Platform>();
 		}
 
-		Time.timeScale = 0.2f;
-
 		// First stage set
 		iCurrentStage = 0;
 
 		pPlayer1.ID = 1;
 		pPlayer2.ID = 2;
 
-		// Player 1 start
-		SelectPlayer( 1 );
-
 		// Internal state
 		bIsOK = true;
-
-	}
-
-	private		bool	CompletedLevelCheck() {
-
-//		Debug.Log( "CompletedLevelCheck" );
-
-		return false;
 
 	}
 

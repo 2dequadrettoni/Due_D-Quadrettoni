@@ -124,6 +124,8 @@ public partial class Player: MonoBehaviour, IPlayer {
 	[SerializeField]
 	private		Sprite			pPlanSprite				= null;
 	private		Sprite			pOriginalSprite			= null;
+	[SerializeField]
+	private		Transform		pCurrentDestSprite		= null;
 
 
 	////////////////////////////////////////////////////////////////////////
@@ -167,9 +169,10 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	private void Update() {
 
-		if ( Input.GetKeyDown( KeyCode.Escape ) ) Application.Quit();
-
 		if ( !bIsOK ) return;
+
+		// hide icon
+		pCurrentDestSprite.localRotation = Quaternion.identity;
 
 		////////////////////////////////////////////////////////////////////////
 		//		PLAN MODE
