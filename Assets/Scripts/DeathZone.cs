@@ -6,7 +6,7 @@ using UnityEngine;
 public class DeathZone : MonoBehaviour {
 
 	[SerializeField]
-	private		Platform		pPlatform		= null;
+	private		Platform[]		vPlatforms		= null;
 
 	private		UI				pUI				= null;
 	private		StageManager	pStageManager	= null;
@@ -26,7 +26,9 @@ public class DeathZone : MonoBehaviour {
 
 		if ( pStageManager && pStageManager.IsPlaying && other.tag == "Player" ) {
 
-			if ( pPlatform && pPlatform.HasPlayerInside ) return;
+			foreach( Platform p in vPlatforms ) {
+				if ( p && p.HasPlayerInside ) return;
+			}
 
 			print( "Player is dead" );
 
