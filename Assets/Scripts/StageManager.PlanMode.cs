@@ -73,7 +73,7 @@ public partial class StageManager {
 		if ( bPlanDebug ) Debug.Log( "Next stage" );
 
 		// Update cursors position
-		pUI.CursorsNextStep();
+		pUI.CursorsNextStep( iCurrentStage + 1 );
 
 		// set next stage
 		iCurrentStage++;
