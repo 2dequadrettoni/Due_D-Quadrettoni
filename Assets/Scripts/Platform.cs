@@ -9,6 +9,7 @@ public class Platform : MonoBehaviour {
 	public		bool		HasPlayerInside		= false;
 	public		bool		CanUnLink			= false;
 	private		Player		pPlayer				= null;
+	[Range(1,2)]
 	public		int			iStartpoint			= 1;
 
 	// MOVEMENT
@@ -44,11 +45,14 @@ public class Platform : MonoBehaviour {
 
 		fInterpolant += ( Time.deltaTime * fMoveSpeed ) * iDirection;
 
+		print( fInterpolant );
+
 		// PATROL POINT REACHED
 		if ( ( fInterpolant < 0.0f ) || ( fInterpolant > 1.0f ) ) {
 			bActive			= false;
 			iDirection		*= -1;
 			fInterpolant	= Mathf.Clamp01( fInterpolant );
+			GLOBALS.StageManager.RemoveActiveObject();
 		}
 
 		transform.position = Vector3.Lerp( vStartPosition, vEndPosition, fInterpolant );
@@ -62,7 +66,6 @@ public class Platform : MonoBehaviour {
 
 	public void	OnUse( Player User ) {
 		bActive = true;
-		GLOBALS.StageManager.AddActiveObject();
 	}
 
 

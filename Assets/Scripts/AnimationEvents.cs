@@ -14,7 +14,6 @@ public class AnimationEvents : MonoBehaviour {
 	}
 
 	void	RemoveActiveObject()	{
-		print( "RemoveActiveObject" );
 		pStagemanage.RemoveActiveObject();
 
 	}

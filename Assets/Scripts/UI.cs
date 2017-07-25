@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -101,21 +101,10 @@ public class UI : MonoBehaviour, IUI {
 
 		pStageManager = GLOBALS.StageManager;
 
-
-//		vActionsSlots[ 0, 0 ].rectTransform.rect.height
-//		vActionsSlots[ 0, 0 ].rectTransform.localPosition
-
-		
+		// Cursor spawn position
 		pCursorPG1.localPosition = pCursorPG1SpawnPos = vActionsSlots[ 0, 0 ].rectTransform.localPosition + ( Vector3.up * vActionsSlots[ 0, 0 ].rectTransform.rect.height/2 );
 
-		pCursorPG2.localPosition = pCursorPG2SpawnPos = vActionsSlots[ 1, 0 ].rectTransform.localPosition + ( Vector3.up * vActionsSlots[ 1, 0 ].rectTransform.rect.height/2 );
-
-
-//
-//		vActionsSlots[ 1, 0 ].rectTransform.rect.height
-
-//		pCursorPG1SpawnPos = pCursorPG1.localPosition;
-//		pCursorPG2SpawnPos = pCursorPG2.localPosition;
+		pCursorPG2.localPosition = pCursorPG2SpawnPos = vActionsSlots[ 1, 0 ].rectTransform.localPosition + ( Vector3.down * vActionsSlots[ 1, 0 ].rectTransform.rect.height/2 );
 
 
     }
@@ -147,21 +136,18 @@ public class UI : MonoBehaviour, IUI {
 
 	public	void	CursorsNextStep( int iStage ) {
 
-		pCursorPG1.localPosition = new Vector3 (
-			vActionsSlots[ 0, iStage ].rectTransform.anchoredPosition.x,
+        pCursorPG1.localPosition = new Vector3(
+            vActionsSlots[0, iStage].rectTransform.localPosition.x,
 			pCursorPG1.localPosition.y,
 			pCursorPG1.localPosition.z
 		);
 
 		pCursorPG2.localPosition = new Vector3 (
-			vActionsSlots[ 1, iStage ].rectTransform.anchoredPosition.x,
+			vActionsSlots[ 1, iStage ].rectTransform.localPosition.x,
 			pCursorPG2.localPosition.y,
 			pCursorPG2.localPosition.z
 		);
 
-
-//		pCursorPG1.localPosition += Vector3.right * 26.0f;
-//		pCursorPG2.localPosition += Vector3.left  * 26.0f;
 	}
 
 
@@ -173,13 +159,13 @@ public class UI : MonoBehaviour, IUI {
 	public	void	PlaySequence( int iStage, float fInterpolant ) {
 
 		pCursorPG1.localPosition = new Vector3 (
-			Mathf.Lerp( pCursorPG1.localPosition.x, vActionsSlots[ 0, iStage ].rectTransform.anchoredPosition.x, fInterpolant ),
+			Mathf.Lerp( pCursorPG1.localPosition.x, vActionsSlots[ 0, iStage ].rectTransform.localPosition.x, fInterpolant ),
 			pCursorPG1.localPosition.y,
 			pCursorPG1.localPosition.z
 		);
 
 		pCursorPG2.localPosition = new Vector3 (
-			Mathf.Lerp( pCursorPG2.localPosition.x, vActionsSlots[ 1, iStage ].rectTransform.anchoredPosition.x, fInterpolant ),
+			Mathf.Lerp( pCursorPG2.localPosition.x, vActionsSlots[ 1, iStage ].rectTransform.localPosition.x, fInterpolant ),
 			pCursorPG2.localPosition.y,
 			pCursorPG2.localPosition.z
 		);

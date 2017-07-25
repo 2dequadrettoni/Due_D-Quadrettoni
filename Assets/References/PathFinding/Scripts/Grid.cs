@@ -76,6 +76,8 @@ public class Grid : MonoBehaviour {
 					grid [x,y] = new Node( walkable, worldPoint, nodeRadius, x, y );
 				}
 				else grid [x,y].walkable = walkable;
+
+				grid [x,y].worldPosition = worldPoint;
 			}
 
 		}

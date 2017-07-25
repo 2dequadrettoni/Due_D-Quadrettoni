@@ -122,10 +122,10 @@ public partial class StageManager {
 
 	}
 
-	public	void AddActiveObject()		{ print( "AddActiveObject" ); iActiveObjects++; }
-	public	void RemoveActiveObject()	{ iActiveObjects = Mathf.Max( 0, iActiveObjects - 1 ); }
+	public	void AddActiveObject()		{ iActiveObjects++; print( "ADD:Active actions " + iActiveObjects ); }
+	public	void RemoveActiveObject()	{ iActiveObjects = Mathf.Max( 0, iActiveObjects - 1 ); print( "REM:Active actions " + iActiveObjects ); }
 
-	public bool WorldAnimsPending() {
+	private bool WorldAnimsPending() {
 		
 		// SWITCHERS - DOORS
 		if ( iActiveObjects > 0 ) return true;
@@ -134,6 +134,7 @@ public partial class StageManager {
 		foreach ( Platform p in vPlatforms ) {
 			if ( p.bActive ) {
 				p.UpdatePosition();
+				print( "patdorm update" );
 				return true;
 			}
 		}
