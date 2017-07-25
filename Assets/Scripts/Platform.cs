@@ -62,6 +62,7 @@ public class Platform : MonoBehaviour {
 
 	public void	OnUse( Player User ) {
 		bActive = true;
+		GLOBALS.StageManager.AddActiveObject();
 	}
 
 
