@@ -54,24 +54,31 @@ public class UI : MonoBehaviour, IUI {
 
 	private		StageManager	pStageManager		= null;
 
+    private RectTransform backGrid;
+    private Vector3 originalScale;
+
+
     // Use this for initialization
     void Start() {
 
         // Canvas
-		Transform pCanvasObject = transform.GetChild( 0 );
+        Transform pCanvasObject = transform.GetChild( 0 );
 
+        backGrid = pCanvasObject.GetChild(12).transform as RectTransform;
+        originalScale = backGrid.localScale;
+        backGrid.localScale = Vector3.zero;
 
-		// Avatars
-		AvatarPG1 = pCanvasObject.GetChild( 0 ).GetComponent<Image>();
+        // Avatars
+        AvatarPG1 = pCanvasObject.GetChild( 0 ).GetComponent<Image>();
 		AvatarPG2 = pCanvasObject.GetChild( 1 ).GetComponent<Image>();
 
 
         // Actions Tables
 		pTablePG1 = pCanvasObject.GetChild( 2 );
-		pTablePG2 = pCanvasObject.GetChild( 3 );
+        pTablePG2 = pCanvasObject.GetChild( 3 );
 
-		// Cursors
-		pCursorPG1 = pTablePG1.GetChild( 10 ).transform as RectTransform;
+        // Cursors
+        pCursorPG1 = pTablePG1.GetChild( 10 ).transform as RectTransform;
 		pCursorPG2 = pTablePG2.GetChild( 10 ).transform as RectTransform;
 
 
@@ -142,7 +149,9 @@ public class UI : MonoBehaviour, IUI {
 			pCursorPG1.localPosition.z
 		);
 
-		pCursorPG2.localPosition = new Vector3 (
+        backGrid.localScale = new Vector3(originalScale.x * iStage, 1, 1);
+
+        pCursorPG2.localPosition = new Vector3 (
 			vActionsSlots[ 1, iStage ].rectTransform.localPosition.x,
 			pCursorPG2.localPosition.y,
 			pCursorPG2.localPosition.z
@@ -158,7 +167,9 @@ public class UI : MonoBehaviour, IUI {
 
 	public	void	PlaySequence( int iStage, float fInterpolant ) {
 
-		pCursorPG1.localPosition = new Vector3 (
+        backGrid.localScale = new Vector3(originalScale.x * iStage, 1, 1);
+
+        pCursorPG1.localPosition = new Vector3 (
 			Mathf.Lerp( pCursorPG1.localPosition.x, vActionsSlots[ 0, iStage ].rectTransform.localPosition.x, fInterpolant ),
 			pCursorPG1.localPosition.y,
 			pCursorPG1.localPosition.z
