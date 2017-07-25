@@ -45,10 +45,11 @@ public partial class StageManager {
 	public	void	Stop() {
 
 		bIsPlaying = false;
-		StopCoroutine( pCoroutine );
-		StopCoroutine( pUICoroutine );
 		pPlayer1.Stop();
 		pPlayer2.Stop();
+
+		// invalidate all script function so nothing can happen after this call
+		bIsOK = false;
 
 	}
 
@@ -77,53 +78,40 @@ public partial class StageManager {
 			return; 
 		}
 
-
 		/// PLAY PHASE
-		// If is not cycling
-		if ( !bIsInCycle && !bIsInUICycle ) {
+		if ( !bPlayingStage && ( iCurrentStage < vStages.Count ) ) {
 
-			// if there stage to process
-			if ( iCurrentStage < vStages.Count ) {
+			fUIInterpolant	= 0.0f;
 
-				fUIInterpolant	= 0.0f;
+			bPlayingStage = true;
 
-				pCoroutine		= ExecuteActions();
-				pUICoroutine	= UpdateUISequence();
-
-				// Execute actions in stage
-				StartCoroutine( pCoroutine );
-				StartCoroutine( pUICoroutine );
-
-			}
+			Debug.Log( "stage " + iCurrentStage + "/" + ( vStages.Count - 1) );
 
 		}
-	}
 
-	private	IEnumerator	UpdateUISequence() {
+		if ( bPlayingStage ) {
 
-		// stop cycling to allow coroutine run
-		bIsInUICycle = true;
-
-		while( fUIInterpolant < 1.0f ) {
-
-			fUIInterpolant += 10.0f * Time.deltaTime;
-			
-			pUI.PlaySequence( iCurrentStage, fUIInterpolant );
-
-			// Wait for next frame
-			yield return null;
+			UpdateUISequence();
+			ExecuteActions();
 
 		}
 		
-		bIsInUICycle = false;
+	}
 
-		// exit coroutine
-		yield return 0;
+	private	void	UpdateUISequence() {
+
+		if ( fUIInterpolant < 1.0f ) {
+
+			fUIInterpolant += 5.0f * Time.deltaTime;
+			
+			pUI.PlaySequence( iCurrentStage, fUIInterpolant );
+
+		}
 
 	}
 
-	public	void AddActiveObject()		{ iActiveObjects++; }
-	public	void RemoveActiveObject()	{ iActiveObjects = Mathf.Max( 0, iActiveObjects - 1 ); }
+	public	void AddActiveObject()		{ iActiveObjects++; print( "ADD:Active actions " + iActiveObjects ); }
+	public	void RemoveActiveObject()	{ iActiveObjects = Mathf.Max( 0, iActiveObjects - 1 ); print( "REM:Active actions " + iActiveObjects ); }
 
 	private bool WorldAnimsPending() {
 		
@@ -141,92 +129,86 @@ public partial class StageManager {
 		return false;
 	}
 
-	private	IEnumerator	ExecuteActions() {
-		
-		// stop cycling to allow coroutine run
-		bIsInCycle = true;
-
-		if ( bPlayDebug ) Debug.Log( "coroutine start" );
-		Debug.Log( "stage " + iCurrentStage + "/" + ( vStages.Count - 1) );
+	private void ExecuteActions() {
 
 		// Retrieve players action
 		PlayerAction PA1 = vStages[ iCurrentStage ].GetAction( 1 );
 		PlayerAction PA2 = vStages[ iCurrentStage ].GetAction( 2 );
 
-		if ( PA1.GetType() == ActionType.USE ) {
-			PA1.GetUsableObject().OnUse( pPlayer1 );
-		}
+		// PGs Actions
+		{
 
-		if ( PA2.GetType() == ActionType.USE ) {
-			PA2.GetUsableObject().OnUse( pPlayer2 );
-		}
-
-		////////////////////////////////////////////////////////
-		{//	PLAYER 1
-
-			if ( PA1.GetType() == ActionType.MOVE ) {
-				if ( !pPlayer1.FindPath( PA1.GetDestination() ) ) {
-					Debug.Log( "PG 1 Dice: pirla, non ci posso andare" );
-					bIsPlaying = false;
-					pPlayer2.Stop();
-					yield break;
-				}
-
-				pPlayer1.Move();
-
-				if ( PA1.GetUsableObject() != null ) {
-					PA1.SetEndActionCallback( delegate { PA1.GetUsableObject().OnUse( pPlayer1 ); } );
-				}
-
+			if ( PA1.IsValid() && PA1.GetType() == ActionType.USE ) {
+				PA1.GetUsableObject().OnUse( pPlayer1 );
+				PA1.Invalidate();
 			}
-		}
 
-		////////////////////////////////////////////////////////
-		{//	PLAYER 2
-
-			if ( PA2.GetType() == ActionType.MOVE ) {
-				if ( !pPlayer2.FindPath( PA2.GetDestination() ) ) {
-					Debug.Log( "PG 2 Dice: pirla, non ci posso andare" );
-					bIsPlaying = false;
-					pPlayer1.Stop();
-					yield break;
-				}
-
-				pPlayer2.Move();
-
-				if ( PA2.GetUsableObject() != null ) {
-					PA2.SetEndActionCallback( delegate { PA2.GetUsableObject().OnUse( pPlayer2 ); } );
-				}
-
+			if ( PA2.IsValid() && PA2.GetType() == ActionType.USE ) {
+				PA2.GetUsableObject().OnUse( pPlayer2 );
+				PA2.Invalidate();
 			}
 		}
 
 
-		// WHILE platforms or players are busy
-		while ( WorldAnimsPending() || pPlayer1.IsBusy() || pPlayer2.IsBusy() ) {
-			
-			// Wait for next frame
-			yield return null;
-			
+		// PGs Movements
+		{
+			////////////////////////////////////////////////////////
+			{//	PLAYER 1
+
+				if ( PA1.IsValid() && ( PA1.GetType() == ActionType.MOVE ) && !pPlayer1.IsBusy() ) {
+					if ( !pPlayer1.FindPath( PA1.GetDestination() ) ) {
+						Debug.Log( "PG 1 Dice: pirla, non ci posso andare" );
+						bIsPlaying = false;
+						bIsOK = false;
+						pPlayer2.Stop();
+						return;
+					}
+
+					pPlayer1.Move(); // Set as busy
+
+					if ( PA1.GetUsableObject() != null ) {
+						PA1.SetEndActionCallback( delegate { PA1.GetUsableObject().OnUse( pPlayer1 ); } );
+					}
+					PA1.Invalidate();
+				}
+			}
+
+			////////////////////////////////////////////////////////
+			{//	PLAYER 2
+
+				if ( PA2.IsValid() && ( PA2.GetType() == ActionType.MOVE ) && !pPlayer2.IsBusy() ) {
+					if ( !pPlayer2.FindPath( PA2.GetDestination() ) ) {
+						Debug.Log( "PG 2 Dice: pirla, non ci posso andare" );
+						bIsPlaying = false;
+						bIsOK = false;
+						pPlayer1.Stop();
+						return;
+					}
+
+					pPlayer2.Move(); // Set as busy
+
+					if ( PA2.GetUsableObject() != null ) {
+						PA2.SetEndActionCallback( delegate { PA2.GetUsableObject().OnUse( pPlayer2 ); } );
+					}
+					PA2.Invalidate();
+				}
+			}
 		}
+
+
+		if ( WorldAnimsPending() || pPlayer1.IsBusy() || pPlayer2.IsBusy() ) return;
+
 
 		// at end of all actions of all elements
 		PA1.ExecuteCallBack();
 		PA2.ExecuteCallBack();
 
-		while ( WorldAnimsPending() )
-			yield return null;
+		if ( WorldAnimsPending() ) return;
 
-		// player are not busy, so stop cycle
-		bIsInCycle = false;
-		
-		if ( bPlayDebug ) Debug.Log( "Coroutine end" );
+		bPlayingStage = false;
 
 		// Set for next stage
 		iCurrentStage++;
-
-		// exit coroutine
-		yield return 0;
 
 	}
 

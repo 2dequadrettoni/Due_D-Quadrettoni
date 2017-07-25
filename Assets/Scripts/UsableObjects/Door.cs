@@ -24,7 +24,7 @@ public class Door : UsableObject {
 	public override	void	OnReset() {
 
 		if ( bUsed ) {
-			if ( pAnimator && pAnimator.HasState( 0, Animator.StringToHash( "OnReset" ) ) ) pAnimator.Play( "OnReset" );
+			if ( pAnimator ) pAnimator.Play( "OnReset" );
 			else print( " Cannot reproduce OnReset animation" );
 			GLOBALS.StageManager.AddActiveObject();
 			print( "switcher OnReset" );
@@ -48,7 +48,7 @@ public class Door : UsableObject {
 		if ( bUsed ) {
 			OnReset();
 		} else {
-			if ( pAnimator && pAnimator.HasState( 0, Animator.StringToHash( "OnUse" ) ) ) pAnimator.Play( "OnUse" );
+			if ( pAnimator ) pAnimator.Play( "OnUse" );
 			else print( " Cannot reproduce OnUse animation" );
 			GLOBALS.StageManager.AddActiveObject();
 			print( "Door OnUse" );

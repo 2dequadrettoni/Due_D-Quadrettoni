@@ -27,11 +27,9 @@ public partial class Player {
 
 			if ( objTag == "Key" || objTag == "Switcher" || objTag == "Plane_Switcher" || objTag == "Tiles" || objTag == "Platform" ) {
 
-				Vector3 pos = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;;
-
 				// make visible the sprite
 				pCurrentDestSprite.localRotation = Quaternion.Euler( 90.0f, 0.0f, -90.0f );
-				pCurrentDestSprite.position = pos;
+				pCurrentDestSprite.position = pMouseHitted.collider.transform.position;
 
 			}
 
@@ -70,6 +68,7 @@ public partial class Player {
 				//		OBJECTS INSTANT
 						if (  pUsableObject.UseType == UsageType.INSTANT ) {
 							if ( Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position ) < fUseDistance ) {
+								transform.position = vPlanPosition;
 								// Usable object hitted
 								pAction = new PlayerAction( pUsableObject );
 								pStageManager.SetAction( this.pAction, this.iID );
@@ -83,7 +82,8 @@ public partial class Player {
 				//////////////////////////////////////////////////////////////////////////////
 				//		OBJECTS WITH USE AT DESTINATION REACHED
 						if ( pUsableObject.UseType == UsageType.ON_ACTION_END ) {
-							transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
+//							transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
+							transform.position = pCurrentDestSprite.position;
 							pAction = new PlayerAction( pMouseHitted.point, pUsableObject );
 							if ( bPlanDebug ) Debug.Log( "Movement to object set" );
 						}
@@ -95,7 +95,8 @@ public partial class Player {
 				//////////////////////////////////////////////////////////////////////////////
 				//		MOVEMENT ONLY
 				if ( objTag == "Tiles" || objTag == "Platform" ) {
-					transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
+//					transform.position = pPathFinder.NodeFromWorldPoint( pMouseHitted.point ).worldPosition;
+					transform.position = pCurrentDestSprite.position;
 					pAction = new PlayerAction( transform.position );
 					if ( bPlanDebug ) Debug.Log( "Movement only set" );
 

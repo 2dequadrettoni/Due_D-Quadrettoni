@@ -10,6 +10,7 @@ public class Grid : MonoBehaviour {
 	public float nodeRadius;
 	public float TraslateX, TraslateY;
 	public float NodedistanceX, NodedistanceY;
+	public float OffsetX, OffsetY;
 
 	Node[,] grid;
 	Plane pPlane;
@@ -62,7 +63,10 @@ public class Grid : MonoBehaviour {
 			for (int y = 0; y < gridSizeY; y ++) {
 
 				Vector3 worldPoint = worldBottomLeft +
+
 					// Offset
+					( Vector3.right   * OffsetX )         + ( Vector3.forward * OffsetY ) +
+					// Traslation
 					( Vector3.forward	* TraslateX * x ) + ( Vector3.right	* TraslateY * y ) +
 					// Node distance
 					( Vector3.right	* NodedistanceX * x ) + ( Vector3.forward	* NodedistanceY * y ) +
@@ -138,7 +142,7 @@ public class Grid : MonoBehaviour {
 	
 	void OnDrawGizmos() {
 
-//		UpdateGrid();
+		UpdateGrid();
 
 		if (grid != null) {
 			foreach (Node n in grid) {

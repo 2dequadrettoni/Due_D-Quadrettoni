@@ -39,6 +39,9 @@ public class PlayerAction : iPlayerAction {
 	// Callback called at end of action
 	private ActionEndCallBack	pCallback	= null;
 
+	// Start as a valid action
+	private	bool	bIsValid = true;
+
 
 	//////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////
@@ -100,6 +103,14 @@ public class PlayerAction : iPlayerAction {
 	public Vector3	GetDestination() {
 
 		return vDestination;
+	}
+
+	public	bool	IsValid() {
+		return bIsValid;
+	}
+
+	public	void	Invalidate() {
+		bIsValid = false;
 	}
 
 }

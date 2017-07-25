@@ -25,7 +25,7 @@ public partial class Switcher : UsableObject {
 
 		if ( bUsed ) {
 			pObject.SendMessage( "OnReset" );
-			if ( pAnimator && pAnimator.HasState( 0, Animator.StringToHash( "OnReset" ) ) ) {
+			if ( pAnimator ) {
 				pAnimator.Play( "OnReset" );
 				GLOBALS.StageManager.AddActiveObject();
 			}
@@ -48,7 +48,7 @@ public partial class Switcher : UsableObject {
 			}
 			// USED
 			else {
-				if ( pAnimator && pAnimator.HasState( 0, Animator.StringToHash( "OnUse" ) ) ) {
+				if ( pAnimator ) {
 					pAnimator.Play( "OnUse" );
 					GLOBALS.StageManager.AddActiveObject();
 				}

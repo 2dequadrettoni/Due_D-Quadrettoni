@@ -80,14 +80,11 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 	private		int					iActiveObjects	= 0;
 
-
-	private		IEnumerator			pCoroutine		= null;
-	private		IEnumerator			pUICoroutine	= null;
-
 	private		float				fUIInterpolant	= 0.0f;
 
 	private		bool				bIsInCycle		= false;
 	private		bool				bIsInUICycle	= false;
+	private		bool				bPlayingStage	= false;
 
 	private		bool				bIsOK			= false;
 
