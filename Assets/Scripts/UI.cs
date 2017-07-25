@@ -73,8 +73,8 @@ public class UI : MonoBehaviour, IUI {
 		// Cursors
 		pCursorPG1 = pTablePG1.GetChild( 10 ).transform as RectTransform;
 		pCursorPG2 = pTablePG2.GetChild( 10 ).transform as RectTransform;
-		pCursorPG1SpawnPos = pCursorPG1.localPosition;
-		pCursorPG2SpawnPos = pCursorPG2.localPosition;
+
+
 
 
 		// Actions Icons
@@ -100,6 +100,23 @@ public class UI : MonoBehaviour, IUI {
 		}
 
 		pStageManager = GLOBALS.StageManager;
+
+
+//		vActionsSlots[ 0, 0 ].rectTransform.rect.height
+//		vActionsSlots[ 0, 0 ].rectTransform.localPosition
+
+		
+		pCursorPG1.localPosition = pCursorPG1SpawnPos = vActionsSlots[ 0, 0 ].rectTransform.localPosition + ( Vector3.up * vActionsSlots[ 0, 0 ].rectTransform.rect.height/2 );
+
+		pCursorPG2.localPosition = pCursorPG2SpawnPos = vActionsSlots[ 1, 0 ].rectTransform.localPosition + ( Vector3.up * vActionsSlots[ 1, 0 ].rectTransform.rect.height/2 );
+
+
+//
+//		vActionsSlots[ 1, 0 ].rectTransform.rect.height
+
+//		pCursorPG1SpawnPos = pCursorPG1.localPosition;
+//		pCursorPG2SpawnPos = pCursorPG2.localPosition;
+
 
     }
 
@@ -128,9 +145,23 @@ public class UI : MonoBehaviour, IUI {
 	}
 
 
-	public	void	CursorsNextStep() {
-		pCursorPG1.localPosition += Vector3.right * 26.0f;
-		pCursorPG2.localPosition += Vector3.left  * 26.0f;
+	public	void	CursorsNextStep( int iStage ) {
+
+		pCursorPG1.localPosition = new Vector3 (
+			vActionsSlots[ 0, iStage ].rectTransform.anchoredPosition.x,
+			pCursorPG1.localPosition.y,
+			pCursorPG1.localPosition.z
+		);
+
+		pCursorPG2.localPosition = new Vector3 (
+			vActionsSlots[ 1, iStage ].rectTransform.anchoredPosition.x,
+			pCursorPG2.localPosition.y,
+			pCursorPG2.localPosition.z
+		);
+
+
+//		pCursorPG1.localPosition += Vector3.right * 26.0f;
+//		pCursorPG2.localPosition += Vector3.left  * 26.0f;
 	}
 
 
