@@ -45,8 +45,6 @@ public class Platform : MonoBehaviour {
 
 		fInterpolant += ( Time.deltaTime * fMoveSpeed ) * iDirection;
 
-		print( fInterpolant );
-
 		// PATROL POINT REACHED
 		if ( ( fInterpolant < 0.0f ) || ( fInterpolant > 1.0f ) ) {
 			bActive			= false;
