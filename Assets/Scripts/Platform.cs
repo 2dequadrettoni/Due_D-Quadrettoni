@@ -54,11 +54,13 @@ public class Platform : MonoBehaviour {
 		fInterpolant += ( Time.deltaTime * fMoveSpeed ) * iDirection;
 
 		// PATROL POINT REACHED
-		if ( ( fInterpolant < 0.0f ) || ( fInterpolant > 1.0f ) ) {
+		if ( ( fInterpolant <= 0.0f ) || ( fInterpolant >= 1.0f ) ) {
 			bActive			= false;
 			iDirection		*= -1;
 			fInterpolant	= Mathf.Clamp01( fInterpolant );
+			if ( pPlayer ) pPlayer.transform.position = ( iStartpoint == 1 ) ? vStartPosition : vEndPosition;
 			GLOBALS.StageManager.RemoveActiveObject();
+			return;
 		}
 
 		transform.position = Vector3.Lerp( vStartPosition, vEndPosition, fInterpolant );
@@ -85,6 +87,7 @@ public class Platform : MonoBehaviour {
 				pPlayer.Link( this );
 				bHasPlayerInside = true;
 				this.pPlayer = pPlayer;
+				pPlayer.transform.position = transform.position;
 				print( "Player " + pPlayer.ID + " ENTER platform" );
 			}
 		}

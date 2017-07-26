@@ -1,6 +1,8 @@
 ﻿
 using UnityEngine;
 
+using NodeList = System.Collections.Generic.List<Node>;
+
 //	using UnityEngine.EventSystems;
 
 #pragma warning disable CS0162 // Unreachable code detected
@@ -28,8 +30,15 @@ public partial class Player {
 			if ( objTag == "Key" || objTag == "Switcher" || objTag == "Plane_Switcher" || objTag == "Tiles" || objTag == "Platform" ) {
 
 				// make visible the sprite
-				pCurrentDestSprite.localRotation = Quaternion.Euler( 90.0f, 0.0f, -90.0f );
-				pCurrentDestSprite.position = pMouseHitted.collider.transform.position;
+				if ( objTag == "Tiles" ) {
+					pCurrentDestSprite.localRotation = Quaternion.Euler( 90.0f, 0.0f, -90.0f );
+					pCurrentDestSprite.position = pMouseHitted.collider.transform.position;
+				}
+				else {
+
+					if ( objTag == "Platform" )
+
+				}
 
 			}
 
@@ -70,7 +79,7 @@ public partial class Player {
 				//		OBJECTS INSTANT
 						if (  pUsableObject.UseType == UsageType.INSTANT ) {
 							if ( Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position ) < fUseDistance ) {
-							//	transform.position = vPlanPosition;
+								transform.position = vPlanPosition;
 								// Usable object hitted
 								pAction = new PlayerAction( pUsableObject );
 								pStageManager.SetAction( this.pAction, this.iID );
@@ -84,11 +93,49 @@ public partial class Player {
 				
 						if ( pUsableObject.UseType == UsageType.ON_ACTION_END ) {
 
-				//////////////////////////////////////////////////////////////////////////////
-				//		OBJECTS ON RANGE AND WITH USE AT STAGE END				
+							//////////////////////////////////////////////////////////////////////////////
+							//		OBJECTS ON RANGE AND WITH USE AT STAGE END		
+							if ( objTag == "Switcher" ) {
+
+								if ( Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position ) > (fUseDistance * 1.25f ) ) {
+
+									NodeList vNodes = new NodeList();
+									bool found = pPathFinder.FindPath( vPlanPosition, pMouseHitted.collider.transform.position, out vNodes );
+
+									if ( !found ) return;
+
+									if ( ( vNodes.Count > 1 ) )
+										vNodes.RemoveRange( vNodes.Count - 1, 1 );
+
+									// if more than 1 node get last otherwise get the node coordinates
+									Vector3 vDestination = ( vNodes.Count > 1 ) ? ( vNodes[ vNodes.Count - 1 ].worldPosition ) : ( vNodes[ 0 ].worldPosition );
+
+									transform.position = vDestination;
+									pAction = new PlayerAction( vDestination, pUsableObject );
+
+								}
+								else {
+//									transform.position = vPlanPosition;
+									pAction = new PlayerAction( pUsableObject );
+								}
+								
+								pStageManager.SetAction( this.pAction, this.iID );
+								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
+
+								return;
+							}
+
+							/*
+
 							if ( Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position ) < (fUseDistance * 1.25f ) ) {
 								
-								transform .position = vPlanPosition;
+								
+								
+
+								
+
+
+								transform.position = vPlanPosition;
 								pAction = new PlayerAction( pUsableObject );
 								pAction.Invalidate();
 								pAction.SetEndActionCallback( delegate { pUsableObject.OnUse( this ); } );
@@ -96,12 +143,12 @@ public partial class Player {
 								if ( bPlanDebug ) Debug.Log( "Usable  end turn object set" );
 								return;
 							}
-
+							*/
 				
 				//////////////////////////////////////////////////////////////////////////////
 				//		OBJECTS WITH USE AT DESTINATION REACHED
 							{
-								transform .position = pCurrentDestSprite.position;
+								transform.position = pCurrentDestSprite.position;
 								pAction = new PlayerAction( pMouseHitted.point, pUsableObject );
 								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
 							}

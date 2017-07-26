@@ -30,7 +30,7 @@ public partial class Switcher : UsableObject {
 
 	public	override	void	OnReset() {
 
-		if ( IsPlayingAnimation ) return;
+//		if ( IsPlayingAnimation ) return;
 
 		print( "switcher OnReset" );
 
@@ -41,7 +41,7 @@ public partial class Switcher : UsableObject {
 		if ( pAnimator ) {
 			pAnimator.Play( "OnReset" );
 			GLOBALS.StageManager.AddActiveObject();
-			IsPlayingAnimation = true;
+//			IsPlayingAnimation = true;
 		}
 		else {
 			print( " Cannot reproduce OnReset animation" );
@@ -52,7 +52,7 @@ public partial class Switcher : UsableObject {
 
 	public override void OnUse( Player User ) {
 
-		if ( IsPlayingAnimation ) return;
+//		if ( IsPlayingAnimation ) return;
 
 		print( "switcher OnUse" );
 
@@ -68,7 +68,7 @@ public partial class Switcher : UsableObject {
 			if ( pAnimator ) {
 				pAnimator.Play( "OnUse" );
 				GLOBALS.StageManager.AddActiveObject();
-				IsPlayingAnimation = true;
+//				IsPlayingAnimation = true;
 			}
 			else {
 				print( " Cannot reproduce OnUse animation" );
