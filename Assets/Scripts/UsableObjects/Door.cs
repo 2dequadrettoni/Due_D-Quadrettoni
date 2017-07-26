@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : UsableObject {
 
 	[Header("Value [ 1 - 255 ], zero is no valid ID")]
-	[SerializeField][Range(1, 254 )]
+	[SerializeField][Range(0, 254 )]
 	private		byte				KeyID				= 1;
 	[SerializeField]
 	private		bool				bLocked				= false;
@@ -36,16 +36,21 @@ public class Door : UsableObject {
 	}
 
 	public	void	SetUsed( bool b ) {
+
 		this.bUsed = b;
 		IsPlayingAnimation = false;
+
 	}
 
 	private void Update() {
 		
-		if ( vSwitchers.Length == 0 ) return;
+		if ( vSwitchers != null ) {
 
-		foreach( Switcher o in vSwitchers ) {
-			if ( !o.Used ) return;
+			if ( vSwitchers.Length == 0 ) return;
+
+			foreach( Switcher o in vSwitchers ) {
+				if ( !o.Used ) return;
+			}
 		}
 
 		if ( !bUsed )

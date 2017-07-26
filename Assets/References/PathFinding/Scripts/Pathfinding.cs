@@ -81,6 +81,8 @@ public class Pathfinding : MonoBehaviour {
 
 		if ( !CalculatePath( vStartPosition, vEndPosition ) ) return false;
 
+		if ( grid.path.Count == 0 ) return false;
+
 		pNodeList = new List<Node>( grid.path );
 		return true;
 	}

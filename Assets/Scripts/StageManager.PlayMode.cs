@@ -143,6 +143,7 @@ public partial class StageManager {
 		PlayerAction PA1 = vStages[ iCurrentStage ].GetAction( 1 );
 		PlayerAction PA2 = vStages[ iCurrentStage ].GetAction( 2 );
 
+
 		////////////////////////////////////////////////////////
 		// PGs Actions
 		{

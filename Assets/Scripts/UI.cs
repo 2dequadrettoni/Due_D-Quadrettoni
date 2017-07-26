@@ -260,7 +260,7 @@ public class UI : MonoBehaviour, IUI {
 
 		if ( GUI.Button( new Rect( ( FailWindowRect.width / 6f ) - 50.0f, FailWindowRect.height / 1.5f, 100f, 20f ), "RESTART" ) ) {
 			bShowDeathMSg = false;
-			SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex );
+			SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
 			return;
 		}
 
@@ -280,7 +280,7 @@ public class UI : MonoBehaviour, IUI {
 
 		if ( GUI.Button( new Rect( ( FailWindowRect.width / 6f ) - 50.0f, FailWindowRect.height / 1.5f, 100f, 20f ), "RESTART" ) ) {
 			bShowUnreachableMsg = false;
-			SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex );
+			SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
 			return;
 		}
 
