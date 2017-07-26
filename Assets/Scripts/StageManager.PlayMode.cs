@@ -45,7 +45,9 @@ public partial class StageManager {
 		// HAVE FUN
 		bIsPlaying = true;
 
-	}
+        pUI.ActivatePlayBtn();
+
+    }
 
 	public	void	Stop() {
 

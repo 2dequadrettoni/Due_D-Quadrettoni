@@ -60,12 +60,14 @@ public class UI : MonoBehaviour, IUI {
     private RectTransform backGrid;
     private Vector3 originalScale;
 
+    Transform pCanvasObject;
+
 
     // Use this for initialization
-	private void Start() {
+    private void Start() {
 
         // Canvas
-        Transform pCanvasObject = transform.GetChild( 0 );
+        pCanvasObject = transform.GetChild( 0 );
 
         backGrid = pCanvasObject.GetChild(12).transform as RectTransform;
         originalScale = backGrid.localScale;
@@ -133,6 +135,12 @@ public class UI : MonoBehaviour, IUI {
 		}
 
 	}
+
+    public void ActivatePlayBtn()
+    {
+        pCanvasObject.GetChild(9).GetChild(1).GetComponent<Animator>().SetBool("isPlay", true);
+
+    }
 
 
 	public	void	UpdateAction( int PlayerID, ActionType ActionType, int CurrentStage ) {
