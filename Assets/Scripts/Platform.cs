@@ -5,30 +5,51 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour {
 
+
+	//	 HIGHLIGHTING
+	[SerializeField]
+	private		Sprite				pSpriteDefault				= null;
+	[SerializeField]
+	private		Sprite				pSpriteHighlight			= null;
+	private		bool				bIsHighLighted				= false;
+	public		bool IsHighLighted {
+		get { return bIsHighLighted; }
+		set { bIsHighLighted = value; }
+	}
+	private		SpriteRenderer		pSpriteRender				= null;
+
+	////////////////////////////////////////////////////////////////////////
+
 	// LINK
-	private		bool		bHasPlayerInside		= false;
+	private		bool				bHasPlayerInside			= false;
 	public		bool HasPlayerInside {
 		get { return bHasPlayerInside; }
 
 	}
 
-	private		Player		pPlayer				= null;
+	////////////////////////////////////////////////////////////////////////
+
+	private		Player				pPlayer						= null;
 	[Range(1,2)]
-	public		int			iStartpoint			= 1;
+	public		int					iStartpoint					= 1;
 
 	// MOVEMENT
-	private		Vector3		vStartPosition		= Vector3.zero;
-	private		Vector3		vEndPosition		= Vector3.zero;
-	private		float		fInterpolant		= 0.0f;
-	private		int			iDirection			= 1;
+	private		Vector3				vStartPosition				= Vector3.zero;
+	private		Vector3				vEndPosition				= Vector3.zero;
+	private		float				fInterpolant				= 0.0f;
+	private		int					iDirection					= 1;
 	[SerializeField]
-	private		float		fMoveSpeed			= 5.0f;
+	private		float				fMoveSpeed					= 5.0f;
 
-	private		bool		bActive				= false;
+	private		bool				bActive						= false;
 	public		bool IsActive {
 		get { return bActive; }
 
 	}
+
+
+
+	
 
 	// Use this for initialization
 	void Start () {
@@ -43,8 +64,23 @@ public class Platform : MonoBehaviour {
 		}
 		transform .position = vStartPosition;
 
+		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
+
 	}
-	
+
+	private void Update() {
+		
+		if ( bIsHighLighted ) {
+			if ( pSpriteHighlight )		pSpriteRender.sprite = pSpriteHighlight;
+		}
+		else {
+			if ( pSpriteDefault )		pSpriteRender.sprite = pSpriteDefault;
+		}
+
+		bIsHighLighted = false;
+
+	}
+
 
 	// Update is called once per frame
 	public void UpdatePosition() {

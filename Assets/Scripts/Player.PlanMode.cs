@@ -23,6 +23,8 @@ public partial class Player {
 		RaycastHit pMouseHitted;
 		bool pHittResult = Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitted );
 
+		UsableObject pUsableObject = pMouseHitted.collider.gameObject.GetComponent<UsableObject>();
+
 		// Semi trasparent sqare sprite for current destination tile
 		{
 			string objTag = pMouseHitted.collider.tag;
@@ -35,8 +37,12 @@ public partial class Player {
 					pCurrentDestSprite.position = pMouseHitted.collider.transform.position;
 				}
 				else {
+					// switchers only
+					if ( objTag != "Platform" ) {
 
-					if ( objTag == "Platform" )
+						( pUsableObject as Switcher ).IsHighLighted = true;
+
+					}
 
 				}
 
@@ -63,7 +69,7 @@ public partial class Player {
 
 				string objTag = pMouseHitted.collider.tag;
 
-				UsableObject pUsableObject = pMouseHitted.collider.gameObject.GetComponent<UsableObject>();
+				
 				if ( pUsableObject ) {
 
 					// skip non usable objects

@@ -4,23 +4,67 @@ using UnityEngine;
 
 public partial class Switcher : UsableObject {
 
+
+	//	 HIGHLIGHTING
 	[SerializeField]
-	private		Transform[]			vObjects			= null;
+	private		Sprite				pSpriteDisabled				= null;
+	[SerializeField]				// Default 
+	private		Sprite				pSpriteDisabledHighlighted	= null;
+	[SerializeField]
+	private		Sprite				pSpriteEnabled				= null;
+	[SerializeField]
+	private		Sprite				pSpriteEnabledHighlighted	= null;
 
-	private		bool				IsPlayingAnimation	= false;
+	private		bool				bIsHighLighted				= false;
+	public		bool IsHighLighted {
+		get { return bIsHighLighted; }
+		set { bIsHighLighted = value; }
+	}
+	private		SpriteRenderer		pSpriteRender				= null;
 
-	private		bool				bUsed				= false;
+	////////////////////////////////////////////////////////////////////////
+
+	[SerializeField]
+	private		Transform[]			vObjects					= null;
+
+	private		bool				IsPlayingAnimation			= false;
+
+	////////////////////////////////////////////////////////////////////////
+
+	private		bool				bUsed						= false;
 	public	bool Used {
 		get { return bUsed; }
 	}
 
-	private		Animator			pAnimator			= null;
+	private		Animator			pAnimator					= null;
 
 
 
 	private void Start() {
 		
-		pAnimator = transform.GetChild( 0 ).GetComponent<Animator>();
+		pAnimator		= transform.GetChild( 0 ).GetComponent<Animator>();
+		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
+		
+
+	}
+
+	private void Update() {
+		
+		if ( bIsHighLighted ) {
+
+			if ( bUsed )
+				if ( pSpriteEnabledHighlighted )		pSpriteRender.sprite = pSpriteEnabledHighlighted;
+			else
+				if ( pSpriteEnabled )					pSpriteRender.sprite = pSpriteEnabled;
+		}
+		else {
+			if ( bUsed )
+				if ( pSpriteDisabledHighlighted )		pSpriteRender.sprite = pSpriteDisabledHighlighted;
+			else
+				if ( pSpriteDisabled )					pSpriteRender.sprite = pSpriteDisabled;
+		}
+
+		bIsHighLighted = false;
 
 	}
 
