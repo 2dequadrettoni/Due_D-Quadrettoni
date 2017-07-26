@@ -154,13 +154,14 @@ public class UI : MonoBehaviour, IUI {
 
 	public	void	CursorsNextStep( int iStage ) {
 
+        backGrid.localScale = new Vector3(originalScale.x * iStage, 1, 1);
+
         pCursorPG1.localPosition = new Vector3(
             vActionsSlots[0, iStage].rectTransform.localPosition.x,
 			pCursorPG1.localPosition.y,
 			pCursorPG1.localPosition.z
 		);
 
-        backGrid.localScale = new Vector3(originalScale.x * iStage, 1, 1);
 
         pCursorPG2.localPosition = new Vector3 (
 			vActionsSlots[ 1, iStage ].rectTransform.localPosition.x,
@@ -178,11 +179,7 @@ public class UI : MonoBehaviour, IUI {
 
 	public	void	PlaySequence( int iStage, float fInterpolant ) {
 
-        backGrid.localScale = new Vector3(
-			( originalScale.x * iStage ) + ( originalScale.x * fInterpolant ),
-			1,
-			1
-		);
+        backGrid.localScale = new Vector3(originalScale.x * iStage, 1 , 1);
 
         pCursorPG1.localPosition = new Vector3 (
 			Mathf.Lerp( pCursorPG1.localPosition.x, vActionsSlots[ 0, iStage ].rectTransform.localPosition.x, fInterpolant ),
