@@ -15,6 +15,32 @@ public partial class Player {
     ////////////////////////////////////////////////////////////////////////
     /////////////////////////		PLAN MODE
     
+	private void HighLightPointedElements() {
+
+		RaycastHit pMouseHitted;
+		bool pHittResult = Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitted );
+
+		UsableObject pUsableObject = pMouseHitted.collider.gameObject.GetComponent<UsableObject>();
+
+
+		// Semi trasparent square sprite for current destination tile
+		{
+			string objTag = pMouseHitted.collider.tag;
+
+			if ( objTag == "Key" || objTag == "Switcher" || objTag == "Plane_Switcher" ) {
+
+				Switcher pSwitcher = ( pUsableObject as Switcher );
+
+				pSwitcher.IsHighLighted = true;
+
+			}
+
+		}
+
+
+	}
+
+
 	private void ParseInput() {
 
 		//		if ( EventSystem.current.IsPointerOverGameObject() ) return;
@@ -25,7 +51,7 @@ public partial class Player {
 
 		UsableObject pUsableObject = pMouseHitted.collider.gameObject.GetComponent<UsableObject>();
 
-		// Semi trasparent sqare sprite for current destination tile
+		// Semi trasparent square sprite for current destination tile
 		{
 			string objTag = pMouseHitted.collider.tag;
 
@@ -41,7 +67,6 @@ public partial class Player {
 					if ( objTag != "Platform" ) {
 
 						( pUsableObject as Switcher ).IsHighLighted = true;
-
 					}
 
 				}

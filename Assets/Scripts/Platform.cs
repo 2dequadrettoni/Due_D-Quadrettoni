@@ -64,17 +64,17 @@ public class Platform : MonoBehaviour {
 		}
 		transform .position = vStartPosition;
 
-		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
+		pSpriteRender	= transform.GetChild( 2 ).GetComponent<SpriteRenderer>();
 
 	}
 
 	private void Update() {
 		
 		if ( bIsHighLighted ) {
-			if ( pSpriteHighlight )		pSpriteRender.sprite = pSpriteHighlight;
+			pSpriteRender.sprite = pSpriteHighlight;
 		}
 		else {
-			if ( pSpriteDefault )		pSpriteRender.sprite = pSpriteDefault;
+			pSpriteRender.sprite = pSpriteDefault;
 		}
 
 		bIsHighLighted = false;

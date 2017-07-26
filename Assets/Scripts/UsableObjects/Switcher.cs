@@ -43,25 +43,64 @@ public partial class Switcher : UsableObject {
 	private void Start() {
 		
 		pAnimator		= transform.GetChild( 0 ).GetComponent<Animator>();
+		
+
 		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
 		
+
+	}
+
+	private	void	HighlightObjects() {
+
+		if ( vObjects.Length == 0 ) return;
+
+		foreach( Transform o in vObjects ) {
+
+			if ( o == null ) continue;
+
+			// DOORS
+			UsableObject p	= o.GetComponent<UsableObject>();
+			if ( p ) {
+				if ( p is Door ) {
+
+					Door pDoor = p as Door;
+//					pDoor.IsHighLighted = true;
+
+					continue;
+				}
+			}
+
+			// PLATFORMS
+			Platform p2		= o.GetComponent<Platform>();
+			if ( p2 ) {
+				if ( p2 is Platform ) {
+
+					Platform pPlatform = p2 as Platform;
+					pPlatform.IsHighLighted = true;
+
+				}
+			}
+		}
 
 	}
 
 	private void Update() {
 		
 		if ( bIsHighLighted ) {
-
+			pAnimator.enabled = false;
 			if ( bUsed )
-				if ( pSpriteEnabledHighlighted )		pSpriteRender.sprite = pSpriteEnabledHighlighted;
+				pSpriteRender.sprite = pSpriteEnabledHighlighted;
 			else
-				if ( pSpriteEnabled )					pSpriteRender.sprite = pSpriteEnabled;
+				pSpriteRender.sprite = pSpriteDisabledHighlighted;
+
+			HighlightObjects();
 		}
 		else {
+			pAnimator.enabled = true;
 			if ( bUsed )
-				if ( pSpriteDisabledHighlighted )		pSpriteRender.sprite = pSpriteDisabledHighlighted;
+				pSpriteRender.sprite = pSpriteEnabled;
 			else
-				if ( pSpriteDisabled )					pSpriteRender.sprite = pSpriteDisabled;
+				pSpriteRender.sprite = pSpriteDisabled;
 		}
 
 		bIsHighLighted = false;
