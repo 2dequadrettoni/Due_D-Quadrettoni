@@ -5,7 +5,8 @@ using UnityEngine;
 public class Key : UsableObject {
 
 	[Header("Value [ 1 - 255 ], zero is no valid Key ID")]
-	public	byte	KeyID	= 0;
+	[SerializeField][Range(1, 254 )]
+	private	byte	KeyID	= 0;
 
 	// Use this for initialization
 	void Start () {

@@ -11,8 +11,6 @@ public class DeathZone : MonoBehaviour {
 	private		UI				pUI				= null;
 	private		StageManager	pStageManager	= null;
 
-	private		bool			bTriggered		= false;
-
 	private void Start() {
 
 		pUI = GLOBALS.UI;
@@ -22,20 +20,15 @@ public class DeathZone : MonoBehaviour {
 
 	private void OnTriggerStay( Collider other ) {
 
-		if ( bTriggered ) return;
-
 		if ( pStageManager && pStageManager.IsPlaying && other.tag == "Player" ) {
 
 			foreach( Platform p in vPlatforms ) {
 				if ( p && p.HasPlayerInside ) return;
 			}
 
-			print( "Player is dead" );
-
 			if ( pUI ) pUI.ShowDeathMsg( other.name );
-			bTriggered = true;
-
 		}
 
 	}
+
 }

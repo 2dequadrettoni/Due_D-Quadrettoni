@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Grid : MonoBehaviour {
 
 	public bool bShowPlane;
+	public bool AllowDiagonals = true;
 	public LayerMask unwalkableMask;
 	public Vector2 gridWorldSize;
 	public float nodeRadius;
@@ -93,8 +94,10 @@ public class Grid : MonoBehaviour {
 
 		for (int x = -1; x <= 1; x++) {
 			for (int y = -1; y <= 1; y++) {
-				if (x == 0 && y == 0)
+				if ( x == 0 && y == 0 )
 					continue;
+
+				if ( !AllowDiagonals && ( x != 0 && y != 0 ) ) continue;
 
 				int checkX = node.gridX + x;
 				int checkY = node.gridY + y;
@@ -109,7 +112,7 @@ public class Grid : MonoBehaviour {
 	}
 	
 
-	public Node NodeFromWorldPoint(Vector3 worldPosition) {
+	public Node NodeFromWorldPoint( Vector3 worldPosition ) {
 
 		float fDistance = float.MaxValue;
 		Node pBestNode = null;
@@ -142,7 +145,7 @@ public class Grid : MonoBehaviour {
 	
 	void OnDrawGizmos() {
 
-		UpdateGrid();
+//		UpdateGrid();
 
 		if (grid != null) {
 			foreach (Node n in grid) {

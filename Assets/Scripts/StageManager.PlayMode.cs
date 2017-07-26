@@ -23,6 +23,11 @@ public partial class StageManager {
 			return;
 		}
 
+		if ( iCurrentStage >= vStages.Count ) {
+			Debug.Log( "Maximum slot occupied" );
+			return;
+		}
+
 		if ( !vStages[ iCurrentStage ].IsOK() ) {
 			Debug.Log( "both player have to had proper action set" );
 			return;
@@ -78,10 +83,12 @@ public partial class StageManager {
 			return; 
 		}
 
+		// if function reach this point Play mode is enabled and all stages are played
+
 		/// PLAY PHASE
 		if ( !bPlayingStage && ( iCurrentStage < vStages.Count ) ) {
 
-			fUIInterpolant	= 0.0f;
+			fUI_Interpolant	= 0.0f;
 
 			bPlayingStage = true;
 
@@ -90,29 +97,28 @@ public partial class StageManager {
 		}
 
 		if ( bPlayingStage ) {
-
 			UpdateUISequence();
 			ExecuteActions();
-
 		}
 		
 	}
 
 	private	void	UpdateUISequence() {
 
-		if ( fUIInterpolant < 1.0f ) {
+		if ( fUI_Interpolant < 1.0f ) {
 
-			fUIInterpolant += 5.0f * Time.deltaTime;
+			fUI_Interpolant += 2.0f * Time.deltaTime;
 			
-			pUI.PlaySequence( iCurrentStage, fUIInterpolant );
+			pUI.PlaySequence( iCurrentStage, fUI_Interpolant );
 
 		}
 
 	}
 
-	public	void AddActiveObject()		{ iActiveObjects++; print( "ADD:Active actions " + iActiveObjects ); }
-	public	void RemoveActiveObject()	{ iActiveObjects = Mathf.Max( 0, iActiveObjects - 1 ); print( "REM:Active actions " + iActiveObjects ); }
+	public	void AddActiveObject()		{ iActiveObjects++; }
+	public	void RemoveActiveObject()	{ iActiveObjects = Mathf.Max( 0, iActiveObjects - 1 ); }
 
+	// Check for active transitions or platform in scene and return true if found otherwise false
 	private bool WorldAnimsPending() {
 		
 		// SWITCHERS - DOORS
@@ -120,7 +126,7 @@ public partial class StageManager {
 
 		// PLATFORMS
 		foreach ( Platform p in vPlatforms ) {
-			if ( p.bActive ) {
+			if ( p.IsActive ) {
 				p.UpdatePosition();
 				return true;
 			}
@@ -135,6 +141,7 @@ public partial class StageManager {
 		PlayerAction PA1 = vStages[ iCurrentStage ].GetAction( 1 );
 		PlayerAction PA2 = vStages[ iCurrentStage ].GetAction( 2 );
 
+		////////////////////////////////////////////////////////
 		// PGs Actions
 		{
 
@@ -150,16 +157,16 @@ public partial class StageManager {
 		}
 
 
+		////////////////////////////////////////////////////////
 		// PGs Movements
 		{
-			////////////////////////////////////////////////////////
+			
 			{//	PLAYER 1
 
 				if ( PA1.IsValid() && ( PA1.GetType() == ActionType.MOVE ) && !pPlayer1.IsBusy() ) {
 					if ( !pPlayer1.FindPath( PA1.GetDestination() ) ) {
-						Debug.Log( "PG 1 Dice: pirla, non ci posso andare" );
-						bIsPlaying = false;
-						bIsOK = false;
+						pUI.ShowUnreachableMsg( "Player1" );
+						bIsPlaying = bIsOK = false;
 						pPlayer2.Stop();
 						return;
 					}
@@ -173,14 +180,12 @@ public partial class StageManager {
 				}
 			}
 
-			////////////////////////////////////////////////////////
 			{//	PLAYER 2
 
 				if ( PA2.IsValid() && ( PA2.GetType() == ActionType.MOVE ) && !pPlayer2.IsBusy() ) {
 					if ( !pPlayer2.FindPath( PA2.GetDestination() ) ) {
-						Debug.Log( "PG 2 Dice: pirla, non ci posso andare" );
-						bIsPlaying = false;
-						bIsOK = false;
+						pUI.ShowUnreachableMsg( "Player2" );
+						bIsPlaying = bIsOK = false;
 						pPlayer1.Stop();
 						return;
 					}
@@ -196,6 +201,9 @@ public partial class StageManager {
 		}
 
 
+		////////////////////////////////////////////////////////
+		// if world transition or player movements ar not finished return, waitinig for them
+
 		if ( WorldAnimsPending() || pPlayer1.IsBusy() || pPlayer2.IsBusy() ) return;
 
 
@@ -203,7 +211,11 @@ public partial class StageManager {
 		PA1.ExecuteCallBack();
 		PA2.ExecuteCallBack();
 
+		// wait for other world transitions
 		if ( WorldAnimsPending() ) return;
+
+		// wait for ui transition
+		if ( fUI_Interpolant < 1.0f ) return;
 
 		bPlayingStage = false;
 

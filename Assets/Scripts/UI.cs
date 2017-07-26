@@ -19,47 +19,50 @@ interface IUI {
 public class UI : MonoBehaviour, IUI {
 
 	[SerializeField]
-	private		Sprite			AvatarPG1Enabled	= null;
+	private		Sprite			AvatarPG1Enabled		= null;
 	[SerializeField]
-	private		Sprite			AvatarPG1Disabled	= null;
+	private		Sprite			AvatarPG1Disabled		= null;
 
 	[Space()][SerializeField]
-	private		Sprite			AvatarPG2Enabled	= null;
+	private		Sprite			AvatarPG2Enabled		= null;
 	[SerializeField]
-	private		Sprite			AvatarPG2Disabled	= null;
+	private		Sprite			AvatarPG2Disabled		= null;
 
     // Avatars
-	private		Image			AvatarPG1			= null;
-	private		Image			AvatarPG2			= null;
+	private		Image			AvatarPG1				= null;
+	private		Image			AvatarPG2				= null;
 
 	// Actions Tables
-    private		Transform		pTablePG1			= null;
-	private		Transform		pTablePG2			= null;
+    private		Transform		pTablePG1				= null;
+	private		Transform		pTablePG2				= null;
 
 	// Cursors
-	private		RectTransform	pCursorPG1			= null;
-	private		RectTransform	pCursorPG2			= null;
+	private		RectTransform	pCursorPG1				= null;
+	private		RectTransform	pCursorPG2				= null;
 
-	private		Vector3			pCursorPG1SpawnPos	= Vector3.zero;
-	private		Vector3			pCursorPG2SpawnPos	= Vector3.zero;
+	private		Vector3			pCursorPG1SpawnPos		= Vector3.zero;
+	private		Vector3			pCursorPG2SpawnPos		= Vector3.zero;
 
 	// Actions Icons
-	private		GameObject[]	vIcons              = null;
+	private		GameObject[]	vIcons					= null;
 
 	// Actions Slots
-	private		Image[,]		vActionsSlots        = null;
+	private		Image[,]		vActionsSlots			= null;
 
-	private		bool			bShowDeathMSg		= false;
+	// PopUp Windows
+	private		bool			bShowDeathMSg			= false;
+	private		bool			bShowUnreachableMsg		= false;
+	private		bool			bShowLvlCompletedMsg	= false;
 	private		string			sPlayerName = "";
 
-	private		StageManager	pStageManager		= null;
+	private		StageManager	pStageManager			= null;
 
     private RectTransform backGrid;
     private Vector3 originalScale;
 
 
     // Use this for initialization
-    void Start() {
+	private void Start() {
 
         // Canvas
         Transform pCanvasObject = transform.GetChild( 0 );
@@ -167,7 +170,11 @@ public class UI : MonoBehaviour, IUI {
 
 	public	void	PlaySequence( int iStage, float fInterpolant ) {
 
-        backGrid.localScale = new Vector3(originalScale.x * iStage, 1, 1);
+        backGrid.localScale = new Vector3(
+			( originalScale.x * iStage ) + ( originalScale.x * fInterpolant ),
+			1,
+			1
+		);
 
         pCursorPG1.localPosition = new Vector3 (
 			Mathf.Lerp( pCursorPG1.localPosition.x, vActionsSlots[ 0, iStage ].rectTransform.localPosition.x, fInterpolant ),
@@ -185,56 +192,126 @@ public class UI : MonoBehaviour, IUI {
 
 	
 
+	public	void	ShowLvlCompletedMsg() {
 
-
-
-	public	void	ShowDeathMsg( string PlayerName ) {
-		sPlayerName = PlayerName;
-		bShowDeathMSg = true;
-		Debug.LogError( sPlayerName + "is dead!!" );
-		
+		bShowLvlCompletedMsg = true;
 		if ( pStageManager.IsPlaying ) {
 			pStageManager.Stop();
 		}
+
 	}
 
+	
+	public	void	ShowUnreachableMsg( string PlayerName ) {
 
-
-
-
-
-
-	Rect WindowRect = new Rect( Screen.width / 2f-200f, Screen.height / 2f-200f, 400f, 100f );
-	void OnGUI() {
-		
-		if ( bShowDeathMSg ) {
-			GUI.Window( 0, WindowRect, ShowGUI, "Player is dead!!" );
+		sPlayerName = PlayerName;
+		bShowUnreachableMsg = true;
+		if ( pStageManager.IsPlaying ) {
+			pStageManager.Stop();
 		}
 
 	}
 
-	void ShowGUI( int windowID ) {
+	public	void	ShowDeathMsg( string PlayerName ) {
 
-		GUI.Label( new Rect( 10f, 40f, 400f, 80f ), sPlayerName );
+		sPlayerName = PlayerName;
+		bShowDeathMSg = true;
+		if ( pStageManager.IsPlaying ) {
+			pStageManager.Stop();
+		}
 
-		if ( GUI.Button( new Rect( ( WindowRect.width / 6f ) - 50.0f, WindowRect.height / 1.5f, 100f, 20f ), "RESTART" ) ) {
+	}
+
+
+
+	////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////
+	// // // //					WINDOWS
+
+	// Default window rect
+	static Rect	DefaultWindow		= new Rect( Screen.width / 2f - 200, Screen.height / 2f - 50, 400, 100 );
+	
+	Rect FailWindowRect				= new Rect( DefaultWindow );
+	Rect LvlCompletedWindowRect		= new Rect( DefaultWindow );
+	void OnGUI() {
+		
+		if ( bShowDeathMSg ) {
+			GUI.Window( 0, FailWindowRect, ShowDeathGUI, "Player is dead!!" );
+		}
+
+		if ( bShowUnreachableMsg ) {
+			GUI.Window( 0, FailWindowRect, ShowUnreachableGUI, sPlayerName + " is not able to reach his destination!!" );
+		}
+
+		if ( bShowLvlCompletedMsg ) {
+			GUI.Window( 0, LvlCompletedWindowRect, ShowLvlCompletedGUI, "Level Completed" );
+		}
+
+	}
+
+	// Death Window
+	void ShowDeathGUI( int windowID ) {
+
+		if ( GUI.Button( new Rect( ( FailWindowRect.width / 6f ) - 50.0f, FailWindowRect.height / 1.5f, 100f, 20f ), "RESTART" ) ) {
 			bShowDeathMSg = false;
 			SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex );
 			return;
 		}
 
-		if ( GUI.Button( new Rect( ( WindowRect.width / 2f ) + 50.0f, WindowRect.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
+		if ( GUI.Button( new Rect( ( FailWindowRect.width / 2f ) + 50.0f, FailWindowRect.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
             bShowDeathMSg = false;
-
  #if UNITY_EDITOR
 			UnityEditor.EditorApplication.isPlaying = false;
 #else
 			Application.Quit();
 #endif
-			return;
-
 		}
         
     }
+
+	// Unreachable destination Window
+	void ShowUnreachableGUI( int windowID ) {
+
+		if ( GUI.Button( new Rect( ( FailWindowRect.width / 6f ) - 50.0f, FailWindowRect.height / 1.5f, 100f, 20f ), "RESTART" ) ) {
+			bShowUnreachableMsg = false;
+			SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex );
+			return;
+		}
+
+		if ( GUI.Button( new Rect( ( FailWindowRect.width / 2f ) + 50.0f, FailWindowRect.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
+            bShowUnreachableMsg = false;
+ #if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#else
+			Application.Quit();
+#endif
+		}
+        
+    }
+
+	// LevelCompleted Window
+	void ShowLvlCompletedGUI( int windowID ) {
+
+		if ( SceneManager.sceneCount > ( SceneManager.GetActiveScene().buildIndex + 1 ) ) {
+
+			if ( GUI.Button( new Rect( ( LvlCompletedWindowRect.width / 6f ) - 50.0f, LvlCompletedWindowRect.height / 1.5f, 100f, 20f ), "NEXT LEVEL" ) ) {
+				SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex + 1 );
+				bShowLvlCompletedMsg = false;
+				return;
+			}
+		}
+
+		if ( GUI.Button( new Rect( ( LvlCompletedWindowRect.width / 2f ) + 50.0f, LvlCompletedWindowRect.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
+			bShowLvlCompletedMsg = false;
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#else
+			Application.Quit();
+#endif
+		}
+        
+    }
+
 
 }

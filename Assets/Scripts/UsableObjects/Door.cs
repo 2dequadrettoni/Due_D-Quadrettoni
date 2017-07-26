@@ -5,11 +5,25 @@ using UnityEngine;
 public class Door : UsableObject {
 
 	[Header("Value [ 1 - 255 ], zero is no valid ID")]
+	[SerializeField][Range(1, 254 )]
+	private		byte				KeyID				= 1;
 	[SerializeField]
-	private		byte				KeyID				= 0;
-	[SerializeField]
-	private		bool				bUnlocked			= false;
+	private		bool				bLocked				= false;
+	public		bool Locked {
+		get { return bLocked; }
+	}
+
+	private		bool				IsPlayingAnimation	= false;
+
 	private		bool				bUsed				= false;
+	public		bool Used {
+		get { return bUsed; }
+	}
+
+	[Header("Switcher for this door")]
+	[Header("Door must not be unlocked in order to parse switchers")]
+	[SerializeField]
+	private		Switcher[]			vSwitchers			= null;
 
 	private		Animator			pAnimator			= null;
 
@@ -21,14 +35,42 @@ public class Door : UsableObject {
 
 	}
 
+	public	void	SetUsed( bool b ) {
+		this.bUsed = b;
+		IsPlayingAnimation = false;
+	}
+
+	private void Update() {
+		
+		if ( vSwitchers.Length == 0 ) return;
+
+		foreach( Switcher o in vSwitchers ) {
+			if ( !o.Used ) return;
+		}
+
+		if ( !bUsed )
+			this.OnUse( null );
+
+	}
+
 	public override	void	OnReset() {
 
+		if ( IsPlayingAnimation ) return;
+
+		print( "switcher OnReset" );
+
 		if ( bUsed ) {
-			if ( pAnimator ) pAnimator.Play( "OnReset" );
-			else print( " Cannot reproduce OnReset animation" );
-			GLOBALS.StageManager.AddActiveObject();
-			print( "switcher OnReset" );
-			bUsed = false;
+
+			if ( pAnimator ) {
+				pAnimator.Play( "OnReset" );
+				GLOBALS.StageManager.AddActiveObject();
+				IsPlayingAnimation = true;
+			//	bUsed = false;
+			}
+			else {
+				print( " Cannot reproduce OnReset animation" );
+			}
+			
 		}
 
 	}
@@ -36,23 +78,30 @@ public class Door : UsableObject {
 
 	public override	void OnUse( Player User ) {
 
-		print( "door used" );
+		if ( IsPlayingAnimation ) return;
 
-		if ( !bUnlocked && User && User.ActuaKey != KeyID ) {
+		print( "Door OnUse" );
+
+		if ( bLocked && User && User.ActuaKey != KeyID ) {
 			print( "You need right key" );
 			return;
 		}
-		bUnlocked = true;
+		bLocked = false;
 
-		// NOT USED
 		if ( bUsed ) {
 			OnReset();
 		} else {
-			if ( pAnimator ) pAnimator.Play( "OnUse" );
-			else print( " Cannot reproduce OnUse animation" );
-			GLOBALS.StageManager.AddActiveObject();
-			print( "Door OnUse" );
-			bUsed = true;
+			
+			if ( pAnimator ) {
+				pAnimator.Play( "OnUse" );
+				GLOBALS.StageManager.AddActiveObject();
+				IsPlayingAnimation = true;
+		//		bUsed = true;
+			}
+			else {
+				print( " Cannot reproduce OnUse animation" );
+			}
+			
 		}
 
 	}

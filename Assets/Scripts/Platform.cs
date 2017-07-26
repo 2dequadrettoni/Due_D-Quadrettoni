@@ -6,8 +6,12 @@ using UnityEngine;
 public class Platform : MonoBehaviour {
 
 	// LINK
-	public		bool		HasPlayerInside		= false;
-	public		bool		CanUnLink			= false;
+	private		bool		bHasPlayerInside		= false;
+	public		bool HasPlayerInside {
+		get { return bHasPlayerInside; }
+
+	}
+
 	private		Player		pPlayer				= null;
 	[Range(1,2)]
 	public		int			iStartpoint			= 1;
@@ -17,10 +21,14 @@ public class Platform : MonoBehaviour {
 	private		Vector3		vEndPosition		= Vector3.zero;
 	private		float		fInterpolant		= 0.0f;
 	private		int			iDirection			= 1;
-	public		float		fMoveSpeed			= 5.0f;
+	[SerializeField]
+	private		float		fMoveSpeed			= 5.0f;
 
-	public		bool		bActive				= false;
+	private		bool		bActive				= false;
+	public		bool IsActive {
+		get { return bActive; }
 
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -69,13 +77,13 @@ public class Platform : MonoBehaviour {
 
 	private void OnTriggerEnter( Collider other ) {
 		
-		if ( GLOBALS.StageManager.IsPlaying && !HasPlayerInside && other.tag == "Player" ) {
+		if ( GLOBALS.StageManager.IsPlaying && !bHasPlayerInside && other.tag == "Player" ) {
 
 			Player pPlayer = other.GetComponent<Player>();
 			if ( !pPlayer.Linked ) {
 				pPlayer.Stop();
 				pPlayer.Link( this );
-				HasPlayerInside = true;
+				bHasPlayerInside = true;
 				this.pPlayer = pPlayer;
 				print( "Player " + pPlayer.ID + " ENTER platform" );
 			}
@@ -85,12 +93,12 @@ public class Platform : MonoBehaviour {
 
 	private void OnTriggerExit( Collider other ) {
 		
-		if ( GLOBALS.StageManager.IsPlaying && HasPlayerInside && other.tag == "Player" ) {
+		if ( GLOBALS.StageManager.IsPlaying && bHasPlayerInside && other.tag == "Player" ) {
 
 			Player pPlayer = ( other.name == "Player1" ) ? GLOBALS.Player1 : GLOBALS.Player2;
 			if ( pPlayer.Linked ) {
 				pPlayer.UnLink( this );
-				HasPlayerInside = false;
+				bHasPlayerInside = false;
 				this.pPlayer = null;
 				print( "Player " + pPlayer.ID + " EXIT platform" );
 			}

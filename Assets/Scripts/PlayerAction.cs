@@ -40,7 +40,7 @@ public class PlayerAction : iPlayerAction {
 	private ActionEndCallBack	pCallback	= null;
 
 	// Start as a valid action
-	private	bool	bIsValid = true;
+	private	bool				bIsValid	= true;
 
 
 	//////////////////////////////////////////////////////////////////
@@ -57,7 +57,10 @@ public class PlayerAction : iPlayerAction {
 	// Create as Mover
 	/// <summary>Move action, secondary is usable object at movement anction</summary>
 	public		PlayerAction( Vector3 _Destination, UsableObject _Object = null ) {
-		if ( _Destination == Vector3.zero ) return;
+		if ( _Destination == Vector3.zero ) {
+			bIsValid = false;
+			return;
+		}
 
 		iType			= ActionType.MOVE;
 		vDestination	=  _Destination;
