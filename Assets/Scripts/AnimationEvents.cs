@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnimationEvents : MonoBehaviour {
 
@@ -64,6 +65,20 @@ public class AnimationEvents : MonoBehaviour {
 		GLOBALS.StageManager.SelectedPlayer = 1;
 		GLOBALS.Player1.CanParseInput = true;
 		GLOBALS.UI.SelectPlayer( 1 );
+
+	}
+
+	void DisableObjcet() {
+		
+		Image pImage = GetComponent<Image>();
+		if ( pImage ) pImage.enabled = false;
+
+	}
+
+	void EnableObjcet() {
+		
+		Image pImage = GetComponent<Image>();
+		if ( pImage ) pImage.enabled = true;
 
 	}
 

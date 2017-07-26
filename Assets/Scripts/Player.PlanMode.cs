@@ -70,7 +70,7 @@ public partial class Player {
 				//		OBJECTS INSTANT
 						if (  pUsableObject.UseType == UsageType.INSTANT ) {
 							if ( Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position ) < fUseDistance ) {
-								transform.position = vPlanPosition;
+							//	transform.position = vPlanPosition;
 								// Usable object hitted
 								pAction = new PlayerAction( pUsableObject );
 								pStageManager.SetAction( this.pAction, this.iID );
