@@ -8,12 +8,15 @@ public class Menù : MonoBehaviour {
 
     public   Image        black;
     public   Animator     anim;
-/*
-	// Use this for initialization
-	void Start () {
+    public GameObject MainMenu;
+    public GameObject LevelCanvas;
+
+
+    // Use this for initialization
+    void Start () {
 		
 	}
-	
+	/*
 	// Update is called once per frame
 	void Update () {
 		
@@ -58,6 +61,11 @@ public class Menù : MonoBehaviour {
         
     }
     
+    public void SelectNightmare()
+    {
+        MainMenu.SetActive(false);
+        LevelCanvas.SetActive(true);
 
+    }
     
 }
