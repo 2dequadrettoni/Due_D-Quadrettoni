@@ -68,14 +68,14 @@ public class AnimationEvents : MonoBehaviour {
 
 	}
 
-	void DisableObjcet() {
+	void DisableObject() {
 		
 		Image pImage = GetComponent<Image>();
 		if ( pImage ) pImage.enabled = false;
 
 	}
 
-	void EnableObjcet() {
+	void EnableObject() {
 		
 		Image pImage = GetComponent<Image>();
 		if ( pImage ) pImage.enabled = true;
