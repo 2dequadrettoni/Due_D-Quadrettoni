@@ -3,20 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Platform : MonoBehaviour {
+public partial class Platform : MonoBehaviour {
 
 
-	//	 HIGHLIGHTING
-	[SerializeField]
-	private		Sprite				pSpriteDefault				= null;
-	[SerializeField]
-	private		Sprite				pSpriteHighlight			= null;
-	private		bool				bIsHighLighted				= false;
-	public		bool IsHighLighted {
-		get { return bIsHighLighted; }
-		set { bIsHighLighted = value; }
-	}
-	private		SpriteRenderer		pSpriteRender				= null;
+	
+	private		List<Switcher>		vSwitchers					= null;
 
 	////////////////////////////////////////////////////////////////////////
 
@@ -26,14 +17,14 @@ public class Platform : MonoBehaviour {
 		get { return bHasPlayerInside; }
 
 	}
+	private		Player				pPlayer						= null;
 
 	////////////////////////////////////////////////////////////////////////
 
-	private		Player				pPlayer						= null;
+	// MOVEMENT
+	[Header("Movement")]
 	[Range(1,2)]
 	public		int					iStartpoint					= 1;
-
-	// MOVEMENT
 	private		Vector3				vStartPosition				= Vector3.zero;
 	private		Vector3				vEndPosition				= Vector3.zero;
 	private		float				fInterpolant				= 0.0f;
@@ -46,6 +37,8 @@ public class Platform : MonoBehaviour {
 		get { return bActive; }
 
 	}
+
+	private		SpriteRenderer		pSpriteRender				= null;
 
 
 
@@ -66,18 +59,14 @@ public class Platform : MonoBehaviour {
 
 		pSpriteRender	= transform.GetChild( 2 ).GetComponent<SpriteRenderer>();
 
+		vSwitchers = new List<Switcher>();
+
 	}
 
 	private void Update() {
 		
-		if ( bIsHighLighted ) {
-			pSpriteRender.sprite = pSpriteHighlight;
-		}
-		else {
-			pSpriteRender.sprite = pSpriteDefault;
-		}
-
-		bIsHighLighted = false;
+		//	 HIGHLIGHTING
+		this.UpdateHighLighting();
 
 	}
 
@@ -144,4 +133,5 @@ public class Platform : MonoBehaviour {
 		}
 
 	}
+	
 }

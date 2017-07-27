@@ -15,13 +15,8 @@ public class UsableObject : MonoBehaviour {
 		set{ iUseType = value; }
 	}
 
-	public virtual	void	OnReset() {
-		print( "Object OnReset" );
-	}
+	public virtual	void	OnReset() {}
 
-
-	public virtual	void	OnUse( Player User ) {
-		print( "Object OnUse" );
-	}
+	public virtual	void	OnUse( Player User ) {}
 
 }

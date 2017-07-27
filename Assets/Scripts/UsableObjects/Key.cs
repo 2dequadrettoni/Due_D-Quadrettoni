@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Key : UsableObject {
+public partial class Key : UsableObject {
 
 	[Header("Value [ 1 - 255 ], zero is no valid Key ID")]
 	[SerializeField][Range(1, 254 )]
-	private	byte	KeyID	= 0;
+	private		byte				KeyID						= 0;
+
+	private		Animator			pAnimator					= null;
+	private		SpriteRenderer		pSpriteRender				= null;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +17,12 @@ public class Key : UsableObject {
 		if ( KeyID == 0 ) {
 			print( "Invalid key ID for key \"" + gameObject.name + "\"" );
 			Destroy( gameObject );
+			return;
 		}
+
+		pAnimator		= transform.GetChild( 0 ).GetComponent<Animator>();
+
+		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
 
 	}
 

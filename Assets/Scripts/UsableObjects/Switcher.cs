@@ -3,24 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public partial class Switcher : UsableObject {
-
-
-	//	 HIGHLIGHTING
-	[SerializeField]
-	private		Sprite				pSpriteDisabled				= null;
-	[SerializeField]				// Default 
-	private		Sprite				pSpriteDisabledHighlighted	= null;
-	[SerializeField]
-	private		Sprite				pSpriteEnabled				= null;
-	[SerializeField]
-	private		Sprite				pSpriteEnabledHighlighted	= null;
-
-	private		bool				bIsHighLighted				= false;
-	public		bool IsHighLighted {
-		get { return bIsHighLighted; }
-		set { bIsHighLighted = value; }
-	}
-	private		SpriteRenderer		pSpriteRender				= null;
+	
 
 	////////////////////////////////////////////////////////////////////////
 
@@ -38,74 +21,25 @@ public partial class Switcher : UsableObject {
 
 	private		Animator			pAnimator					= null;
 
+	private		SpriteRenderer		pSpriteRender				= null;
+
 
 
 	private void Start() {
 		
 		pAnimator		= transform.GetChild( 0 ).GetComponent<Animator>();
-		
 
 		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
-		
-
-	}
-
-	private	void	HighlightObjects() {
-
-		if ( vObjects.Length == 0 ) return;
-
-		foreach( Transform o in vObjects ) {
-
-			if ( o == null ) continue;
-
-			// DOORS
-			UsableObject p	= o.GetComponent<UsableObject>();
-			if ( p ) {
-				if ( p is Door ) {
-
-					Door pDoor = p as Door;
-//					pDoor.IsHighLighted = true;
-
-					continue;
-				}
-			}
-
-			// PLATFORMS
-			Platform p2		= o.GetComponent<Platform>();
-			if ( p2 ) {
-				if ( p2 is Platform ) {
-
-					Platform pPlatform = p2 as Platform;
-					pPlatform.IsHighLighted = true;
-
-				}
-			}
-		}
 
 	}
 
 	private void Update() {
 		
-		if ( bIsHighLighted ) {
-			pAnimator.enabled = false;
-			if ( bUsed )
-				pSpriteRender.sprite = pSpriteEnabledHighlighted;
-			else
-				pSpriteRender.sprite = pSpriteDisabledHighlighted;
-
-			HighlightObjects();
-		}
-		else {
-			pAnimator.enabled = true;
-			if ( bUsed )
-				pSpriteRender.sprite = pSpriteEnabled;
-			else
-				pSpriteRender.sprite = pSpriteDisabled;
-		}
-
-		bIsHighLighted = false;
+		//	 HIGHLIGHTING
+		this.UpdateHighLighting();
 
 	}
+
 
 	public	void	SetUsed( bool b ) {
 		this.bUsed = b;
@@ -160,4 +94,5 @@ public partial class Switcher : UsableObject {
 		
 		
 	}
+
 }

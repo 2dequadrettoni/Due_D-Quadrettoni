@@ -14,32 +14,6 @@ public partial class Player {
 
     ////////////////////////////////////////////////////////////////////////
     /////////////////////////		PLAN MODE
-    
-	private void HighLightPointedElements() {
-
-		RaycastHit pMouseHitted;
-		bool pHittResult = Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitted );
-
-		UsableObject pUsableObject = pMouseHitted.collider.gameObject.GetComponent<UsableObject>();
-
-
-		// Semi trasparent square sprite for current destination tile
-		{
-			string objTag = pMouseHitted.collider.tag;
-
-			if ( objTag == "Key" || objTag == "Switcher" || objTag == "Plane_Switcher" ) {
-
-				Switcher pSwitcher = ( pUsableObject as Switcher );
-
-				pSwitcher.IsHighLighted = true;
-
-			}
-
-		}
-
-
-	}
-
 
 	private void ParseInput() {
 
@@ -55,23 +29,15 @@ public partial class Player {
 		{
 			string objTag = pMouseHitted.collider.tag;
 
-			if ( objTag == "Key" || objTag == "Switcher" || objTag == "Plane_Switcher" || objTag == "Tiles" || objTag == "Platform" ) {
+		//	if ( objTag == "Key" || objTag == "Switcher" || objTag == "Plane_Switcher" || objTag == "Tiles" || objTag == "Platform" ) {
 
 				// make visible the sprite
 				if ( objTag == "Tiles" ) {
 					pCurrentDestSprite.localRotation = Quaternion.Euler( 90.0f, 0.0f, -90.0f );
 					pCurrentDestSprite.position = pMouseHitted.collider.transform.position;
 				}
-				else {
-					// switchers only
-					if ( objTag != "Platform" ) {
 
-						( pUsableObject as Switcher ).IsHighLighted = true;
-					}
-
-				}
-
-			}
+		//	}
 
 		}
 		
@@ -179,7 +145,7 @@ public partial class Player {
 				//////////////////////////////////////////////////////////////////////////////
 				//		OBJECTS WITH USE AT DESTINATION REACHED
 							{
-								transform.position = pCurrentDestSprite.position;
+								transform.position = pMouseHitted.transform.position;
 								pAction = new PlayerAction( pMouseHitted.point, pUsableObject );
 								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
 							}

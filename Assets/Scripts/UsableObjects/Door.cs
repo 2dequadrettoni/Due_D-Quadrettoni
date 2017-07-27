@@ -2,36 +2,68 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : UsableObject {
+public partial class Door : UsableObject {
 
+
+	//	 KEY AND LOCK STATE
+	[Header("Key and loocked state")]
 	[Header("Value [ 1 - 255 ], zero is no valid ID")]
 	[SerializeField][Range(0, 254 )]
-	private		byte				KeyID				= 1;
+	private		byte				KeyID							= 1;
 	[SerializeField]
-	private		bool				bLocked				= false;
+	private		bool				bLocked							= false;
 	public		bool Locked {
 		get { return bLocked; }
 	}
 
-	private		bool				IsPlayingAnimation	= false;
 
-	private		bool				bUsed				= false;
-	public		bool Used {
-		get { return bUsed; }
-	}
-
+	// LINKED SWITCHERS
 	[Header("Switcher for this door")]
 	[Header("Door must not be unlocked in order to parse switchers")]
 	[SerializeField]
-	private		Switcher[]			vSwitchers			= null;
+	private		Switcher[]					vSwitchers				= null;
 
-	private		Animator			pAnimator			= null;
+	//	 INTERNAL VARS
+	private		bool						IsPlayingAnimation		= false;
+	private		bool						bUsed					= false;
+	public		bool Used {
+		get { return bUsed; }
+	}
+	public		bool Closed {
+		get { return !bUsed; }
+	}
+	private		Animator					pAnimator				= null;
+	private		SpriteRenderer				pSpriteRender			= null;
 
-	private	void Start() {
+
+
+	private		void	Start() {
 		
 		if ( transform.childCount > 0 ) {
 			pAnimator = transform.GetChild( 0 ).GetComponent<Animator>();
 		}
+
+		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
+
+	}
+
+	private		void	Update() {
+		
+		//	 HIGHLIGHTING
+		this.UpdateHighLighting();
+
+		if ( vSwitchers != null ) {
+
+			if ( vSwitchers.Length == 0 ) return;
+
+			foreach ( Switcher o in vSwitchers ) {
+				if ( !o.Used ) return;
+			}
+
+		}
+
+		if ( !bUsed )
+			this.OnUse( null );
 
 	}
 
@@ -39,22 +71,6 @@ public class Door : UsableObject {
 
 		this.bUsed = b;
 		IsPlayingAnimation = false;
-
-	}
-
-	private void Update() {
-		
-		if ( vSwitchers != null ) {
-
-			if ( vSwitchers.Length == 0 ) return;
-
-			foreach( Switcher o in vSwitchers ) {
-				if ( !o.Used ) return;
-			}
-		}
-
-		if ( !bUsed )
-			this.OnUse( null );
 
 	}
 

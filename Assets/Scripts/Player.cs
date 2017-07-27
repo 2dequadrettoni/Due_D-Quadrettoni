@@ -188,15 +188,6 @@ public partial class Player: MonoBehaviour, IPlayer {
 
     }
 
-	private void LateUpdate() {
-		
-		if ( !bIsOK ) return;
-
-		if ( bCanParseInput )
-			HighLightPointedElements();
-
-	}
-
 }
 
 #pragma warning restore CS0414 // Var assigned but never used
