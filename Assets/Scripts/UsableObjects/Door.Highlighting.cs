@@ -43,4 +43,18 @@ public partial class Door {
 
 	}
 
+	private void OnMouseEnter() {
+		
+		bIsHighLighted = true;
+
+		print( "asd" );
+
+	}
+
+	private void OnMouseExit() {
+
+		bIsHighLighted = false;
+
+	}
+
 }

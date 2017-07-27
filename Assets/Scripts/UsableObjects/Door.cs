@@ -131,3 +131,8 @@ public partial class Door : UsableObject {
 	}
 
 }
+
+
+
+
+// TODO: aree separate che gestiscono 2 condizioni di di vittoria, ognuna per pg
