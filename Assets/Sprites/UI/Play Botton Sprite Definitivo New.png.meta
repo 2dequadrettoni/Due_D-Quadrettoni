@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ec2f8d702e90bbc4a8f8a6f38b09bb30
-timeCreated: 1501070489
+timeCreated: 1501159876
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -118,10 +118,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1548
-        width: 500
-        height: 500
+        x: 90
+        y: 1641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,10 +131,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_1
       rect:
         serializedVersion: 2
-        x: 500
-        y: 1548
-        width: 500
-        height: 500
+        x: 590
+        y: 1641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,10 +144,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_2
       rect:
         serializedVersion: 2
-        x: 1000
-        y: 1548
-        width: 500
-        height: 500
+        x: 1090
+        y: 1641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,10 +157,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_3
       rect:
         serializedVersion: 2
-        x: 1500
-        y: 1548
-        width: 500
-        height: 500
+        x: 1590
+        y: 1641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -170,10 +170,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_4
       rect:
         serializedVersion: 2
-        x: 2000
-        y: 1548
-        width: 500
-        height: 500
+        x: 2090
+        y: 1641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +183,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_5
       rect:
         serializedVersion: 2
-        x: 2500
-        y: 1548
-        width: 500
-        height: 500
+        x: 2590
+        y: 1641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,10 +196,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_6
       rect:
         serializedVersion: 2
-        x: 3000
-        y: 1548
-        width: 500
-        height: 500
+        x: 3090
+        y: 1641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,10 +209,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_7
       rect:
         serializedVersion: 2
-        x: 3500
-        y: 1548
-        width: 500
-        height: 500
+        x: 3590
+        y: 1641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,10 +222,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1048
-        width: 500
-        height: 500
+        x: 90
+        y: 1141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -235,10 +235,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_9
       rect:
         serializedVersion: 2
-        x: 500
-        y: 1048
-        width: 500
-        height: 500
+        x: 590
+        y: 1141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -248,10 +248,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_10
       rect:
         serializedVersion: 2
-        x: 1000
-        y: 1048
-        width: 500
-        height: 500
+        x: 1090
+        y: 1141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -261,10 +261,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_11
       rect:
         serializedVersion: 2
-        x: 1500
-        y: 1048
-        width: 500
-        height: 500
+        x: 1590
+        y: 1141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -274,10 +274,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_12
       rect:
         serializedVersion: 2
-        x: 2000
-        y: 1048
-        width: 500
-        height: 500
+        x: 2090
+        y: 1141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -287,10 +287,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_13
       rect:
         serializedVersion: 2
-        x: 2500
-        y: 1048
-        width: 500
-        height: 500
+        x: 2590
+        y: 1141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,10 +300,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_14
       rect:
         serializedVersion: 2
-        x: 3000
-        y: 1048
-        width: 500
-        height: 500
+        x: 3090
+        y: 1141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,10 +313,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_15
       rect:
         serializedVersion: 2
-        x: 3500
-        y: 1048
-        width: 500
-        height: 500
+        x: 3590
+        y: 1141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -326,10 +326,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_16
       rect:
         serializedVersion: 2
-        x: 0
-        y: 548
-        width: 500
-        height: 500
+        x: 90
+        y: 641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -339,10 +339,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_17
       rect:
         serializedVersion: 2
-        x: 500
-        y: 548
-        width: 500
-        height: 500
+        x: 590
+        y: 641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -352,10 +352,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_18
       rect:
         serializedVersion: 2
-        x: 1000
-        y: 548
-        width: 500
-        height: 500
+        x: 1090
+        y: 641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -365,10 +365,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_19
       rect:
         serializedVersion: 2
-        x: 1500
-        y: 548
-        width: 500
-        height: 500
+        x: 1590
+        y: 641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -378,10 +378,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_20
       rect:
         serializedVersion: 2
-        x: 2000
-        y: 548
-        width: 500
-        height: 500
+        x: 2090
+        y: 641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -391,10 +391,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_21
       rect:
         serializedVersion: 2
-        x: 2500
-        y: 548
-        width: 500
-        height: 500
+        x: 2590
+        y: 641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -404,10 +404,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_22
       rect:
         serializedVersion: 2
-        x: 3000
-        y: 548
-        width: 500
-        height: 500
+        x: 3090
+        y: 641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -417,10 +417,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_23
       rect:
         serializedVersion: 2
-        x: 3500
-        y: 548
-        width: 500
-        height: 500
+        x: 3590
+        y: 641
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -430,10 +430,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_24
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
-        width: 500
-        height: 500
+        x: 90
+        y: 141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -443,10 +443,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_25
       rect:
         serializedVersion: 2
-        x: 500
-        y: 48
-        width: 500
-        height: 500
+        x: 590
+        y: 141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -456,10 +456,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_26
       rect:
         serializedVersion: 2
-        x: 1000
-        y: 48
-        width: 500
-        height: 500
+        x: 1090
+        y: 141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -469,10 +469,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_27
       rect:
         serializedVersion: 2
-        x: 1500
-        y: 48
-        width: 500
-        height: 500
+        x: 1590
+        y: 141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -482,10 +482,10 @@ TextureImporter:
       name: Play Botton Sprite Definitivo New_28
       rect:
         serializedVersion: 2
-        x: 2000
-        y: 48
-        width: 500
-        height: 500
+        x: 2090
+        y: 141
+        width: 315
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
