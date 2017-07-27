@@ -5,10 +5,6 @@ using UnityEngine;
 
 public partial class Platform : MonoBehaviour {
 
-
-	
-	private		List<Switcher>		vSwitchers					= null;
-
 	////////////////////////////////////////////////////////////////////////
 
 	// LINK
@@ -22,8 +18,7 @@ public partial class Platform : MonoBehaviour {
 	////////////////////////////////////////////////////////////////////////
 
 	// MOVEMENT
-	[Header("Movement")]
-	[Range(1,2)]
+	[Header("Movement")][Range(1,2)]
 	public		int					iStartpoint					= 1;
 	private		Vector3				vStartPosition				= Vector3.zero;
 	private		Vector3				vEndPosition				= Vector3.zero;
@@ -39,6 +34,9 @@ public partial class Platform : MonoBehaviour {
 	}
 
 	private		SpriteRenderer		pSpriteRender				= null;
+
+
+	private		List<Switcher>		vSwitchers					= new List<Switcher>();
 
 
 
@@ -59,12 +57,14 @@ public partial class Platform : MonoBehaviour {
 
 		pSpriteRender	= transform.GetChild( 2 ).GetComponent<SpriteRenderer>();
 
-		vSwitchers = new List<Switcher>();
-
 	}
 
-	private void Update() {
-		
+	public	void	AddUser( Switcher o ) {
+		if ( o ) vSwitchers.Add( o );
+	}
+
+	private	void	 Update() {
+
 		//	 HIGHLIGHTING
 		if ( GLOBALS.StageManager.IsPlaying ) {
 			bIsHighLighted = false;

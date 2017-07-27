@@ -43,17 +43,34 @@ public partial class Door {
 
 	}
 
-	private void OnMouseEnter() {
-		
-		bIsHighLighted = true;
+	private	void	SetUsersAsHighlighted( bool val ) {
 
-		print( "asd" );
+		if ( vUsers.Count == 0 ) return;
+
+		foreach( Switcher o in vUsers ) {
+
+			if ( o == null ) continue;
+
+			o.IsHighLighted = val;
+
+		}
+
+	}
+
+
+	private void OnMouseEnter() {
+
+		if ( GLOBALS.StageManager.IsPlaying ) return;
+
+		SetUsersAsHighlighted( bIsHighLighted = true );
 
 	}
 
 	private void OnMouseExit() {
 
-		bIsHighLighted = false;
+		if ( GLOBALS.StageManager.IsPlaying ) return;
+
+		SetUsersAsHighlighted( bIsHighLighted = false );
 
 	}
 

@@ -84,9 +84,7 @@ public partial class Switcher {
 		
 		if ( GLOBALS.StageManager.IsPlaying ) return;
 
-		bIsHighLighted = true;
-
-		this.SetObjectsAsHighlighted( true );
+		this.SetObjectsAsHighlighted( bIsHighLighted = true );
 
 	}
 
@@ -94,10 +92,8 @@ public partial class Switcher {
 	private void OnMouseExit() {
 
 		if ( GLOBALS.StageManager.IsPlaying ) return;
-		
-		bIsHighLighted = false;
 
-		this.SetObjectsAsHighlighted( false );
+		this.SetObjectsAsHighlighted( bIsHighLighted = false );
 	}
 
 }

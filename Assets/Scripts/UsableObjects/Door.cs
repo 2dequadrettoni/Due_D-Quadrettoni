@@ -36,6 +36,8 @@ public partial class Door : UsableObject {
 	private		SpriteRenderer				pSpriteRender			= null;
 
 
+	private		List<Switcher>				vUsers				= new List<Switcher>();
+
 
 	private		void	Start() {
 		
@@ -45,7 +47,18 @@ public partial class Door : UsableObject {
 
 		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
 
+		vUsers = new List<Switcher>();
+
+		foreach( Switcher o in vSwitchers )
+			vUsers.Add( o );
+
 	}
+
+	public	void	AddUser( Switcher o ) {
+		if ( o ) vUsers.Add( o );
+	}
+
+
 
 	private		void	Update() {
 		
