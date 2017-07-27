@@ -66,6 +66,9 @@ public partial class Platform : MonoBehaviour {
 	private void Update() {
 		
 		//	 HIGHLIGHTING
+		if ( GLOBALS.StageManager.IsPlaying ) {
+			bIsHighLighted = false;
+		}
 		this.UpdateHighLighting();
 
 	}

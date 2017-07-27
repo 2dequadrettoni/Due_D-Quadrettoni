@@ -26,6 +26,16 @@ public partial class Key : UsableObject {
 
 	}
 
+	private	void	Update() {
+
+		//	 HIGHLIGHTING
+		if ( GLOBALS.StageManager.IsPlaying ) {
+			bIsHighLighted = false;
+		}
+		this.UpdateHighLighting();
+		
+	}
+
 	new public void OnUse( Player User ) {
 
 		print( "key picked" );

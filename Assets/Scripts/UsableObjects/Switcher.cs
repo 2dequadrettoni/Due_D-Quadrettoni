@@ -36,6 +36,9 @@ public partial class Switcher : UsableObject {
 	private void Update() {
 		
 		//	 HIGHLIGHTING
+		if ( GLOBALS.StageManager.IsPlaying ) {
+			bIsHighLighted = false;
+		}
 		this.UpdateHighLighting();
 
 	}

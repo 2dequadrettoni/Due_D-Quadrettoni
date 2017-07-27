@@ -188,7 +188,14 @@ public partial class Player: MonoBehaviour, IPlayer {
 
     }
 
+	public void Destroy() {
+
+		pAnimator.Play( "Destroy", 0, 0.0f );
+
+	}
+
 }
+
 
 #pragma warning restore CS0414 // Var assigned but never used
 #pragma warning restore CS0162 // Unreachable code detected

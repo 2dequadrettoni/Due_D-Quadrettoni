@@ -27,6 +27,9 @@ public class DeathZone : MonoBehaviour {
 			}
 
 			if ( pUI ) pUI.ShowDeathMsg( other.name );
+
+			Player pPlayer = ( other.name == "Player1" ) ? GLOBALS.Player1 : GLOBALS.Player2;
+			pPlayer.Destroy();
 		}
 
 	}

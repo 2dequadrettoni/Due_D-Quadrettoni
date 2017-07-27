@@ -50,6 +50,9 @@ public partial class Door : UsableObject {
 	private		void	Update() {
 		
 		//	 HIGHLIGHTING
+		if ( GLOBALS.StageManager.IsPlaying ) {
+			bIsHighLighted = false;
+		}
 		this.UpdateHighLighting();
 
 		if ( vSwitchers != null ) {

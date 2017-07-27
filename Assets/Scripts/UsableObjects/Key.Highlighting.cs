@@ -18,21 +18,28 @@ public partial class Key : UsableObject {
 	}
 
 
+	private	void	UpdateHighLighting() {
+
+		if ( bIsHighLighted ) {
+			pAnimator.enabled = false;
+			pSpriteRender.sprite = pSpriteHighlight;
+		}
+		else {
+			pAnimator.enabled = true;
+			pSpriteRender.sprite = pSpriteDefault;
+		}
+
+	}
+
 	private void OnMouseEnter() {
 		
 		bIsHighLighted = true;
-
-		pAnimator.enabled = false;
-		pSpriteRender.sprite = pSpriteHighlight;
 
 	}
 
 	private void OnMouseExit() {
 		
 		bIsHighLighted = false;
-
-		pAnimator.enabled = true;
-		pSpriteRender.sprite = pSpriteDefault;
 
 	}
 
