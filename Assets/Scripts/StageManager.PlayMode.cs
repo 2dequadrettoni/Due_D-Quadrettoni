@@ -49,11 +49,13 @@ public partial class StageManager {
 
     }
 
-	public	void	Stop() {
+	public	void	Stop( bool AlsoPlayers = true ) {
 
 		bIsPlaying = false;
-		pPlayer1.Stop();
-		pPlayer2.Stop();
+		if ( AlsoPlayers ) {
+			pPlayer1.Stop();
+			pPlayer2.Stop();
+		}
 
 		// invalidate all script function so nothing can happen after this call
 		bIsOK = false;

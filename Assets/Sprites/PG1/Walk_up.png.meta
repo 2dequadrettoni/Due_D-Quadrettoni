@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: 438f2dea7daa4a143afe2efcbe7c3e58
-timeCreated: 1500294057
+guid: 8aeffc81d99a4ab48a52dabee358d380
+timeCreated: 1501255653
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Walk_up_0
-    21300002: Walk_up_1
-    21300004: Walk_up_2
-    21300006: Walk_up_3
-    21300008: Walk_up_4
-    21300010: Walk_up_5
-    21300012: Walk_up_6
-    21300014: Walk_up_7
+    21300000: Walk_Up_0
+    21300002: Walk_Up_1
+    21300004: Walk_Up_2
+    21300006: Walk_Up_3
+    21300008: Walk_Up_4
+    21300010: Walk_Up_5
+    21300012: Walk_Up_6
+    21300014: Walk_Up_7
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -94,7 +94,59 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk_up_0
+      name: Walk_Up_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Walk_Up_1
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 160
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Walk_Up_2
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 160
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Walk_Up_3
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 160
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Walk_Up_4
       rect:
         serializedVersion: 2
         x: 0
@@ -107,7 +159,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Walk_up_1
+      name: Walk_Up_5
       rect:
         serializedVersion: 2
         x: 104
@@ -120,7 +172,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Walk_up_2
+      name: Walk_Up_6
       rect:
         serializedVersion: 2
         x: 208
@@ -133,62 +185,10 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Walk_up_3
+      name: Walk_Up_7
       rect:
         serializedVersion: 2
         x: 312
-        y: 0
-        width: 104
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Walk_up_4
-      rect:
-        serializedVersion: 2
-        x: 416
-        y: 0
-        width: 104
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Walk_up_5
-      rect:
-        serializedVersion: 2
-        x: 520
-        y: 0
-        width: 104
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Walk_up_6
-      rect:
-        serializedVersion: 2
-        x: 624
-        y: 0
-        width: 104
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Walk_up_7
-      rect:
-        serializedVersion: 2
-        x: 728
         y: 0
         width: 104
         height: 160

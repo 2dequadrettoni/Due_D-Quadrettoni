@@ -200,6 +200,12 @@ public partial class Player: MonoBehaviour, IPlayer {
 
     }
 
+	public void PlayWinAnimation() {
+
+		pAnimator.Play( "Win", 0, 0.0f );
+
+	}
+
 	public void Destroy() {
 
 		pAnimator.Play( "Destroy", 0, 0.0f );

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 3a7bccee81c730b478d8e3080fabab71
-timeCreated: 1500807176
+guid: 09fe3418b661eec44b4dce504d56bc64
+timeCreated: 1501255685
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -74,6 +74,22 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -82,7 +98,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 160
         width: 104
         height: 160
       alignment: 0
@@ -95,7 +111,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 104
-        y: 0
+        y: 160
         width: 104
         height: 160
       alignment: 0
@@ -108,7 +124,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 208
-        y: 0
+        y: 160
         width: 104
         height: 160
       alignment: 0
@@ -121,7 +137,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 312
-        y: 0
+        y: 160
         width: 104
         height: 160
       alignment: 0
@@ -133,7 +149,7 @@ TextureImporter:
       name: Walk_Down_4
       rect:
         serializedVersion: 2
-        x: 416
+        x: 0
         y: 0
         width: 104
         height: 160
@@ -146,7 +162,7 @@ TextureImporter:
       name: Walk_Down_5
       rect:
         serializedVersion: 2
-        x: 520
+        x: 104
         y: 0
         width: 104
         height: 160
@@ -159,7 +175,7 @@ TextureImporter:
       name: Walk_Down_6
       rect:
         serializedVersion: 2
-        x: 624
+        x: 208
         y: 0
         width: 104
         height: 160
@@ -172,7 +188,7 @@ TextureImporter:
       name: Walk_Down_7
       rect:
         serializedVersion: 2
-        x: 728
+        x: 312
         y: 0
         width: 104
         height: 160

@@ -62,6 +62,7 @@ public class AnimationEvents : MonoBehaviour {
 		if ( bGameStarted ) return;
 
 		bGameStarted = true;
+		GLOBALS.Player1.SetCursor( true );
 		GLOBALS.StageManager.SelectedPlayer = 1;
 		GLOBALS.Player1.CanParseInput = true;
 		GLOBALS.UI.SelectPlayer( 1 );

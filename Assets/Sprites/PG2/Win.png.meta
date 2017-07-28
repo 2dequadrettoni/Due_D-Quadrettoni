@@ -1,17 +1,25 @@
 fileFormatVersion: 2
-guid: bd59861ed33461f43a3050c0c512750d
-timeCreated: 1501255642
+guid: e782586f46b4d2c47b20966ebb6a5a46
+timeCreated: 1501255886
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Walk_Down_0
-    21300002: Walk_Down_1
-    21300004: Walk_Down_2
-    21300006: Walk_Down_3
-    21300008: Walk_Down_4
-    21300010: Walk_Down_5
-    21300012: Walk_Down_6
-    21300014: Walk_Down_7
+    21300000: Win_0
+    21300002: Win_1
+    21300004: Win_2
+    21300006: Win_3
+    21300008: Win_4
+    21300010: Win_5
+    21300012: Win_6
+    21300014: Win_7
+    21300016: Win_8
+    21300018: Win_9
+    21300020: Win_10
+    21300022: Win_11
+    21300024: Win_12
+    21300026: Win_13
+    21300028: Win_14
+    21300030: Win_15
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -94,7 +102,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk_Down_0
+      name: Win_0
       rect:
         serializedVersion: 2
         x: 0
@@ -107,7 +115,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Walk_Down_1
+      name: Win_1
       rect:
         serializedVersion: 2
         x: 104
@@ -120,7 +128,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Walk_Down_2
+      name: Win_2
       rect:
         serializedVersion: 2
         x: 208
@@ -133,7 +141,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Walk_Down_3
+      name: Win_3
       rect:
         serializedVersion: 2
         x: 312
@@ -146,7 +154,59 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Walk_Down_4
+      name: Win_4
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 160
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Win_5
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 160
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Win_6
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 160
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Win_7
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 160
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Win_8
       rect:
         serializedVersion: 2
         x: 0
@@ -159,7 +219,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Walk_Down_5
+      name: Win_9
       rect:
         serializedVersion: 2
         x: 104
@@ -172,7 +232,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Walk_Down_6
+      name: Win_10
       rect:
         serializedVersion: 2
         x: 208
@@ -185,10 +245,62 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Walk_Down_7
+      name: Win_11
       rect:
         serializedVersion: 2
         x: 312
+        y: 0
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Win_12
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Win_13
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 0
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Win_14
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 0
+        width: 104
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Win_15
+      rect:
+        serializedVersion: 2
+        x: 728
         y: 0
         width: 104
         height: 160
