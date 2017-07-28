@@ -331,7 +331,7 @@ public class UI : MonoBehaviour, IUI {
             buttonColor.color = Color.white;
             isPause = false;
             Time.timeScale = 0.2f;
-            GLOBALS.isPaused = false;
+            GLOBALS.IsPaused = false;
         }
 
         else if (!isPause)
@@ -339,7 +339,7 @@ public class UI : MonoBehaviour, IUI {
             buttonColor.color = Color.red;
             isPause = true;
             Time.timeScale = 0;
-            GLOBALS.isPaused = true;
+            GLOBALS.IsPaused = true;
         }
 
     }

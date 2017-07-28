@@ -93,8 +93,6 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	private		Sprite			pCursor					= null;
 
-	public void SetCursor() { }
-
 	// ACTIONS
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		StageManager	pStageManager			= null;
@@ -126,6 +124,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	//	UNITY STUFF
 	private		SpriteRenderer	pRenderer				= null;
+	private		SpriteRenderer	pCursorRenderer			= null;
 	private		Animator		pAnimator				= null;
 	[SerializeField]
 	private		Sprite			pPlanSprite				= null;
@@ -141,6 +140,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	private void Start() {
 
 		pRenderer			= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
+		pCursorRenderer		= transform.GetChild( 2 ).GetComponent<SpriteRenderer>();
 		pOriginalSprite		= pRenderer.sprite;
 		if ( pPlanSprite )
 			pRenderer.sprite	= pPlanSprite;
@@ -169,6 +169,12 @@ public partial class Player: MonoBehaviour, IPlayer {
 //		pAnimator.Play( "Idle_Down" );
 
 		bIsOK = true;
+
+	}
+
+	public void SetCursor( bool val ) {
+
+		pCursorRenderer.enabled = val;
 
 	}
 	
