@@ -21,12 +21,16 @@ public partial class Key : UsableObject {
 	private	void	UpdateHighLighting() {
 
 		if ( bIsHighLighted ) {
-			pAnimator.enabled = false;
-			pSpriteRender.sprite = pSpriteHighlight;
+			if ( pSpriteHighlight ) {
+				pAnimator.enabled = false;
+				pSpriteRender.sprite = pSpriteHighlight;
+			}
 		}
 		else {
-			pAnimator.enabled = true;
-			pSpriteRender.sprite = pSpriteDefault;
+			if ( pSpriteDefault ) {
+				pAnimator.enabled = true;
+				pSpriteRender.sprite = pSpriteDefault;
+			}
 		}
 
 	}

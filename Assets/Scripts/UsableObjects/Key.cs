@@ -36,7 +36,7 @@ public partial class Key : UsableObject {
 		
 	}
 
-	new public void OnUse( Player User ) {
+	public override void OnUse( Player User ) {
 
 		print( "key picked" );
 		User.ActuaKey = KeyID;

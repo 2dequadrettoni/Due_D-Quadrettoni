@@ -90,11 +90,13 @@ public partial class Player {
 				
 						if ( pUsableObject.UseType == UsageType.ON_ACTION_END ) {
 
+							float fObjectDistance = Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position );
+
 							//////////////////////////////////////////////////////////////////////////////
 							//		OBJECTS ON RANGE AND WITH USE AT STAGE END		
 							if ( objTag == "Switcher" ) {
 
-								if ( Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position ) > (fUseDistance * 1.25f ) ) {
+								if ( fObjectDistance > (fUseDistance * 1.25f ) ) {
 
 									NodeList vNodes = new NodeList();
 									bool found = pPathFinder.FindPath( vPlanPosition, pMouseHitted.collider.transform.position, out vNodes );
@@ -122,29 +124,10 @@ public partial class Player {
 								return;
 							}
 
-							/*
-
-							if ( Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position ) < (fUseDistance * 1.25f ) ) {
-								
-								
-								
-
-								
-
-
-								transform.position = vPlanPosition;
-								pAction = new PlayerAction( pUsableObject );
-								pAction.Invalidate();
-								pAction.SetEndActionCallback( delegate { pUsableObject.OnUse( this ); } );
-								pStageManager.SetAction( this.pAction, this.iID );
-								if ( bPlanDebug ) Debug.Log( "Usable  end turn object set" );
-								return;
-							}
-							*/
-				
 				//////////////////////////////////////////////////////////////////////////////
 				//		OBJECTS WITH USE AT DESTINATION REACHED
 							{
+
 								transform.position = pMouseHitted.transform.position;
 								pAction = new PlayerAction( pMouseHitted.point, pUsableObject );
 								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
@@ -159,7 +142,8 @@ public partial class Player {
 				//////////////////////////////////////////////////////////////////////////////
 				//		MOVEMENT ONLY
 				if ( objTag == "Tiles" || objTag == "Platform" ) {
-					transform.position = pCurrentDestSprite.position;
+					transform.position = pMouseHitted.collider.gameObject.transform.position;
+				//	transform.position = pCurrentDestSprite.position;
 					pAction = new PlayerAction( transform.position );
 					if ( bPlanDebug ) Debug.Log( "Movement only set" );
 

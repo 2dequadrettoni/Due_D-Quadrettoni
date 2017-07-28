@@ -56,8 +56,11 @@ public partial class Player {
 
 	public void	Stop() {
 
-		pNavigation.pNodeList.Clear();
-		pNavigation.pNodeList		= null;
+		if ( pNavigation.pNodeList != null ) {
+			pNavigation.pNodeList.Clear();
+			pNavigation.pNodeList		= null;
+		}
+
 		pNavigation.bHasDestination = false;
 		pNavigation.bIsMoving		= false;
 
