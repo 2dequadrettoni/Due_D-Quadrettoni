@@ -4,6 +4,8 @@
 
 public static class GLOBALS {
 
+	public	static	bool			IsPaused		= false;
+
 	public	static	GameManager		GameManager		= null;
 
 	public	static	StageManager	StageManager	= null;
