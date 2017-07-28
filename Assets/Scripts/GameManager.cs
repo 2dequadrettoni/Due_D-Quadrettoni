@@ -20,15 +20,19 @@ public class GameManager : MonoBehaviour {
 		if ( Input.GetKeyDown( KeyCode.Escape ) ) Application.Quit();
 
 
-		if ( F1.IsInside && F2.IsInside ) {
+		if ( GLOBALS.StageManager.IsPlaying && F1.IsInside && F2.IsInside ) {
 
 			GLOBALS.UI.ShowLvlCompletedMsg();
 
-			if ( GLOBALS.StageManager.IsPlaying )
-				GLOBALS.StageManager.Stop( false );
+			GLOBALS.StageManager.Stop( false );
 
+			GLOBALS.Player1.AnimationOverride = true;
 			GLOBALS.Player1.PlayWinAnimation();
+			GLOBALS.Player1.SetCursor( false );
+
+			GLOBALS.Player2.AnimationOverride = true;
 			GLOBALS.Player2.PlayWinAnimation();
+			GLOBALS.Player2.SetCursor( false );
 
 		}
 

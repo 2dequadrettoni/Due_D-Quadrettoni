@@ -18,7 +18,7 @@ public class DeathZone : MonoBehaviour {
 
 	}
 
-	private void OnTriggerStay( Collider other ) {
+	private void OnTriggerEnter( Collider other ) {
 
 		if ( pStageManager && pStageManager.IsPlaying && other.tag == "Player" ) {
 

@@ -12,6 +12,13 @@ public class Stage {
 		return ( ( Player1Action != null ) && ( Player2Action != null ) );
 	}
 
+	public	void	Default() {
+
+		if ( Player1Action == null )	Player1Action = new PlayerAction();
+		if ( Player2Action == null )	Player2Action = new PlayerAction();
+
+	}
+
 	public void SetAction( int PlayerID, PlayerAction pAction ) {
 
 		if ( PlayerID == 1 ) 

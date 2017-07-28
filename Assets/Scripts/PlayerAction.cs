@@ -28,7 +28,7 @@ interface iPlayerAction {
 public class PlayerAction : iPlayerAction {
 	
 	// WAIT, USE, MOVE
-	private		ActionType		iType		= ActionType.NONE;
+	private		ActionType		iType		= ActionType.WAIT;
 
 	// Action:USE
 	private		UsableObject	pObject		= null;
