@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour {
 
-	[SerializeField]
-	private		Platform[]		vPlatforms		= null;
+//	[SerializeField]
+//	private		Platform[]		vPlatforms		= null;
 
 	private		UI				pUI				= null;
 	private		StageManager	pStageManager	= null;
@@ -22,14 +22,13 @@ public class DeathZone : MonoBehaviour {
 
 		if ( pStageManager && pStageManager.IsPlaying && other.tag == "Player" ) {
 
-			foreach( Platform p in vPlatforms ) {
-				if ( p && p.HasPlayerInside ) return;
-			}
+			Player pPlayer = ( other.name == "Player1" ) ? GLOBALS.Player1 : GLOBALS.Player2;
 
+			if ( pPlayer.Linked ) return;
+
+			pPlayer.Destroy();
 			if ( pUI ) pUI.ShowDeathMsg( other.name );
 
-			Player pPlayer = ( other.name == "Player1" ) ? GLOBALS.Player1 : GLOBALS.Player2;
-			pPlayer.Destroy();
 		}
 
 	}
