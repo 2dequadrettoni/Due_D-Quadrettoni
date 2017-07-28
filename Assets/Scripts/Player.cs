@@ -117,6 +117,9 @@ public partial class Player: MonoBehaviour, IPlayer {
 		set { iID = value; }
 	}
 
+	[HideInInspector]
+	public		bool			AnimationOverride		= false;
+
 
 	//	UTILS
 	public 		bool 			IsBusy() 				{ return pNavigation.bHasDestination;		}
@@ -201,6 +204,8 @@ public partial class Player: MonoBehaviour, IPlayer {
     }
 
 	public void PlayWinAnimation() {
+
+		print( "wow" );
 
 		pAnimator.Play( "Win", 0, 0.0f );
 

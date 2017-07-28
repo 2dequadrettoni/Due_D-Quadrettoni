@@ -25,7 +25,7 @@ public class LevelSwitch : MonoBehaviour {
 			GLOBALS.UI.ShowLvlCompletedMsg();
 
 			if ( GLOBALS.StageManager.IsPlaying )
-				GLOBALS.StageManager.Stop();
+				GLOBALS.StageManager.Stop(true );
 
 		}
 

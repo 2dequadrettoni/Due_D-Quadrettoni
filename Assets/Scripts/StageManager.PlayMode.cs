@@ -29,9 +29,18 @@ public partial class StageManager {
 		}
 
 		if ( !vStages[ iCurrentStage ].IsOK() ) {
-			Debug.Log( "both player have to had proper action set" );
-			return;
+
+			vStages[ iCurrentStage ].Default();
+
+			if ( pUI ) {
+				pUI.UpdateAction( 1, vStages[ iCurrentStage ].GetAction( 1 ).GetType(), iCurrentStage );
+				pUI.UpdateAction( 2, vStages[ iCurrentStage ].GetAction( 2 ).GetType(), iCurrentStage );
+			}
+
 		}
+
+		pPlayer1.SetCursor( false );
+		pPlayer2.SetCursor( false );
 
 		pPlayer1.OnPlay();
 		pPlayer2.OnPlay();
@@ -49,7 +58,7 @@ public partial class StageManager {
 
     }
 
-	public	void	Stop( bool AlsoPlayers = true ) {
+	public	void	Stop( bool AlsoPlayers = false) {
 
 		bIsPlaying = false;
 		if ( AlsoPlayers ) {

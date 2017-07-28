@@ -18,7 +18,9 @@ public class FinalTile : MonoBehaviour {
 
 	}
 
-	private void OnTriggerStay( Collider other ) {
+	private void OnTriggerEnter( Collider other ) {
+
+		if ( IsInside ) return;
 
 		if ( pStageManager && pStageManager.IsPlaying && other.tag == "Player" ) {
 

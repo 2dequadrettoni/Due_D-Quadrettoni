@@ -221,8 +221,8 @@ public class UI : MonoBehaviour, IUI {
 		sPlayerName = PlayerName;
 		bShowUnreachableMsg = true;
 		if ( pStageManager.IsPlaying ) {
-			pStageManager.Stop();
-		}
+			pStageManager.Stop( true );
+	}
 
 	}
 
@@ -231,7 +231,7 @@ public class UI : MonoBehaviour, IUI {
 		sPlayerName = PlayerName;
 		bShowDeathMSg = true;
 		if ( pStageManager.IsPlaying ) {
-			pStageManager.Stop();
+			pStageManager.Stop( true );
 		}
 
 	}
