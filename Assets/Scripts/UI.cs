@@ -62,6 +62,8 @@ public class UI : MonoBehaviour, IUI {
 
     Transform pCanvasObject;
 
+    public bool isPause = false;
+    Image buttonColor = null;
 
     // Use this for initialization
     private void Start() {
@@ -117,6 +119,9 @@ public class UI : MonoBehaviour, IUI {
 		pCursorPG1.localPosition = pCursorPG1SpawnPos = vActionsSlots[ 0, 0 ].rectTransform.localPosition + ( Vector3.up * vActionsSlots[ 0, 0 ].rectTransform.rect.height/2 );
 
 		pCursorPG2.localPosition = pCursorPG2SpawnPos = vActionsSlots[ 1, 0 ].rectTransform.localPosition + ( Vector3.down * vActionsSlots[ 1, 0 ].rectTransform.rect.height/2 );
+
+        //Image Button Pause
+        buttonColor = pCanvasObject.GetChild(13).GetComponent<Image>();
 
 
     }
@@ -316,6 +321,27 @@ public class UI : MonoBehaviour, IUI {
 #endif
 		}
         
+    }
+
+    public void OnPause() 
+    {
+
+        if (isPause)
+        {
+            buttonColor.color = Color.white;
+            isPause = false;
+            Time.timeScale = 0.2f;
+            GLOBALS.IsPaused = false;
+        }
+
+        else if (!isPause)
+        {
+            buttonColor.color = Color.red;
+            isPause = true;
+            Time.timeScale = 0;
+            GLOBALS.IsPaused = true;
+        }
+
     }
 
 

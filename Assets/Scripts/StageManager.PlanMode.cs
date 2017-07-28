@@ -20,13 +20,17 @@ public partial class StageManager {
 
 		// Switch to player 1
 		if ( PlayerID == 1 ) {
-			pPlayer1.CanParseInput = true;
-			pPlayer2.CanParseInput = false;
+
+			pPlayer1.SetCursor( pPlayer1.CanParseInput = true );
+			pPlayer2.SetCursor( pPlayer2.CanParseInput = false );
+
 		}
 		// Switch to player 2
 		else {
-			pPlayer1.CanParseInput = false;
-			pPlayer2.CanParseInput = true;
+
+			pPlayer1.SetCursor( pPlayer1.CanParseInput = false );
+			pPlayer2.SetCursor( pPlayer2.CanParseInput = true );
+
 		}
 		iSelectedPlayer = PlayerID;
 
