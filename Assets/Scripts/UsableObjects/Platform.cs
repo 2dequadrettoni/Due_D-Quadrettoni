@@ -53,7 +53,7 @@ public partial class Platform : MonoBehaviour {
 			vStartPosition	= transform.GetChild( 1 ).position;
 			vEndPosition	= transform.GetChild( 0 ).position;
 		}
-		transform .position = vStartPosition;
+		transform.position = vStartPosition;
 
 		pSpriteRender	= transform.GetChild( 2 ).GetComponent<SpriteRenderer>();
 

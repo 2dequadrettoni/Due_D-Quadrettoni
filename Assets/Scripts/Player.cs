@@ -91,6 +91,9 @@ public partial class Player: MonoBehaviour, IPlayer {
 		set { iActualKey = value; }
 	}
 
+	private		Sprite			pCursor					= null;
+
+	public void SetCursor() { }
 
 	// ACTIONS
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,7 +105,10 @@ public partial class Player: MonoBehaviour, IPlayer {
 	public		bool CanParseInput
 	{
 		get { return bCanParseInput;  }
-		set { bCanParseInput = value; }
+		set { bCanParseInput = value;
+
+
+		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
