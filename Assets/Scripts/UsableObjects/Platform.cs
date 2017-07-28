@@ -57,6 +57,10 @@ public partial class Platform : MonoBehaviour {
 
 		pSpriteRender	= transform.GetChild( 2 ).GetComponent<SpriteRenderer>();
 
+
+		transform.GetChild( 0 ).GetComponent<MeshRenderer>().enabled = false;
+		transform.GetChild( 1 ).GetComponent<MeshRenderer>().enabled = false;
+
 	}
 
 	public	void	AddUser( Switcher o ) {

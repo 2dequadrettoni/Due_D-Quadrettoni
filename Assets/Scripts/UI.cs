@@ -116,9 +116,13 @@ public class UI : MonoBehaviour, IUI {
 		pStageManager = GLOBALS.StageManager;
 
 		// Cursor spawn position
-		pCursorPG1.localPosition = pCursorPG1SpawnPos = vActionsSlots[ 0, 0 ].rectTransform.localPosition + ( Vector3.up * vActionsSlots[ 0, 0 ].rectTransform.rect.height/2 );
 
-		pCursorPG2.localPosition = pCursorPG2SpawnPos = vActionsSlots[ 1, 0 ].rectTransform.localPosition + ( Vector3.down * vActionsSlots[ 1, 0 ].rectTransform.rect.height/2 );
+		pCursorPG1SpawnPos = pCursorPG1.localPosition;
+		pCursorPG2SpawnPos = pCursorPG2.localPosition;
+
+//		pCursorPG1.localPosition = pCursorPG1SpawnPos = vActionsSlots[ 0, 0 ].rectTransform.localPosition + ( Vector3.up * vActionsSlots[ 0, 0 ].rectTransform.rect.height/2 );
+
+//		pCursorPG2.localPosition = pCursorPG2SpawnPos = vActionsSlots[ 1, 0 ].rectTransform.localPosition + ( Vector3.down * vActionsSlots[ 1, 0 ].rectTransform.rect.height/2 );
 
         //Image Button Pause
         buttonColor = pCanvasObject.GetChild(13).GetComponent<Image>();
@@ -184,7 +188,7 @@ public class UI : MonoBehaviour, IUI {
 
 	public	void	PlaySequence( int iStage, float fInterpolant ) {
 
-        backGrid.localScale = new Vector3(originalScale.x * iStage, 1 , 1);
+        backGrid.localScale = new Vector3(originalScale.x * iStage, 1, 1);
 
         pCursorPG1.localPosition = new Vector3 (
 			Mathf.Lerp( pCursorPG1.localPosition.x, vActionsSlots[ 0, iStage ].rectTransform.localPosition.x, fInterpolant ),
