@@ -42,7 +42,6 @@ public partial class Switcher {
 				pSpriteRender.sprite = pSpriteDisabled;
 		}
 
-
 	}
 
 

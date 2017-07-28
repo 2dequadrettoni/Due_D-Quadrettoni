@@ -141,7 +141,7 @@ public partial class Player {
 
 				//////////////////////////////////////////////////////////////////////////////
 				//		MOVEMENT ONLY
-				if ( objTag == "Tiles" || objTag == "Platform" ) {
+				if ( objTag == "Tiles" /* || objTag == "Platform" */ ) {
 					transform.position = pMouseHitted.collider.gameObject.transform.position;
 				//	transform.position = pCurrentDestSprite.position;
 					pAction = new PlayerAction( transform.position );

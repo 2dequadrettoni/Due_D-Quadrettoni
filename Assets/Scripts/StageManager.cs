@@ -45,7 +45,8 @@ interface IStageManager {
 
 
 public partial class StageManager : MonoBehaviour, IStageManager {
-
+	
+	static		public int			MAX_STAGES		= 10;
 
 	private		List<Stage>			vStages			= null;
 	private		int					iTotalStages	= 1;

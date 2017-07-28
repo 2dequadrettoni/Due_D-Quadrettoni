@@ -163,6 +163,11 @@ public class UI : MonoBehaviour, IUI {
 
 	public	void	CursorsNextStep( int iStage ) {
 
+		if ( ( iStage + 1 ) > StageManager.MAX_STAGES ) {
+			 backGrid.localScale = new Vector3(originalScale.x * iStage, 1, 1);
+			return;
+		}
+
         backGrid.localScale = new Vector3(originalScale.x * iStage, 1, 1);
 
         pCursorPG1.localPosition = new Vector3(

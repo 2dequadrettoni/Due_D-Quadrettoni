@@ -58,7 +58,7 @@ public partial class Door {
 	}
 
 
-	private void OnMouseEnter() {
+	void	OnMouseEnter()  {
 
 		if ( GLOBALS.StageManager.IsPlaying ) return;
 
@@ -66,12 +66,11 @@ public partial class Door {
 
 	}
 
-	private void OnMouseExit() {
+	void	OnMouseExit() {
 
 		if ( GLOBALS.StageManager.IsPlaying ) return;
 
 		SetUsersAsHighlighted( bIsHighLighted = false );
 
 	}
-
 }

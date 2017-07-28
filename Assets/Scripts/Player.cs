@@ -192,8 +192,15 @@ public partial class Player: MonoBehaviour, IPlayer {
 		////////////////////////////////////////////////////////////////////////
 		//		PLAN MODE
 		//
-		if ( bCanParseInput )
+		if ( bCanParseInput ) {
 			this.ParseInput();
+
+			if ( pStageManager.StageCount == StageManager.MAX_STAGES ) {
+				bCanParseInput = false;
+				SetCursor( false );
+			}
+
+		}
 
 		////////////////////////////////////////////////////////////////////////
 		//		PLAY MODE
@@ -204,8 +211,6 @@ public partial class Player: MonoBehaviour, IPlayer {
     }
 
 	public void PlayWinAnimation() {
-
-		print( "wow" );
 
 		pAnimator.Play( "Win", 0, 0.0f );
 

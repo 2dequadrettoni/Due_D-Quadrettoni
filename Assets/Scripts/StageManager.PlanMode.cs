@@ -65,13 +65,20 @@ public partial class StageManager {
 
 		if ( !bIsOK ) return;
 
+		if ( iCurrentStage == MAX_STAGES ) return;
+
 		pPlayer1.OnNextStage();
 		pPlayer2.OnNextStage();
 
-		// If actions are not assigned warn player
 		if ( !vStages[ iCurrentStage ].IsOK() ) {
-			Debug.Log( "both player have to had proper action set" );
-			return;
+
+			vStages[ iCurrentStage ].Default();
+
+			if ( pUI ) {
+				pUI.UpdateAction( 1, vStages[ iCurrentStage ].GetAction( 1 ).GetType(), iCurrentStage );
+				pUI.UpdateAction( 2, vStages[ iCurrentStage ].GetAction( 2 ).GetType(), iCurrentStage );
+			}
+
 		}
 		
 		if ( bPlanDebug ) Debug.Log( "Next stage" );
