@@ -10,11 +10,42 @@ using NodeList = System.Collections.Generic.List<Node>;
 
 public partial class Player {
 
-	const	bool	bPlanDebug		= false;
+	const	bool	bPlanDebug		= true;
 
-    ////////////////////////////////////////////////////////////////////////
+	private	Vector3	vPlanStageDestination =  Vector3.zero;
+
+
+	private	void	SetStepTile( Vector3 vPosition ) {
+
+		//////////////////////////////////////////////////////////////////////////////
+		// INSTANTIATE A NEW STEP TILE
+		Transform pStepTile = null;
+		if ( vSteps[ pStageManager.CurrentStage ] == null ) {
+			pStepTile = Instantiate( pMainStepTile, this.transform ) as Transform;;
+			vSteps[ pStageManager.CurrentStage ] = pStepTile;
+
+			//////////////////////////////////////////////////////////////////////////////
+			// SHOW STEP SPRITE
+			pStepTile.GetChild( 0 ).GetComponent<SpriteRenderer>().enabled = true;
+
+			//////////////////////////////////////////////////////////////////////////////
+			// SET RIGHT NUMBER
+			SpriteRenderer	pSpriteRender = pStepTile.GetChild( 1 ).GetComponent<SpriteRenderer>();
+			pSpriteRender.enabled = true;
+			pSpriteRender.sprite = pStageManager.GetNumberSprite();
+
+		}
+		else {
+			pStepTile = vSteps[ pStageManager.CurrentStage ];
+		}
+
+		pStepTile.position = vPosition;
+
+	}
+
+
+	////////////////////////////////////////////////////////////////////////
     /////////////////////////		PLAN MODE
-
 	private void ParseInput() {
 
 		//		if ( EventSystem.current.IsPointerOverGameObject() ) return;
@@ -28,16 +59,15 @@ public partial class Player {
 		// Semi trasparent square sprite for current destination tile
 		{
 			string objTag = pMouseHitted.collider.tag;
+			// make visible the sprite
+			if ( objTag == "Tiles" ) {
 
-		//	if ( objTag == "Key" || objTag == "Switcher" || objTag == "Plane_Switcher" || objTag == "Tiles" || objTag == "Platform" ) {
+				pPlanTile.gameObject.SetActive( true );
 
-				// make visible the sprite
-				if ( objTag == "Tiles" ) {
-					pCurrentDestSprite.localRotation = Quaternion.Euler( 90.0f, 0.0f, -90.0f );
-					pCurrentDestSprite.position = pMouseHitted.collider.transform.position;
-				}
+//				pPlanTile.localRotation = Quaternion.Euler( 0.0f, 87.92f, 45.6f );
+				pPlanTile.position = pMouseHitted.collider.transform.position;
 
-		//	}
+			}
 
 		}
 		
@@ -46,8 +76,9 @@ public partial class Player {
 
 			pAction = new PlayerAction();
 			pStageManager.SetAction( this.pAction, this.iID );
-			transform.position = vPlanPosition;
+//			transform.position = vPlanPosition;
 			if ( bPlanDebug ) Debug.Log( "Wait action set" );
+			this.SetStepTile( Vector3.up * 10000 );
 
 		}
 
@@ -59,7 +90,6 @@ public partial class Player {
 			if ( pHittResult ) {
 
 				string objTag = pMouseHitted.collider.tag;
-
 				
 				if ( pUsableObject ) {
 
@@ -75,8 +105,9 @@ public partial class Player {
 				//////////////////////////////////////////////////////////////////////////////
 				//		INSTANT USE
 						if (  pUsableObject.UseType == UsageType.INSTANT ) {
-							if ( Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position ) < fUseDistance*1.2f ) {
-								transform.position = vPlanPosition;
+							Vector3 vDestination = pMouseHitted.collider.transform.position;
+							if ( Vector3.Distance( vPlanPosition, vDestination ) < fUseDistance*1.2f ) {
+								this.SetStepTile( vPlanStageDestination = vDestination );
 								pAction = new PlayerAction( pUsableObject );
 								pStageManager.SetAction( this.pAction, this.iID );
 								if ( bPlanDebug ) Debug.Log( "Usable object set" );
@@ -95,33 +126,36 @@ public partial class Player {
 							//		OBJECTS ON RANGE AND WITH USE AT STAGE END		
 							if ( objTag == "Switcher" ) {
 
-								if ( fObjectDistance > (fUseDistance * 1.25f ) ) {
+								if ( fObjectDistance > ( fUseDistance * 1.25f ) ) {
 
 									// Calculate path
 									pMouseHitted.collider.gameObject.layer = LayerMask.NameToLayer( "Default" );
 									pPathFinder.UpdateGrid();
 									NodeList vNodes = new NodeList();
-									bool found = pPathFinder.FindPath( vPlanPosition, pMouseHitted.collider.gameObject.transform.position, out vNodes );
+									Vector3 vCoord  = pPathFinder.NodeFromWorldPoint( pMouseHitted.collider.gameObject.transform.position ).worldPosition;
+									bool found = pPathFinder.FindPath( vPlanPosition, vCoord, out vNodes );
 									pMouseHitted.collider.gameObject.layer = LayerMask.NameToLayer( "Unwalkable" );
 									pPathFinder.UpdateGrid();
 
 									if ( !found ) return;
-
+									
 									if ( ( vNodes.Count > 1 ) )
 										vNodes.RemoveRange( vNodes.Count - 1, 1 );
 
 									// if more than 1 node get last otherwise get the node coordinates
-									Vector3 vDestination = ( vNodes.Count > 1 ) ? ( vNodes[ vNodes.Count - 1 ].worldPosition ) : ( vNodes[ 0 ].worldPosition );
+									Vector3 vDestinationNode = ( vNodes.Count > 1 ) ? ( vNodes[ vNodes.Count - 1 ].worldPosition ) : ( vNodes[ 0 ].worldPosition );
+							//		transform.position = vDestination;
 
-									transform.position = vDestination;
-									pAction = new PlayerAction( vDestination, pUsableObject );
+									pAction = new PlayerAction( vDestinationNode, pUsableObject );
 
 								}
 								else {
-//									transform.position = vPlanPosition;
+									
 									pAction = new PlayerAction( pUsableObject );
 								}
 								
+								Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
+								this.SetStepTile( vPlanStageDestination = vDestination );
 								pStageManager.SetAction( this.pAction, this.iID );
 								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
 
@@ -131,9 +165,9 @@ public partial class Player {
 				//////////////////////////////////////////////////////////////////////////////
 				//		OBJECTS WITH USE AT DESTINATION REACHED
 							{
-
-								transform.position = pMouseHitted.transform.position;
-								pAction = new PlayerAction( pMouseHitted.point, pUsableObject );
+								Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
+								this.SetStepTile( vPlanStageDestination = vDestination );
+								pAction = new PlayerAction( vDestination, pUsableObject );
 								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
 							}
 						}
@@ -145,13 +179,14 @@ public partial class Player {
 
 				//////////////////////////////////////////////////////////////////////////////
 				//		MOVEMENT ONLY
-				if ( objTag == "Tiles" /* || objTag == "Platform" */ ) {
-					transform.position = pMouseHitted.collider.gameObject.transform.position;
-				//	transform.position = pCurrentDestSprite.position;
-					pAction = new PlayerAction( transform.position );
+				if ( objTag == "Tiles" ) {
+					Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
+					this.SetStepTile( vPlanStageDestination = vDestination );
+					pAction = new PlayerAction( vDestination );
 					if ( bPlanDebug ) Debug.Log( "Movement only set" );
 
 				}
+
 			}
 			
 			// Finally set action
@@ -165,7 +200,7 @@ public partial class Player {
 
 	public	void	OnNextStage() {
 
-		vPlanPosition.Set( transform.position.x, transform.position.y, transform.position.z );
+		vPlanPosition.Set( vPlanStageDestination.x, vPlanStageDestination.y, vPlanStageDestination.z );
 
 	}
 

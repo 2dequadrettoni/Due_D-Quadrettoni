@@ -16,7 +16,7 @@ public partial class StageManager {
 	public	void	Play() {
 
 		// If manager had bad initialization
-		if ( !bIsOK ) return;
+		if ( !bIsOK || IsPlaying ) return;
 
 		if ( vStages.Count < 1 ) {
 			Debug.Log( "Stages have to be at last one" );

@@ -14,12 +14,13 @@ public partial class Player {
 		
 		if ( !bIsOK ) return;
 
+		foreach( Transform o in vSteps )
+			if ( o != null )
+			Destroy( o.gameObject );
+
 		bCanParseInput = false;
 
 		pAction = null;
-
-		// restore default
-		pRenderer.sprite = pOriginalSprite;
 
 		pAnimator.enabled = true;
 

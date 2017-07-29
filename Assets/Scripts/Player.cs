@@ -128,11 +128,10 @@ public partial class Player: MonoBehaviour, IPlayer {
 	private		SpriteRenderer	pRenderer				= null;
 	private		SpriteRenderer	pCursorRenderer			= null;
 	private		Animator		pAnimator				= null;
-	[SerializeField]
-	private		Sprite			pPlanSprite				= null;
-	private		Sprite			pOriginalSprite			= null;
-	[SerializeField]
-	private		Transform		pCurrentDestSprite		= null;
+	private		Transform		pPlanTile				= null;
+	private		Transform		pMainStepTile			= null;
+
+	private		Transform[]		vSteps					= null;
 
 
 	////////////////////////////////////////////////////////////////////////
@@ -141,16 +140,14 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	private void Start() {
 
-		pRenderer			= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
-		pCursorRenderer		= transform.GetChild( 2 ).GetComponent<SpriteRenderer>();
-		pOriginalSprite		= pRenderer.sprite;
-		if ( pPlanSprite )
-			pRenderer.sprite	= pPlanSprite;
-
-		pAnimator			= transform.GetChild( 0 ).GetComponent<Animator>();
+		pRenderer			= transform.FindChild( "Sprite" ).GetComponent<SpriteRenderer>();
+		pAnimator			= transform.FindChild( "Sprite" ).GetComponent<Animator>();
+		pCursorRenderer		= transform.FindChild( "Cursor" ).GetComponent<SpriteRenderer>();
+		
+		pPlanTile			= transform.FindChild( "PlanTile" );
+		pMainStepTile		= transform.FindChild( "StepTile" );
 
 		pPathFinder			= GLOBALS.PathFinder;
-
 		pStageManager		= GLOBALS.StageManager;
 
 		if ( !pPathFinder ) {
@@ -168,7 +165,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 		vSpawnPostion.Set( transform.position.x, transform.position.y, transform.position.z );
 		vPlanPosition.Set( transform.position.x, transform.position.y, transform.position.z );
 
-//		pAnimator.Play( "Idle_Down" );
+		vSteps = new Transform[ StageManager.MAX_STAGES ];
 
 		bIsOK = true;
 
@@ -186,7 +183,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 		if ( !bIsOK ) return;
 
 		// hide icon
-		pCurrentDestSprite.localRotation = Quaternion.identity;
+		pPlanTile.gameObject.SetActive( false );
 
 		////////////////////////////////////////////////////////////////////////
 		//		PLAN MODE

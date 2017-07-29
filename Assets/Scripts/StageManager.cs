@@ -96,6 +96,8 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 	private		Platform[]			vPlatforms		= null;
 
+	private		Sprite[]			vNumberSprites	= null;
+
 
 	private		void	Start() {
 
@@ -128,9 +130,18 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 		pPlayer1.ID = 1;
 		pPlayer2.ID = 2;
 
+		vNumberSprites = Resources.LoadAll<Sprite>( "Numbers" );
+
 		// Internal state
 		bIsOK = true;
 
+	}
+
+	public	Sprite GetNumberSprite() {
+
+		if ( iCurrentStage >= MAX_STAGES ) return null;
+
+		return vNumberSprites[iCurrentStage];
 	}
 
 }

@@ -103,11 +103,11 @@ public partial class Door : UsableObject {
 		for ( int i = 1; i < vSwitchers.Length; i++ ) {
 
 			if ( vSwitchers[i].Used != bSameState ) {
-				if ( bStartClosed )
+/*				if ( bStartClosed )
 					if ( !bClosed ) this.Close();
 				else
 					if ( bClosed )  this.Open();
-				return;
+*/				return;
 			}
 		}
 
