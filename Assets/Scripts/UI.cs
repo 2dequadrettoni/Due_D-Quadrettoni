@@ -75,6 +75,7 @@ public class UI : MonoBehaviour, IUI {
 
     Transform pCanvasObject;
 
+	[HideInInspector]
     public bool isPause = false;
     Image buttonColor = null;
 
