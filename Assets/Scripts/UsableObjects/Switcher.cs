@@ -10,10 +10,7 @@ public partial class Switcher : UsableObject {
 	[SerializeField]
 	private		Transform[]			vObjects					= null;
 
-	private		bool				IsPlayingAnimation			= false;
-
 	////////////////////////////////////////////////////////////////////////
-
 	private		bool				bUsed						= false;
 	public	bool Used {
 		get { return bUsed; }
@@ -27,7 +24,19 @@ public partial class Switcher : UsableObject {
 
 	private void Start() {
 		
-		pAnimator		= transform.GetChild( 0 ).GetComponent<Animator>();
+		if ( transform.childCount > 0 ) {
+			pAnimator = transform.GetChild( 0 ).GetComponent<Animator>();
+
+			if ( !pAnimator ) {
+				GLOBALS.UI.ShowMessage( "Invalid switcher", "A switcher object has not sprite with animator component", GLOBALS.GameManager.Exit );
+				return;
+			}
+
+			}
+		else {
+			GLOBALS.UI.ShowMessage( "Invalid switcher", "A switcher object has not sprite as child", GLOBALS.GameManager.Exit );
+			Destroy( gameObject );
+		}
 
 		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
 
@@ -60,6 +69,8 @@ public partial class Switcher : UsableObject {
 
 	}
 
+
+
 	private void Update() {
 		
 		//	 HIGHLIGHTING
@@ -71,57 +82,53 @@ public partial class Switcher : UsableObject {
 	}
 
 
-	public	void	SetUsed( bool b ) {
-		this.bUsed = b;
+	// CALLED AT ANIMATION END
+	public	void	SetUsed( bool value ) {
+
+		this.bUsed = value;
+
+		if ( vObjects == null || vObjects.Length == 0 )
+			GLOBALS.EventManager.SentEvent( this );
+
+		// USABLE OBJECTS ( DOORS, PLATFORMS )
+		if ( ( vObjects != null ) && ( vObjects.Length > 0 ) ) {
+			foreach( Transform o in vObjects ) o.SendMessage( value ? "OnUse" : "OnReset" );
+		}
 	}
+
+
+
 
 	public	override	void	OnReset() {
 
-//		if ( IsPlayingAnimation ) return;
-
-		print( "switcher OnReset" );
-
-		if ( ( vObjects.Length > 0 ) && bUsed ) {
-			foreach( Transform o in vObjects ) o.SendMessage( "OnReset" );
-		}
+		print( "SWITCHER OnReset" );
 
 		if ( pAnimator ) {
 			pAnimator.Play( "OnReset" );
 			GLOBALS.StageManager.AddActiveObject();
-//			IsPlayingAnimation = true;
-		}
-		else {
-			print( " Cannot reproduce OnReset animation" );
+			return;
 		}
 
 	}
 
 
+
+
 	public override void OnUse( Player User ) {
-
-//		if ( IsPlayingAnimation ) return;
-
-		print( "switcher OnUse" );
-
-		// SWITCHERS
-		if ( ( vObjects.Length > 0 ) ) {
-			foreach( Transform o in vObjects ) o.SendMessage( "OnUse", User );
-		}
 
 		if ( bUsed ) {
 			OnReset();
-		}
-		else {
-			if ( pAnimator ) {
-				pAnimator.Play( "OnUse" );
-				GLOBALS.StageManager.AddActiveObject();
-//				IsPlayingAnimation = true;
-			}
-			else {
-				print( " Cannot reproduce OnUse animation" );
-			}
+			return;
 		}
 		
+
+		print( "SWITCHER OnUse" );
+		// Sanity check
+		if ( pAnimator ) {
+			pAnimator.Play( "OnUse" );
+			GLOBALS.StageManager.AddActiveObject();
+			return;
+		}
 		
 	}
 

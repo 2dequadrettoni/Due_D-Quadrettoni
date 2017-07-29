@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour {
 		F1 = transform.GetChild( 0 ).GetComponent<FinalTile>();
 		F2 = transform.GetChild( 1 ).GetComponent<FinalTile>();
 
+		F1.iDesiredPlayerID = 1;
+		F2.iDesiredPlayerID = 2;
+
 	}
 
 	private void Update() {
@@ -42,6 +45,14 @@ public class GameManager : MonoBehaviour {
 
 		SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
 
+	}
+
+	public void	Exit() {
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#else
+			Application.Quit();
+#endif
 	}
 
 

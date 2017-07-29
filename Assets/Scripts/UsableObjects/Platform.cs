@@ -61,10 +61,18 @@ public partial class Platform : MonoBehaviour {
 		transform.GetChild( 0 ).GetComponent<MeshRenderer>().enabled = false;
 		transform.GetChild( 1 ).GetComponent<MeshRenderer>().enabled = false;
 
+		GLOBALS.EventManager.AddReceiver( this );
+
 	}
 
 	public	void	AddUser( Switcher o ) {
 		if ( o ) vSwitchers.Add( o );
+	}
+
+	public	void	OnEvent( Switcher o ) {
+
+		if ( !o ) return;
+
 	}
 
 	private	void	 Update() {
@@ -104,7 +112,7 @@ public partial class Platform : MonoBehaviour {
 		bActive = true;
 	}
 
-	public void	OnUse( Player User ) {
+	public void	OnUse() {
 		bActive = true;
 	}
 

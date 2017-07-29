@@ -23,20 +23,18 @@ public partial class StageManager {
 			return;
 		}
 
-		if ( iCurrentStage >= vStages.Count ) {
-			Debug.Log( "Maximum slot occupied" );
-			return;
-		}
+		if ( iCurrentStage < MAX_STAGES ) {
+			
+			if ( !vStages[ iCurrentStage ].IsOK() ) {
 
-		if ( !vStages[ iCurrentStage ].IsOK() ) {
+				vStages[ iCurrentStage ].Default();
 
-			vStages[ iCurrentStage ].Default();
+				if ( pUI ) {
+					pUI.UpdateAction( 1, vStages[ iCurrentStage ].GetAction( 1 ).GetType(), iCurrentStage );
+					pUI.UpdateAction( 2, vStages[ iCurrentStage ].GetAction( 2 ).GetType(), iCurrentStage );
+				}
 
-			if ( pUI ) {
-				pUI.UpdateAction( 1, vStages[ iCurrentStage ].GetAction( 1 ).GetType(), iCurrentStage );
-				pUI.UpdateAction( 2, vStages[ iCurrentStage ].GetAction( 2 ).GetType(), iCurrentStage );
 			}
-
 		}
 
 		pPlayer1.SetCursor( false );
@@ -105,11 +103,12 @@ public partial class StageManager {
 
 			bPlayingStage = true;
 
-			Debug.Log( "stage " + iCurrentStage + "/" + ( vStages.Count - 1) );
+			Debug.Log( "stage " + iCurrentStage + "/" + MAX_STAGES );
 
 		}
 
-		if ( bPlayingStage ) {
+		if ( bPlayingStage &&  ( iCurrentStage < vStages.Count ) ) {
+
 			UpdateUISequence();
 			ExecuteActions();
 		}
@@ -118,9 +117,9 @@ public partial class StageManager {
 
 	private	void	UpdateUISequence() {
 
-		if ( fUI_Interpolant < 1.0f ) {
+		if ( fUI_Interpolant < 1.0f && iCurrentStage < MAX_STAGES ) {
 
-			fUI_Interpolant += 2.0f * Time.deltaTime;
+			fUI_Interpolant += Time.deltaTime;
 			
 			pUI.PlaySequence( iCurrentStage, fUI_Interpolant );
 

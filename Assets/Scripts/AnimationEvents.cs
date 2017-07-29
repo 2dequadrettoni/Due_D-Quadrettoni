@@ -18,6 +18,7 @@ public class AnimationEvents : MonoBehaviour {
 		transform.parent.GetChild( 1 ).GetComponent<BoxCollider>().enabled = false;
 		transform.parent.gameObject.layer = 0;
 		GLOBALS.PathFinder.UpdateGrid();
+
 	}
 
 	void	DoorClosed() {
@@ -31,6 +32,7 @@ public class AnimationEvents : MonoBehaviour {
 
 	void	SetAsUsed() {
 
+
 		UsableObject o = transform.parent.GetComponent<UsableObject>();
 		if ( o is Switcher ) {
 			( o as Switcher).SetUsed( true );
@@ -38,7 +40,7 @@ public class AnimationEvents : MonoBehaviour {
 		}
 
 		if ( o is Door ) {
-			( o as Door ).SetUsed( true );
+			( o as Door ).SetClosed( false );
 		}
 
 	}
@@ -52,7 +54,7 @@ public class AnimationEvents : MonoBehaviour {
 		}
 
 		if ( o is Door ) {
-			( o as Door ).SetUsed( false );
+			( o as Door ).SetClosed( true );
 		}
 
 	}

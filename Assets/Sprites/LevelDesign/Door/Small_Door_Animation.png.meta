@@ -1,21 +1,21 @@
 fileFormatVersion: 2
-guid: e86c1e353db6286408f1c10ca397a078
-timeCreated: 1501168739
+guid: a4672a71d888bde469003c14fae1f8a6
+timeCreated: 1501329755
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: porta01 animazione_0
-    21300002: porta01 animazione_1
-    21300004: porta01 animazione_2
-    21300006: porta01 animazione_3
-    21300008: porta01 animazione_4
-    21300010: porta01 animazione_5
-    21300012: porta01 animazione_6
-    21300014: porta01 animazione_7
-    21300016: porta01 animazione_8
-    21300018: porta01 animazione_9
-    21300020: porta01 animazione_10
-    21300022: porta01 animazione_11
+    21300000: Small_Door_Animation_0
+    21300002: Small_Door_Animation_1
+    21300004: Small_Door_Animation_2
+    21300006: Small_Door_Animation_3
+    21300008: Small_Door_Animation_4
+    21300010: Small_Door_Animation_5
+    21300012: Small_Door_Animation_6
+    21300014: Small_Door_Animation_7
+    21300016: Small_Door_Animation_8
+    21300018: Small_Door_Animation_9
+    21300020: Small_Door_Animation_10
+    21300022: Small_Door_Animation_11
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -78,27 +78,11 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: Android
-    maxTextureSize: 2048
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-  - buildTarget: WebGL
-    maxTextureSize: 2048
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: porta01 animazione_0
+      name: Small_Door_Animation_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,7 +95,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: porta01 animazione_1
+      name: Small_Door_Animation_1
       rect:
         serializedVersion: 2
         x: 148
@@ -124,7 +108,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: porta01 animazione_2
+      name: Small_Door_Animation_2
       rect:
         serializedVersion: 2
         x: 296
@@ -137,7 +121,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: porta01 animazione_3
+      name: Small_Door_Animation_3
       rect:
         serializedVersion: 2
         x: 444
@@ -150,7 +134,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: porta01 animazione_4
+      name: Small_Door_Animation_4
       rect:
         serializedVersion: 2
         x: 592
@@ -163,7 +147,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: porta01 animazione_5
+      name: Small_Door_Animation_5
       rect:
         serializedVersion: 2
         x: 740
@@ -176,7 +160,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: porta01 animazione_6
+      name: Small_Door_Animation_6
       rect:
         serializedVersion: 2
         x: 0
@@ -189,7 +173,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: porta01 animazione_7
+      name: Small_Door_Animation_7
       rect:
         serializedVersion: 2
         x: 148
@@ -202,7 +186,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: porta01 animazione_8
+      name: Small_Door_Animation_8
       rect:
         serializedVersion: 2
         x: 296
@@ -215,7 +199,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: porta01 animazione_9
+      name: Small_Door_Animation_9
       rect:
         serializedVersion: 2
         x: 444
@@ -228,7 +212,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: porta01 animazione_10
+      name: Small_Door_Animation_10
       rect:
         serializedVersion: 2
         x: 592
@@ -241,7 +225,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: porta01 animazione_11
+      name: Small_Door_Animation_11
       rect:
         serializedVersion: 2
         x: 740

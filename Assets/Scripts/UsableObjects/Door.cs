@@ -8,14 +8,23 @@ public partial class Door : UsableObject {
 	//	 KEY AND LOCK STATE
 	[Header("Key and loocked state")]
 	[Header("Value [ 1 - 255 ], zero is no valid ID")]
-	[SerializeField][Range(0, 254 )]
-	private		byte				KeyID							= 1;
+	[SerializeField][Range(0, 255)]
+	private		byte						KeyID					= 0;
 	[SerializeField]
-	private		bool				bLocked							= false;
+	private		bool						bLocked					= false;
 	public		bool Locked {
 		get { return bLocked; }
 	}
 
+	//	 INTERNAL VARS
+	[SerializeField]
+	private		bool						bClosed					= false;
+	public		bool Closed {
+		get { return bClosed; }
+	}
+	private		bool						bStartClosed			= false;
+	private		Animator					pAnimator				= null;
+	private		SpriteRenderer				pSpriteRender			= null;
 
 	// LINKED SWITCHERS
 	[Header("Switcher for this door")]
@@ -23,39 +32,48 @@ public partial class Door : UsableObject {
 	[SerializeField]
 	private		Switcher[]					vSwitchers				= null;
 
-	//	 INTERNAL VARS
-	private		bool						IsPlayingAnimation		= false;
-	private		bool						bUsed					= false;
-	public		bool Used {
-		get { return bUsed; }
-	}
-	public		bool Closed {
-		get { return !bUsed; }
-	}
-	private		Animator					pAnimator				= null;
-	private		SpriteRenderer				pSpriteRender			= null;
-
-
-	private		List<Switcher>				vUsers				= new List<Switcher>();
+	// Used for highlighting
+	private		List<Switcher>				vUsers					= new List<Switcher>();
 
 
 	private		void	Start() {
 		
 		if ( transform.childCount > 0 ) {
 			pAnimator = transform.GetChild( 0 ).GetComponent<Animator>();
+
+			if ( !pAnimator ) {
+				GLOBALS.UI.ShowMessage( "Invalid Door", "A door object has not sprite with animator component", GLOBALS.GameManager.Exit );
+				return;
+			}
+
+			}
+		else {
+			GLOBALS.UI.ShowMessage( "Invalid Door", "A door object has not sprite as child", GLOBALS.GameManager.Exit );
+			Destroy( gameObject );
 		}
 
 		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
 
-		vUsers = new List<Switcher>();
 
-		foreach( Switcher o in vSwitchers )
-			vUsers.Add( o );
+		// If door need a key, make sure that no switcher can use it
+		if ( KeyID == 0 ) {
+			vUsers = new List<Switcher>();
+			foreach( Switcher o in vSwitchers )
+				vUsers.Add( o );
+		}
+		else {
+			vSwitchers = null;
+		}
 
-	}
+		GLOBALS.EventManager.AddReceiver( this );
 
-	public	void	AddUser( Switcher o ) {
-		if ( o ) vUsers.Add( o );
+		if ( bClosed )
+			pAnimator.Play( "Close", 0, 0.9f );
+		else
+			pAnimator.Play( "Open",  0, 0.9f );
+
+		bStartClosed = bClosed;
+
 	}
 
 
@@ -68,84 +86,102 @@ public partial class Door : UsableObject {
 		}
 		this.UpdateHighLighting();
 
-		if ( vSwitchers != null ) {
+	}
 
-			if ( vSwitchers.Length == 0 ) return;
 
-			foreach ( Switcher o in vSwitchers ) {
-				if ( !o.Used ) return;
+
+	public		void	AddUser( Switcher o ) {
+		if ( ( vUsers != null ) && o ) vUsers.Add( o );
+	}
+
+
+
+	private		void	VerifySwitchers() {
+
+		bool bSameState = vSwitchers[0].Used;
+
+		for ( int i = 1; i < vSwitchers.Length; i++ ) {
+
+			if ( vSwitchers[i].Used != bSameState ) {
+				if ( bStartClosed )
+					if ( !bClosed ) this.Close();
+				else
+					if ( bClosed )  this.Open();
+				return;
 			}
-
 		}
 
-		if ( !bUsed )
-			this.OnUse( null );
 
+		if ( bClosed )  this.Open(); else this.Close();
+		
 	}
 
-	public	void	SetUsed( bool b ) {
 
-		this.bUsed = b;
-		IsPlayingAnimation = false;
 
-	}
+	// called when a switcher in the world is used
+	public		void	OnEvent( Switcher o ) {
 
-	public override	void	OnReset() {
+		if ( !o || ( vSwitchers == null ) || ( vSwitchers.Length == 0 ) ) return;
 
-		if ( IsPlayingAnimation ) return;
-
-		print( "switcher OnReset" );
-
-		if ( bUsed ) {
-
-			if ( pAnimator ) {
-				pAnimator.Play( "OnReset" );
-				GLOBALS.StageManager.AddActiveObject();
-				IsPlayingAnimation = true;
-			//	bUsed = false;
-			}
-			else {
-				print( " Cannot reproduce OnReset animation" );
-			}
-			
-		}
+		VerifySwitchers();
 
 	}
 
 
-	public override	void OnUse( Player User ) {
 
-		if ( IsPlayingAnimation ) return;
+	public		void	SetClosed( bool b ) {
 
-		print( "Door OnUse" );
+		this.bClosed = b;
 
-		if ( bLocked && User && User.ActuaKey != KeyID ) {
-			print( "You need right key" );
+	}
+
+
+
+	public override	void	OnReset() {	Close(); }
+
+	private	void			Close() {
+
+		if ( bClosed ) return;
+
+		print( "DOOR CLOSING" );
+
+		pAnimator.Play( "Close" );
+		GLOBALS.StageManager.AddActiveObject();
+
+	}
+
+
+	public override	void	OnUse( Player User ) { this.TryOpen(  User ); }
+
+	private	void			TryOpen( Player User ) {
+
+
+		if ( User && User.ActuaKey > 0 &&		// Usar have to have a valid key
+			bLocked && KeyID > 0 &&				// Door must be blocked and have a valid kei ID set
+			User.ActuaKey == KeyID )			// User KeyuId and Door KeyID myust be equal
+		{
+
+			bLocked = false;
+			this.Open();
 			return;
 		}
-		bLocked = false;
 
-		if ( bUsed ) {
-			OnReset();
-		} else {
-			
-			if ( pAnimator ) {
-				pAnimator.Play( "OnUse" );
-				GLOBALS.StageManager.AddActiveObject();
-				IsPlayingAnimation = true;
-		//		bUsed = true;
-			}
-			else {
-				print( " Cannot reproduce OnUse animation" );
-			}
-			
-		}
+
+
+		print( "You need right key" );
 
 	}
 
+	public void				Open() {
+
+		if ( !bClosed ) return;
+
+		print( "DOOR OPENING" );
+
+		pAnimator.Play( "Open" );
+		GLOBALS.StageManager.AddActiveObject();
+
+	}
+
+
 }
-
-
-
-
-// TODO: aree separate che gestiscono 2 condizioni di di vittoria, ognuna per pg

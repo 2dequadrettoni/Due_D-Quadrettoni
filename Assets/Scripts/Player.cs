@@ -195,7 +195,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 		if ( bCanParseInput ) {
 			this.ParseInput();
 
-			if ( pStageManager.StageCount == StageManager.MAX_STAGES ) {
+			if ( pStageManager.CurrentStage == StageManager.MAX_STAGES ) {
 				bCanParseInput = false;
 				SetCursor( false );
 			}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FinalTile : MonoBehaviour {
 
-	[SerializeField][Range(1,2)]
+	[HideInInspector]
 	public	int	iDesiredPlayerID = 0;
 
 	StageManager pStageManager = null;

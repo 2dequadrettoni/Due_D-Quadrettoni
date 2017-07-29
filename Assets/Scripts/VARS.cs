@@ -4,11 +4,15 @@
 
 public static class GLOBALS {
 
+	public	static	float			GameTime		= 0.0f;
+
 	public	static	bool			IsPaused		= false;
 
 	public	static	GameManager		GameManager		= null;
 
 	public	static	StageManager	StageManager	= null;
+
+	public	static	EventManager	EventManager	= null;
 
 	public	static	Player			Player1			= null;
 
@@ -26,17 +30,13 @@ public class VARS : MonoBehaviour {
 
 	private void Awake() {
 
-		{//	GameManager
-			GameObject o = GameObject.Find( "GameManager" );
-			if ( o ) {
-				GLOBALS.GameManager = o.GetComponent<GameManager>();
-			}
-		}
-
-		{//	StageMananger
-			GameObject o = GameObject.Find( "GameManager" );
-			if ( o ) {
-				GLOBALS.StageManager = o.GetComponent<StageManager>();
+		// GameManager, StageManager and EventManager
+		{
+			GameObject GM = GameObject.Find( "GameManager" );
+			if ( GM ) {
+				GLOBALS.GameManager		= GM.GetComponent<GameManager>();
+				GLOBALS.StageManager	= GM.GetComponent<StageManager>();
+				GLOBALS.EventManager	= GM.GetComponent<EventManager>();
 			}
 		}
 

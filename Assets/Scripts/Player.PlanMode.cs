@@ -73,11 +73,10 @@ public partial class Player {
 
 
 				//////////////////////////////////////////////////////////////////////////////
-				//		OBJECTS INSTANT
+				//		INSTANT USE
 						if (  pUsableObject.UseType == UsageType.INSTANT ) {
-							if ( Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position ) < fUseDistance ) {
+							if ( Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position ) < fUseDistance*1.2f ) {
 								transform.position = vPlanPosition;
-								// Usable object hitted
 								pAction = new PlayerAction( pUsableObject );
 								pStageManager.SetAction( this.pAction, this.iID );
 								if ( bPlanDebug ) Debug.Log( "Usable object set" );
@@ -98,8 +97,13 @@ public partial class Player {
 
 								if ( fObjectDistance > (fUseDistance * 1.25f ) ) {
 
+									// Calculate path
+									pMouseHitted.collider.gameObject.layer = LayerMask.NameToLayer( "Default" );
+									pPathFinder.UpdateGrid();
 									NodeList vNodes = new NodeList();
-									bool found = pPathFinder.FindPath( vPlanPosition, pMouseHitted.collider.transform.position, out vNodes );
+									bool found = pPathFinder.FindPath( vPlanPosition, pMouseHitted.collider.gameObject.transform.position, out vNodes );
+									pMouseHitted.collider.gameObject.layer = LayerMask.NameToLayer( "Unwalkable" );
+									pPathFinder.UpdateGrid();
 
 									if ( !found ) return;
 

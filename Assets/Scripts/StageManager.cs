@@ -57,7 +57,7 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		int					iCurrentStage	= 0;
-	public		int StageCount
+	public		int CurrentStage
 	{
 		get { return iCurrentStage;  }
 	}
@@ -94,7 +94,7 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 	////////////////////////////////////////////////////////////////////
 	// PLATFORMS
 
-	Platform[] vPlatforms = null;
+	private		Platform[]			vPlatforms		= null;
 
 
 	private		void	Start() {
@@ -110,14 +110,16 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 		vStages.Add( new Stage() );
 
 		// Get all platforms Scripts
-		GameObject[] vPlatformObjs = GameObject.FindGameObjectsWithTag( "Platform" );
-		vPlatforms = new Platform[vPlatformObjs.Length];
-		for ( int i = 0; i < vPlatformObjs.Length; i++ ) {
+		{
+			GameObject[] vPlatformObjs = GameObject.FindGameObjectsWithTag( "Platform" );
+			vPlatforms = new Platform[vPlatformObjs.Length];
+			for ( int i = 0; i < vPlatformObjs.Length; i++ ) {
 
-			GameObject o = vPlatformObjs [ i ];
-			o.transform.GetChild( 0 ).GetComponent<MeshRenderer>().enabled = false;
-			o.transform.GetChild( 1 ).GetComponent<MeshRenderer>().enabled = false;
-			vPlatforms [ i ] = o.GetComponent<Platform>();
+				GameObject o = vPlatformObjs [ i ];
+				o.transform.GetChild( 0 ).GetComponent<MeshRenderer>().enabled = false;
+				o.transform.GetChild( 1 ).GetComponent<MeshRenderer>().enabled = false;
+				vPlatforms [ i ] = o.GetComponent<Platform>();
+			}
 		}
 
 		// First stage set

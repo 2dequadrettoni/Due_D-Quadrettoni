@@ -50,7 +50,20 @@ public class UI : MonoBehaviour, IUI {
 	private		Image[,]		vActionsSlots			= null;
 
 	// PopUp Windows
-	private		bool			bShowDeathMSg			= false;
+	////////////////////////////////////////////////////////////////////
+	////				ERROR MSG
+	public		delegate void	MessageCallback();
+	private		bool			bShowMessageMsg			= false;
+	struct _Msg {
+		public string Title;
+		public string Text;
+		public MessageCallback Func;
+	};
+	_Msg Message;
+
+	////////////////////////////////////////////////////////////////////
+	////				OTHER MSGs
+	private		bool			bShowDeathMsg			= false;
 	private		bool			bShowUnreachableMsg		= false;
 	private		bool			bShowLvlCompletedMsg	= false;
 	private		string			sPlayerName = "";
@@ -88,9 +101,6 @@ public class UI : MonoBehaviour, IUI {
         pCursorPG1 = pTablePG1.GetChild( 10 ).transform as RectTransform;
 		pCursorPG2 = pTablePG2.GetChild( 10 ).transform as RectTransform;
 
-
-
-
 		// Actions Icons
 		vIcons = new GameObject[3];
 		vIcons[ (int) ActionType.MOVE ] = pCanvasObject.GetChild( 4 ).gameObject;
@@ -120,11 +130,7 @@ public class UI : MonoBehaviour, IUI {
 		pCursorPG1SpawnPos = pCursorPG1.localPosition;
 		pCursorPG2SpawnPos = pCursorPG2.localPosition;
 
-//		pCursorPG1.localPosition = pCursorPG1SpawnPos = vActionsSlots[ 0, 0 ].rectTransform.localPosition + ( Vector3.up * vActionsSlots[ 0, 0 ].rectTransform.rect.height/2 );
-
-//		pCursorPG2.localPosition = pCursorPG2SpawnPos = vActionsSlots[ 1, 0 ].rectTransform.localPosition + ( Vector3.down * vActionsSlots[ 1, 0 ].rectTransform.rect.height/2 );
-
-        //Image Button Pause
+        //Image Pause Button
         buttonColor = pCanvasObject.GetChild(13).GetComponent<Image>();
 
 
@@ -145,7 +151,7 @@ public class UI : MonoBehaviour, IUI {
 
 	}
 
-    public void ActivatePlayBtn()
+    public	void	ActivatePlayBtn()
     {
         pCanvasObject.GetChild(9).GetChild(1).GetComponent<Animator>().SetBool("isPlay", true);
 
@@ -234,10 +240,19 @@ public class UI : MonoBehaviour, IUI {
 	public	void	ShowDeathMsg( string PlayerName ) {
 
 		sPlayerName = PlayerName;
-		bShowDeathMSg = true;
+		bShowDeathMsg = true;
 		if ( pStageManager.IsPlaying ) {
 			pStageManager.Stop( true );
 		}
+
+	}
+
+	public	void	ShowMessage( string Title, string Text, MessageCallback Func = null ) {
+
+		bShowMessageMsg = true;
+		Message.Title = Title;
+		Message.Text = Text;
+		Message.Func = Func;
 
 	}
 
@@ -250,108 +265,92 @@ public class UI : MonoBehaviour, IUI {
 
 	// Default window rect
 	static Rect	DefaultWindow		= new Rect( Screen.width / 2f - 200, Screen.height / 2f - 50, 400, 100 );
-	
-	Rect FailWindowRect				= new Rect( DefaultWindow );
-	Rect LvlCompletedWindowRect		= new Rect( DefaultWindow );
-	void OnGUI() {
-		
-		if ( bShowDeathMSg ) {
-			GUI.Window( 0, FailWindowRect, ShowDeathGUI, "Player is dead!!" );
-		}
 
-		if ( bShowUnreachableMsg ) {
-			GUI.Window( 0, FailWindowRect, ShowUnreachableGUI, sPlayerName + " is not able to reach his destination!!" );
-		}
+	// Death Window
+	void Show_Message_GUI( int windowID ) {
 
-		if ( bShowLvlCompletedMsg ) {
-			GUI.Window( 0, LvlCompletedWindowRect, ShowLvlCompletedGUI, "Level Completed" );
+		GUI.Label( new Rect( ( DefaultWindow.width / 6f ) - 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), Message.Text );
+
+		if ( GUI.Button( new Rect( ( DefaultWindow.width / 6f ) - 50.0f, DefaultWindow.height / 0.5f, 100f, 20f ), "OK" ) ) {
+			bShowMessageMsg = false;
+			if ( Message.Func != null ) Message.Func();
 		}
 
 	}
 
-	// Death Window
-	void ShowDeathGUI( int windowID ) {
+	// Death Window or Unreachable destination Window
+	void Show_RestartExit_GUI( int windowID ) {
 
-		if ( GUI.Button( new Rect( ( FailWindowRect.width / 6f ) - 50.0f, FailWindowRect.height / 1.5f, 100f, 20f ), "RESTART" ) ) {
-			bShowDeathMSg = false;
+		if ( GUI.Button( new Rect( ( DefaultWindow.width / 6f ) - 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "RESTART" ) ) {
 			SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
 			return;
 		}
 
-		if ( GUI.Button( new Rect( ( FailWindowRect.width / 2f ) + 50.0f, FailWindowRect.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
-            bShowDeathMSg = false;
- #if UNITY_EDITOR
-			UnityEditor.EditorApplication.isPlaying = false;
-#else
-			Application.Quit();
-#endif
-		}
-        
-    }
-
-	// Unreachable destination Window
-	void ShowUnreachableGUI( int windowID ) {
-
-		if ( GUI.Button( new Rect( ( FailWindowRect.width / 6f ) - 50.0f, FailWindowRect.height / 1.5f, 100f, 20f ), "RESTART" ) ) {
-			bShowUnreachableMsg = false;
-			SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
-			return;
-		}
-
-		if ( GUI.Button( new Rect( ( FailWindowRect.width / 2f ) + 50.0f, FailWindowRect.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
-            bShowUnreachableMsg = false;
- #if UNITY_EDITOR
-			UnityEditor.EditorApplication.isPlaying = false;
-#else
-			Application.Quit();
-#endif
+		if ( GUI.Button( new Rect( ( DefaultWindow.width / 2f ) + 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
+			GLOBALS.GameManager.Exit();
 		}
         
     }
 
 	// LevelCompleted Window
-	void ShowLvlCompletedGUI( int windowID ) {
+	void Show_LvlCompleted_GUI( int windowID ) {
 
 		if ( SceneManager.sceneCount > ( SceneManager.GetActiveScene().buildIndex + 1 ) ) {
 
-			if ( GUI.Button( new Rect( ( LvlCompletedWindowRect.width / 6f ) - 50.0f, LvlCompletedWindowRect.height / 1.5f, 100f, 20f ), "NEXT LEVEL" ) ) {
+			if ( GUI.Button( new Rect( ( DefaultWindow.width / 6f ) - 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "NEXT LEVEL" ) ) {
 				SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex + 1 );
 				bShowLvlCompletedMsg = false;
 				return;
 			}
 		}
 
-		if ( GUI.Button( new Rect( ( LvlCompletedWindowRect.width / 2f ) + 50.0f, LvlCompletedWindowRect.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
-			bShowLvlCompletedMsg = false;
-#if UNITY_EDITOR
-			UnityEditor.EditorApplication.isPlaying = false;
-#else
-			Application.Quit();
-#endif
+		if ( GUI.Button( new Rect( ( DefaultWindow.width / 2f ) + 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
+			GLOBALS.GameManager.Exit();
 		}
         
     }
 
+	void OnGUI() {
+		
+		if ( bShowMessageMsg ) {
+			GUI.Window( 0, DefaultWindow, Show_Message_GUI, Message.Title );
+		}
+
+		if ( bShowDeathMsg ) {
+			GUI.Window( 0, DefaultWindow, Show_RestartExit_GUI, "Player is dead!!" );
+		}
+
+		if ( bShowUnreachableMsg ) {
+			GUI.Window( 0, DefaultWindow, Show_RestartExit_GUI, sPlayerName + " is not able to reach his destination!!" );
+		}
+
+		if ( bShowLvlCompletedMsg ) {
+			GUI.Window( 0, DefaultWindow, Show_LvlCompleted_GUI, "Level Completed" );
+		}
+
+	}
+
     public void OnPause() 
     {
 
-        if (isPause)
-        {
-            buttonColor.color = Color.white;
-            isPause = false;
-            Time.timeScale = 0.2f;
-            GLOBALS.IsPaused = false;
-        }
+		if (isPause)
+		{
+			buttonColor.color = Color.white;
+			isPause = false;
+			GLOBALS.IsPaused = false;
+			Time.timeScale = GLOBALS.GameTime;
+		}
 
-        else if (!isPause)
-        {
-            buttonColor.color = Color.red;
-            isPause = true;
-            Time.timeScale = 0;
-            GLOBALS.IsPaused = true;
-        }
+        else  // if (!isPause)
+		{
+			buttonColor.color = Color.red;
+			isPause = true;
+			GLOBALS.GameTime = Time.timeScale;
+			GLOBALS.IsPaused = true;
+			Time.timeScale = 0;
+		}
 
-    }
+	}
 
 
 }
