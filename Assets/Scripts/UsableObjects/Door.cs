@@ -151,7 +151,8 @@ public partial class Door : UsableObject {
 	}
 
 
-	public override	void	OnUse( Player User ) { this.TryOpen(  User ); }
+	public	override void	OnUse() {  if ( bClosed ) Open(); else Close(); }
+	public	override void	OnUse( Player User ) { this.TryOpen(  User ); }
 
 	private	void			TryOpen( Player User ) {
 

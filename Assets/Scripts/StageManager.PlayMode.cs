@@ -119,7 +119,7 @@ public partial class StageManager {
 
 		if ( fUI_Interpolant < 1.0f && iCurrentStage < MAX_STAGES ) {
 
-			fUI_Interpolant += Time.deltaTime;
+			fUI_Interpolant += 3.0f * Time.deltaTime;
 			
 			pUI.PlaySequence( iCurrentStage, fUI_Interpolant );
 

@@ -17,6 +17,8 @@ public class UsableObject : MonoBehaviour {
 
 	public virtual	void	OnReset() {}
 
+	public virtual	void	OnUse() {}
+
 	public virtual	void	OnUse( Player User ) {}
 
 }

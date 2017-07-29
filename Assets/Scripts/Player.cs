@@ -57,7 +57,8 @@ public partial class Player: MonoBehaviour, IPlayer {
 	public		Navigation_t Navigation {
 		get { return pNavigation; }
 	}
-
+	private		string			sDirection				= "Down";
+	private		bool			bFlipped				= false;
 
 	//	INTERNAL VARS
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,9 +69,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	private		Vector3			vSpawnPostion			= Vector3.zero;
 	private		Vector3			vPlanPosition			= Vector3.zero;
 	private		bool			bIsOK					= false;
-	// anims
-	private		bool			bFlipped				= false;
-	private		bool			bDirUP					= false;
+
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		bool			bLinked					= false;
 	public		bool	Linked {

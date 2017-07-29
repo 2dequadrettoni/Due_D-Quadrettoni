@@ -70,14 +70,25 @@ public partial class Player {
 	private void UpdateNavigation() {
 
 		// DIRECTION
-		string sDirection = "Down";
-		{
-			if ( pNavigation.vDestination.x > transform.position.x )
-				sDirection = "Up";
+		if ( pNavigation.iNodeIdx < pNavigation.pNodeList.Count - 1 )
+		{	
+			Node pCurrentNode	= pNavigation.pNodeList[ pNavigation.iNodeIdx ];
+			Node pNextNode		= pNavigation.pNodeList[ pNavigation.iNodeIdx + 1 ];
 
-			pRenderer.flipX = false;
-			if ( pNavigation.vDestination.z > transform.position.z )
-				pRenderer.flipX = true;
+			if ( pCurrentNode.gridX < pNextNode.gridX )
+				sDirection = "Up";
+			if ( pCurrentNode.gridX > pNextNode.gridX )
+				sDirection = "Down";
+			if ( pCurrentNode.gridX == pNextNode.gridX )
+				sDirection = ( pCurrentNode.gridY < pNextNode.gridY ) ? "Down" : "Up";
+
+			if ( pCurrentNode.gridY < pNextNode.gridY )
+				pRenderer.flipX = bFlipped = true;
+			if ( pCurrentNode.gridY > pNextNode.gridY )
+				pRenderer.flipX = bFlipped = false;
+			if ( pCurrentNode.gridY == pNextNode.gridY )
+				pRenderer.flipX = bFlipped = ( pCurrentNode.gridX < pNextNode.gridX ) ? true : false;
+
 		}
 
 
