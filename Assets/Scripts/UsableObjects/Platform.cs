@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable CS0162 // Unreachable code detected
 
 public partial class Platform : MonoBehaviour {
+
+	const	bool	bPlatformDebug		= false;
 
 	////////////////////////////////////////////////////////////////////////
 
@@ -57,7 +60,6 @@ public partial class Platform : MonoBehaviour {
 
 		pSpriteRender	= transform.GetChild( 2 ).GetComponent<SpriteRenderer>();
 
-
 		transform.GetChild( 0 ).GetComponent<MeshRenderer>().enabled = false;
 		transform.GetChild( 1 ).GetComponent<MeshRenderer>().enabled = false;
 
@@ -93,12 +95,12 @@ public partial class Platform : MonoBehaviour {
 
 		fInterpolant += ( Time.deltaTime * fMoveSpeed ) * iDirection;
 
-		// PATROL POINT REACHED
+		// OTHER POINT REACHED
 		if ( ( fInterpolant <= 0.0f ) || ( fInterpolant >= 1.0f ) ) {
 			bActive			= false;
 			iDirection		*= -1;
 			fInterpolant	= Mathf.Clamp01( fInterpolant );
-			if ( pPlayer ) pPlayer.transform.position = ( iStartpoint == 1 ) ? vStartPosition : vEndPosition;
+//			if ( pPlayer ) pPlayer.transform.position = ( iStartpoint == 2 ) ? vStartPosition : vEndPosition;
 			GLOBALS.StageManager.RemoveActiveObject();
 			return;
 		}
@@ -150,3 +152,5 @@ public partial class Platform : MonoBehaviour {
 	}
 	
 }
+
+#pragma warning restore CS0162 // Unreachable code detected

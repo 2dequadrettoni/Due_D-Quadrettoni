@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable CS0162 // Unreachable code detected
+
 public partial class Door : UsableObject {
 
+	const	bool	bDoorDebug		= false;
 
 	//	 KEY AND LOCK STATE
 	[Header("Key and loocked state")]
@@ -22,7 +25,7 @@ public partial class Door : UsableObject {
 	public		bool Closed {
 		get { return bClosed; }
 	}
-	private		bool						bStartClosed			= false;
+//	private		bool						bStartClosed			= false;
 	private		Animator					pAnimator				= null;
 	private		SpriteRenderer				pSpriteRender			= null;
 
@@ -72,7 +75,7 @@ public partial class Door : UsableObject {
 		else
 			pAnimator.Play( "Open",  0, 0.9f );
 
-		bStartClosed = bClosed;
+//		bStartClosed = bClosed;
 
 	}
 
@@ -143,7 +146,7 @@ public partial class Door : UsableObject {
 
 		if ( bClosed ) return;
 
-		print( "DOOR CLOSING" );
+		if ( bDoorDebug ) print( "DOOR CLOSING" );
 
 		pAnimator.Play( "Close" );
 		GLOBALS.StageManager.AddActiveObject();
@@ -169,7 +172,7 @@ public partial class Door : UsableObject {
 
 
 
-		print( "You need right key" );
+		if ( bDoorDebug ) print( "You need right key" );
 
 	}
 
@@ -177,7 +180,7 @@ public partial class Door : UsableObject {
 
 		if ( !bClosed ) return;
 
-		print( "DOOR OPENING" );
+		if ( bDoorDebug ) print( "DOOR OPENING" );
 
 		pAnimator.Play( "Open" );
 		GLOBALS.StageManager.AddActiveObject();
@@ -186,3 +189,5 @@ public partial class Door : UsableObject {
 
 
 }
+
+#pragma warning restore CS0162 // Unreachable code detected

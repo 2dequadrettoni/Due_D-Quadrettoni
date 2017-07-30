@@ -10,7 +10,7 @@ using NodeList = System.Collections.Generic.List<Node>;
 
 public partial class Player {
 
-	const	bool	bPlanDebug		= true;
+	const	bool	bPlanDebug		= false;
 
 	private	Vector3	vPlanStageDestination =  Vector3.zero;
 
