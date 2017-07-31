@@ -92,7 +92,9 @@ public partial class Switcher : UsableObject {
 
 		// USABLE OBJECTS ( DOORS, PLATFORMS )
 		if ( ( vObjects != null ) && ( vObjects.Length > 0 ) ) {
-			foreach( Transform o in vObjects ) o.SendMessage( value ? "OnUse" : "OnReset" );
+			foreach( Transform o in vObjects ) {
+				o.gameObject.BroadcastMessage( value ? "OnUse" : "OnReset" );
+			}
 		}
 	}
 
