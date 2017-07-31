@@ -88,18 +88,18 @@ public class UI : MonoBehaviour, IUI {
         // Canvas
         pCanvasObject = transform.GetChild( 0 );
 
-        backGrid = pCanvasObject.GetChild(12).transform as RectTransform;
+        backGrid = pCanvasObject.GetChild(13).transform as RectTransform;
         originalScale = backGrid.localScale;
         backGrid.localScale = Vector3.zero;
 
         // Avatars
-        AvatarPG1 = pCanvasObject.GetChild( 0 ).GetComponent<Image>();
-		AvatarPG2 = pCanvasObject.GetChild( 1 ).GetComponent<Image>();
+        AvatarPG1 = pCanvasObject.GetChild( 1 ).GetComponent<Image>();
+		AvatarPG2 = pCanvasObject.GetChild( 2 ).GetComponent<Image>();
 
 
         // Actions Tables
-		pTablePG1 = pCanvasObject.GetChild( 2 );
-        pTablePG2 = pCanvasObject.GetChild( 3 );
+		pTablePG1 = pCanvasObject.GetChild( 3 );
+        pTablePG2 = pCanvasObject.GetChild( 4 );
 
         // Cursors
         pCursorPG1 = pTablePG1.GetChild( 10 ).transform as RectTransform;
@@ -107,9 +107,9 @@ public class UI : MonoBehaviour, IUI {
 
 		// Actions Icons
 		vIcons = new GameObject[3];
-		vIcons[ (int) ActionType.MOVE ] = pCanvasObject.GetChild( 4 ).gameObject;
-		vIcons[ (int) ActionType.USE  ] = pCanvasObject.GetChild( 5 ).gameObject;
-		vIcons[ (int) ActionType.WAIT ] = pCanvasObject.GetChild( 6 ).gameObject;
+		vIcons[ (int) ActionType.MOVE ] = pCanvasObject.GetChild( 5 ).gameObject;
+		vIcons[ (int) ActionType.USE  ] = pCanvasObject.GetChild( 6 ).gameObject;
+		vIcons[ (int) ActionType.WAIT ] = pCanvasObject.GetChild( 7 ).gameObject;
 
 
 		// Actions Slots
@@ -135,7 +135,7 @@ public class UI : MonoBehaviour, IUI {
 		pCursorPG2SpawnPos = pCursorPG2.localPosition;
 
         //Pause Button Image
-        buttonPause = pCanvasObject.GetChild(13).GetComponent<Image>();
+        buttonPause = pCanvasObject.GetChild(14).GetComponent<Image>();
 
 
     }
@@ -157,7 +157,7 @@ public class UI : MonoBehaviour, IUI {
 
     public	void	ActivatePlayBtn()
     {
-        pCanvasObject.GetChild(9).GetChild(1).GetComponent<Animator>().SetBool("isPlay", true);
+        pCanvasObject.GetChild(10).GetChild(0).GetComponent<Animator>().SetBool("isPlay", true);
 
     }
 
