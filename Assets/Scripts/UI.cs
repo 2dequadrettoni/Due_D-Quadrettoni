@@ -49,6 +49,9 @@ public class UI : MonoBehaviour, IUI {
 	// Actions Slots
 	private		Image[,]		vActionsSlots			= null;
 
+    // UI selected image
+    public Sprite glowPause, pause; 
+
 	// PopUp Windows
 	////////////////////////////////////////////////////////////////////
 	////				ERROR MSG
@@ -77,7 +80,7 @@ public class UI : MonoBehaviour, IUI {
 
 	[HideInInspector]
     public bool isPause = false;
-    Image buttonColor = null;
+    Image buttonPause = null;
 
     // Use this for initialization
     private void Start() {
@@ -131,8 +134,8 @@ public class UI : MonoBehaviour, IUI {
 		pCursorPG1SpawnPos = pCursorPG1.localPosition;
 		pCursorPG2SpawnPos = pCursorPG2.localPosition;
 
-        //Image Pause Button
-        buttonColor = pCanvasObject.GetChild(13).GetComponent<Image>();
+        //Pause Button Image
+        buttonPause = pCanvasObject.GetChild(13).GetComponent<Image>();
 
 
     }
@@ -336,16 +339,18 @@ public class UI : MonoBehaviour, IUI {
 
 		if (isPause)
 		{
-			buttonColor.color = Color.white;
-			isPause = false;
+            //buttonColor.color = Color.white;
+            buttonPause.sprite = pause;
+            isPause = false;
 			GLOBALS.IsPaused = false;
 			Time.timeScale = GLOBALS.GameTime;
 		}
 
         else  // if (!isPause)
 		{
-			buttonColor.color = Color.red;
-			isPause = true;
+            //buttonColor.color = Color.red;
+            buttonPause.sprite = glowPause;
+            isPause = true;
 			GLOBALS.GameTime = Time.timeScale;
 			GLOBALS.IsPaused = true;
 			Time.timeScale = 0;

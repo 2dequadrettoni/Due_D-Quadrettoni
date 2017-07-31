@@ -119,12 +119,12 @@ public partial class Platform : MonoBehaviour {
 	}
 
 
-	private void OnTriggerEnter( Collider other ) {
+	private void OnTriggerStay( Collider other ) {
 		
 		if ( GLOBALS.StageManager.IsPlaying && !bHasPlayerInside && other.tag == "Player" ) {
 
 			Player pPlayer = other.GetComponent<Player>();
-			if ( !pPlayer.Linked ) {
+			if ( !pPlayer.Linked && !pPlayer.IsBusy() ) {
 				pPlayer.Stop();
 				pPlayer.Link( this );
 				bHasPlayerInside = true;
