@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class Pause_Menù : MonoBehaviour {
 
-    public GameObject myCanvas;
+    public GameObject pause;
+    public GameObject areYouSure;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
        
 	}
 	
@@ -20,14 +22,27 @@ public class Pause_Menù : MonoBehaviour {
 
     public void ResumeNightmare() {
 
-        myCanvas.SetActive(false);
+        pause.SetActive(false);
+        areYouSure.SetActive(false);
     }
 
     public void EndNightmare()
     {
-        myCanvas.SetActive(false);
-        SceneManager.LoadScene(0);
+        pause.SetActive(false);
+        areYouSure.SetActive(true);
+        
 
+    }
+
+    public void No()
+    {
+        areYouSure.SetActive(false);
+        pause.SetActive(true);
+    }
+
+    public void Yes()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }
