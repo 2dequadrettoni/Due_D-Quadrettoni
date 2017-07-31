@@ -29,9 +29,9 @@ public partial class StageManager {
 
 				vStages[ iCurrentStage ].Default();
 
-				if ( pUI ) {
-					pUI.AddAction( 1, vStages[ iCurrentStage ].GetAction( 1 ).GetType(), iCurrentStage );
-					pUI.AddAction( 2, vStages[ iCurrentStage ].GetAction( 2 ).GetType(), iCurrentStage );
+				if ( GLOBALS.UI ) {
+					GLOBALS.UI.AddAction( 1, vStages[ iCurrentStage ].GetAction( 1 ).GetType(), iCurrentStage );
+					GLOBALS.UI.AddAction( 2, vStages[ iCurrentStage ].GetAction( 2 ).GetType(), iCurrentStage );
 				}
 
 			}
@@ -47,12 +47,11 @@ public partial class StageManager {
 		iCurrentStage = 0;
 
 		// Prepare cursors for play sequence
-		pUI.PrepareForPlay();
+		GLOBALS.UI.PrepareForPlay();
+		GLOBALS.UI.ActivatePlayBtn();
 
 		// HAVE FUN
 		bIsPlaying = true;
-
-        pUI.ActivatePlayBtn();
 
     }
 
@@ -129,7 +128,7 @@ public partial class StageManager {
 
 			fUI_Interpolant += 3.0f * Time.deltaTime;
 			
-			pUI.PlaySequence( iCurrentStage, fUI_Interpolant );
+			GLOBALS.UI.PlaySequence( iCurrentStage, fUI_Interpolant );
 
 		}
 
@@ -186,7 +185,7 @@ public partial class StageManager {
 
 				if ( PA1.IsValid() && ( PA1.GetType() == ActionType.MOVE ) && !pPlayer1.IsBusy() ) {
 					if ( !pPlayer1.FindPath( PA1.GetDestination() ) ) {
-						pUI.ShowUnreachableMsg( "Player1" );
+						GLOBALS.UI.ShowUnreachableMsg( "Player1" );
 						bIsPlaying = bIsOK = false;
 						pPlayer2.Stop();
 						return;
@@ -205,7 +204,7 @@ public partial class StageManager {
 
 				if ( PA2.IsValid() && ( PA2.GetType() == ActionType.MOVE ) && !pPlayer2.IsBusy() ) {
 					if ( !pPlayer2.FindPath( PA2.GetDestination() ) ) {
-						pUI.ShowUnreachableMsg( "Player2" );
+						GLOBALS.UI.ShowUnreachableMsg( "Player2" );
 						bIsPlaying = bIsOK = false;
 						pPlayer1.Stop();
 						return;

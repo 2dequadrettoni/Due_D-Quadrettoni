@@ -39,12 +39,9 @@ public partial class Player: MonoBehaviour, IPlayer {
 				const bool		bDebug 					= false;
 
 
+	
 	//	PATHFINDING
-	private		Pathfinding		pPathFinder				= null;		// Pathfinding Script
 	////////////////////////////////////////////////////////////////////////////////////
-	public		Pathfinding	PathFinder {
-		get{ return pPathFinder; }
-	}
 
 	public struct Navigation_t {
 		public	bool			bHasDestination;
@@ -59,6 +56,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	}
 	private		string			sDirection				= "Down";
 	private		bool			bFlipped				= false;
+
 
 	//	INTERNAL VARS
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,9 +90,9 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	private		Sprite			pCursor					= null;
 
+
 	// ACTIONS
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	private		StageManager	pStageManager			= null;
 	private		PlayerAction	pAction					= null;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,15 +145,12 @@ public partial class Player: MonoBehaviour, IPlayer {
 		pPlanTile			= transform.FindChild( "PlanTile" );
 		pMainStepTile		= transform.FindChild( "StepTile" );
 
-		pPathFinder			= GLOBALS.PathFinder;
-		pStageManager		= GLOBALS.StageManager;
-
-		if ( !pPathFinder ) {
+		if ( !GLOBALS.PathFinder ) {
 			Debug.Log( "Pathfinder not found" );
 			return;
 		}
 
-		if ( !pStageManager ) {
+		if ( !GLOBALS.StageManager ) {
 			Debug.Log( "StageManager not found" );
 			return;
 		}
@@ -191,7 +186,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 		if ( bCanParseInput ) {
 			this.ParseInput();
 
-			if ( pStageManager.CurrentStage == StageManager.MAX_STAGES ) {
+			if ( GLOBALS.StageManager.CurrentStage == StageManager.MAX_STAGES ) {
 				bCanParseInput = false;
 				SetCursor( false );
 			}

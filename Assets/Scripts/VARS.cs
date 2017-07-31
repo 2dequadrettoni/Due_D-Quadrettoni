@@ -4,6 +4,8 @@
 
 public static class GLOBALS {
 
+	public	static	UI				UI				= null;
+
 	public	static	float			GameTime		= 0.0f;
 
 	public	static	bool			IsPaused		= false;
@@ -20,8 +22,6 @@ public static class GLOBALS {
 
 	public	static	Pathfinding		PathFinder		= null;
 
-	public	static	UI				UI				= null;
-
 }
 
 
@@ -29,6 +29,13 @@ public static class GLOBALS {
 public class VARS : MonoBehaviour {
 
 	private void Awake() {
+
+		{//	UI
+			GameObject o = GameObject.Find( "UI" );
+			if ( o ) {
+				GLOBALS.UI = o.GetComponent<UI>();
+			}
+		}
 
 		// GameManager, StageManager and EventManager
 		{
@@ -38,6 +45,7 @@ public class VARS : MonoBehaviour {
 				GLOBALS.StageManager	= GM.GetComponent<StageManager>();
 				GLOBALS.EventManager	= GM.GetComponent<EventManager>();
 			}
+			else GLOBALS.UI.ShowMessage( "Error", "Cannot find GameManager object", delegate { Application.Quit(); } );
 		}
 
 		{//	Player 1
@@ -58,13 +66,6 @@ public class VARS : MonoBehaviour {
 			GameObject o = GameObject.Find( "PathFinder" );
 			if ( o ) {
 				GLOBALS.PathFinder = o.GetComponent<Pathfinding>();
-			}
-		}
-
-		{//	UI
-			GameObject o = GameObject.Find( "UI" );
-			if ( o ) {
-				GLOBALS.UI = o.GetComponent<UI>();
 			}
 		}
 

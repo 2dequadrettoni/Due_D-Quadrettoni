@@ -33,7 +33,7 @@ public partial class Player {
 
 		pNavigation.pNodeList = null;
 
-		return pPathFinder.FindPath( transform.position, Destination, out pNavigation.pNodeList );
+		return GLOBALS.PathFinder.FindPath( transform.position, Destination, out pNavigation.pNodeList );
 
 	}
 

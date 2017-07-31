@@ -35,7 +35,7 @@ public partial class StageManager {
 		iSelectedPlayer = PlayerID;
 
 		// Update avatars
-		pUI.SelectPlayer( PlayerID );
+		GLOBALS.UI.SelectPlayer( PlayerID );
 		if ( bPlanDebug ) Debug.Log( "player " + PlayerID + " selected" );
 	}
 
@@ -58,7 +58,7 @@ public partial class StageManager {
 
 		// clear actual stages
 		vStages.Clear();
-		pUI.ResetActions();
+		GLOBALS.UI.ResetActions();
 
 		// create the first empty
 		vStages.Add( new Stage() );
@@ -75,8 +75,8 @@ public partial class StageManager {
 		if ( vStages[ iCurrentStage ] == null ) vStages[ iCurrentStage ] = new Stage();
 
 		vStages[ iCurrentStage ].SetAction( PlayerID, Action );
-		if ( pUI )
-			pUI.AddAction( PlayerID, Action.GetType(), iCurrentStage );
+		if ( GLOBALS.UI )
+			GLOBALS.UI.AddAction( PlayerID, Action.GetType(), iCurrentStage );
 
 		if ( bPlanDebug ) Debug.Log( "Action set for player " + iSelectedPlayer );
 
@@ -97,9 +97,9 @@ public partial class StageManager {
 
 			vStages[ iCurrentStage ].Default();
 
-			if ( pUI ) {
-				pUI.AddAction( 1, vStages[ iCurrentStage ].GetAction( 1 ).GetType(), iCurrentStage );
-				pUI.AddAction( 2, vStages[ iCurrentStage ].GetAction( 2 ).GetType(), iCurrentStage );
+			if ( GLOBALS.UI ) {
+				GLOBALS.UI.AddAction( 1, vStages[ iCurrentStage ].GetAction( 1 ).GetType(), iCurrentStage );
+				GLOBALS.UI.AddAction( 2, vStages[ iCurrentStage ].GetAction( 2 ).GetType(), iCurrentStage );
 			}
 
 		}
@@ -107,7 +107,7 @@ public partial class StageManager {
 		if ( bPlanDebug ) Debug.Log( "Next stage" );
 
 		// Update cursors position
-		pUI.CursorsStep( iCurrentStage + 1 );
+		GLOBALS.UI.CursorsStep( iCurrentStage + 1 );
 
 		// set next stage
 		iCurrentStage++;
@@ -123,7 +123,7 @@ public partial class StageManager {
 		pPlayer1.OnPrevStage();
 		pPlayer2.OnPrevStage();
 
-		pUI.RemoveLastActions();
+		GLOBALS.UI.RemoveLastActions();
 
 		// set prev stage
 		if ( iCurrentStage > 1 ) {
@@ -135,7 +135,7 @@ public partial class StageManager {
 		iCurrentStage--;
 
 		// Update cursors position
-		pUI.CursorsStep( iCurrentStage );
+		GLOBALS.UI.CursorsStep( iCurrentStage );
 
 	}
 
@@ -150,7 +150,7 @@ public partial class StageManager {
 		vStages[ iCurrentStage ].SetAction( 1, null );
 		vStages[ iCurrentStage ].SetAction( 2, null );
 
-		UI.RemoveLastActions();
+		GLOBALS.UI.RemoveLastActions();
 
 	}
 

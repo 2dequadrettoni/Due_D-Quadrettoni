@@ -46,6 +46,10 @@ interface IStageManager {
 
 public partial class StageManager : MonoBehaviour, IStageManager {
 	
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//					STAGES
+
 	static		public int			MAX_STAGES		= 10;
 
 	private		List<Stage>			vStages			= null;
@@ -55,14 +59,17 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 		get { return iTotalStages;  }
 	}
 
-	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		int					iCurrentStage	= 0;
 	public		int CurrentStage
 	{
 		get { return iCurrentStage;  }
 	}
 
+
+
 	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//					PLAYERS
 	private		int					iSelectedPlayer	= 0;
 	public		int SelectedPlayer
 	{
@@ -74,6 +81,10 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 	private		Player				pPlayer1		= null;
 	private		Player				pPlayer2		= null;
 
+
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//					PLAN/PLAY MODE
 	private		bool				bIsPlaying		= false;
 	public		bool IsPlaying {
 		get { return bIsPlaying; }
@@ -84,12 +95,8 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 	private		float				fUI_Interpolant	= 0.0f;
 	private		bool				bPlayingStage	= false;
 
-	private		bool				bIsOK			= false;
 
-	private		UI					pUI				= null;
-	public		UI	UI {
-		get { return pUI; }
-	}
+	private		bool				bIsOK			= false;
 
 	////////////////////////////////////////////////////////////////////
 	// PLATFORMS
@@ -100,12 +107,6 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 
 
 	private		void	Start() {
-
-		// Bad initialization
-		if ( !( pPlayer1 = GLOBALS.Player1 ) ) return;
-		if ( !( pPlayer2 = GLOBALS.Player2 ) ) return;
-		if ( !( pUI = GLOBALS.UI ) ) return;
-
 
 		// Create Stage list, and first stage
 		vStages = new List<Stage>();
@@ -125,8 +126,8 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 		// First stage set
 		iCurrentStage = 0;
 
-		pPlayer1.ID = 1;
-		pPlayer2.ID = 2;
+		GLOBALS.Player1.ID = 1;
+		GLOBALS.Player2.ID = 2;
 
 		vNumberSprites = Resources.LoadAll<Sprite>( "Numbers" );
 

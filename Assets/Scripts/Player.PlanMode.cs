@@ -20,9 +20,9 @@ public partial class Player {
 		//////////////////////////////////////////////////////////////////////////////
 		// INSTANTIATE A NEW STEP TILE
 		Transform pStepTile = null;
-		if ( vSteps[ pStageManager.CurrentStage ] == null ) {
+		if ( vSteps[ GLOBALS.StageManager.CurrentStage ] == null ) {
 			pStepTile = Instantiate( pMainStepTile, this.transform ) as Transform;;
-			vSteps[ pStageManager.CurrentStage ] = pStepTile;
+			vSteps[ GLOBALS.StageManager.CurrentStage ] = pStepTile;
 
 			//////////////////////////////////////////////////////////////////////////////
 			// SHOW STEP SPRITE
@@ -32,11 +32,11 @@ public partial class Player {
 			// SET RIGHT NUMBER
 			SpriteRenderer	pSpriteRender = pStepTile.GetChild( 1 ).GetComponent<SpriteRenderer>();
 			pSpriteRender.enabled = true;
-			pSpriteRender.sprite = pStageManager.GetNumberSprite();
+			pSpriteRender.sprite = GLOBALS.StageManager.GetNumberSprite();
 
 		}
 		else {
-			pStepTile = vSteps[ pStageManager.CurrentStage ];
+			pStepTile = vSteps[ GLOBALS.StageManager.CurrentStage ];
 		}
 
 		pStepTile.position = vPosition;
@@ -73,7 +73,7 @@ public partial class Player {
 		if ( Input.GetMouseButtonDown( 1 ) ) {
 
 			pAction = new PlayerAction( vPlanPosition );
-			pStageManager.SetAction( this.pAction, this.iID );
+			GLOBALS.StageManager.SetAction( this.pAction, this.iID );
 			if ( bPlanDebug ) Debug.Log( "Wait action set" );
 			this.SetStepTile( Vector3.up * 10000 );
 
@@ -111,7 +111,7 @@ public partial class Player {
 							if ( Vector3.Distance( vPlanPosition, vDestination ) < fUseDistance*1.2f ) {
 								this.SetStepTile( vPlanStageDestination = vDestination );
 								pAction = new PlayerAction( vPlanPosition, pUsableObject );
-								pStageManager.SetAction( this.pAction, this.iID );
+								GLOBALS.StageManager.SetAction( this.pAction, this.iID );
 								if ( bPlanDebug ) Debug.Log( "Usable object set" );
 								return;
 							};
@@ -129,6 +129,8 @@ public partial class Player {
 							if ( objTag == "Switcher" ) {
 
 								if ( fObjectDistance > ( fUseDistance * 1.25f ) ) {
+
+									Pathfinding pPathFinder = GLOBALS.PathFinder;
 
 									// Calculate path
 									pMouseHitted.collider.gameObject.layer = LayerMask.NameToLayer( "Default" );
@@ -158,7 +160,7 @@ public partial class Player {
 								
 								Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
 								this.SetStepTile( vPlanStageDestination = vDestination );
-								pStageManager.SetAction( this.pAction, this.iID );
+								GLOBALS.StageManager.SetAction( this.pAction, this.iID );
 								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
 
 								return;
@@ -198,7 +200,7 @@ public partial class Player {
 			
 			// Finally set action
 			if ( pAction != null ) {
-				pStageManager.SetAction( this.pAction, this.iID );
+				GLOBALS.StageManager.SetAction( this.pAction, this.iID );
 				// TODO: UpdateUI
 			}
 		}
@@ -213,6 +215,8 @@ public partial class Player {
 
 
 	public	void	OnPrevStage() {
+
+		StageManager pStageManager = GLOBALS.StageManager;
 
 		if ( pStageManager.CurrentStage == 0 ) return;
 
@@ -238,7 +242,7 @@ public partial class Player {
 
 	public	void	OnClearStage() {
 
-		if ( pStageManager.CurrentStage > 0 ) {
+		if ( GLOBALS.StageManager.CurrentStage > 0 ) {
 
 
 
