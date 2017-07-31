@@ -72,6 +72,9 @@ public partial class StageManager {
 
 	private void Update() {
 
+        // Play the action with "return"
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) Play();
+
 		// If manager had bad initialization
 		if ( !bIsOK ) return;
 
