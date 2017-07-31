@@ -54,6 +54,9 @@ public partial class Player {
 		RaycastHit pMouseHitted;
 		bool pHittResult = Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitted );
 
+//		RaycastHit[]	vTrepassedObjects;
+//		vTrepassedObjects = Physics.RaycastAll( Camera.main.ScreenPointToRay( Input.mousePosition ), 100.0f );
+
 		UsableObject pUsableObject = pMouseHitted.collider.gameObject.GetComponent<UsableObject>();
 
 		// Semi trasparent square sprite for current destination tile
