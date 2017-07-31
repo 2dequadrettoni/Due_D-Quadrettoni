@@ -118,9 +118,7 @@ public partial class StageManager : MonoBehaviour, IStageManager {
 			for ( int i = 0; i < vPlatformObjs.Length; i++ ) {
 
 				GameObject o = vPlatformObjs [ i ];
-				o.transform.GetChild( 0 ).GetComponent<MeshRenderer>().enabled = false;
-				o.transform.GetChild( 1 ).GetComponent<MeshRenderer>().enabled = false;
-				vPlatforms [ i ] = o.GetComponent<Platform>();
+				vPlatforms [ i ] = o.transform.GetChild(0).GetComponent<Platform>();
 			}
 		}
 

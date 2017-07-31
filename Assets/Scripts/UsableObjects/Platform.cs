@@ -135,6 +135,7 @@ public partial class Platform : MonoBehaviour {
 
 			Player pPlayer = other.GetComponent<Player>();
 			if ( !pPlayer.Linked ) {
+				print( "asdasdasdsa" );
 				pPlayer.Stop();
 				pPlayer.SetIdle();
 				pPlayer.Link( this );
