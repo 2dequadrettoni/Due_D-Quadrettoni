@@ -103,6 +103,7 @@ public partial class Player {
 
 							Vector3 vDestination = pMouseHitted.collider.transform.position;
 
+							// Door has a proper point as destination
 							if ( objTag == "Door" )
 								vDestination = pMouseHitted.transform.GetChild( 2 ).position;
 
@@ -167,6 +168,8 @@ public partial class Player {
 				//		OBJECTS WITH USE AT DESTINATION REACHED
 							{
 								Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
+
+								// Door has a proper point as destination
 								if ( objTag == "Door" )
 									vDestination = pMouseHitted.transform.GetChild( 2 ).position;
 
@@ -208,22 +211,28 @@ public partial class Player {
 
 	}
 
+
 	public	void	OnPrevStage() {
 
-		if ( pStageManager.CurrentStage == 0 ) {
+		if ( pStageManager.CurrentStage == 0 ) return;
+
+		Transform pStep = vSteps[ pStageManager.CurrentStage - 1 ];
+		if ( pStep != null ) {
+			Destroy( pStep.gameObject ); pStep = null;
+		}
+
+		if ( pStageManager.CurrentStage == 1 ) {
 			pStageManager.ClearStages();
-			return;
 		}
+		else {
 
-		Stage pPrevStaget = pStageManager.GetStage( pStageManager.CurrentStage - 1 );
-		PlayerAction pAction = pPrevStaget.GetAction( ID );
+			PlayerAction pAction = pStageManager.GetStage( pStageManager.CurrentStage - 1 ).GetAction( ID );
 
-		if ( pAction.GetType() == ActionType.MOVE ) {
-
-			vPlanPosition = pAction.GetStartPoint();
+			if ( pAction.GetType() == ActionType.MOVE ) {
+				vPlanPosition = pAction.GetStartPoint();
+			}
 
 		}
-
 
 	}
 

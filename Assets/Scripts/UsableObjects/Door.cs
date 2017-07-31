@@ -109,28 +109,29 @@ public partial class Door : UsableObject {
 
 		for ( int i = 1; i < vUsers.Count; i++ ) {
 
-		if ( vUsers[i].Used != bSameState ) {
-			return;
+			if ( vUsers[i].Used != bSameState ) {
+				return;
+			}
 		}
-		}
-
 
 		if ( bClosed )  this.Open(); else this.Close();
 		
 	}
 
-	private		bool	Contains( Switcher p ) {
+
+
+	private		bool	ContainsSwitcher( Switcher p ) {
 		foreach ( Switcher o in vSwitchers )
 			if ( o.GetInstanceID() == p.GetInstanceID() ) return true;
 		return false;
 	}
 
+
+
 	// called when a switcher in the world is used
 	public		void	OnEvent( Switcher o ) {
 
-		if ( !Contains( o ) ) return;
-
-		if ( !o || ( vSwitchers == null ) || ( vSwitchers.Length == 0 ) ) return;
+		if ( !o || ( vSwitchers == null ) || ( vSwitchers.Length == 0 ) || !ContainsSwitcher( o ) ) return;
 
 		VerifySwitchers();
 

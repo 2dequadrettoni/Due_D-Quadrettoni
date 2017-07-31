@@ -48,7 +48,7 @@ public partial class StageManager {
 
 
 	public	Stage	GetStage( int i ) {
-		if ( i < MAX_STAGES ) return vStages[i];
+		if ( ( i > -1 ) && ( i < MAX_STAGES ) ) return vStages[i];
 		return null;
 	}
 
@@ -56,8 +56,12 @@ public partial class StageManager {
 
 	public	void	ClearStages() {
 
+		// clear actual stages
 		vStages.Clear();
 		pUI.ResetActions();
+
+		// create the first empty
+		vStages.Add( new Stage() );
 
 	}
 
@@ -67,6 +71,8 @@ public partial class StageManager {
 		if ( !bIsOK ) return;
 
 		if ( Action == null ) return;
+
+		if ( vStages[ iCurrentStage ] == null ) vStages[ iCurrentStage ] = new Stage();
 
 		vStages[ iCurrentStage ].SetAction( PlayerID, Action );
 		if ( pUI )
@@ -113,19 +119,23 @@ public partial class StageManager {
 	public	void	PrevStage() {
 
 		if ( iCurrentStage < 1 ) return;
-		
+
 		pPlayer1.OnPrevStage();
 		pPlayer2.OnPrevStage();
 
 		pUI.RemoveLastActions();
 
 		// set prev stage
-		vStages.RemoveAt( iCurrentStage );
+		if ( iCurrentStage > 1 ) {
+			vStages.RemoveAt( iCurrentStage );
+		}
+		else {
+			ClearStages();
+		}
 		iCurrentStage--;
 
 		// Update cursors position
 		pUI.CursorsStep( iCurrentStage );
-		
 
 	}
 

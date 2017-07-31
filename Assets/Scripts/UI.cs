@@ -178,7 +178,7 @@ public class UI : MonoBehaviour {
 	public	void	CursorsStep( int iStage ) {
 
 		if ( ( iStage + 1 ) > StageManager.MAX_STAGES ) {
-			 backGrid.localScale = new Vector3(originalScale.x * iStage, 1, 1);
+			backGrid.localScale = new Vector3(originalScale.x * iStage, 1, 1);
 			return;
 		}
 
