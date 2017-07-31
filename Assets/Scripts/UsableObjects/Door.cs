@@ -8,6 +8,7 @@ public partial class Door : UsableObject {
 
 	const	bool	bDoorDebug		= false;
 
+
 	//	 KEY AND LOCK STATE
 	[Header("Key and loocked state")]
 	[Header("Value [ 1 - 255 ], zero is no valid ID")]
@@ -19,15 +20,17 @@ public partial class Door : UsableObject {
 		get { return bLocked; }
 	}
 
+
 	//	 INTERNAL VARS
 	[SerializeField]
 	private		bool						bClosed					= false;
 	public		bool Closed {
 		get { return bClosed; }
 	}
-//	private		bool						bStartClosed			= false;
+
 	private		Animator					pAnimator				= null;
 	private		SpriteRenderer				pSpriteRender			= null;
+
 
 	// LINKED SWITCHERS
 	[Header("Switcher for this door")]
@@ -35,8 +38,11 @@ public partial class Door : UsableObject {
 	[SerializeField]
 	private		Switcher[]					vSwitchers				= null;
 
+
 	// Used for highlighting
 	private		List<Switcher>				vUsers					= new List<Switcher>();
+
+
 
 
 	private		void	Start() {
@@ -93,25 +99,19 @@ public partial class Door : UsableObject {
 
 
 
-	public		void	AddUser( Switcher o ) {
-		if ( ( vUsers != null ) && o ) vUsers.Add( o );
-	}
-
-
+//	public		void	AddUser( Switcher o ) {
+//		if ( ( vUsers != null ) && o ) vUsers.Add( o );
+//	}
 
 	private		void	VerifySwitchers() {
 
-		bool bSameState = vSwitchers[0].Used;
+		bool bSameState = vUsers[0].Used;
 
-		for ( int i = 1; i < vSwitchers.Length; i++ ) {
+		for ( int i = 1; i < vUsers.Count; i++ ) {
 
-			if ( vSwitchers[i].Used != bSameState ) {
-/*				if ( bStartClosed )
-					if ( !bClosed ) this.Close();
-				else
-					if ( bClosed )  this.Open();
-*/				return;
-			}
+		if ( vUsers[i].Used != bSameState ) {
+			return;
+		}
 		}
 
 
@@ -119,10 +119,16 @@ public partial class Door : UsableObject {
 		
 	}
 
-
+	private		bool	Contains( Switcher p ) {
+		foreach ( Switcher o in vSwitchers )
+			if ( o.GetInstanceID() == p.GetInstanceID() ) return true;
+		return false;
+	}
 
 	// called when a switcher in the world is used
 	public		void	OnEvent( Switcher o ) {
+
+		if ( !Contains( o ) ) return;
 
 		if ( !o || ( vSwitchers == null ) || ( vSwitchers.Length == 0 ) ) return;
 

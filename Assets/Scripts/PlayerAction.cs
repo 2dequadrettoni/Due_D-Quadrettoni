@@ -27,6 +27,8 @@ interface iPlayerAction {
 
 public class PlayerAction : iPlayerAction {
 	
+	private		Vector3			vStartPoint	= Vector3.zero;
+
 	// WAIT, USE, MOVE
 	private		ActionType		iType		= ActionType.WAIT;
 
@@ -49,27 +51,30 @@ public class PlayerAction : iPlayerAction {
 	
 	// Create as User
 	/// <summary>Object use</summary>
-	public		PlayerAction( UsableObject _Object ) { 
+	public		PlayerAction( Vector3 _CurrentPosition, UsableObject _Object ) { 
 		iType			= ActionType.USE;
+		vStartPoint		= _CurrentPosition;
 		pObject			= _Object;
 	}
 
 	// Create as Mover
 	/// <summary>Move action, secondary is usable object at movement anction</summary>
-	public		PlayerAction( Vector3 _Destination, UsableObject _Object = null ) {
+	public		PlayerAction( Vector3 _StartPoint, Vector3 _Destination, UsableObject _Object = null ) {
 		if ( _Destination == Vector3.zero ) {
 			bIsValid = false;
 			return;
 		}
 
 		iType			= ActionType.MOVE;
+		vStartPoint		= _StartPoint;
 		vDestination	=  _Destination;
 		pObject			= _Object;
 	}
 
 	// Create as waiter
 	/// <summary>Alias for WAIT action</summary>
-	public		PlayerAction() { 
+	public		PlayerAction( Vector3 _CurrentPosition ) {
+		vStartPoint		= _CurrentPosition;
 		iType			= ActionType.WAIT;
 	}
 
@@ -102,15 +107,25 @@ public class PlayerAction : iPlayerAction {
 		return pObject;
 	}
 
+
+	public	Vector3	GetStartPoint() {
+
+		return vStartPoint;
+
+	}
+
 	// Return path start and end points
 	public Vector3	GetDestination() {
 
 		return vDestination;
+
 	}
+
 
 	public	bool	IsValid() {
 		return bIsValid;
 	}
+
 
 	public	void	Invalidate() {
 		bIsValid = false;

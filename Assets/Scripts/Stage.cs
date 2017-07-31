@@ -14,8 +14,8 @@ public class Stage {
 
 	public	void	Default() {
 
-		if ( Player1Action == null )	Player1Action = new PlayerAction();
-		if ( Player2Action == null )	Player2Action = new PlayerAction();
+		if ( Player1Action == null )	Player1Action = new PlayerAction( GLOBALS.Player1.transform.position );
+		if ( Player2Action == null )	Player2Action = new PlayerAction( GLOBALS.Player2.transform.position );
 
 	}
 

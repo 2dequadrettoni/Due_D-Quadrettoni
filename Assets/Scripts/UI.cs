@@ -5,18 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-interface IUI {
-
-	void	SelectPlayer( int ID );
-
-	void	UpdateAction( int PlayerID, ActionType ActionType, int CurrentStage );
-
-	void	ShowDeathMsg( string PlayerName );
-
-}
-
-
-public class UI : MonoBehaviour, IUI {
+public class UI : MonoBehaviour {
 
 	[SerializeField]
 	private		Sprite			AvatarPG1Enabled		= null;
@@ -162,7 +151,7 @@ public class UI : MonoBehaviour, IUI {
     }
 
 
-	public	void	UpdateAction( int PlayerID, ActionType ActionType, int CurrentStage ) {
+	public	void	AddAction( int PlayerID, ActionType ActionType, int CurrentStage ) {
 
 		Image pImage = vIcons[ (int)ActionType ].GetComponent<Image>();
 		vActionsSlots[ PlayerID-1, CurrentStage ].enabled = true;
@@ -170,8 +159,23 @@ public class UI : MonoBehaviour, IUI {
 
 	}
 
+	public	void	RemoveLastActions() {
 
-	public	void	CursorsNextStep( int iStage ) {
+		vActionsSlots[ 0, GLOBALS.StageManager.CurrentStage ].enabled = false;
+		vActionsSlots[ 1, GLOBALS.StageManager.CurrentStage ].enabled = false;
+
+	}
+
+	public	void	ResetActions() {
+
+		foreach( Image p in vActionsSlots ) {
+			p.enabled = false;
+		}
+
+	}
+
+
+	public	void	CursorsStep( int iStage ) {
 
 		if ( ( iStage + 1 ) > StageManager.MAX_STAGES ) {
 			 backGrid.localScale = new Vector3(originalScale.x * iStage, 1, 1);
@@ -194,6 +198,10 @@ public class UI : MonoBehaviour, IUI {
 		);
 
 	}
+
+
+
+
 
 
 	public	void	PrepareForPlay() {

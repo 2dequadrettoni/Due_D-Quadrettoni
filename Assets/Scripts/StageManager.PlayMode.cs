@@ -30,8 +30,8 @@ public partial class StageManager {
 				vStages[ iCurrentStage ].Default();
 
 				if ( pUI ) {
-					pUI.UpdateAction( 1, vStages[ iCurrentStage ].GetAction( 1 ).GetType(), iCurrentStage );
-					pUI.UpdateAction( 2, vStages[ iCurrentStage ].GetAction( 2 ).GetType(), iCurrentStage );
+					pUI.AddAction( 1, vStages[ iCurrentStage ].GetAction( 1 ).GetType(), iCurrentStage );
+					pUI.AddAction( 2, vStages[ iCurrentStage ].GetAction( 2 ).GetType(), iCurrentStage );
 				}
 
 			}
@@ -84,6 +84,9 @@ public partial class StageManager {
 			}
 			if ( Input.GetKeyDown( KeyCode.Alpha2 ) ) {		// 2
 				SelectPlayer( 2 );
+			}
+			if ( Input.GetKeyDown( KeyCode.Backspace ) ) {	// Backspace
+				PrevStage();
 			}
 			if ( Input.GetKeyDown( KeyCode.Space ) ) {		// Spazio
 				NextStage();

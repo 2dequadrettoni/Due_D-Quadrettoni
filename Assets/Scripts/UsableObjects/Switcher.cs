@@ -39,7 +39,7 @@ public partial class Switcher : UsableObject {
 		}
 
 		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
-
+		/*
 		foreach( Transform o in vObjects ) {
 
 			if ( o == null ) continue;
@@ -66,7 +66,7 @@ public partial class Switcher : UsableObject {
 				}
 			}
 		}
-
+		*/
 	}
 
 
