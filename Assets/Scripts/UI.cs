@@ -339,7 +339,6 @@ public class UI : MonoBehaviour, IUI {
 
 		if (isPause)
 		{
-            //buttonColor.color = Color.white;
             buttonPause.sprite = pause;
             isPause = false;
 			GLOBALS.IsPaused = false;
@@ -348,7 +347,6 @@ public class UI : MonoBehaviour, IUI {
 
         else  // if (!isPause)
 		{
-            //buttonColor.color = Color.red;
             buttonPause.sprite = glowPause;
             isPause = true;
 			GLOBALS.GameTime = Time.timeScale;
