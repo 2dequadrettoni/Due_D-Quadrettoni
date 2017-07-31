@@ -54,25 +54,20 @@ public partial class Switcher {
 			if ( o == null ) continue;
 
 			// DOORS
-			UsableObject p	= o.GetComponent<UsableObject>();
-			if ( p ) {
-				if ( p is Door ) {
+			if ( o.tag == "Door" ) {
 
-					Door pDoor = p as Door;
-					pDoor.IsHighLighted = val;
-					continue;
-				}
+				Door pDoor = o.GetComponent<UsableObject>() as Door;
+				pDoor.IsHighLighted = val;
+				continue;
+
 			}
 
 			// PLATFORMS
-			Platform p2 = o.GetComponent<Platform>();
-			if ( p2 ) {
-				if ( p2 is Platform ) {
+			if ( o.tag == "Platform" ) {
 
-					Platform pPlatform = p2 as Platform;
-					pPlatform.IsHighLighted = val;
+				Platform pPlatform = o.GetChild(0).GetComponent<Platform>() as Platform;
+				pPlatform.IsHighLighted = val;
 
-				}
 			}
 		}
 

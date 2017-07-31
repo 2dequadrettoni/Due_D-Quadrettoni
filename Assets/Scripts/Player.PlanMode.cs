@@ -100,12 +100,16 @@ public partial class Player {
 					// USABLE OBJECT
 					if ( objTag == "Key" || objTag == "Door" || objTag == "Switcher" || objTag == "Plane_Switcher" ) {
 
-
-
 				//////////////////////////////////////////////////////////////////////////////
 				//		INSTANT USE
 						if (  pUsableObject.UseType == UsageType.INSTANT ) {
+
 							Vector3 vDestination = pMouseHitted.collider.transform.position;
+
+							if ( objTag == "Door" )
+								vDestination = pMouseHitted.transform.GetChild( 2 ).position;
+
+
 							if ( Vector3.Distance( vPlanPosition, vDestination ) < fUseDistance*1.2f ) {
 								this.SetStepTile( vPlanStageDestination = vDestination );
 								pAction = new PlayerAction( pUsableObject );
@@ -166,6 +170,9 @@ public partial class Player {
 				//		OBJECTS WITH USE AT DESTINATION REACHED
 							{
 								Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
+								if ( objTag == "Door" )
+									vDestination = pMouseHitted.transform.GetChild( 2 ).position;
+
 								this.SetStepTile( vPlanStageDestination = vDestination );
 								pAction = new PlayerAction( vDestination, pUsableObject );
 								if ( bPlanDebug ) Debug.Log( "Movement to object set" );

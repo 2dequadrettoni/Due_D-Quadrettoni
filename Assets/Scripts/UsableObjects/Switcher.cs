@@ -56,7 +56,7 @@ public partial class Switcher : UsableObject {
 			}
 
 			// PLATFORMS
-			Platform p2 = o.GetComponent<Platform>();
+			Platform p2 = o.GetChild( 0 ).GetComponent<Platform>();
 			if ( p2 ) {
 				if ( p2 is Platform ) {
 

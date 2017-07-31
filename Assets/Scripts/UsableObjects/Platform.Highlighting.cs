@@ -39,7 +39,6 @@ public partial class Platform {
 
 			if ( o == null ) continue;
 
-			// DOORS
 			Switcher p	= o.GetComponent<Switcher>();
 			if ( p ) p.IsHighLighted = val;
 

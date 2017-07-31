@@ -29,7 +29,7 @@ public partial class Player {
 		
 	}
 
-	public bool	FindPath( Vector3 Destination ) {
+	public bool		FindPath( Vector3 Destination ) {
 
 		pNavigation.pNodeList = null;
 
@@ -38,7 +38,7 @@ public partial class Player {
 	}
 
 
-	public void Move() {
+	public void		Move() {
 		
 		if ( !bIsOK ) return;
 
@@ -55,7 +55,7 @@ public partial class Player {
 		
 	}
 
-	public void	Stop() {
+	public void		Stop() {
 
 		if ( pNavigation.pNodeList != null ) {
 			pNavigation.pNodeList.Clear();
@@ -68,7 +68,11 @@ public partial class Player {
 	}
 
 
-	private void UpdateNavigation() {
+	public	void	SetIdle() { pAnimator.Play( "Idle_" + sDirection ); }
+	
+
+
+	private void	UpdateNavigation() {
 
 		// DIRECTION
 		if ( pNavigation.iNodeIdx < pNavigation.pNodeList.Count - 1 )
@@ -121,14 +125,14 @@ public partial class Player {
 	}
 
 
-	public void Link( Platform pPlatform ) {
+	public void		Link( Platform pPlatform ) {
 
 		bLinked = true;
 		pLinkedObject = pPlatform;
 
 	}
 
-	public void UnLink( Platform pPlatform ) {
+	public void		UnLink( Platform pPlatform ) {
 
 		bLinked = false;
 		pLinkedObject = null;
@@ -136,7 +140,7 @@ public partial class Player {
 	}
 
 	
-	void OnDrawGizmos() {
+	private	void	OnDrawGizmos() {
 
 		if ( pNavigation.pNodeList != null ) {
 			foreach (Node n in pNavigation.pNodeList) {

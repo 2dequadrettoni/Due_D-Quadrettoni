@@ -48,20 +48,32 @@ public partial class Platform : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		// PLATFORM
+		Transform Platform	= transform.parent.transform.GetChild( 0 );
+
+		// DOCK 1
+		Transform Dock1		= transform.parent.transform.GetChild( 1 );
+		Transform Point1	= Dock1.GetChild( 0 );
+
+		// DOCK 1
+		Transform Dock2		= transform.parent.transform.GetChild( 2 );
+		Transform Point2	= Dock2.GetChild( 0 );
+
+
 		if ( iStartpoint == 1 ) {
-			vStartPosition	= transform.GetChild( 0 ).position;
-			vEndPosition	= transform.GetChild( 1 ).position;
+			vStartPosition	= Point1.position;
+			vEndPosition	= Point2.position;
 		}
 		else {
-			vStartPosition	= transform.GetChild( 1 ).position;
-			vEndPosition	= transform.GetChild( 0 ).position;
+			vStartPosition	= Point2.position;
+			vEndPosition	= Point1.position;
 		}
-		transform.position = vStartPosition;
+		transform.position	= vStartPosition;
 
-		pSpriteRender	= transform.GetChild( 2 ).GetComponent<SpriteRenderer>();
+		pSpriteRender		= Platform.GetChild(0).GetComponent<SpriteRenderer>();
 
-		transform.GetChild( 0 ).GetComponent<MeshRenderer>().enabled = false;
-		transform.GetChild( 1 ).GetComponent<MeshRenderer>().enabled = false;
+		Point1.GetComponent<MeshRenderer>().enabled = false;
+		Point2.GetComponent<MeshRenderer>().enabled = false;
 
 		GLOBALS.EventManager.AddReceiver( this );
 
@@ -100,9 +112,7 @@ public partial class Platform : MonoBehaviour {
 			bActive			= false;
 			iDirection		*= -1;
 			fInterpolant	= Mathf.Clamp01( fInterpolant );
-//			if ( pPlayer ) pPlayer.transform.position = ( iStartpoint == 2 ) ? vStartPosition : vEndPosition;
 			GLOBALS.StageManager.RemoveActiveObject();
-			return;
 		}
 
 		transform.position = Vector3.Lerp( vStartPosition, vEndPosition, fInterpolant );
@@ -119,17 +129,18 @@ public partial class Platform : MonoBehaviour {
 	}
 
 
-	private void OnTriggerStay( Collider other ) {
+	private void OnTriggerEnter( Collider other ) {
 		
 		if ( GLOBALS.StageManager.IsPlaying && !bHasPlayerInside && other.tag == "Player" ) {
 
 			Player pPlayer = other.GetComponent<Player>();
-			if ( !pPlayer.Linked && !pPlayer.IsBusy() ) {
+			if ( !pPlayer.Linked ) {
 				pPlayer.Stop();
+				pPlayer.SetIdle();
 				pPlayer.Link( this );
 				bHasPlayerInside = true;
-				this.pPlayer = pPlayer;
 				pPlayer.transform.position = transform.position;
+				this.pPlayer = pPlayer;
 				print( "Player " + pPlayer.ID + " ENTER platform" );
 			}
 		}
