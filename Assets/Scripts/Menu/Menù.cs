@@ -22,6 +22,7 @@ public class Menù : MonoBehaviour {
 		
         if (black.color.a == 0)
         {
+
             black.enabled = false;
         }
 
