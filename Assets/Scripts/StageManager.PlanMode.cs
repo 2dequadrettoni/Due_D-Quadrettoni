@@ -21,15 +21,15 @@ public partial class StageManager {
 		// Switch to player 1
 		if ( PlayerID == 1 ) {
 
-			pPlayer1.SetCursor( pPlayer1.CanParseInput = true );
-			pPlayer2.SetCursor( pPlayer2.CanParseInput = false );
+			GLOBALS.Player1.SetCursor( GLOBALS.Player1.CanParseInput = true );
+			GLOBALS.Player2.SetCursor( GLOBALS.Player2.CanParseInput = false );
 
 		}
 		// Switch to player 2
 		else {
 
-			pPlayer1.SetCursor( pPlayer1.CanParseInput = false );
-			pPlayer2.SetCursor( pPlayer2.CanParseInput = true );
+			GLOBALS.Player1.SetCursor( GLOBALS.Player1.CanParseInput = false );
+			GLOBALS.Player2.SetCursor( GLOBALS.Player2.CanParseInput = true );
 
 		}
 		iSelectedPlayer = PlayerID;
@@ -90,8 +90,8 @@ public partial class StageManager {
 
 		if ( iCurrentStage == MAX_STAGES ) return;
 
-		pPlayer1.OnNextStage();
-		pPlayer2.OnNextStage();
+		GLOBALS.Player1.OnNextStage();
+		GLOBALS.Player2.OnNextStage();
 
 		if ( !vStages[ iCurrentStage ].IsOK() ) {
 
@@ -120,8 +120,8 @@ public partial class StageManager {
 
 		if ( iCurrentStage < 1 ) return;
 
-		pPlayer1.OnPrevStage();
-		pPlayer2.OnPrevStage();
+		GLOBALS.Player1.OnPrevStage();
+		GLOBALS.Player2.OnPrevStage();
 
 		GLOBALS.UI.RemoveLastActions();
 
@@ -144,8 +144,8 @@ public partial class StageManager {
 
 		if ( !bIsOK ) return;
 
-		pPlayer1.OnClearStage();
-		pPlayer2.OnClearStage();
+		GLOBALS.Player1.OnClearStage();
+		GLOBALS.Player2.OnClearStage();
 
 		vStages[ iCurrentStage ].SetAction( 1, null );
 		vStages[ iCurrentStage ].SetAction( 2, null );

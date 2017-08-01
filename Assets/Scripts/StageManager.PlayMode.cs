@@ -37,11 +37,11 @@ public partial class StageManager {
 			}
 		}
 
-		pPlayer1.SetCursor( false );
-		pPlayer2.SetCursor( false );
+		GLOBALS.Player1.SetCursor( false );
+		GLOBALS.Player2.SetCursor( false );
 
-		pPlayer1.OnPlay();
-		pPlayer2.OnPlay();
+		GLOBALS.Player1.OnPlay();
+		GLOBALS.Player2.OnPlay();
 
 		// Set frist stage as current
 		iCurrentStage = 0;
@@ -59,8 +59,8 @@ public partial class StageManager {
 
 		bIsPlaying = false;
 		if ( AlsoPlayers ) {
-			pPlayer1.Stop();
-			pPlayer2.Stop();
+			GLOBALS.Player1.Stop();
+			GLOBALS.Player2.Stop();
 		}
 
 		// invalidate all script function so nothing can happen after this call
@@ -155,6 +155,10 @@ public partial class StageManager {
 	}
 
 	private void ExecuteActions() {
+
+		Player pPlayer1 = GLOBALS.Player1;
+		Player pPlayer2 = GLOBALS.Player2;
+
 
 		// Retrieve players action
 		PlayerAction PA1 = vStages[ iCurrentStage ].GetAction( 1 );
