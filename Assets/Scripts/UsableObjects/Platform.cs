@@ -113,7 +113,8 @@ public partial class Platform : MonoBehaviour {
 			iDirection		*= -1;
 			fInterpolant	= Mathf.Clamp01( fInterpolant );
 			GLOBALS.StageManager.RemoveActiveObject();
-		
+
+//			if (  )
 		}
 
 		transform.position = Vector3.Lerp( vStartPosition, vEndPosition, fInterpolant );

@@ -19,9 +19,11 @@ public class EventManager : MonoBehaviour {
 
 	public void	SentEvent( Switcher o ) {
 
-		foreach( Door d in vDoors )			d.OnEvent( o );
+		if ( vDoors != null && vDoors.Count > 0 )
+			foreach( Door d in vDoors )			d.OnEvent( o );
 
-		foreach( Platform p in vPlatforms ) p.OnEvent( o );
+		if ( vPlatforms != null && vPlatforms.Count > 0 )
+			foreach( Platform p in vPlatforms ) p.OnEvent( o );
 
 	}
 

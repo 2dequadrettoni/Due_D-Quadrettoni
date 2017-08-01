@@ -121,8 +121,12 @@ public partial class Door : UsableObject {
 
 
 	private		bool	ContainsSwitcher( Switcher p ) {
-		foreach ( Switcher o in vSwitchers )
+		foreach ( Switcher o in vSwitchers ) {
+
+			if ( !o ) continue;
 			if ( o.GetInstanceID() == p.GetInstanceID() ) return true;
+
+		}
 		return false;
 	}
 
@@ -131,7 +135,7 @@ public partial class Door : UsableObject {
 	// called when a switcher in the world is used
 	public		void	OnEvent( Switcher o ) {
 
-		if ( !o || ( vSwitchers == null ) || ( vSwitchers.Length == 0 ) || !ContainsSwitcher( o ) ) return;
+		if ( ( vSwitchers == null ) || ( vSwitchers.Length == 0 ) || !ContainsSwitcher( o ) ) return;
 
 		VerifySwitchers();
 
