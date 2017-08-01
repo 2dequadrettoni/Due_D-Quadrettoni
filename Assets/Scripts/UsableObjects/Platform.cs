@@ -42,38 +42,47 @@ public partial class Platform : MonoBehaviour {
 	private		List<Switcher>		vSwitchers					= new List<Switcher>();
 
 
+	// PLATFORM
+	private		Transform			pPlatform					= null;
 
+	// DOCK 1
+	private		Transform			pDock1						= null;
+	private		Transform			pPoint1						= null;
+
+	// DOCK 2
+	private		Transform			pDock2						= null;
+	private		Transform			pPoint2						= null;
 	
 
 	// Use this for initialization
 	void Start () {
 
 		// PLATFORM
-		Transform Platform	= transform.parent.transform.GetChild( 0 );
+		pPlatform	= transform.parent.transform.GetChild( 0 );
 
 		// DOCK 1
-		Transform Dock1		= transform.parent.transform.GetChild( 1 );
-		Transform Point1	= Dock1.GetChild( 0 );
+		pDock1		= transform.parent.transform.GetChild( 1 );
+		pPoint1		= pDock1.GetChild( 0 );
 
 		// DOCK 1
-		Transform Dock2		= transform.parent.transform.GetChild( 2 );
-		Transform Point2	= Dock2.GetChild( 0 );
+		pDock2		= transform.parent.transform.GetChild( 2 );
+		pPoint2		= pDock2.GetChild( 0 );
 
 
 		if ( iStartpoint == 1 ) {
-			vStartPosition	= Point1.position;
-			vEndPosition	= Point2.position;
+			vStartPosition	= pPoint1.position;
+			vEndPosition	= pPoint2.position;
 		}
 		else {
-			vStartPosition	= Point2.position;
-			vEndPosition	= Point1.position;
+			vStartPosition	= pPoint2.position;
+			vEndPosition	= pPoint1.position;
 		}
 		transform.position	= vStartPosition;
 
-		pSpriteRender		= Platform.GetChild(0).GetComponent<SpriteRenderer>();
+		pSpriteRender		= pPlatform.GetChild(0).GetComponent<SpriteRenderer>();
 
-		Point1.GetComponent<MeshRenderer>().enabled = false;
-		Point2.GetComponent<MeshRenderer>().enabled = false;
+		pPoint1.GetComponent<MeshRenderer>().enabled = false;
+		pPoint2.GetComponent<MeshRenderer>().enabled = false;
 
 		GLOBALS.EventManager.AddReceiver( this );
 
@@ -113,8 +122,12 @@ public partial class Platform : MonoBehaviour {
 			iDirection		*= -1;
 			fInterpolant	= Mathf.Clamp01( fInterpolant );
 			GLOBALS.StageManager.RemoveActiveObject();
+			transform.position = Vector3.Lerp( vStartPosition, vEndPosition, fInterpolant );
+			if ( pPlayer ) pPlayer.transform.position = transform.position;
+			if ( pPlayer && pPlayer.FindPath ( ( ( (int)fInterpolant + 1 ) == iStartpoint ) ?  pDock1.position : pDock2.position ) )
+				pPlayer.Move();
 
-//			if (  )
+			return;
 		}
 
 		transform.position = Vector3.Lerp( vStartPosition, vEndPosition, fInterpolant );

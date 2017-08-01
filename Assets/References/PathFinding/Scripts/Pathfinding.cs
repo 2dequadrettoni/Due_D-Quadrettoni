@@ -76,14 +76,15 @@ public class Pathfinding : MonoBehaviour {
 
 
 	public bool FindPath( Vector3 vStartPosition, Vector3 vEndPosition, out List<Node> pNodeList ) {
-
+		
 		pNodeList = null;
-
+		
 		if ( !CalculatePath( vStartPosition, vEndPosition ) ) return false;
-
+		
 		if ( grid.path.Count == 0 ) return false;
-
+		
 		pNodeList = new List<Node>( grid.path );
+		
 		return true;
 	}
 
