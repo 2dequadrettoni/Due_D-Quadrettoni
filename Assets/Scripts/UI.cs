@@ -70,6 +70,7 @@ public class UI : MonoBehaviour {
 	[HideInInspector]
     public bool isPause = false;
     Image buttonPause = null;
+    GameObject pausePrefab;
 
     // Use this for initialization
     private void Start() {
@@ -126,6 +127,8 @@ public class UI : MonoBehaviour {
         //Pause Button Image
         buttonPause = pCanvasObject.GetChild(14).GetComponent<Image>();
 
+        // prefab Pause Menu
+        pausePrefab = GameObject.Find("Pause_Menu");
 
     }
 
@@ -357,6 +360,7 @@ public class UI : MonoBehaviour {
 		{
             buttonPause.sprite = glowPause;
             isPause = true;
+            //pausePrefab.SetActive(true);
 			GLOBALS.GameTime = Time.timeScale;
 			GLOBALS.IsPaused = true;
 			Time.timeScale = 0;
