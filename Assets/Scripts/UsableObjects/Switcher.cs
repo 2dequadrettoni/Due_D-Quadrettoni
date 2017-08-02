@@ -40,33 +40,6 @@ public partial class Switcher : UsableObject {
 
 		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
 		
-		foreach( Transform o in vObjects ) {
-
-			if ( o == null ) continue;
-
-			// DOORS
-			UsableObject p	= o.GetComponent<UsableObject>();
-			if ( p ) {
-				if ( p is Door ) {
-
-					Door pDoor = p as Door;
-//					pDoor.AddUser( this );
-					continue;
-				}
-			}
-
-			// PLATFORMS
-			Platform p2 = o.GetChild( 0 ).GetComponent<Platform>();
-			if ( p2 ) {
-				if ( p2 is Platform ) {
-
-					Platform pPlatform = p2 as Platform;
-//					pPlatform.AddUser( this );
-
-				}
-			}
-		}
-		
 	}
 
 
