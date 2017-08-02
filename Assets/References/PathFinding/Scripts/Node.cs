@@ -44,4 +44,5 @@ public class Node : IHeapItem<Node> {
 		}
 		return -compare;
 	}
+
 }

@@ -15,35 +15,6 @@ public partial class Player {
 	private	Vector3	vPlanStageDestination =  Vector3.zero;
 
 
-	private	void	SetStepTile( Vector3 vPosition ) {
-
-		//////////////////////////////////////////////////////////////////////////////
-		// INSTANTIATE A NEW STEP TILE
-		Transform pStepTile = null;
-		if ( vSteps[ GLOBALS.StageManager.CurrentStage ] == null ) {
-			pStepTile = Instantiate( pMainStepTile, this.transform ) as Transform;;
-			vSteps[ GLOBALS.StageManager.CurrentStage ] = pStepTile;
-
-			//////////////////////////////////////////////////////////////////////////////
-			// SHOW STEP SPRITE
-			pStepTile.GetChild( 0 ).GetComponent<SpriteRenderer>().enabled = true;
-
-			//////////////////////////////////////////////////////////////////////////////
-			// SET RIGHT NUMBER
-			SpriteRenderer	pSpriteRender = pStepTile.GetChild( 1 ).GetComponent<SpriteRenderer>();
-			pSpriteRender.enabled = true;
-			pSpriteRender.sprite = GLOBALS.StageManager.GetNumberSprite();
-
-		}
-		else {
-			pStepTile = vSteps[ GLOBALS.StageManager.CurrentStage ];
-		}
-
-		pStepTile.position = vPosition;
-
-	}
-
-
 	////////////////////////////////////////////////////////////////////////
     /////////////////////////		PLAN MODE
 	private void ParseInput() {
@@ -205,6 +176,12 @@ public partial class Player {
 			}
 		}
 	}
+
+
+
+
+
+
 
 
 	public	void	OnNextStage() {
