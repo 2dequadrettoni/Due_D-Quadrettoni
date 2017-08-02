@@ -13,8 +13,9 @@ public class DeathZone : MonoBehaviour {
 
 			if ( pPlayer.Linked ) return;
 
-			pPlayer.Destroy();
 			if ( GLOBALS.UI ) GLOBALS.UI.ShowDeathMsg( other.name );
+
+			pPlayer.Destroy();
 
 		}
 

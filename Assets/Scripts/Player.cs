@@ -115,7 +115,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	}
 
 	[HideInInspector]
-	public		bool			AnimationOverride		= false;
+	public		bool			IsInAnimationOverride	= false;
 
 
 	//	UTILS
@@ -208,7 +208,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	}
 
 	public void Destroy() {
-
+		Stop();
 		pAnimator.Play( "Destroy", 0, 0.0f );
 
 	}
