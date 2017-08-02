@@ -69,7 +69,6 @@ public class UI : MonoBehaviour {
 
 	[HideInInspector]
     public bool isPause = false;
-    Image buttonPause = null;
     GameObject pausePrefab;
 
     // Use this for initialization
@@ -124,8 +123,6 @@ public class UI : MonoBehaviour {
 		pCursorPG1SpawnPos = pCursorPG1.localPosition;
 		pCursorPG2SpawnPos = pCursorPG2.localPosition;
 
-        //Pause Button Image
-        buttonPause = pCanvasObject.GetChild(14).GetComponent<Image>();
 
         // prefab Pause Menu
         pausePrefab = GameObject.Find("Pause_Menu");
@@ -351,7 +348,6 @@ public class UI : MonoBehaviour {
 
 		if (isPause)
 		{
-            buttonPause.sprite = pause;
             isPause = false;
 			GLOBALS.IsPaused = false;
             pausePrefab.SetActive(false);
@@ -361,7 +357,6 @@ public class UI : MonoBehaviour {
 
         else  // if (!isPause)
 		{
-            buttonPause.sprite = glowPause;
             isPause = true;
             pausePrefab.SetActive(true);
             Debug.Log("entra?");
