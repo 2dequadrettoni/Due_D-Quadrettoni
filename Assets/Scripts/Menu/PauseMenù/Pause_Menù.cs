@@ -6,13 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class Pause_Menù : MonoBehaviour {
 
-    public GameObject pause;
+    //public GameObject pause;
     public GameObject areYouSure;
 
 
     // Use this for initialization
     void Start () {
-       
+
+        
 	}
 	
 	// Update is called once per frame
@@ -22,13 +23,14 @@ public class Pause_Menù : MonoBehaviour {
 
     public void ResumeNightmare() {
 
-        pause.SetActive(false);
+       // pause.SetActive(false);
         areYouSure.SetActive(false);
+        GLOBALS.UI.OnPause();
     }
 
     public void EndNightmare()
     {
-        pause.SetActive(false);
+       // pause.SetActive(false);
         areYouSure.SetActive(true);
         
 
@@ -37,7 +39,7 @@ public class Pause_Menù : MonoBehaviour {
     public void No()
     {
         areYouSure.SetActive(false);
-        pause.SetActive(true);
+        //pause.SetActive(true);
     }
 
     public void Yes()

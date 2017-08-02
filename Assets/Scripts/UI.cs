@@ -129,6 +129,7 @@ public class UI : MonoBehaviour {
 
         // prefab Pause Menu
         pausePrefab = GameObject.Find("Pause_Menu");
+        pausePrefab.SetActive(false);
 
     }
 
@@ -149,8 +150,8 @@ public class UI : MonoBehaviour {
 
     public	void	ActivatePlayBtn()
     {
-        pCanvasObject.GetChild(10).GetChild(0).GetComponent<Animator>().SetBool("isPlay", true);
-
+        pCanvasObject.GetChild(10).GetComponent<Animator>().SetBool("isPlay", true);
+        pCanvasObject.GetChild(10).GetComponent<Button>().interactable = false;
     }
 
 
@@ -353,14 +354,17 @@ public class UI : MonoBehaviour {
             buttonPause.sprite = pause;
             isPause = false;
 			GLOBALS.IsPaused = false;
-			Time.timeScale = GLOBALS.GameTime;
+            pausePrefab.SetActive(false);
+            Debug.Log("resume");
+            Time.timeScale = GLOBALS.GameTime;
 		}
 
         else  // if (!isPause)
 		{
             buttonPause.sprite = glowPause;
             isPause = true;
-            //pausePrefab.SetActive(true);
+            pausePrefab.SetActive(true);
+            Debug.Log("entra?");
 			GLOBALS.GameTime = Time.timeScale;
 			GLOBALS.IsPaused = true;
 			Time.timeScale = 0;
