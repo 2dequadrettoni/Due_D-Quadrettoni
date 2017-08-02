@@ -146,7 +146,7 @@ public partial class Platform : MonoBehaviour {
 
 	private void OnTriggerEnter( Collider other ) {
 		
-		if ( GLOBALS.StageManager.IsPlaying && !bHasPlayerInside && other.tag == "Player" ) {
+		if ( !bActive && GLOBALS.StageManager.IsPlaying && !bHasPlayerInside && other.tag == "Player" ) {
 
 			Player pPlayer = other.GetComponent<Player>();
 			if ( !pPlayer.Linked ) {
