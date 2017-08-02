@@ -30,11 +30,11 @@ public class GameManager : MonoBehaviour {
 
 			GLOBALS.StageManager.Stop( false );
 
-			GLOBALS.Player1.AnimationOverride = true;
+			GLOBALS.Player1.IsInAnimationOverride = true;
 			GLOBALS.Player1.PlayWinAnimation();
 			GLOBALS.Player1.SetCursor( false );
 
-			GLOBALS.Player2.AnimationOverride = true;
+			GLOBALS.Player2.IsInAnimationOverride = true;
 			GLOBALS.Player2.PlayWinAnimation();
 			GLOBALS.Player2.SetCursor( false );
 

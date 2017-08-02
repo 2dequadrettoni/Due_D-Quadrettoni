@@ -64,7 +64,8 @@ public partial class Player {
 
 		pNavigation.bHasDestination = false;
 		pNavigation.bIsMoving		= false;
-
+		
+		pAnimator.Play( "Idle_" + sDirection, 0, 0.0f );
 	}
 
 
@@ -73,6 +74,8 @@ public partial class Player {
 
 
 	private void	UpdateNavigation() {
+
+		if ( !pNavigation.bHasDestination ) return;
 
 		// DIRECTION
 		if ( pNavigation.iNodeIdx < pNavigation.pNodeList.Count - 1 )
@@ -106,7 +109,7 @@ public partial class Player {
 				pNavigation.bIsMoving		= false;			// Set as not moving
 				transform.position			= pNavigation.vDestination;
 
-				if ( !AnimationOverride )
+				if ( !IsInAnimationOverride )
 					pAnimator.Play( "Idle_" + sDirection );
 				return;
 			}
@@ -118,7 +121,7 @@ public partial class Player {
 		Vector3 vDirection = ( pNavigation.vDestination - transform.position ).normalized;
 		transform.position += Time.deltaTime * ( fMoveSpeed * vDirection );
 		pNavigation.bIsMoving = true;
-		if ( !AnimationOverride )
+		if ( !IsInAnimationOverride )
 			pAnimator.Play( "Walk_" + sDirection );
 		
 	}
