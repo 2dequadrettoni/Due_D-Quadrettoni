@@ -15,8 +15,9 @@ public class AnimationEvents : MonoBehaviour {
 	void	DoorOpened() {
 
 		// Get collider child
-		transform.parent.GetChild( 1 ).GetComponent<BoxCollider>().enabled = false;
-		transform.parent.gameObject.layer = 0;
+		transform.parent.GetChild( 1 ).gameObject.SetActive(false);
+	//	transform.parent.GetChild( 1 ).GetComponent<BoxCollider>().enabled = false;
+//		transform.parent.gameObject.layer = 0;
 		GLOBALS.PathFinder.UpdateGrid();
 
 	}
@@ -24,8 +25,9 @@ public class AnimationEvents : MonoBehaviour {
 	void	DoorClosed() {
 
 		// Get collider child
-		transform.parent.GetComponent<BoxCollider>().enabled = true;
-		transform.parent.gameObject.layer = LayerMask.NameToLayer( "Unwalkable" );
+		transform.parent.GetChild( 1 ).gameObject.SetActive(true);
+//		transform.parent.GetComponent<BoxCollider>().enabled = true;
+//		transform.parent.gameObject.layer = LayerMask.NameToLayer( "Unwalkable" );
 		GLOBALS.PathFinder.UpdateGrid();
 
 	}
