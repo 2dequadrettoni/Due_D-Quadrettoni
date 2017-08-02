@@ -30,9 +30,9 @@ public partial class Player {
 	}
 
 	public bool		FindPath( Vector3 Destination ) {
-
+		
 		pNavigation.pNodeList = null;
-
+		
 		return GLOBALS.PathFinder.FindPath( transform.position, Destination, out pNavigation.pNodeList );
 
 	}
@@ -93,7 +93,6 @@ public partial class Player {
 				pRenderer.flipX = bFlipped = false;
 			if ( pCurrentNode.gridY == pNextNode.gridY )
 				pRenderer.flipX = bFlipped = ( pCurrentNode.gridX < pNextNode.gridX ) ? true : false;
-
 		}
 
 
