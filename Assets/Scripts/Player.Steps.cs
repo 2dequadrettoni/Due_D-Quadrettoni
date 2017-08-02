@@ -109,7 +109,7 @@ public partial class Player {
 
 		Transform	pCurrentStep		= vSteps[ GLOBALS.StageManager.CurrentStage ];
 		
-
+		/*
 		//////////////////////////////////////////////////////////////////////////////
 		//  HIDE ALL PREVIOUS STEPS ON THIS POSITION
 		while( IsAlreadyUsed ) {
@@ -117,12 +117,13 @@ public partial class Player {
 			pPreviousStep.FindChild( "Full_Tile" ).GetComponent<SpriteRenderer>().enabled = false;
 			pPreviousStep.FindChild( "Half_Tile" ).GetComponent<SpriteRenderer>().enabled = false;
 			pPreviousStep.FindChild( "Number"    ).GetComponent<SpriteRenderer>().enabled = false;
+			pPreviousStep.gameObject.SetActive( false );
 
 			IsAlreadyUsed = this.HasThisStep( pNode, ref pPreviousStep );
 
 		}
 
-
+	
 		//////////////////////////////////////////////////////////////////////////////
 		// CREATE ONE IF NOT EXISTS
 		if ( pCurrentStep == null )
@@ -146,7 +147,7 @@ public partial class Player {
 		pSpriteRender.sprite = GLOBALS.StageManager.GetNumberSprite();
 
 		pCurrentStep.position = vPosition;
-
+		*/
 		vSteps[ GLOBALS.StageManager.CurrentStage ] = pCurrentStep;
 		
 	}

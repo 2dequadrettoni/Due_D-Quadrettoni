@@ -46,7 +46,7 @@ public partial class Player {
 			pAction = new PlayerAction( vPlanPosition );
 			GLOBALS.StageManager.SetAction( this.pAction, this.iID );
 			if ( bPlanDebug ) Debug.Log( "Wait action set" );
-			this.SetStepTile( Vector3.up * 10000 );
+	//		this.SetStepTile( Vector3.up * 10000 );
 
 		}
 
@@ -80,7 +80,7 @@ public partial class Player {
 
 
 							if ( Vector3.Distance( vPlanPosition, vDestination ) < fUseDistance*1.2f ) {
-								this.SetStepTile( vPlanStageDestination = vDestination );
+//								this.SetStepTile( vPlanStageDestination = vDestination );
 								pAction = new PlayerAction( vPlanPosition, pUsableObject );
 								GLOBALS.StageManager.SetAction( this.pAction, this.iID );
 								if ( bPlanDebug ) Debug.Log( "Usable object set" );
@@ -130,7 +130,7 @@ public partial class Player {
 								}
 								
 								Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
-								this.SetStepTile( vPlanStageDestination = vDestination );
+//								this.SetStepTile( vPlanStageDestination = vDestination );
 								GLOBALS.StageManager.SetAction( this.pAction, this.iID );
 								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
 
@@ -146,7 +146,7 @@ public partial class Player {
 								if ( objTag == "Door" )
 									vDestination = pMouseHitted.transform.GetChild( 2 ).position;
 
-								this.SetStepTile( vPlanStageDestination = vDestination );
+//								this.SetStepTile( vPlanStageDestination = vDestination );
 								pAction = new PlayerAction( vPlanPosition, vDestination, pUsableObject );
 								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
 							}
@@ -161,7 +161,7 @@ public partial class Player {
 				//		MOVEMENT ONLY
 				if ( objTag == "Tiles" ) {
 					Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
-					this.SetStepTile( vPlanStageDestination = vDestination );
+//					this.SetStepTile( vPlanStageDestination = vDestination );
 					pAction = new PlayerAction( vPlanPosition, vDestination );
 					if ( bPlanDebug ) Debug.Log( "Movement only set" );
 
