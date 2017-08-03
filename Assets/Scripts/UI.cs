@@ -70,6 +70,7 @@ public class UI : MonoBehaviour {
 	[HideInInspector]
     public bool isPause = false;
     GameObject pausePrefab;
+    Animator buttonNextStage;
 
     // Use this for initialization
     private void Start() {
@@ -127,6 +128,9 @@ public class UI : MonoBehaviour {
         // prefab Pause Menu
         pausePrefab = GameObject.Find("Pause_Menu");
         pausePrefab.SetActive(false);
+
+        //Button Next Stage Animator
+        buttonNextStage = pCanvasObject.GetChild(11).GetComponent<Animator>();
 
     }
 
@@ -343,6 +347,7 @@ public class UI : MonoBehaviour {
 
 	}
 
+    //Set time scale 0 or at gameTime, able and disable pausePrefab menu 
     public void OnPause() 
     {
 
@@ -359,7 +364,6 @@ public class UI : MonoBehaviour {
 		{
             isPause = true;
             pausePrefab.SetActive(true);
-            Debug.Log("entra?");
 			GLOBALS.GameTime = Time.timeScale;
 			GLOBALS.IsPaused = true;
 			Time.timeScale = 0;
@@ -367,5 +371,17 @@ public class UI : MonoBehaviour {
 
 	}
 
+    //Able and Disable the animation button nex turn glow
+    public void GlowNextTurn()
+    {
+        if (buttonNextStage.GetBool("isTurnComplete"))
+        {
+            buttonNextStage.SetBool(("isTurnComplete"), false);
+        }
+        else
+        {
+            buttonNextStage.SetBool(("isTurnComplete"), true);
+        }
+    }
 
 }
