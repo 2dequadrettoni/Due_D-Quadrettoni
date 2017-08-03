@@ -39,7 +39,7 @@ public class UI : MonoBehaviour {
 	private		Image[,]		vActionsSlots			= null;
 
     // UI selected image
-    public Sprite glowPause, pause; 
+    public Sprite orangeNexTurn, defaultNexTurn, orangePause, defaultPause, orangeRestart, defaultRestart;
 
 	// PopUp Windows
 	////////////////////////////////////////////////////////////////////
@@ -69,8 +69,9 @@ public class UI : MonoBehaviour {
 
 	[HideInInspector]
     public bool isPause = false;
-    GameObject pausePrefab;
-    Animator buttonNextStage;
+    GameObject pausePrefab, buttonNextTurn, buttonPause, buttonRestart;
+    Animator nextStageAnimator;
+    Sprite buttonNextTurnSprite;
 
     // Use this for initialization
     private void Start() {
@@ -129,9 +130,16 @@ public class UI : MonoBehaviour {
         pausePrefab = GameObject.Find("Pause_Menu");
         pausePrefab.SetActive(false);
 
-        //Button Next Stage Animator
-        buttonNextStage = pCanvasObject.GetChild(11).GetComponent<Animator>();
+        //Button Next Stage Animator 
+        nextStageAnimator = pCanvasObject.FindChild("ButtonNextStage").GetComponent<Animator>();
 
+        //Button Next Stage sprite
+        buttonNextTurnSprite = buttonRestart.GetComponent<Image>().sprite;
+
+        //Button
+        buttonNextTurn = pCanvasObject.GetChild(11).GetComponent<GameObject>();
+        buttonPause = pCanvasObject.GetChild(14).GetComponent<GameObject>();
+        buttonRestart = pCanvasObject.GetChild(12).GetComponent<GameObject>();
     }
 
 
@@ -372,16 +380,46 @@ public class UI : MonoBehaviour {
 	}
 
     //Able and Disable the animation button nex turn glow
-    public void GlowNextTurn()
+    public void GlowAnimationNextTurn()
     {
-        if (buttonNextStage.GetBool("isTurnComplete"))
+        if (nextStageAnimator.GetBool("isTurnComplete"))
         {
-            buttonNextStage.SetBool(("isTurnComplete"), false);
+            nextStageAnimator.SetBool(("isTurnComplete"), false);
         }
         else
         {
-            buttonNextStage.SetBool(("isTurnComplete"), true);
+            nextStageAnimator.SetBool(("isTurnComplete"), true);
         }
+    }
+
+    public void GlowOrangeNexTurn()
+    {
+        buttonNextTurnSprite = orangeNexTurn;
+    }
+
+    public void GlowOrangePause()
+    {
+        buttonNextTurnSprite = orangePause;
+    }
+
+    public void GlowOrangeRestart()
+    {
+        buttonNextTurnSprite = orangeRestart;
+    }
+
+    public void DefaultNextTurn()
+    {
+        buttonNextTurnSprite = defaultNexTurn;
+    }
+
+    public void DefaultPause()
+    {
+        buttonNextTurnSprite = defaultPause;
+    }
+
+    public void DefaultRestart()
+    {
+        buttonNextTurnSprite = defaultRestart;
     }
 
 }
