@@ -69,7 +69,8 @@ public class UI : MonoBehaviour {
 
 	[HideInInspector]
     public bool isPause = false;
-    GameObject pausePrefab, buttonNextTurn, buttonPause, buttonRestart;
+	GameObject pausePrefab;
+    Transform buttonNextTurn, buttonPause, buttonRestart;
     Animator nextStageAnimator;
     Sprite buttonNextTurnSprite;
 
@@ -132,14 +133,16 @@ public class UI : MonoBehaviour {
 
         //Button Next Stage Animator 
         nextStageAnimator = pCanvasObject.FindChild("ButtonNextStage").GetComponent<Animator>();
-
-        //Button Next Stage sprite
-        buttonNextTurnSprite = buttonRestart.GetComponent<Image>().sprite;
+		if ( nextStageAnimator == null ) print( "noooooooo" );
+        
 
         //Button
-        buttonNextTurn = pCanvasObject.GetChild(11).GetComponent<GameObject>();
-        buttonPause = pCanvasObject.GetChild(14).GetComponent<GameObject>();
-        buttonRestart = pCanvasObject.GetChild(12).GetComponent<GameObject>();
+        buttonNextTurn = pCanvasObject.GetChild(11);
+        buttonPause = pCanvasObject.GetChild(14);
+        buttonRestart = pCanvasObject.FindChild( "ButtonRestart" );
+
+		//Button Next Stage sprite
+        buttonNextTurnSprite = buttonRestart.GetComponent<Image>().sprite;
     }
 
 
@@ -380,16 +383,19 @@ public class UI : MonoBehaviour {
 	}
 
     //Able and Disable the animation button nex turn glow
-    public void GlowAnimationNextTurn()
+    public void GlowAnimationNextTurn( bool Active )
     {
-        if (nextStageAnimator.GetBool("isTurnComplete"))
-        {
-            nextStageAnimator.SetBool(("isTurnComplete"), false);
-        }
-        else
+
+		nextStageAnimator.SetBool(("isTurnComplete"), Active);
+/*        if (Active)
         {
             nextStageAnimator.SetBool(("isTurnComplete"), true);
         }
+        else
+        {
+            nextStageAnimator.SetBool(("isTurnComplete"), false);
+        }
+		*/
     }
 
     public void GlowOrangeNexTurn()

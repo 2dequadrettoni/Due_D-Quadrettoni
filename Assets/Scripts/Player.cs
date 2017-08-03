@@ -129,7 +129,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	private		Transform		pPlanTile				= null;
 	private		Transform		pMainStepTile			= null;
 
-	private		Transform[]		vSteps					= null;
+	private		Step[]			vSteps					= null;
 
 	private		Vector3			vNumberDefPosition		= Vector3.zero;
 
@@ -162,7 +162,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 		vSpawnPostion.Set( transform.position.x, transform.position.y, transform.position.z );
 		vPlanPosition.Set( transform.position.x, transform.position.y, transform.position.z );
 
-		vSteps = new Transform[ StageManager.MAX_STAGES ];
+		vSteps = new Step[ StageManager.MAX_STAGES ];
 
 		vNumberDefPosition = pMainStepTile.FindChild( "Number" ).localPosition;
 

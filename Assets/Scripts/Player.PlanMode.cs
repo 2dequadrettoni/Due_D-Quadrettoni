@@ -46,7 +46,7 @@ public partial class Player {
 			pAction = new PlayerAction( vPlanPosition );
 			GLOBALS.StageManager.SetAction( this.pAction, this.iID );
 			if ( bPlanDebug ) Debug.Log( "Wait action set" );
-	//		this.SetStepTile( Vector3.up * 10000 );
+			this.Steps_Set( Vector3.up * 10000 );
 
 		}
 
@@ -80,8 +80,8 @@ public partial class Player {
 
 
 							if ( Vector3.Distance( vPlanPosition, vDestination ) < fUseDistance*1.2f ) {
-								vPlanStageDestination = vDestination;
-//								this.SetStepTile( vPlanStageDestination = vDestination );
+								
+								this.Steps_Set( vPlanStageDestination = vDestination );
 								pAction = new PlayerAction( vPlanPosition, pUsableObject );
 								GLOBALS.StageManager.SetAction( this.pAction, this.iID );
 								if ( bPlanDebug ) Debug.Log( "Usable object set" );
@@ -131,8 +131,8 @@ public partial class Player {
 								}
 								
 								Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
-								vPlanStageDestination = vDestination;
-//								this.SetStepTile( vPlanStageDestination = vDestination );
+								
+								this.Steps_Set( vPlanStageDestination = vDestination );
 								GLOBALS.StageManager.SetAction( this.pAction, this.iID );
 								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
 
@@ -147,8 +147,8 @@ public partial class Player {
 								// Door has a proper point as destination
 								if ( objTag == "Door" )
 									vDestination = pMouseHitted.transform.GetChild( 2 ).position;
-								vPlanStageDestination = vDestination;
-//								this.SetStepTile( vPlanStageDestination = vDestination );
+								
+								this.Steps_Set( vPlanStageDestination = vDestination );
 								pAction = new PlayerAction( vPlanPosition, vDestination, pUsableObject );
 								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
 							}
@@ -163,8 +163,8 @@ public partial class Player {
 				//		MOVEMENT ONLY
 				if ( objTag == "Tiles" ) {
 					Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
-					vPlanStageDestination = vDestination;
-//					this.SetStepTile( vPlanStageDestination = vDestination );
+					
+					this.Steps_Set( vPlanStageDestination = vDestination );
 					pAction = new PlayerAction( vPlanPosition, vDestination );
 					if ( bPlanDebug ) Debug.Log( "Movement only set" );
 
@@ -200,10 +200,11 @@ public partial class Player {
 
 		if ( pStageManager.CurrentStage == 0 ) return;
 
-		Transform pStep = vSteps[ pStageManager.CurrentStage - 1 ];
+		Transform pStep = vSteps[ pStageManager.CurrentStage - 1 ].pStepTransform;
 		if ( pStep != null ) {
 			Destroy( pStep.gameObject ); pStep = null;
 		}
+		vSteps[ pStageManager.CurrentStage - 1 ] = null;
 
 		if ( pStageManager.CurrentStage == 1 ) {
 			pStageManager.ClearStages();

@@ -14,9 +14,10 @@ public partial class Player {
 		
 		if ( !bIsOK ) return;
 
-		foreach( Transform o in vSteps )
-			if ( o != null )
-			Destroy( o.gameObject );
+		foreach( Step o in vSteps )
+			if ( o != null ) {
+				Destroy( o.pStepTransform.gameObject );
+			}
 
 		bCanParseInput = false;
 

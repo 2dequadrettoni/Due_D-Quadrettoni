@@ -85,17 +85,29 @@ public partial class StageManager {
 				SelectPlayer( 2 );
 			}
 			if ( Input.GetKeyDown( KeyCode.Backspace ) ) {	// Backspace
-				PrevStage();
-			}
-			if ( Input.GetKeyDown( KeyCode.Space ) ) {		// Spazio
-				NextStage();
-			}
-			if ( Input.GetKeyDown( KeyCode.Keypad0 ) ) {	// 0 TN
-				Play();
+	//			PrevStage();
 			}
 
-			  // Play the action with "return"
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) Play();
+			//////////////////////////////////////////////////////////////////////////
+			// NEXT STAGE
+			if ( Input.GetKeyDown( KeyCode.Space ) ) {		
+				NextStage();
+			}
+
+			if ( Input.GetKeyUp( KeyCode.Space ) ) {		
+				
+
+			}
+
+			//////////////////////////////////////////////////////////////////////////
+			// PLAY
+			if ( Input.GetKeyDown( KeyCode.Keypad0 ) ) {	// 0 TN
+				Play();
+
+
+			}
+			if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+				Play();
 
 
 			return; 

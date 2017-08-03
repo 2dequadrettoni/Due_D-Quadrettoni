@@ -101,6 +101,13 @@ public class Pathfinding : MonoBehaviour {
 
 	}
 
+	public	void	GetGridSize( out int x, out int y ) {
+
+		x = ( int )grid.gridWorldSize.x;
+		y = ( int )grid.gridWorldSize.y;
+
+	}
+
 
 
 

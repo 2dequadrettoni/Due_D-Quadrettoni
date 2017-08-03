@@ -1,146 +1,214 @@
 ﻿
+using System.Collections.Generic;
 using UnityEngine;
 
 #pragma warning disable CS0162 // Unreachable code detected
 #pragma warning disable CS0414 // Var assigned but never used
 
-public partial class Player {
+public  class	Step {
 
-	// try restore previous step cicle per vedere se uno step coincide e rende visibile il numero
+	public	SpriteRenderer	pFull_Tile_Renderer	= null;
+	public	SpriteRenderer	pHalf_Tile_Renderer	= null;
+	public	SpriteRenderer	pNumber_Renderer	= null;
 
-	// used when returning to previous action
-	private	void	TryRestorePrevSteps( Node vThisStepNode ) {
+	public	bool			IsShared			= false;
+	public	bool			IsVisible			= true;
+	public	int				iStepNumber			= -1;
+	public	Transform		pStepTransform		= null;
+	public	Vector3			vPosition			= Vector3.zero;
+	public	Node			pNode				= null;
 
-		if ( vSteps.Length == 0 ) return;
+	public	Step			pSharer				= null;
+	
 
-		Player		pOtherPlayer		= ( ID == 1 ) ? GLOBALS.Player2 : GLOBALS.Player1;
+	public	Step( Transform StepTransform, Vector3 Position, int StepNumber ) {
 
-		Transform	pOtherPlayerStep	= null;
-		bool		IsShared			= pOtherPlayer.HasThisStep( vThisStepNode, ref pOtherPlayerStep );
+		this.pStepTransform		= StepTransform;
+		this.vPosition			= Position;
+		this.iStepNumber		= StepNumber;
 
-		for( int i = vSteps.Length; i > -1; i-- ) {
+		pFull_Tile_Renderer		= StepTransform.FindChild( "Full_Tile" ).GetComponent<SpriteRenderer>();
+		pHalf_Tile_Renderer		= StepTransform.FindChild( "Half_Tile" ).GetComponent<SpriteRenderer>();
+		pNumber_Renderer		= StepTransform.FindChild( "Number"    ).GetComponent<SpriteRenderer>();
+	}
 
-			Transform p = vSteps[ i ];
+	public	void	UpdateNode() {
 
-			Node pNode;
-			if ( p &&  ( ( pNode = GLOBALS.PathFinder.NodeFromWorldPoint( p.position ) ) != null ) ) {
-				if ( vThisStepNode == pNode && IsShared ) {
-
-			//		pPreviousStep.FindChild( "Full_Tile" ).GetComponent<SpriteRenderer>().enabled = false;
-			//		pPreviousStep.FindChild( "Half_Tile" ).GetComponent<SpriteRenderer>().enabled = false;
-			//		pPreviousStep.FindChild( "Number" ).GetComponent<SpriteRenderer>().enabled = false;
-
-				}
-			}
-
-		}
+		pNode = GLOBALS.PathFinder.NodeFromWorldPoint( vPosition );
 
 	}
 
+}
+
+
+
+public partial class Player {
+
+
+
 	// Check if currently other player has this step
-	private	bool	HasThisStep( Node vStepNode, ref Transform pOtherStep ) {
+	public	bool	Steps_HasThis( Node vStepNode, ref Step pReturnStep, bool FirstVisibleOnly = false ) {
 
 		for( int i = vSteps.Length - 1; i > -1; i-- ) {
-			Transform p = vSteps[ i ];
+			Step pStep = vSteps[ i ];
 
-			if ( !p ) continue;
+			if ( pStep == null ) continue;
 
-			Node pNode = GLOBALS.PathFinder.NodeFromWorldPoint( p.position );
-			if ( pNode == vStepNode && p.gameObject.activeSelf ) {
-				pOtherStep = p;
-				
+			if ( pStep.pNode == vStepNode && ( ( FirstVisibleOnly && pStep.IsVisible ) || true ) ) {
+				pReturnStep = pStep;
 				return true;
 			}
 		}
 
-		pOtherStep = null;
+		pReturnStep = null;
 		return false;
 
 	}
 
 
-	private	void	CheckSharedSteps() {
-		/*
-		Node		pNode				= GLOBALS.PathFinder.NodeFromWorldPoint( p.position );
+	private	void	Spets_HidePreviousNumbers( Step pCurrentStep ) {
 
-		Player		pOtherPlayer		= ( ID == 1 ) ? GLOBALS.Player2 : GLOBALS.Player1;
+		Node pNode = GLOBALS.PathFinder.NodeFromWorldPoint( pCurrentStep.vPosition );
 
-		Transform	pOtherPlayerStep	= null;
-		bool		IsShared			= pOtherPlayer.HasThisStep( pNode, ref pOtherPlayerStep );
+		for( int i = vSteps.Length - 1; i > -1; i-- ) {
+			Step pStep = vSteps[ i ];
 
+			if ( pStep == null ) continue;
 
-	*/
-		foreach( Transform p in vSteps ) {
+			if ( pStep.pNode == pNode ) {
+				
+				pStep.IsVisible = pStep.pNumber_Renderer.enabled = false;
 
-			if ( !p ) continue;
-
-			Node		pNode				= GLOBALS.PathFinder.NodeFromWorldPoint( p.position );
-			Player		pOtherPlayer		= ( ID == 1 ) ? GLOBALS.Player2 : GLOBALS.Player1;
-
-			Transform	pOtherPlayerStep	= null;
-			bool		IsShared			= pOtherPlayer.HasThisStep( pNode, ref pOtherPlayerStep );
-
-			pOtherPlayerStep.FindChild( "Number" ).localPosition = ( IsShared ) ? pOtherPlayer.vNumberDefPosition : Vector3.zero;
-
+			}
 		}
 
 	}
 
 
-	private	void	SetStepTile( Vector3 vPosition ) {
+	private	void	Steps_ResetLastNumberOn( Step pCurrentStep ) {
 
-		Node		pNode				= GLOBALS.PathFinder.NodeFromWorldPoint( vPosition );
+		for( int i = vSteps.Length - 1; i > -1; i-- ) {
+			Step pStep = vSteps[ i ];
+
+			if ( pStep == null ) continue;
+
+			if ( pStep.pNode == pCurrentStep.pNode && ( pStep.IsVisible == false ) ) {
+				pStep.IsVisible = pStep.pNumber_Renderer.enabled = true;
+				return;
+			}
+		}
+
+	}
+
+
+	private	void	Steps_ChooseSprite( Step pCurrentStep ) {
+
+		Node		pNode				= GLOBALS.PathFinder.NodeFromWorldPoint( pCurrentStep.vPosition );
 
 		Player		pOtherPlayer		= ( ID == 1 ) ? GLOBALS.Player2 : GLOBALS.Player1;
 
-		Transform	pOtherPlayerStep	= null;
-		bool		IsShared			= pOtherPlayer.HasThisStep( pNode, ref pOtherPlayerStep );
+		Step		pOtherPlayerStep	= null;
 
-		Transform	pPreviousStep		= null;
-		bool		IsAlreadyUsed		= this.HasThisStep( pNode, ref pPreviousStep );
+		bool		IsShared			= pOtherPlayer.Steps_HasThis( pNode, ref pOtherPlayerStep );
 
-		Transform	pCurrentStep		= vSteps[ GLOBALS.StageManager.CurrentStage ];
-		
-		
-		//////////////////////////////////////////////////////////////////////////////
-		//  HIDE ALL PREVIOUS STEPS ON THIS POSITION
-		while( IsAlreadyUsed ) {
+		pCurrentStep.pNode = pNode;
 
-			pPreviousStep.FindChild( "Full_Tile" ).GetComponent<SpriteRenderer>().enabled = false;
-			pPreviousStep.FindChild( "Half_Tile" ).GetComponent<SpriteRenderer>().enabled = false;
-			pPreviousStep.FindChild( "Number"    ).GetComponent<SpriteRenderer>().enabled = false;
-			pPreviousStep.gameObject.SetActive( false );
+		if ( IsShared ) {
 
-			IsAlreadyUsed = this.HasThisStep( pNode, ref pPreviousStep );
+			pCurrentStep.pFull_Tile_Renderer.enabled = pOtherPlayerStep.pFull_Tile_Renderer.enabled = false;
+			pCurrentStep.pHalf_Tile_Renderer.enabled = pOtherPlayerStep.pHalf_Tile_Renderer.enabled = true;
+
+			pOtherPlayerStep.IsShared = pCurrentStep.IsShared = true;
+
+			pCurrentStep.pSharer		= pOtherPlayerStep;
+			pOtherPlayerStep.pSharer	= pCurrentStep;
 
 		}
+		else {
+			if ( pCurrentStep.pSharer != null ) {
 
-	
+				pCurrentStep.pSharer.pFull_Tile_Renderer.enabled = true;
+				pCurrentStep.pSharer.pHalf_Tile_Renderer.enabled = false;
+
+				Steps_ResetLastNumberOn( pCurrentStep );
+
+				pCurrentStep.pSharer.IsShared = false;
+				pCurrentStep.pSharer.pSharer = null;
+				
+			}
+
+			pCurrentStep.pFull_Tile_Renderer.enabled = true;
+			pCurrentStep.pHalf_Tile_Renderer.enabled = false;
+			pCurrentStep.IsShared = false;
+		}
+
+	}
+
+
+
+	private	void	Steps_ChooseNumber( Step pCurrentStep ) {
+
+		Step		pPlayerStep			= null;
+		bool		IsAlreadyUsed		= Steps_HasThis( pCurrentStep.pNode, ref pPlayerStep, true );
+
+		Step		pPlayerHiddenStep	= null;
+		bool		HasHiddenStep		= Steps_HasThis( pCurrentStep.pNode, ref pPlayerHiddenStep );
+		
+		// Hide previous step on this node
+//		if ( IsAlreadyUsed ) {
+//			pPlayerStep.IsVisible = pPlayerStep.pNumber_Renderer.enabled = false;
+//		}
+
+//		if ( IsAlreadyUsed ) {
+			pCurrentStep.pNumber_Renderer.enabled = true;
+			pCurrentStep.pNumber_Renderer.sprite = GLOBALS.StageManager.GetNumberSprite();
+//		}
+
+	}
+
+
+
+
+	private void Steps_Update() {
+
+
+
+	}
+
+
+
+	private	void	Steps_Set( Vector3 vPosition ) {
+
+		int			iCurrentStage		= GLOBALS.StageManager.CurrentStage;
+		Step		pCurrentStep		= vSteps[ iCurrentStage ];
+
 		//////////////////////////////////////////////////////////////////////////////
 		// CREATE ONE IF NOT EXISTS
-		if ( pCurrentStep == null )
-			pCurrentStep = Instantiate( pMainStepTile, this.transform ) as Transform;
+		if ( pCurrentStep == null ) {
+			Transform pStepTransform = Instantiate( pMainStepTile, this.transform ) as Transform;
+			pCurrentStep = new Step( pStepTransform, vPosition, iCurrentStage );
+		}
 
+		pCurrentStep.pStepTransform.position = vPosition;
+		pCurrentStep.UpdateNode();
+
+		vSteps[ iCurrentStage ] = pCurrentStep;
+
+		Steps_Update();
+
+
+		//	Spets_HidePreviousNumbers( pCurrentStep );
 
 		//////////////////////////////////////////////////////////////////////////////
 		// CHOOSE WHICH SPRITE RENDER
-
-		pCurrentStep.FindChild( "Full_Tile" ).GetComponent<SpriteRenderer>().enabled = ( IsShared ) ? false : true;
-		pCurrentStep.FindChild( "Half_Tile" ).GetComponent<SpriteRenderer>().enabled = ( IsShared ) ? true : false;
-
+		Steps_ChooseSprite( pCurrentStep );
+		
 
 		//////////////////////////////////////////////////////////////////////////////
 		// SET RIGHT NUMBER POSITION AND VALUE
-		Transform pNumber = pCurrentStep.FindChild( "Number" );
-		pNumber.localPosition = ( IsShared ) ? vNumberDefPosition : Vector3.zero;
-
-		SpriteRenderer	pSpriteRender = pNumber.GetComponent<SpriteRenderer>();
-		pSpriteRender.enabled = true;
-		pSpriteRender.sprite = GLOBALS.StageManager.GetNumberSprite();
-
-		pCurrentStep.position = vPosition;
+		Steps_ChooseNumber( pCurrentStep );
 		
-		vSteps[ GLOBALS.StageManager.CurrentStage ] = pCurrentStep;
+		vSteps[ iCurrentStage ] = pCurrentStep;
 		
 	}
 

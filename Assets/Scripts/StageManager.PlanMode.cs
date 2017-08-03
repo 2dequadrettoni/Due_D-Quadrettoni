@@ -78,6 +78,8 @@ public partial class StageManager {
 		if ( GLOBALS.UI )
 			GLOBALS.UI.AddAction( PlayerID, Action.GetType(), iCurrentStage );
 
+		if ( vStages[ iCurrentStage ].IsOK() ) GLOBALS.UI.GlowAnimationNextTurn( true );
+
 		if ( bPlanDebug ) Debug.Log( "Action set for player " + iSelectedPlayer );
 
 	}
@@ -108,6 +110,8 @@ public partial class StageManager {
 
 		// Update cursors position
 		GLOBALS.UI.CursorsStep( iCurrentStage + 1 );
+
+		GLOBALS.UI.GlowAnimationNextTurn( false );
 
 		// set next stage
 		iCurrentStage++;
