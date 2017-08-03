@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Animations/Switcher/Desert_Switcher.meta
 guid: 18fffb7867e5e784699f6f06933d307a
 folderAsset: yes
 timeCreated: 1501769897
+=======
+guid: 04f1a969c23e1a6499482e1296306e8c
+folderAsset: yes
+timeCreated: 1501767464
+>>>>>>> fc080eae25356f3639a9ffdcb09cce3441fc85c0:Assets/Animations/Switcher/Desert_Switcher.meta
 licenseType: Free
 DefaultImporter:
   userData: 
