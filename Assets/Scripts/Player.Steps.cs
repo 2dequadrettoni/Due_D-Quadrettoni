@@ -6,7 +6,6 @@ using UnityEngine;
 
 public partial class Player {
 
-
 	// try restore previous step cicle per vedere se uno step coincide e rende visibile il numero
 
 	// used when returning to previous action
@@ -40,7 +39,6 @@ public partial class Player {
 
 	// Check if currently other player has this step
 	private	bool	HasThisStep( Node vStepNode, ref Transform pOtherStep ) {
-		
 
 		for( int i = vSteps.Length - 1; i > -1; i-- ) {
 			Transform p = vSteps[ i ];
@@ -72,12 +70,6 @@ public partial class Player {
 
 
 	*/
-
-
-
-
-
-
 		foreach( Transform p in vSteps ) {
 
 			if ( !p ) continue;
@@ -109,7 +101,7 @@ public partial class Player {
 
 		Transform	pCurrentStep		= vSteps[ GLOBALS.StageManager.CurrentStage ];
 		
-		/*
+		
 		//////////////////////////////////////////////////////////////////////////////
 		//  HIDE ALL PREVIOUS STEPS ON THIS POSITION
 		while( IsAlreadyUsed ) {
@@ -147,7 +139,7 @@ public partial class Player {
 		pSpriteRender.sprite = GLOBALS.StageManager.GetNumberSprite();
 
 		pCurrentStep.position = vPosition;
-		*/
+		
 		vSteps[ GLOBALS.StageManager.CurrentStage ] = pCurrentStep;
 		
 	}
