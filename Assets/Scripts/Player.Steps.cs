@@ -2,8 +2,93 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using System; // [Serializable]
+
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 #pragma warning disable CS0162 // Unreachable code detected
 #pragma warning disable CS0414 // Var assigned but never used
+
+/*
+public class LevelManager : MonoBehaviour {
+
+	[Serializable]
+	public class Level {
+		public bool IsAvaiable = false;
+		public Scene Scena;
+	}
+
+
+	Transform[] figli;
+
+	public Level[] vLevels;
+
+	private void Start() {
+
+		figli = new Transform[vLevels.Length];
+
+		for( int i = 0; i < vLevels.Length; i++ ) {
+
+			figli[i] = transform.FindChild( "Button" + i );
+
+		}
+
+		for ( int i = 0; i < SaveLoad.GetSavedlevel(); i++ ) {
+
+			vLevels[ i ].IsAvaiable = true;
+
+		}
+
+		if ( vLevels != null && vLevels.Length > 0 ) {
+			for( int i = 0; i < vLevels.Length; i++ ) {
+
+				if ( vLevels[ i ].IsAvaiable ) {
+					figli[i].GetComponent<Button>().interactable = true;
+				}
+				else {
+					figli[i].GetComponent<Button>().interactable = false;
+					//	qui settare immagine del lucchetto
+				}
+
+			}
+
+			vLevels[0].IsAvaiable = true;
+		}
+
+
+	}
+
+}
+
+
+
+	*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 public  class	Step {
 
@@ -106,6 +191,8 @@ public partial class Player {
 
 		bool		IsShared			= pOtherPlayer.Steps_HasThis( pCurrentStep.pNode, ref pOtherPlayerStep );
 
+		Spets_HidePreviousNumbers( pCurrentStep.pNode );
+
 		if ( IsShared ) {
 
 			pCurrentStep.pFull_Tile_Renderer.enabled = pOtherPlayerStep.pFull_Tile_Renderer.enabled = false;
@@ -115,8 +202,6 @@ public partial class Player {
 
 			pCurrentStep.pSharer		= pOtherPlayerStep;
 			pOtherPlayerStep.pSharer	= pCurrentStep;
-
-			Spets_HidePreviousNumbers( pCurrentStep.pNode );
 
 		}
 		else {
