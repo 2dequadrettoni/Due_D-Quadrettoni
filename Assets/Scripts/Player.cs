@@ -119,7 +119,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 
 	//	UTILS
-	public 		bool 			IsBusy() 				{ return pNavigation.bIsMoving;		}
+	public 		bool 			IsBusy() 				{ return pNavigation.bHasDestination;		}
 
 
 	//	UNITY STUFF
