@@ -13,7 +13,6 @@ public  class	Step {
 
 	public	bool			IsShared			= false;
 	public	bool			IsVisible			= true;
-	public	int				iStepNumber			= -1;
 	public	Transform		pStepTransform		= null;
 	public	Vector3			vPosition			= Vector3.zero;
 	public	Node			pNode				= null;
@@ -21,11 +20,10 @@ public  class	Step {
 	public	Step			pSharer				= null;
 	
 
-	public	Step( Transform StepTransform, Vector3 Position, int StepNumber ) {
+	public	Step( Transform StepTransform, Vector3 Position ) {
 
 		this.pStepTransform		= StepTransform;
 		this.vPosition			= this.pStepTransform.position = Position;
-		this.iStepNumber		= StepNumber;
 
 		pFull_Tile_Renderer		= StepTransform.FindChild( "Full_Tile" ).GetComponent<SpriteRenderer>();
 		pHalf_Tile_Renderer		= StepTransform.FindChild( "Half_Tile" ).GetComponent<SpriteRenderer>();
@@ -47,19 +45,17 @@ public partial class Player {
 
 
 	// Check if currently other player has this step
-	public	bool	Steps_HasThis( Node pStepNode, ref Step pReturnStep, bool FirstVisibleOnly = false ) {
+	public	bool	Steps_HasThis( Node pStepNode, ref Step pReturnStep ) {
 
 		for( int i = vSteps.Length - 1; i > -1; i-- ) {
 			Step pStep = vSteps[ i ];
 
 			if ( pStep == null ) continue;
 
-			if ( pStep.pNode.gridX == pStepNode.gridX && pStep.pNode.gridY == pStepNode.gridY ) {
+			if (  pStep.pNode.IsEqual( pStepNode ) ) {
 
-				if ( ( FirstVisibleOnly && pStep.IsVisible ) || true ) {
-					pReturnStep = pStep;
-					return true;
-				}
+				pReturnStep = pStep;
+				return true;
 			}
 		}
 
@@ -69,16 +65,14 @@ public partial class Player {
 	}
 
 
-	private	void	Spets_HidePreviousNumbers( Step pCurrentStep ) {
-
-		Node pNode = GLOBALS.PathFinder.NodeFromWorldPoint( pCurrentStep.vPosition );
+	private	void	Spets_HidePreviousNumbers( Node pNode ) {
 
 		for( int i = vSteps.Length - 1; i > -1; i-- ) {
 			Step pStep = vSteps[ i ];
 
 			if ( pStep == null ) continue;
 
-			if ( pStep.pNode == pNode ) {
+			if ( pStep.pNode.IsEqual( pNode ) ) {
 				
 				pStep.IsVisible = pStep.pNumber_Renderer.enabled = false;
 
@@ -88,14 +82,14 @@ public partial class Player {
 	}
 
 
-	private	void	Steps_ResetLastNumberOn( Step pCurrentStep ) {
+	private	void	Steps_ResetLastNumberOn( Node pNode ) {
 
-		for( int i = vSteps.Length - 1; i > -1; i-- ) {
-			Step pStep = vSteps[ i ];
+		for( int i = vSteps.Length; i > 0; i-- ) {
+			Step pStep = vSteps[ i-1 ];
 
 			if ( pStep == null ) continue;
 
-			if ( pStep.pNode == pCurrentStep.pNode && ( pStep.IsVisible == false ) ) {
+			if ( pStep.pNode.IsEqual( pNode ) && ( pStep.IsVisible == false ) ) {
 				pStep.IsVisible = pStep.pNumber_Renderer.enabled = true;
 				return;
 			}
@@ -122,7 +116,7 @@ public partial class Player {
 			pCurrentStep.pSharer		= pOtherPlayerStep;
 			pOtherPlayerStep.pSharer	= pCurrentStep;
 
-			Spets_HidePreviousNumbers( pCurrentStep );
+			Spets_HidePreviousNumbers( pCurrentStep.pNode );
 
 		}
 		else {
@@ -131,7 +125,7 @@ public partial class Player {
 				pCurrentStep.pSharer.pFull_Tile_Renderer.enabled = true;
 				pCurrentStep.pSharer.pHalf_Tile_Renderer.enabled = false;
 
-				Steps_ResetLastNumberOn( pCurrentStep );
+				Steps_ResetLastNumberOn( pCurrentStep.pSharer.pNode );
 
 				pCurrentStep.IsShared = pCurrentStep.IsShared = false;
 				pCurrentStep.pSharer.pSharer = null;
@@ -159,7 +153,7 @@ public partial class Player {
 		// CREATE ONE IF NOT EXISTS
 		if ( pCurrentStep == null ) {
 			Transform pStepTransform = Instantiate( pMainStepTile, this.transform ) as Transform;
-			pCurrentStep = new Step( pStepTransform, vPosition, iCurrentStage );
+			pCurrentStep = new Step( pStepTransform, vPosition );
 		}
 
 		pCurrentStep.pStepTransform.position = pCurrentStep.vPosition = vPosition;

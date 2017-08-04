@@ -10,7 +10,7 @@ public class FinalTile : MonoBehaviour {
 	[HideInInspector]
 	public	bool	IsInside = false;
 
-	private void OnTriggerEnter( Collider other ) {
+	private void OnTriggerStay( Collider other ) {
 
 		if ( IsInside ) return;
 
