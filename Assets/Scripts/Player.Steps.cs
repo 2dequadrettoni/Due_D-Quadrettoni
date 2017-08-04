@@ -1,94 +1,8 @@
 ﻿
-using System.Collections.Generic;
 using UnityEngine;
-
-using System; // [Serializable]
-
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 #pragma warning disable CS0162 // Unreachable code detected
 #pragma warning disable CS0414 // Var assigned but never used
-
-/*
-public class LevelManager : MonoBehaviour {
-
-	[Serializable]
-	public class Level {
-		public bool IsAvaiable = false;
-		public Scene Scena;
-	}
-
-
-	Transform[] figli;
-
-	public Level[] vLevels;
-
-	private void Start() {
-
-		figli = new Transform[vLevels.Length];
-
-		for( int i = 0; i < vLevels.Length; i++ ) {
-
-			figli[i] = transform.FindChild( "Button" + i );
-
-		}
-
-		for ( int i = 0; i < SaveLoad.GetSavedlevel(); i++ ) {
-
-			vLevels[ i ].IsAvaiable = true;
-
-		}
-
-		if ( vLevels != null && vLevels.Length > 0 ) {
-			for( int i = 0; i < vLevels.Length; i++ ) {
-
-				if ( vLevels[ i ].IsAvaiable ) {
-					figli[i].GetComponent<Button>().interactable = true;
-				}
-				else {
-					figli[i].GetComponent<Button>().interactable = false;
-					//	qui settare immagine del lucchetto
-				}
-
-			}
-
-			vLevels[0].IsAvaiable = true;
-		}
-
-
-	}
-
-}
-
-
-
-	*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 public  class	Step {
 
@@ -101,6 +15,8 @@ public  class	Step {
 	public	Transform		pStepTransform		= null;
 	public	Vector3			vPosition			= Vector3.zero;
 	public	Node			pNode				= null;
+
+	public	Node			pPrevNode			= null;
 
 	public	Step			pSharer				= null;
 	
@@ -127,8 +43,6 @@ public  class	Step {
 
 public partial class Player {
 
-
-
 	// Check if currently other player has this step
 	public	bool	Steps_HasThis( Node pStepNode, ref Step pReturnStep ) {
 
@@ -149,7 +63,7 @@ public partial class Player {
 
 	}
 
-
+	// Hide all previus number on this node for this player
 	private	void	Spets_HidePreviousNumbers( Node pNode ) {
 
 		for( int i = vSteps.Length - 1; i > -1; i-- ) {
@@ -166,7 +80,7 @@ public partial class Player {
 
 	}
 
-
+	// Reset last number hidden on this node for this player
 	private	void	Steps_ResetLastNumberOn( Node pNode ) {
 
 		for( int i = vSteps.Length; i > 0; i-- ) {
@@ -205,6 +119,7 @@ public partial class Player {
 
 		}
 		else {
+
 			if ( pCurrentStep.pSharer != null ) {
 
 				pCurrentStep.pSharer.pFull_Tile_Renderer.enabled = true;
@@ -217,6 +132,9 @@ public partial class Player {
 				
 			}
 
+			if ( pCurrentStep.pPrevNode != null )
+				Steps_ResetLastNumberOn( pCurrentStep.pPrevNode );
+
 			pCurrentStep.pFull_Tile_Renderer.enabled = true;
 			pCurrentStep.pHalf_Tile_Renderer.enabled = false;
 		}
@@ -224,7 +142,6 @@ public partial class Player {
 		pCurrentStep.pNumber_Renderer.enabled = true;
 		pCurrentStep.pNumber_Renderer.sprite = GLOBALS.StageManager.GetNumberSprite();
 		
-
 	}
 
 	
@@ -242,6 +159,8 @@ public partial class Player {
 		}
 
 		pCurrentStep.pStepTransform.position = pCurrentStep.vPosition = vPosition;
+		pCurrentStep.pPrevNode = pCurrentStep.pNode;
+
 		pCurrentStep.UpdateNode();
 
 		vSteps[ iCurrentStage ] = pCurrentStep;
@@ -253,7 +172,6 @@ public partial class Player {
 		vSteps[ iCurrentStage ] = pCurrentStep;
 		
 	}
-
 
 }
 
