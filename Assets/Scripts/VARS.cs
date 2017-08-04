@@ -4,6 +4,8 @@
 
 public static class GLOBALS {
 
+	public	static	int				CurrentLevel	= 0;
+
 	public	static	UI				UI				= null;
 
 	public	static	float			GameTime		= 0.0f;

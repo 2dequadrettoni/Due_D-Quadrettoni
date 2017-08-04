@@ -45,4 +45,8 @@ public class Node : IHeapItem<Node> {
 		return -compare;
 	}
 
+	public	bool	IsEqual( Node Other ) {
+		return ( ( gridX == Other.gridX ) && ( gridY == Other.gridY ) );
+	}
+
 }
