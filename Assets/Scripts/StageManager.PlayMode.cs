@@ -52,6 +52,8 @@ public partial class StageManager {
 
 		GLOBALS.AudioManager.Play( "PlaySequence" );
 
+		GLOBALS.UI.GlowAnimationNextTurn( false );
+
 		// HAVE FUN
 		bIsPlaying = true;
 
