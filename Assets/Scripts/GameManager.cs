@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
 
 			GLOBALS.UI.ShowLvlCompletedMsg();
 
-			GLOBALS.AudioManager.Play( "EndLevel" );
+//			GLOBALS.AudioManager.Play( "EndLevel" );
 
 			GLOBALS.StageManager.Stop( false );
 
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
 
 	public void RestartGame() {
 
-		GLOBALS.AudioManager.StopAll();
+//		GLOBALS.AudioManager.StopAll();
 
 		SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
 

@@ -214,7 +214,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 	public void Destroy() {
 		Stop();
 		pAnimator.Play( "Destroy", 0, 0.0f );
-		GLOBALS.AudioManager.Play( "PG_Death" );
+//		GLOBALS.AudioManager.Play( "PG_Death" );
 
 	}
 

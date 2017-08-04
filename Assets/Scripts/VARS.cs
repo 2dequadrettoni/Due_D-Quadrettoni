@@ -16,7 +16,7 @@ public static class GLOBALS {
 
 	public	static	EventManager	EventManager	= null;
 
-	public	static	AudioManager	AudioManager	= null;
+//	public	static	AudioManager	AudioManager	= null;
 
 	public	static	Player			Player1			= null;
 
@@ -46,7 +46,7 @@ public class VARS : MonoBehaviour {
 				GLOBALS.GameManager		= GM.GetComponent<GameManager>();
 				GLOBALS.StageManager	= GM.GetComponent<StageManager>();
 				GLOBALS.EventManager	= GM.GetComponent<EventManager>();
-				GLOBALS.AudioManager	= GM.GetComponent<AudioManager>();
+//				GLOBALS.AudioManager	= GM.transform.FindChild( "AudioManager" ).GetComponent<AudioManager>();
 
 			}
 			else GLOBALS.UI.ShowMessage( "Error", "Cannot find GameManager object", delegate { Application.Quit(); } );
