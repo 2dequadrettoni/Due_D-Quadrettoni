@@ -1,9 +1,27 @@
 fileFormatVersion: 2
 guid: 8c442fd21fd33be48bc7462639aa1ce7
-timeCreated: 1501837577
+timeCreated: 1501843119
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: numeri 1-18_0
+    21300002: numeri 1-18_1
+    21300004: numeri 1-18_2
+    21300006: numeri 1-18_3
+    21300008: numeri 1-18_4
+    21300010: numeri 1-18_5
+    21300012: numeri 1-18_6
+    21300014: numeri 1-18_7
+    21300016: numeri 1-18_8
+    21300018: numeri 1-18_9
+    21300020: numeri 1-18_10
+    21300022: numeri 1-18_11
+    21300024: numeri 1-18_12
+    21300026: numeri 1-18_13
+    21300028: numeri 1-18_14
+    21300030: numeri 1-18_15
+    21300032: numeri 1-18_17
+    21300034: numeri 1-18_18
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -84,7 +102,241 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: numeri 1-18_0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_2
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_3
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_5
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_6
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_7
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_8
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_9
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_10
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_11
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_12
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_13
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_14
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_15
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_17
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: numeri 1-18_18
+      rect:
+        serializedVersion: 2
+        x: 936
+        y: 0
+        width: 40
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
