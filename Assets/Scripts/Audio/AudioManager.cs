@@ -4,6 +4,7 @@ using System;
 public class AudioManager : MonoBehaviour {
 	
 	public Sound[] sounds;
+    
     public Sound[] music;
 
 	public static AudioManager instance;
@@ -82,7 +83,7 @@ public class AudioManager : MonoBehaviour {
 
     }
 
-    public	void StopAllSounds() {
+    public	void StopAll() {
 
 		foreach( Sound s in sounds ) s.source.Stop();
 
