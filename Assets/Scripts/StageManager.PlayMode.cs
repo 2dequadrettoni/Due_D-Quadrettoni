@@ -50,6 +50,8 @@ public partial class StageManager {
 		GLOBALS.UI.PrepareForPlay();
 		GLOBALS.UI.ActivatePlayBtn();
 
+		GLOBALS.AudioManager.Play( "PlaySequence" );
+
 		// HAVE FUN
 		bIsPlaying = true;
 
@@ -201,6 +203,7 @@ public partial class StageManager {
 
 				if ( PA1.IsValid() && ( PA1.GetType() == ActionType.MOVE ) && !pPlayer1.IsBusy() ) {
 					if ( !pPlayer1.FindPath( PA1.GetDestination() ) ) {
+						GLOBALS.AudioManager.Play( "Path_NotFound" );
 						GLOBALS.UI.ShowUnreachableMsg( "Player1" );
 						bIsPlaying = bIsOK = false;
 						pPlayer2.Stop();
@@ -220,6 +223,7 @@ public partial class StageManager {
 
 				if ( PA2.IsValid() && ( PA2.GetType() == ActionType.MOVE ) && !pPlayer2.IsBusy() ) {
 					if ( !pPlayer2.FindPath( PA2.GetDestination() ) ) {
+						GLOBALS.AudioManager.Play( "Path_NotFound" );
 						GLOBALS.UI.ShowUnreachableMsg( "Player2" );
 						bIsPlaying = bIsOK = false;
 						pPlayer1.Stop();

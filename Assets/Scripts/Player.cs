@@ -208,12 +208,14 @@ public partial class Player: MonoBehaviour, IPlayer {
 	public void PlayWinAnimation() {
 
 		pAnimator.Play( "Win", 0, 0.0f );
+		GLOBALS.AudioManager.Play( "NextStage" );
 
 	}
 
 	public void Destroy() {
 		Stop();
 		pAnimator.Play( "Destroy", 0, 0.0f );
+		GLOBALS.AudioManager.Play( "PG_Death" );
 
 	}
 

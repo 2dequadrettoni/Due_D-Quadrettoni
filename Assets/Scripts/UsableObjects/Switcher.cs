@@ -66,7 +66,7 @@ public partial class Switcher : UsableObject {
 		// USABLE OBJECTS ( DOORS, PLATFORMS )
 		if ( ( vObjects != null ) && ( vObjects.Length > 0 ) ) {
 			foreach( Transform o in vObjects ) {
-				o.gameObject.BroadcastMessage( value ? "OnUse" : "OnReset" );
+				if ( o ) o.gameObject.BroadcastMessage( value ? "OnUse" : "OnReset" );
 			}
 		}
 	}
@@ -90,6 +90,8 @@ public partial class Switcher : UsableObject {
 
 
 	public override void OnUse( Player User ) {
+
+		GLOBALS.AudioManager.Play( ( tag == "Switcher" ) ? "Switcher_OnUse" : "Switcher_Plane_OnUse" );
 
 		if ( bUsed ) {
 			OnReset();

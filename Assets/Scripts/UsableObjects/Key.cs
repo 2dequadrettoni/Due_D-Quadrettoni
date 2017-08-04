@@ -40,6 +40,9 @@ public partial class Key : UsableObject {
 
 		print( "key picked" );
 		User.ActuaKey = KeyID;
+
+		GLOBALS.AudioManager.Play( "Key_PickUp" );
+
 		Destroy( gameObject );
 
 	}

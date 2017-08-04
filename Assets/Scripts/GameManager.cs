@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour {
 
 			GLOBALS.UI.ShowLvlCompletedMsg();
 
+			GLOBALS.AudioManager.Play( "EndLevel" );
+
 			GLOBALS.StageManager.Stop( false );
 
 			GLOBALS.Player1.IsInAnimationOverride = true;
@@ -43,6 +45,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void RestartGame() {
+
+		GLOBALS.AudioManager.StopAll();
 
 		SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
 

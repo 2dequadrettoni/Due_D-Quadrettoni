@@ -15,8 +15,6 @@ public class AudioManager : MonoBehaviour {
 			return;
 		}
 
-        GameObject.FindObjectOfType<AudioManager>;
-
 		DontDestroyOnLoad (gameObject);
 		foreach (Sound s in sounds) {
 
@@ -47,6 +45,12 @@ public class AudioManager : MonoBehaviour {
 		s.source.Play();
 
 	}	
+
+	public	void StopAll() {
+
+		foreach( Sound s in sounds ) s.source.Stop();
+
+	}
 
 }
 			 
