@@ -14,8 +14,8 @@ public class AudioManager : MonoBehaviour {
 			Destroy (gameObject);
 			return;
 		}
-			
 
+        GameObject.FindObjectOfType<AudioManager>;
 
 		DontDestroyOnLoad (gameObject);
 		foreach (Sound s in sounds) {
