@@ -119,7 +119,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 
 	//	UTILS
-	public 		bool 			IsBusy() 				{ return pNavigation.bHasDestination;		}
+	public 		bool 			IsBusy() 				{ return pNavigation.bIsMoving;		}
 
 
 	//	UNITY STUFF
@@ -208,7 +208,6 @@ public partial class Player: MonoBehaviour, IPlayer {
 	public void PlayWinAnimation() {
 
 		pAnimator.Play( "Win", 0, 0.0f );
-		GLOBALS.AudioManager.Play( "NextStage" );
 
 	}
 

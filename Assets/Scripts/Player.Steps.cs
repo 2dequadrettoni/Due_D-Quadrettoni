@@ -24,7 +24,7 @@ public  class	Step {
 	public	Step( Transform StepTransform, Vector3 Position, int StepNumber ) {
 
 		this.pStepTransform		= StepTransform;
-		this.vPosition			= Position;
+		this.vPosition			= this.pStepTransform.position = Position;
 		this.iStepNumber		= StepNumber;
 
 		pFull_Tile_Renderer		= StepTransform.FindChild( "Full_Tile" ).GetComponent<SpriteRenderer>();
@@ -144,11 +144,11 @@ public partial class Player {
 
 		pCurrentStep.pNumber_Renderer.enabled = true;
 		pCurrentStep.pNumber_Renderer.sprite = GLOBALS.StageManager.GetNumberSprite();
-
+		
 
 	}
 
-
+	
 
 	private	void	Steps_Set( Vector3 vPosition ) {
 
@@ -162,8 +162,7 @@ public partial class Player {
 			pCurrentStep = new Step( pStepTransform, vPosition, iCurrentStage );
 		}
 
-		pCurrentStep.pStepTransform.position = vPosition;
-		pCurrentStep.vPosition = vPosition;
+		pCurrentStep.pStepTransform.position = pCurrentStep.vPosition = vPosition;
 		pCurrentStep.UpdateNode();
 
 		vSteps[ iCurrentStage ] = pCurrentStep;

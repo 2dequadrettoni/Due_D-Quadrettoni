@@ -151,8 +151,7 @@ public partial class Platform : MonoBehaviour {
 		if ( !bActive && GLOBALS.StageManager.IsPlaying && !bHasPlayerInside && other.tag == "Player" ) {
 
 			Player pPlayer = other.GetComponent<Player>();
-			if ( !pPlayer.Linked ) {
-				print( "asdasdasdsa" );
+			if ( !pPlayer.Linked && !pPlayer.IsBusy() ) {
 				pPlayer.Stop();
 				pPlayer.SetIdle();
 				pPlayer.Link( this );
