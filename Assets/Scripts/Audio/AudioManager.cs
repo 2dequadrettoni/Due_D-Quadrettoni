@@ -70,30 +70,29 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayMusic(string name)
     {
-       
+		
         Sound m = Array.Find(music, music => music.name == name);
-
-        if ( m == null)
+        if ( m == null )
         {
             Debug.LogWarning("Music " + name + "not found");
             return;
         }
-
-
+		
+		m.source.loop= true;
         m.source.Play();
 
     }
 
     public	void StopAll() {
 
-		foreach( Sound s in sounds ) s.source.Stop();
+		foreach( Sound s in sounds ) if ( s != null ) s.source.Stop();
 
 	}
 
     public void StopAllMusics()
     {
 
-        foreach (Sound m in music ) m.source.Stop();
+        foreach (Sound m in music ) if ( m != null ) m.source.Stop();
 
     }
 
