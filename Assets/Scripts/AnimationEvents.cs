@@ -13,7 +13,7 @@ public class AnimationEvents : MonoBehaviour {
 
 
 	void	PlaySpawnSound() {
-//		GLOBALS.AudioManager.Play( "PG_Spawn" );
+		GLOBALS.AudioManager.Play( "PG_Spawn" );
 	}
 
 	void	PlayStepSound() {

@@ -171,7 +171,7 @@ public partial class Door : UsableObject {
 
 		if ( bDoorDebug ) print( "DOOR CLOSING" );
 
-//		GLOBALS.AudioManager.Play( "Door_Closing" );
+		GLOBALS.AudioManager.Play( "Door_Closing" );
 
 		pAnimator.Play( "Close" );
 		GLOBALS.StageManager.AddActiveObject();
@@ -193,7 +193,7 @@ public partial class Door : UsableObject {
 			bLocked = false;
 			this.Open();
 
-//			GLOBALS.AudioManager.Play( "Key_Use" );
+			GLOBALS.AudioManager.Play( "Key_On_Use" );
 
 			return;
 		}
@@ -210,7 +210,7 @@ public partial class Door : UsableObject {
 
 		if ( bDoorDebug ) print( "DOOR OPENING" );
 
-//		GLOBALS.AudioManager.Play( "Door_Opening" );
+		GLOBALS.AudioManager.Play( "Door_Opening" );
 
 		pAnimator.Play( "Open" );
 		GLOBALS.StageManager.AddActiveObject();

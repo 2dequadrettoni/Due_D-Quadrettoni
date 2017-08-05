@@ -46,7 +46,7 @@ public partial class Key : UsableObject {
 		// Hide from user view
 		transform.position = Vector3.up * 10000.0f;
 
-//		GLOBALS.AudioManager.Play( "Key_PickUp" );
+		GLOBALS.AudioManager.Play( "Key_Pickup" );
 
 	
 

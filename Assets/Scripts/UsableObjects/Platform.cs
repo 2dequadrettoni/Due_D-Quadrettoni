@@ -145,12 +145,12 @@ public partial class Platform : MonoBehaviour {
 
 
 	public void	OnReset() {
-//		GLOBALS.AudioManager.Play( "Platform_Move" );
+		GLOBALS.AudioManager.Play( "Platform_Moving" );
 		bActive = true;
 	}
 
 	public void	OnUse() {
-//		GLOBALS.AudioManager.Play( "Platform_Move" );
+		GLOBALS.AudioManager.Play( "Platform_Moving" );
 		bActive = true;
 	}
 

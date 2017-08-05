@@ -116,7 +116,7 @@ public partial class StageManager {
 
 		}
 		
-		if ( bPlanDebug ) Debug.Log( "Next stage" );
+		if ( bPlanDebug ) Debug.Log( "UI_Next_Stage" );
 
 //		GLOBALS.AudioManager.Play( "NextStage" );
 

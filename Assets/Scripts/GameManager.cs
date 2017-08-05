@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
 	public		Sprite			pTutorial_3_PlaySprite			= null;
 	public		Sprite			pTutorial_4_RestartSprite		= null;
 
+	private		AudioSource		pLevelMusic						= null;
+
 	private void Start() {
 		
 		pFinalTile1 = transform.GetChild( 0 ).GetComponent<FinalTile>();
@@ -29,6 +31,15 @@ public class GameManager : MonoBehaviour {
 		pFinalTile1.iDesiredPlayerID = 1;
 		pFinalTile2.iDesiredPlayerID = 2;
 
+		// Level Music
+		if ( GLOBALS.AudioManager != null ) {
+
+			GLOBALS.AudioManager.PlayMusic( "Level_" + SceneManager.GetActiveScene().buildIndex );
+
+		}
+
+
+		// Tutorials
 		int index = SceneManager.GetActiveScene().buildIndex;
 		if ( index == 0 ) {
 			InTutorialSequence			= true;
@@ -92,7 +103,7 @@ public class GameManager : MonoBehaviour {
 
 			GLOBALS.UI.ShowLvlCompletedMsg();
 
-//			GLOBALS.AudioManager.Play( "EndLevel" );
+			GLOBALS.AudioManager.Play( "End_Level" );
 
 			GLOBALS.StageManager.Stop( false );
 
@@ -110,7 +121,8 @@ public class GameManager : MonoBehaviour {
 
 	public void RestartGame() {
 
-//		GLOBALS.AudioManager.StopAll();
+		GLOBALS.AudioManager.StopAll();
+		GLOBALS.AudioManager.StopAllMusics();
 
 		SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
 
