@@ -39,11 +39,15 @@ public partial class Key : UsableObject {
 		
 		bIsHighLighted = true;
 
+		if ( pDoor != null ) pDoor.IsHighLighted = true;
+
 	}
 
 	private void OnMouseExit() {
 		
 		bIsHighLighted = false;
+
+		if ( pDoor != null ) pDoor.IsHighLighted = false;
 
 	}
 

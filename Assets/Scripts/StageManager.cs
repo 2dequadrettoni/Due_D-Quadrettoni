@@ -7,44 +7,11 @@ using UnityEngine.SceneManagement;
 ////////////////////////////////////////////////////////////////////////
 //   GESTISCE LE AZIONI DI ENTRAMBI I GIOCATORI
 
-
-interface IStageManager {
-
-	/// Property	SelectedPlayer : Int
-
-	////////////////////////////////////////////////////////////////////////
-	//		PLAN MODE
-
-	// Select player with that ID: 1 or 2 ( clmped value )
-	void	SelectPlayer( int PlayerID );
-
-	// Return Current stage
-	Stage	GetCurrentStage();
-
-	// Set the action for the current player in current stage
-	void	SetAction( PlayerAction Action, int PlayerID );
-
-	// Clear actions in current stage
-	void	ClearStage();
-
-	// Go to next stage
-	void	NextStage();
-
-	// Go to prev stage
-	void	PrevStage();
-
-
-	////////////////////////////////////////////////////////////////////////
-	//		PLAY MODE
-
-	// Play all actions
-	void	Play();
-}
+	
 
 
 
-
-public partial class StageManager : MonoBehaviour, IStageManager {
+public partial class StageManager : MonoBehaviour {
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////

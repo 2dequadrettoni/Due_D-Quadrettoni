@@ -4,26 +4,23 @@ using UnityEngine;
 
 public partial class Key : UsableObject {
 
-	[Header("Value [ 1 - 255 ], zero is no valid Key ID")]
-	[SerializeField][Range(1, 254 )]
-	private		byte				KeyID						= 0;
+	
+	private		Door				pDoor						= null;
 
 	private		Animator			pAnimator					= null;
 	private		SpriteRenderer		pSpriteRender				= null;
 
 	// Use this for initialization
 	void Start () {
-		
-		if ( KeyID == 0 ) {
-			print( "Invalid key ID for key \"" + gameObject.name + "\"" );
-			Destroy( gameObject );
-			return;
-		}
 
 		pAnimator		= transform.GetChild( 0 ).GetComponent<Animator>();
 
 		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
 
+	}
+
+	public	void	SetDoor( Door p ) {
+		if ( p != null ) pDoor = p;
 	}
 
 	private	void	Update() {
@@ -39,11 +36,15 @@ public partial class Key : UsableObject {
 	public override void OnUse( Player User ) {
 
 		print( "key picked" );
-		User.ActuaKey = KeyID;
+
+		User.ActuaKey = this;
+
+		// Hide from user view
+		transform.position = Vector3.up * 10000.0f;
 
 //		GLOBALS.AudioManager.Play( "Key_PickUp" );
 
-		Destroy( gameObject );
+	
 
 	}
 }

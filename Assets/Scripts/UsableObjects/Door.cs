@@ -11,9 +11,8 @@ public partial class Door : UsableObject {
 
 	//	 KEY AND LOCK STATE
 	[Header("Key and loocked state")]
-	[Header("Value [ 1 - 255 ], zero is no valid ID")]
-	[SerializeField][Range(0, 255)]
-	private		byte						KeyID					= 0;
+	[SerializeField]
+	private		Key							pKey					= null;
 	[SerializeField]
 	private		bool						bLocked					= false;
 	public		bool Locked {
@@ -66,12 +65,16 @@ public partial class Door : UsableObject {
 		transform.FindChild( "Direction" ).GetComponent<SpriteRenderer>().enabled = false;
 
 		// If door need a key, make sure that no switcher can use it
-		if ( KeyID == 0 ) {
-			vUsers = new List<Switcher>();
-			foreach( Switcher o in vSwitchers )
-				vUsers.Add( o );
+		if ( pKey == null ) {
+			if ( vSwitchers != null && vSwitchers.Length > 0 ) {
+				vUsers = new List<Switcher>();
+				foreach( Switcher o in vSwitchers )
+					vUsers.Add( o );
+			}
 		}
 		else {
+			pKey.SetDoor( this );
+
 			vSwitchers = null;
 		}
 
@@ -174,11 +177,11 @@ public partial class Door : UsableObject {
 	private	void			TryOpen( Player User ) {
 
 
-		if ( User && User.ActuaKey > 0 &&		// Usar have to have a valid key
-			bLocked && KeyID > 0 &&				// Door must be blocked and have a valid kei ID set
-			User.ActuaKey == KeyID )			// User KeyuId and Door KeyID myust be equal
+		if ( User && ( User.ActuaKey != null ) &&						// Usar have to have a valid key
+			bLocked && ( pKey != null ) &&								// Door must be blocked and have a valid key set
+			User.ActuaKey.GetInstanceID() == pKey.GetInstanceID() )		// User Key and Door Key must be equal
 		{
-
+			User.ActuaKey = null;
 			bLocked = false;
 			this.Open();
 

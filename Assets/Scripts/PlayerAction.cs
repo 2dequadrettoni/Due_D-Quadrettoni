@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public		enum			ActionType		{ MOVE, USE, WAIT, NONE };
+public		enum			ActionType		{ MOVE, MOVE_USE, USE, WAIT, NONE };
 
 public		delegate void	ActionEndCallBack();
 
@@ -58,16 +58,16 @@ public class PlayerAction : iPlayerAction {
 	}
 
 	// Create as Mover
-	/// <summary>Move action, secondary is usable object at movement anction</summary>
+	/// <summary>Move action, optionally an usable object can be use at and of movement</summary>
 	public		PlayerAction( Vector3 _StartPoint, Vector3 _Destination, UsableObject _Object = null ) {
 		if ( _Destination == Vector3.zero ) {
 			bIsValid = false;
 			return;
 		}
 
-		iType			= ActionType.MOVE;
+		iType			= ( _Object == null ) ? ActionType.MOVE : ActionType.MOVE_USE;
 		vStartPoint		= _StartPoint;
-		vDestination	=  _Destination;
+		vDestination	= _Destination;
 		pObject			= _Object;
 	}
 

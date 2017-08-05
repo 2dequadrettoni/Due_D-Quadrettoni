@@ -31,16 +31,15 @@ public partial class Platform {
 	}
 
 
-	private	void	SetUsersAsHighlighted( bool val ) {
-
+	private	void	SetUsersAsHighlighted( bool value ) {
+		
 		if ( vSwitchers.Count == 0 ) return;
-
+		
 		foreach( Switcher o in vSwitchers ) {
 
 			if ( o == null ) continue;
-
-			Switcher p	= o.GetComponent<Switcher>();
-			if ( p ) p.IsHighLighted = val;
+			
+			o.IsHighLighted = value;
 
 		}
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class GameManager : MonoBehaviour {
 
 	FinalTile F1 = null;
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour {
 
 	}
 
+
+
 	private void Update() {
 
 
@@ -25,6 +28,8 @@ public class GameManager : MonoBehaviour {
 
 
 		if ( GLOBALS.StageManager.IsPlaying && F1.IsInside && F2.IsInside ) {
+
+			SaveLoad.SaveLevel( GLOBALS.CurrentLevel );
 
 			GLOBALS.UI.ShowLvlCompletedMsg();
 
@@ -34,15 +39,15 @@ public class GameManager : MonoBehaviour {
 
 			GLOBALS.Player1.IsInAnimationOverride = true;
 			GLOBALS.Player1.PlayWinAnimation();
-			GLOBALS.Player1.SetCursor( false );
 
 			GLOBALS.Player2.IsInAnimationOverride = true;
 			GLOBALS.Player2.PlayWinAnimation();
-			GLOBALS.Player2.SetCursor( false );
 
 		}
 
 	}
+
+
 
 	public void RestartGame() {
 
@@ -51,6 +56,8 @@ public class GameManager : MonoBehaviour {
 		SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
 
 	}
+
+
 
 	public void	Exit() {
 #if UNITY_EDITOR

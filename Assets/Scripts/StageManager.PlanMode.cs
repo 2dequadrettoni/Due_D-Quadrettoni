@@ -8,13 +8,25 @@ public partial class StageManager {
 
 	const	bool	bPlanDebug		= false;
 
+
+	public	Stage	GetCurrentStage() {
+		return vStages[ iCurrentStage ];
+	}
+
+	public	Stage	GetStage( int i ) {
+		if ( ( i > -1 ) && ( i < MAX_STAGES ) ) return vStages[i];
+		return null;
+	}
+	
+
+
+	//		PLAYER SELECTION
 	////////////////////////////////////////////////////////////////////////
-	/////////////////////////		PLAN MODE
-
-
 	public	void	SelectPlayer( int PlayerID ) {
 
 		if ( iSelectedPlayer == 0 ) return;
+
+		if ( bIsPlaying ) return;
 
 		PlayerID = Mathf.Clamp( PlayerID, 1, 2 );
 
@@ -40,32 +52,8 @@ public partial class StageManager {
 	}
 
 
-
-	public	Stage	GetCurrentStage() {
-		return vStages[ iCurrentStage ];
-	}
-
-
-
-	public	Stage	GetStage( int i ) {
-		if ( ( i > -1 ) && ( i < MAX_STAGES ) ) return vStages[i];
-		return null;
-	}
-
-
-
-	public	void	ClearStages() {
-
-		// clear actual stages
-		vStages.Clear();
-		GLOBALS.UI.ResetActions();
-
-		// create the first empty
-		vStages.Add( new Stage() );
-
-	}
-
-
+	//		ACTION SET
+	////////////////////////////////////////////////////////////////////////
 	public	void	SetAction( PlayerAction Action, int PlayerID ) {
 
 		if ( !bIsOK ) return;
@@ -85,7 +73,10 @@ public partial class StageManager {
 	}
 
 
-	// Go to next stage
+
+
+	//		STAGE GOTO NEXT
+	////////////////////////////////////////////////////////////////////////
 	public	void	NextStage() {
 
 		if ( !bIsOK ) return;
@@ -121,7 +112,9 @@ public partial class StageManager {
 		
 	}
 
-	// Go to next stage
+	
+	//		STAGE GOTO PREVIOUS
+	////////////////////////////////////////////////////////////////////////
 	public	void	PrevStage() {
 
 		if ( iCurrentStage < 1 ) return;
@@ -145,7 +138,9 @@ public partial class StageManager {
 
 	}
 
-	// Clear actions in current stage
+	
+	//		STAGE CLEAR
+	////////////////////////////////////////////////////////////////////////
 	public void		ClearStage() {
 
 		if ( !bIsOK ) return;
@@ -157,6 +152,20 @@ public partial class StageManager {
 		vStages[ iCurrentStage ].SetAction( 2, null );
 
 		GLOBALS.UI.RemoveLastActions();
+
+	}
+
+
+	//		STAGE CLEAR ALL
+	////////////////////////////////////////////////////////////////////////
+	public	void	ClearStages() {
+
+		// clear actual stages
+		vStages.Clear();
+		GLOBALS.UI.ResetActions();
+
+		// create the first empty
+		vStages.Add( new Stage() );
 
 	}
 

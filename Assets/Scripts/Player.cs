@@ -8,32 +8,8 @@ using NodeList = System.Collections.Generic.List<Node>;
 #pragma warning disable CS0162 // Unreachable code detected
 #pragma warning disable CS0414 // Var assigned but never used
 
-interface IPlayer {
-	
-	/// Property	Action : PlayerAction
-	/// Property	PrevPostion : Vector3
-	/// Property	CanParseInput : bool
-	/// Property	ID : int
 
-	////////////////////////////////////////////////////////////////////////
-	//		PLAY MODE
-
-	// Check if player is busy( now only moving )
-	bool IsBusy();
-
-	////////////////////////////////////////////////////////////////////////
-	//		PLAY MODE
-
-	// Called on play
-	void OnPlay();
-
-	// Play move sequence
-	void Move();
-
-}
-
-
-public partial class Player: MonoBehaviour, IPlayer {
+public partial class Player: MonoBehaviour {
 
 	//	DEBUG
 				const bool		bDebug 					= false;
@@ -82,8 +58,8 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	// INVENTORY
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	private		byte			iActualKey				= 0;
-	public		byte ActuaKey {
+	private		Key			iActualKey					= null;
+	public		Key ActuaKey {
 		get { return iActualKey; }
 		set { iActualKey = value; }
 	}
@@ -93,7 +69,7 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	// ACTIONS
 	//////////////////////////////////////////////////////////////////////////////////////////////
-	private		PlayerAction	pAction					= null;
+//	private		PlayerAction	pAction					= null;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	private		bool			bCanParseInput			= false;
@@ -170,9 +146,11 @@ public partial class Player: MonoBehaviour, IPlayer {
 
 	}
 
-	public void SetCursor( bool val ) {
+	public void SetCursor( bool value ) {
 
-		pCursorRenderer.enabled = val;
+		pCursorRenderer.enabled = value;
+
+		pAnimator.Play( ( value ) ? "Selected" : "Idle_Up" );
 
 	}
 	

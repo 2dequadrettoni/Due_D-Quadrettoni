@@ -64,6 +64,8 @@ public partial class Door {
 
 		SetUsersAsHighlighted( bIsHighLighted = true );
 
+		if ( pKey != null ) pKey.IsHighLighted = true;
+
 	}
 
 	void	OnMouseExit() {
@@ -71,6 +73,8 @@ public partial class Door {
 		if ( GLOBALS.StageManager.IsPlaying ) return;
 
 		SetUsersAsHighlighted( bIsHighLighted = false );
+
+		if ( pKey != null ) pKey.IsHighLighted = false;
 
 	}
 }

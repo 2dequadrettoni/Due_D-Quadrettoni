@@ -21,8 +21,6 @@ public partial class Player {
 
 		bCanParseInput = false;
 
-		pAction = null;
-
 		pAnimator.enabled = true;
 
 		// reset current position to spawn position

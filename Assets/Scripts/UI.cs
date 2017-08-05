@@ -70,7 +70,7 @@ public class UI : MonoBehaviour {
 	[HideInInspector]
     public bool isPause = false;
 	GameObject pausePrefab;
-    Transform buttonNextTurn, buttonPause, buttonRestart;
+    Transform buttonNextTurn, buttonPause, buttonRestart, buttonPlay;
     Animator nextStageAnimator;
     Sprite buttonNextTurnSprite;
 
@@ -80,29 +80,30 @@ public class UI : MonoBehaviour {
         // Canvas
         pCanvasObject = transform.GetChild( 0 );
 
-        backGrid = pCanvasObject.GetChild(13).transform as RectTransform;
+        backGrid = pCanvasObject.FindChild("BackGrid").transform as RectTransform;
         originalScale = backGrid.localScale;
         backGrid.localScale = Vector3.zero;
 
         // Avatars
-        AvatarPG1 = pCanvasObject.GetChild( 1 ).GetComponent<Image>();
-		AvatarPG2 = pCanvasObject.GetChild( 2 ).GetComponent<Image>();
+        AvatarPG1 = pCanvasObject.FindChild("AvatarPG1").GetComponent<Image>();
+		AvatarPG2 = pCanvasObject.FindChild("AvatarPG2").GetComponent<Image>();
 
 
         // Actions Tables
-		pTablePG1 = pCanvasObject.GetChild( 3 );
-        pTablePG2 = pCanvasObject.GetChild( 4 );
+		pTablePG1 = pCanvasObject.FindChild("TablePG1");
+        pTablePG2 = pCanvasObject.FindChild("TablePG2");
 
         // Cursors
-        pCursorPG1 = pTablePG1.GetChild( 10 ).transform as RectTransform;
-		pCursorPG2 = pTablePG2.GetChild( 10 ).transform as RectTransform;
+        pCursorPG1 = pTablePG1.FindChild("CursorPG1").transform as RectTransform;
+		pCursorPG2 = pTablePG2.FindChild("CursorPG2").transform as RectTransform;
 
 		// Actions Icons
-		vIcons = new GameObject[3];
-		vIcons[ (int) ActionType.MOVE ] = pCanvasObject.GetChild( 5 ).gameObject;
-		vIcons[ (int) ActionType.USE  ] = pCanvasObject.GetChild( 6 ).gameObject;
-		vIcons[ (int) ActionType.WAIT ] = pCanvasObject.GetChild( 7 ).gameObject;
+		vIcons = new GameObject[8];
+		Transform pIcons = pCanvasObject.FindChild("Icons");
+		for ( int i = 0;  i < 8; i++ ) {
+			vIcons[ i ] = pIcons.GetChild( i ).gameObject;
 
+		}
 
 		// Actions Slots
 		// Player 1
@@ -137,9 +138,10 @@ public class UI : MonoBehaviour {
         
 
         //Button
-        buttonNextTurn = pCanvasObject.GetChild(11);
-        buttonPause = pCanvasObject.GetChild(14);
-        buttonRestart = pCanvasObject.FindChild( "ButtonRestart" );
+        buttonNextTurn	= pCanvasObject.FindChild("ButtonNextStage");
+        buttonPause		= pCanvasObject.FindChild("ButtonPause");
+        buttonRestart	= pCanvasObject.FindChild("ButtonRestart");
+		buttonPlay		= pCanvasObject.FindChild("ButtonPlay");
 
 		//Button Next Stage sprite
         buttonNextTurnSprite = buttonRestart.GetComponent<Image>().sprite;
@@ -162,14 +164,23 @@ public class UI : MonoBehaviour {
 
     public	void	ActivatePlayBtn()
     {
-        pCanvasObject.GetChild(10).GetComponent<Animator>().SetBool("isPlay", true);
-        pCanvasObject.GetChild(10).GetComponent<Button>().interactable = false;
+		// reset cursor start position
+		pCursorPG1.localPosition = pCursorPG1SpawnPos;
+		pCursorPG2.localPosition = pCursorPG2SpawnPos;
+
+		// start play button animation and disable its interop
+		buttonPlay.GetComponent<Animator>().SetBool("isPlay", true);
+        buttonPlay.GetComponent<Button>().interactable = false;
+
+		// make sure next turn button animation stop
+		this.GlowAnimationNextTurn( false );
+
     }
 
 
 	public	void	AddAction( int PlayerID, ActionType ActionType, int CurrentStage ) {
 
-		Image pImage = vIcons[ (int)ActionType ].GetComponent<Image>();
+		Image pImage = vIcons[ (int)ActionType + 4 ].GetComponent<Image>();
 		vActionsSlots[ PlayerID-1, CurrentStage ].enabled = true;
 		vActionsSlots[ PlayerID-1, CurrentStage ].sprite = pImage.sprite;
 
@@ -186,6 +197,23 @@ public class UI : MonoBehaviour {
 
 		foreach( Image p in vActionsSlots ) {
 			p.enabled = false;
+		}
+
+	}
+
+
+	public	void	RemoveIconsGlow() {
+
+		//	PG 1
+		{	PlayerAction PA1	= pStageManager.GetCurrentStage().GetAction( 1 );
+			Image pImage		= vIcons[ (int)PA1.GetType() ].GetComponent<Image>();
+			vActionsSlots[ 0, pStageManager.CurrentStage ].sprite = pImage.sprite;
+		}
+
+		//	PG 2
+		{	PlayerAction PA2	= pStageManager.GetCurrentStage().GetAction( 2 );
+			Image pImage		= vIcons[ (int)PA2.GetType() ].GetComponent<Image>();
+			vActionsSlots[ 1, pStageManager.CurrentStage ].sprite = pImage.sprite;
 		}
 
 	}
@@ -212,18 +240,14 @@ public class UI : MonoBehaviour {
 			pCursorPG2.localPosition.y,
 			pCursorPG2.localPosition.z
 		);
+		
+		RemoveIconsGlow();
 
 	}
 
 
 
 
-
-
-	public	void	PrepareForPlay() {
-		pCursorPG1.localPosition = pCursorPG1SpawnPos;
-		pCursorPG2.localPosition = pCursorPG2SpawnPos;
-	}
 
 	public	void	PlaySequence( int iStage, float fInterpolant ) {
 

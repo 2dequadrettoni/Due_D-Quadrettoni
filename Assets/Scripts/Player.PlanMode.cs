@@ -10,9 +10,20 @@ using NodeList = System.Collections.Generic.List<Node>;
 
 public partial class Player {
 
-	const	bool	bPlanDebug		= false;
+	private	RaycastHit	pMouseHitthedObject		= new RaycastHit();
 
-	private	Vector3	vPlanStageDestination =  Vector3.zero;
+	private	void	SetPlainTile( ) {
+
+		string objTag = pMouseHitthedObject.collider.tag;
+		// make visible the sprite
+		if ( objTag == "Tiles" ) {
+
+			pPlanTile.gameObject.SetActive( true );
+			pPlanTile.position = pMouseHitthedObject.collider.transform.position;
+
+		}
+
+	}
 
 
 	////////////////////////////////////////////////////////////////////////
@@ -22,162 +33,61 @@ public partial class Player {
 		//		if ( EventSystem.current.IsPointerOverGameObject() ) return;
 
 		// Trace always mouse poited position
-		RaycastHit pMouseHitted;
-		bool pHittResult = Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitted );
-
-		UsableObject pUsableObject = pMouseHitted.collider.gameObject.GetComponent<UsableObject>();
+		bool pHittResult = Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitthedObject );
 
 		// Semi trasparent square sprite for current destination tile
-		{
-			string objTag = pMouseHitted.collider.tag;
-			// make visible the sprite
-			if ( objTag == "Tiles" ) {
+		if ( pHittResult ) SetPlainTile();
 
-				pPlanTile.gameObject.SetActive( true );
-				pPlanTile.position = pMouseHitted.collider.transform.position;
-
-			}
-
-		}
 		
 		// WAIT ACTION
 		if ( Input.GetMouseButtonDown( 1 ) ) {
-
-			pAction = new PlayerAction( vPlanPosition );
-			GLOBALS.StageManager.SetAction( this.pAction, this.iID );
-			if ( bPlanDebug ) Debug.Log( "Wait action set" );
-			this.Steps_Set( Vector3.up * 10000 );
-
+			this.Action_Wait();
+			return;
 		}
 
-		// MOVE - USE ACTION
+		// GOTO - USE ACTION
 		if ( Input.GetMouseButtonDown( 0 ) ) {
-
-			pAction = null;
 
 			if ( pHittResult ) {
 
-				string objTag = pMouseHitted.collider.tag;
+				UsableObject pUsableObject = pMouseHitthedObject.collider.gameObject.GetComponent<UsableObject>();
+
+				string objTag = pMouseHitthedObject.collider.tag;
 				
 				if ( pUsableObject ) {
 
 					// skip non usable objects
 					if ( pUsableObject.UseType == UsageType.NONE ) return;
 
-					// KEY
-					// USABLE OBJECT
-					if ( objTag == "Key" || objTag == "Door" || objTag == "Switcher" || objTag == "Plane_Switcher" ) {
+//					if ( objTag == "Key" || objTag == "Door" || objTag == "Switcher" || objTag == "Plane_Switcher" ) {
 
-				//////////////////////////////////////////////////////////////////////////////
-				//		INSTANT USE
-						if (  pUsableObject.UseType == UsageType.INSTANT ) {
-
-							Vector3 vDestination = pMouseHitted.collider.transform.position;
-
-							// Door has a proper point as destination
-							if ( objTag == "Door" )
-								vDestination = pMouseHitted.transform.GetChild( 2 ).position;
+						//////////////////////////////////////////////////////////////////////////////
+						//		INSTANT USE
+						if (  pUsableObject.UseType == UsageType.INSTANT )
+							this.Action_UsableObject_Use_Instant( pUsableObject );
 
 
-							if ( Vector3.Distance( vPlanPosition, vDestination ) < fUseDistance*1.2f ) {
-								
-								this.Steps_Set( vPlanStageDestination = vDestination );
-								pAction = new PlayerAction( vPlanPosition, pUsableObject );
-								GLOBALS.StageManager.SetAction( this.pAction, this.iID );
-								if ( bPlanDebug ) Debug.Log( "Usable object set" );
-								return;
-							};
+						//////////////////////////////////////////////////////////////////////////////
+						//		ON ACTION END USE
+						if ( pUsableObject.UseType == UsageType.ON_ACTION_END )
+							this.Action_UsableObject_Use_OnActionEnd( pUsableObject );
 
-						}
-
-
-				
-						if ( pUsableObject.UseType == UsageType.ON_ACTION_END ) {
-
-							float fObjectDistance = Vector3.Distance( vPlanPosition, pMouseHitted.collider.transform.position );
-
-							//////////////////////////////////////////////////////////////////////////////
-							//		OBJECTS ON RANGE AND WITH USE AT STAGE END		
-							if ( objTag == "Switcher" ) {
-
-								if ( fObjectDistance > ( fUseDistance * 1.25f ) ) {
-
-									Pathfinding pPathFinder = GLOBALS.PathFinder;
-
-									// Calculate path
-									pMouseHitted.collider.gameObject.layer = LayerMask.NameToLayer( "Default" );
-									pPathFinder.UpdateGrid();
-									NodeList vNodes = new NodeList();
-									Vector3 vCoord  = pPathFinder.NodeFromWorldPoint( pMouseHitted.collider.gameObject.transform.position ).worldPosition;
-									bool found = pPathFinder.FindPath( vPlanPosition, vCoord, out vNodes );
-									pMouseHitted.collider.gameObject.layer = LayerMask.NameToLayer( "Unwalkable" );
-									pPathFinder.UpdateGrid();
-
-									if ( !found ) return;
-									
-									if ( ( vNodes.Count > 1 ) )
-										vNodes.RemoveRange( vNodes.Count - 1, 1 );
-
-									// if more than 1 node get last otherwise get the node coordinates
-									Vector3 vDestinationNode = ( vNodes.Count > 1 ) ? ( vNodes[ vNodes.Count - 1 ].worldPosition ) : ( vNodes[ 0 ].worldPosition );
-							//		transform.position = vDestination;
-
-									pAction = new PlayerAction( vPlanPosition, vDestinationNode, pUsableObject );
-
-								}
-								else {
-									
-									pAction = new PlayerAction( vPlanPosition, pUsableObject );
-								}
-								
-								Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
-								
-								this.Steps_Set( vPlanStageDestination = vDestination );
-								GLOBALS.StageManager.SetAction( this.pAction, this.iID );
-								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
-
-								return;
-							}
-
-				//////////////////////////////////////////////////////////////////////////////
-				//		OBJECTS WITH USE AT DESTINATION REACHED
-							{
-								Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
-
-								// Door has a proper point as destination
-								if ( objTag == "Door" )
-									vDestination = pMouseHitted.transform.GetChild( 2 ).position;
-								
-								this.Steps_Set( vPlanStageDestination = vDestination );
-								pAction = new PlayerAction( vPlanPosition, vDestination, pUsableObject );
-								if ( bPlanDebug ) Debug.Log( "Movement to object set" );
-							}
-						}
-
-					}
+//					}
 
 				}
-
 
 				//////////////////////////////////////////////////////////////////////////////
 				//		MOVEMENT ONLY
 				if ( objTag == "Tiles" ) {
-					Vector3 vDestination = pMouseHitted.collider.gameObject.transform.position;
-					
-					this.Steps_Set( vPlanStageDestination = vDestination );
-					pAction = new PlayerAction( vPlanPosition, vDestination );
-					if ( bPlanDebug ) Debug.Log( "Movement only set" );
+
+					this.Action_MoveOnly();
 
 				}
 
 			}
-			
-			// Finally set action
-			if ( pAction != null ) {
-				GLOBALS.StageManager.SetAction( this.pAction, this.iID );
-				// TODO: UpdateUI
-			}
+
 		}
+
 	}
 
 

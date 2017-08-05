@@ -127,7 +127,7 @@ public partial class Player {
 
 				Steps_ResetLastNumberOn( pCurrentStep.pSharer.pNode );
 
-				pCurrentStep.IsShared = pCurrentStep.IsShared = false;
+				pCurrentStep.pSharer.IsShared = pCurrentStep.IsShared = false;
 				pCurrentStep.pSharer.pSharer = null;
 				
 			}

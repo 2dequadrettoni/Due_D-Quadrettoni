@@ -10,9 +10,9 @@ public partial class StageManager {
 
 	const	bool	bPlayDebug		= false;
 
-	////////////////////////////////////////////////////////////////////////
-	/////////////////////////		PLAY MODE
 
+	//		STAGE ENABLE PLAY  MODE
+	////////////////////////////////////////////////////////////////////////
 	public	void	Play() {
 
 		// If manager had bad initialization
@@ -27,32 +27,32 @@ public partial class StageManager {
 			
 			if ( !vStages[ iCurrentStage ].IsOK() ) {
 
-				vStages[ iCurrentStage ].Default();
+				vStages[ iCurrentStage ].Default();		// Set empty action as wait actions
 
-				if ( GLOBALS.UI ) {
+				if ( GLOBALS.UI ) {						// Update ui icons
 					GLOBALS.UI.AddAction( 1, vStages[ iCurrentStage ].GetAction( 1 ).GetType(), iCurrentStage );
 					GLOBALS.UI.AddAction( 2, vStages[ iCurrentStage ].GetAction( 2 ).GetType(), iCurrentStage );
+					GLOBALS.UI.RemoveIconsGlow();
 				}
 
 			}
 		}
 
+		// hide cursor and reset default animation ( remove glow animation )
 		GLOBALS.Player1.SetCursor( false );
 		GLOBALS.Player2.SetCursor( false );
 
+		// On Play callback
 		GLOBALS.Player1.OnPlay();
 		GLOBALS.Player2.OnPlay();
 
 		// Set frist stage as current
 		iCurrentStage = 0;
 
-		// Prepare cursors for play sequence
-		GLOBALS.UI.PrepareForPlay();
+		// Animate play button
 		GLOBALS.UI.ActivatePlayBtn();
 
 //		GLOBALS.AudioManager.Play( "PlaySequence" );
-
-		GLOBALS.UI.GlowAnimationNextTurn( false );
 
 		// HAVE FUN
 		bIsPlaying = true;
@@ -99,20 +99,15 @@ public partial class StageManager {
 			}
 
 			if ( Input.GetKeyUp( KeyCode.Space ) ) {		
-				
+				GLOBALS.UI.GlowAnimationNextTurn( false );
 
 			}
 
 			//////////////////////////////////////////////////////////////////////////
 			// PLAY
-			if ( Input.GetKeyDown( KeyCode.Keypad0 ) ) {	// 0 TN
+			if ( Input.GetKeyDown( KeyCode.Keypad0 ) || Input.GetKeyDown( KeyCode.Return ) || Input.GetKeyDown( KeyCode.KeypadEnter ) ) {
 				Play();
-
-
 			}
-			if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-				Play();
-
 
 			return; 
 		}
@@ -203,7 +198,7 @@ public partial class StageManager {
 			
 			{//	PLAYER 1
 
-				if ( PA1.IsValid() && ( PA1.GetType() == ActionType.MOVE ) && !pPlayer1.IsBusy() ) {
+				if ( PA1.IsValid() && ( PA1.GetType() == ActionType.MOVE || PA1.GetType() == ActionType.MOVE_USE ) && !pPlayer1.IsBusy() ) {
 					if ( !pPlayer1.FindPath( PA1.GetDestination() ) ) {
 //						GLOBALS.AudioManager.Play( "Path_NotFound" );
 						GLOBALS.UI.ShowUnreachableMsg( "Player1" );
@@ -223,7 +218,7 @@ public partial class StageManager {
 
 			{//	PLAYER 2
 
-				if ( PA2.IsValid() && ( PA2.GetType() == ActionType.MOVE ) && !pPlayer2.IsBusy() ) {
+				if ( PA2.IsValid() && ( PA2.GetType() == ActionType.MOVE || PA2.GetType() == ActionType.MOVE_USE ) && !pPlayer2.IsBusy() ) {
 					if ( !pPlayer2.FindPath( PA2.GetDestination() ) ) {
 //						GLOBALS.AudioManager.Play( "Path_NotFound" );
 						GLOBALS.UI.ShowUnreachableMsg( "Player2" );
