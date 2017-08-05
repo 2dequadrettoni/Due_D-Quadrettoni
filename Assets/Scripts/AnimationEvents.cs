@@ -73,6 +73,9 @@ public class AnimationEvents : MonoBehaviour {
 
 		if ( bGameStarted ) return;
 
+		GLOBALS.Player1.OnSpawnEnd();
+		GLOBALS.Player2.OnSpawnEnd();
+
 		bGameStarted = true;
 		GLOBALS.Player1.SetCursor( true );
 		GLOBALS.StageManager.SelectedPlayer = 1;

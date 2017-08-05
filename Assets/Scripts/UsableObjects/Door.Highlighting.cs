@@ -66,7 +66,7 @@ public partial class Door {
 
 		if ( pKey != null ) pKey.IsHighLighted = true;
 
-		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null && !GLOBALS.TutorialOverride ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
 
 	}
 
@@ -78,7 +78,7 @@ public partial class Door {
 
 		if ( pKey != null ) pKey.IsHighLighted = false;
 
-		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = null;
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null && !GLOBALS.TutorialOverride ) GLOBALS.TutorialSlot.sprite = null;
 
 	}
 }

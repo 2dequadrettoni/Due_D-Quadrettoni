@@ -39,7 +39,7 @@ public class FinalTile : MonoBehaviour {
 		
 		if ( GLOBALS.StageManager.IsPlaying ) return;
 
-		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null && !GLOBALS.TutorialOverride ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
 
 	}
 
@@ -48,7 +48,7 @@ public class FinalTile : MonoBehaviour {
 
 		if ( GLOBALS.StageManager.IsPlaying ) return;
 
-		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = null;
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null && !GLOBALS.TutorialOverride ) GLOBALS.TutorialSlot.sprite = null;
 	}
 
 

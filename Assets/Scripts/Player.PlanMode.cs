@@ -80,6 +80,14 @@ public partial class Player {
 				//		MOVEMENT ONLY
 				if ( objTag == "Tiles" ) {
 
+					// player selection tutorial sprite
+					if ( GameManager.InTutorialSequence ) {
+						if ( GameManager.TutorialStep == 1 ) {
+							GLOBALS.GameManager.NextTutorial(true);
+						}
+//						else return; // skip execution if is in tutorial mode
+					}
+
 					this.Action_MoveOnly();
 
 				}

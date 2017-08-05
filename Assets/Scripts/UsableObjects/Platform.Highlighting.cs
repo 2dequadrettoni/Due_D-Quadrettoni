@@ -53,7 +53,7 @@ public partial class Platform {
 		
 		SetUsersAsHighlighted( bIsHighLighted = true );
 		
-		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null && !GLOBALS.TutorialOverride ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
 
 	}
 
@@ -64,7 +64,7 @@ public partial class Platform {
 		
 		SetUsersAsHighlighted( bIsHighLighted = false );
 
-		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = null;
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null && !GLOBALS.TutorialOverride ) GLOBALS.TutorialSlot.sprite = null;
 
 	}
 

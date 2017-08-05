@@ -80,7 +80,7 @@ public partial class Switcher {
 
 		this.SetObjectsAsHighlighted( bIsHighLighted = true );
 
-		if ( ( TutorialLvl || TutorialLvl_Plane ) && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
+		if ( ( TutorialLvl || TutorialLvl_Plane ) && GLOBALS.TutorialSlot != null && !GLOBALS.TutorialOverride ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
 
 	}
 
@@ -91,7 +91,7 @@ public partial class Switcher {
 
 		this.SetObjectsAsHighlighted( bIsHighLighted = false );
 
-		if ( ( TutorialLvl || TutorialLvl_Plane ) && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = null;
+		if ( ( TutorialLvl || TutorialLvl_Plane ) && GLOBALS.TutorialSlot != null && !GLOBALS.TutorialOverride ) GLOBALS.TutorialSlot.sprite = null;
 	}
 
 }

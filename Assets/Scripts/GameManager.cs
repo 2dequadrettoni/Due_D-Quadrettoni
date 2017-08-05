@@ -6,29 +6,38 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-	private		FinalTile	F1				= null;
-	private		FinalTile	F2				= null;
+	private		FinalTile		pFinalTile1						= null;
+	private		FinalTile		pFinalTile2						= null;
 
+	public static bool			InTutorialSequence				= false;
+	public static int			TutorialStep					= 0;
+
+	[Header("Tutorial Sprites")]
+	public		Sprite			pTutorial_0_MoveSprite			= null;
+	public		Sprite			pTutorial_1_SwitchSprite		= null;
+	public		Sprite			pTutorial_2_NextStageSprite		= null;
+	public		Sprite			pTutorial_3_PlaySprite			= null;
+	public		Sprite			pTutorial_4_RestartSprite		= null;
 
 	private void Start() {
 		
-		F1 = transform.GetChild( 0 ).GetComponent<FinalTile>();
-		F2 = transform.GetChild( 1 ).GetComponent<FinalTile>();
+		pFinalTile1 = transform.GetChild( 0 ).GetComponent<FinalTile>();
+		pFinalTile2 = transform.GetChild( 1 ).GetComponent<FinalTile>();
 
-		F1.iDesiredPlayerID = 1;
-		F2.iDesiredPlayerID = 2;
+		pFinalTile1.iDesiredPlayerID = 1;
+		pFinalTile2.iDesiredPlayerID = 2;
 
 		int index = SceneManager.GetActiveScene().buildIndex;
 		if ( index == 0 ) {
+			InTutorialSequence			= true;
 			UI.TutorialLvl				= true;
-			Player.TutorialSequence		= true;
 			Door.TutorialLvl			= true;
 			FinalTile.TutorialLvl		= true;
 			Switcher.TutorialLvl_Plane	= true;
 		}
 		else {
+			InTutorialSequence			= false;
 			UI.TutorialLvl				= false;
-			Player.TutorialSequence		= false;
 			Door.TutorialLvl			= false;
 			FinalTile.TutorialLvl		= false;
 			Switcher.TutorialLvl_Plane	= false;
@@ -50,6 +59,24 @@ public class GameManager : MonoBehaviour {
 
 	}
 
+	public	void	NextTutorial( bool bOverride ) {
+
+		TutorialStep++;
+		print( TutorialStep );
+		switch( TutorialStep ) {
+
+			case 1: {  GLOBALS.TutorialSlot.sprite = pTutorial_0_MoveSprite;		break; }
+			case 2: {  GLOBALS.TutorialSlot.sprite = pTutorial_1_SwitchSprite;		break; }
+			case 3: {  GLOBALS.TutorialSlot.sprite = pTutorial_2_NextStageSprite;	break; }
+			case 4: {  GLOBALS.TutorialSlot.sprite = pTutorial_3_PlaySprite;		break; }
+			case 5: {  GLOBALS.TutorialSlot.sprite = pTutorial_4_RestartSprite;		break; }
+			default: { GLOBALS.TutorialSlot.sprite = null;							break; }
+		}
+
+		GLOBALS.TutorialOverride = bOverride;
+
+	}
+
 
 
 	private void Update() {
@@ -58,7 +85,7 @@ public class GameManager : MonoBehaviour {
 		if ( Input.GetKeyDown( KeyCode.Escape ) ) Application.Quit();
 
 
-		if ( GLOBALS.StageManager.IsPlaying && F1.IsInside && F2.IsInside ) {
+		if ( GLOBALS.StageManager.IsPlaying && pFinalTile1.IsInside && pFinalTile2.IsInside ) {
 
 			SaveLoad.SaveLevel( GLOBALS.CurrentLevel );
 

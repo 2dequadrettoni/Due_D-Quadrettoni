@@ -4,29 +4,31 @@
 
 public static class GLOBALS {
 
-	public	static	int				CurrentLevel	= -1;
+	public	static	int				CurrentLevel		= -1;
 
-	public	static	UI				UI				= null;
+	public	static	UI				UI					= null;
 
-	public	static	float			GameTime		= 0.0f;
+	public	static	float			GameTime			= 0.0f;
 
-	public	static	bool			IsPaused		= false;
+	public	static	bool			IsPaused			= false;
 
-	public	static	GameManager		GameManager		= null;
+	public	static	GameManager		GameManager			= null;
 
-	public	static	StageManager	StageManager	= null;
+	public	static	StageManager	StageManager		= null;
 
-	public	static	EventManager	EventManager	= null;
+	public	static	EventManager	EventManager		= null;
 
-//	public	static	AudioManager	AudioManager	= null;
+//	public	static	AudioManager	AudioManager		= null;
 
-	public	static	Player			Player1			= null;
+	public	static	Player			Player1				= null;
 
-	public	static	Player			Player2			= null;
+	public	static	Player			Player2				= null;
 
-	public	static	Pathfinding		PathFinder		= null;
+	public	static	Pathfinding		PathFinder			= null;
 
-	public	static	SpriteRenderer	TutorialSlot	= null;
+	public	static	SpriteRenderer	TutorialSlot		= null;
+
+	public	static	bool			TutorialOverride	= false;
 
 }
 

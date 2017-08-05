@@ -14,10 +14,6 @@ public partial class Player: MonoBehaviour {
 	//	DEBUG
 				const bool		bDebug 					= false;
 
-		public	static	bool	TutorialSequence		= false;
-
-
-
 	
 	//	PATHFINDING
 	////////////////////////////////////////////////////////////////////////////////////
@@ -149,7 +145,16 @@ public partial class Player: MonoBehaviour {
 
 	}
 
-	public void SetCursor( bool value ) {
+
+	public	void	OnSpawnEnd() {
+		// Set movement tutorial
+		if ( GameManager.InTutorialSequence && GameManager.TutorialStep == 0 ) {
+			GLOBALS.GameManager.NextTutorial(true);
+		}
+	}
+
+
+	public	void	SetCursor( bool value ) {
 
 		pCursorRenderer.enabled = value;
 
@@ -158,7 +163,7 @@ public partial class Player: MonoBehaviour {
 	}
 	
 
-	private void Update() {
+	private	void	Update() {
 
 		if ( !bIsOK ) return;
 

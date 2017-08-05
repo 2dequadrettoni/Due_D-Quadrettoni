@@ -28,6 +28,14 @@ public partial class StageManager {
 
 		if ( bIsPlaying ) return;
 
+		// next stage tutorial sprite
+		if ( GameManager.InTutorialSequence ) {
+			if ( GameManager.TutorialStep == 2 ) {
+				GLOBALS.GameManager.NextTutorial(true);
+			}
+	//		else return; // skip execution if is in tutorial mode
+		}
+
 		PlayerID = Mathf.Clamp( PlayerID, 1, 2 );
 
 		// Switch to player 1
@@ -66,7 +74,9 @@ public partial class StageManager {
 		if ( GLOBALS.UI )
 			GLOBALS.UI.AddAction( PlayerID, Action.GetType(), iCurrentStage );
 
-		if ( vStages[ iCurrentStage ].IsOK() ) GLOBALS.UI.GlowAnimationNextTurn( true );
+		if ( vStages[ iCurrentStage ].IsOK() ) {
+			GLOBALS.UI.GlowAnimationNextTurn( true );
+		}
 
 		if ( bPlanDebug ) Debug.Log( "Action set for player " + iSelectedPlayer );
 
@@ -82,6 +92,15 @@ public partial class StageManager {
 		if ( !bIsOK ) return;
 
 		if ( iCurrentStage == MAX_STAGES ) return;
+
+		// Play tutorial sprite
+		if ( GameManager.InTutorialSequence ) {
+			if ( GameManager.TutorialStep == 3 ) {
+				GLOBALS.GameManager.NextTutorial(true);
+			}
+		}
+		
+		if ( GameManager.InTutorialSequence && GameManager.TutorialStep < 3 ) return;
 
 		GLOBALS.Player1.OnNextStage();
 		GLOBALS.Player2.OnNextStage();

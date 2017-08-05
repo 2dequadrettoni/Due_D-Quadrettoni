@@ -23,6 +23,9 @@ public partial class StageManager {
 			return;
 		}
 
+		if ( GameManager.InTutorialSequence && GameManager.TutorialStep < 4 ) return;
+
+
 		if ( iCurrentStage < MAX_STAGES ) {
 			
 			if ( !vStages[ iCurrentStage ].IsOK() ) {
@@ -51,6 +54,9 @@ public partial class StageManager {
 
 		// Animate play button
 		GLOBALS.UI.ActivatePlayBtn();
+
+		// Hide tutorial image while playing
+		GLOBALS.TutorialSlot.sprite = null;
 
 //		GLOBALS.AudioManager.Play( "PlaySequence" );
 
@@ -129,6 +135,15 @@ public partial class StageManager {
 
 			UpdateUISequence();
 			ExecuteActions();
+			return;
+		}
+
+		// Play tutorial sprite
+		if ( GameManager.InTutorialSequence ) {
+			if ( GameManager.TutorialStep == 4 ) {
+				GLOBALS.GameManager.NextTutorial(false);
+				GameManager.InTutorialSequence = false;
+			}
 		}
 		
 	}
