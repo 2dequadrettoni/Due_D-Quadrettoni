@@ -23,7 +23,7 @@ public class UI : MonoBehaviour {
 
 	[Header("Cursor sprite")]
 	[SerializeField]
-	private	Sprite				pCursorSprite			= null;
+	private		Sprite			pCursorSprite			= null;
 
 	[Header("Tutorials sprites")]
 	[SerializeField]
