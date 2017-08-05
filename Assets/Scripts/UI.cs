@@ -367,10 +367,11 @@ public class UI : MonoBehaviour {
 	// LevelCompleted Window
 	void Show_LvlCompleted_GUI( int windowID ) {
 
-		if ( SceneManager.sceneCount > ( SceneManager.GetActiveScene().buildIndex + 1 ) ) {
+		if ( SceneManager.GetActiveScene().buildIndex + 1 < SceneManager.sceneCountInBuildSettings ) {
 
 			if ( GUI.Button( new Rect( ( DefaultWindow.width / 6f ) - 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "NEXT LEVEL" ) ) {
-				SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex + 1 );
+
+				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 				bShowLvlCompletedMsg = false;
 				return;
 			}

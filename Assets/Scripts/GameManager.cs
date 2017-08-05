@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour {
 	public static bool			InTutorialSequence				= false;
 	public static int			TutorialStep					= 0;
 
+	public static	bool		AlreadyLoaded					= false;
+
 	[Header("Tutorial Sprites")]
 	public		Sprite			pTutorial_0_MoveSprite			= null;
 	public		Sprite			pTutorial_1_SwitchSprite		= null;
@@ -62,7 +64,6 @@ public class GameManager : MonoBehaviour {
 	public	void	NextTutorial( bool bOverride ) {
 
 		TutorialStep++;
-		print( TutorialStep );
 		switch( TutorialStep ) {
 
 			case 1: {  GLOBALS.TutorialSlot.sprite = pTutorial_0_MoveSprite;		break; }
