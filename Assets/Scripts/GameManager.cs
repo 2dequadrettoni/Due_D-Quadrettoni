@@ -20,12 +20,14 @@ public class GameManager : MonoBehaviour {
 
 		int index = SceneManager.GetActiveScene().buildIndex;
 		if ( index == 0 ) {
+			UI.TutorialLvl				= true;
 			Player.TutorialSequence		= true;
 			Door.TutorialLvl			= true;
 			FinalTile.TutorialLvl		= true;
 			Switcher.TutorialLvl_Plane	= true;
 		}
 		else {
+			UI.TutorialLvl				= false;
 			Player.TutorialSequence		= false;
 			Door.TutorialLvl			= false;
 			FinalTile.TutorialLvl		= false;

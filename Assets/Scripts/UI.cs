@@ -17,6 +17,18 @@ public class UI : MonoBehaviour {
 	[SerializeField]
 	private		Sprite			AvatarPG2Disabled		= null;
 
+
+	 // Tutorials
+	public	static	bool		TutorialLvl				= false;
+
+	[Header("Cursor sprite")]
+	[SerializeField]
+	private	Sprite				pCursorSprite			= null;
+
+	[Header("Tutorials sprites")]
+	[SerializeField]
+	private	Sprite				pTutorialSprite			= null;
+
     // Avatars
 	private		Image			AvatarPG1				= null;
 	private		Image			AvatarPG2				= null;
@@ -34,12 +46,18 @@ public class UI : MonoBehaviour {
 
 	// Actions Icons
 	private		GameObject[]	vIcons					= null;
-
+	
 	// Actions Slots
 	private		Image[,]		vActionsSlots			= null;
 
     // UI selected image
-    public Sprite orangeNexTurn, defaultNexTurn, orangePause, defaultPause, orangeRestart, defaultRestart;
+	[Header("Button Selected Images")]
+	public Sprite orangeNexTurn;
+	public Sprite defaultNexTurn;
+	public Sprite orangePause;
+	public Sprite defaultPause;
+	public Sprite orangeRestart;
+	public Sprite defaultRestart;
 
 	// PopUp Windows
 	////////////////////////////////////////////////////////////////////
@@ -76,6 +94,8 @@ public class UI : MonoBehaviour {
 
     // Use this for initialization
     private void Start() {
+
+		Cursor.SetCursor( pCursorSprite.texture, Vector2.zero, CursorMode.Auto );
 
         // Canvas
         pCanvasObject = transform.GetChild( 0 );

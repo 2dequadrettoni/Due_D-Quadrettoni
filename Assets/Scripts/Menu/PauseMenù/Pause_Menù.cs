@@ -26,6 +26,7 @@ public class Pause_Menù : MonoBehaviour {
        // pause.SetActive(false);
         areYouSure.SetActive(false);
         GLOBALS.UI.OnPause();
+		this.gameObject.SetActive( false );
     }
 
     public void EndNightmare()
