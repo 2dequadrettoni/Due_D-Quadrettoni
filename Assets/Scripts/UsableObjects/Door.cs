@@ -70,7 +70,7 @@ public partial class Door : UsableObject {
 
 		pSpriteRender	= transform.GetChild( 0 ).GetComponent<SpriteRenderer>();
 
-		transform.FindChild( "Direction" ).GetComponent<SpriteRenderer>().enabled = false;
+		transform.Find( "Direction" ).GetComponent<SpriteRenderer>().enabled = false;
 
 		// If door need a key, make sure that no switcher can use it
 		if ( pKey == null ) {

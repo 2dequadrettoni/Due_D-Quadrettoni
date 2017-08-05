@@ -115,12 +115,12 @@ public partial class Player: MonoBehaviour {
 
 	private void Start() {
 
-		pRenderer			= transform.FindChild( "Sprite" ).GetComponent<SpriteRenderer>();
-		pAnimator			= transform.FindChild( "Sprite" ).GetComponent<Animator>();
-		pCursorRenderer		= transform.FindChild( "Cursor" ).GetComponent<SpriteRenderer>();
+		pRenderer			= transform.Find( "Sprite" ).GetComponent<SpriteRenderer>();
+		pAnimator			= transform.Find( "Sprite" ).GetComponent<Animator>();
+		pCursorRenderer		= transform.Find( "Cursor" ).GetComponent<SpriteRenderer>();
 		
-		pPlanTile			= transform.FindChild( "PlanTile" );
-		pMainStepTile		= transform.FindChild( "StepTile" );
+		pPlanTile			= transform.Find( "PlanTile" );
+		pMainStepTile		= transform.Find( "StepTile" );
 
 		if ( !GLOBALS.PathFinder ) {
 			Debug.Log( "Pathfinder not found" );
@@ -139,7 +139,7 @@ public partial class Player: MonoBehaviour {
 
 		vSteps = new Step[ StageManager.MAX_STAGES ];
 
-		vNumberDefPosition = pMainStepTile.FindChild( "Number" ).localPosition;
+		vNumberDefPosition = pMainStepTile.Find( "Number" ).localPosition;
 
 		bIsOK = true;
 

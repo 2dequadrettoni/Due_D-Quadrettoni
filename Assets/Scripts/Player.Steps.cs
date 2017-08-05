@@ -26,9 +26,9 @@ public  class	Step {
 		this.pStepTransform		= StepTransform;
 		this.vPosition			= this.pStepTransform.position = Position;
 
-		pFull_Tile_Renderer		= StepTransform.FindChild( "Full_Tile" ).GetComponent<SpriteRenderer>();
-		pHalf_Tile_Renderer		= StepTransform.FindChild( "Half_Tile" ).GetComponent<SpriteRenderer>();
-		pNumber_Renderer		= StepTransform.FindChild( "Number"    ).GetComponent<SpriteRenderer>();
+		pFull_Tile_Renderer		= StepTransform.Find( "Full_Tile" ).GetComponent<SpriteRenderer>();
+		pHalf_Tile_Renderer		= StepTransform.Find( "Half_Tile" ).GetComponent<SpriteRenderer>();
+		pNumber_Renderer		= StepTransform.Find( "Number"    ).GetComponent<SpriteRenderer>();
 	}
 
 	public	void	UpdateNode() {

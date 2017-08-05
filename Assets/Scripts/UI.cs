@@ -100,26 +100,26 @@ public class UI : MonoBehaviour {
         // Canvas
         pCanvasObject = transform.GetChild( 0 );
 
-        backGrid = pCanvasObject.FindChild("BackGrid").transform as RectTransform;
+        backGrid = pCanvasObject.Find("BackGrid").transform as RectTransform;
         originalScale = backGrid.localScale;
         backGrid.localScale = Vector3.zero;
 
         // Avatars
-        AvatarPG1 = pCanvasObject.FindChild("AvatarPG1").GetComponent<Image>();
-		AvatarPG2 = pCanvasObject.FindChild("AvatarPG2").GetComponent<Image>();
+        AvatarPG1 = pCanvasObject.Find("AvatarPG1").GetComponent<Image>();
+		AvatarPG2 = pCanvasObject.Find("AvatarPG2").GetComponent<Image>();
 
 
         // Actions Tables
-		pTablePG1 = pCanvasObject.FindChild("TablePG1");
-        pTablePG2 = pCanvasObject.FindChild("TablePG2");
+		pTablePG1 = pCanvasObject.Find("TablePG1");
+        pTablePG2 = pCanvasObject.Find("TablePG2");
 
         // Cursors
-        pCursorPG1 = pTablePG1.FindChild("CursorPG1").transform as RectTransform;
-		pCursorPG2 = pTablePG2.FindChild("CursorPG2").transform as RectTransform;
+        pCursorPG1 = pTablePG1.Find("CursorPG1").transform as RectTransform;
+		pCursorPG2 = pTablePG2.Find("CursorPG2").transform as RectTransform;
 
 		// Actions Icons
 		vIcons = new GameObject[8];
-		Transform pIcons = pCanvasObject.FindChild("Icons");
+		Transform pIcons = pCanvasObject.Find("Icons");
 		for ( int i = 0;  i < 8; i++ ) {
 			vIcons[ i ] = pIcons.GetChild( i ).gameObject;
 
@@ -153,15 +153,15 @@ public class UI : MonoBehaviour {
         pausePrefab.SetActive(false);
 
         //Button Next Stage Animator 
-        nextStageAnimator = pCanvasObject.FindChild("ButtonNextStage").GetComponent<Animator>();
+        nextStageAnimator = pCanvasObject.Find("ButtonNextStage").GetComponent<Animator>();
 		if ( nextStageAnimator == null ) print( "noooooooo" );
         
 
         //Button
-        buttonNextTurn	= pCanvasObject.FindChild("ButtonNextStage");
-        buttonPause		= pCanvasObject.FindChild("ButtonPause");
-        buttonRestart	= pCanvasObject.FindChild("ButtonRestart");
-		buttonPlay		= pCanvasObject.FindChild("ButtonPlay");
+        buttonNextTurn	= pCanvasObject.Find("ButtonNextStage");
+        buttonPause		= pCanvasObject.Find("ButtonPause");
+        buttonRestart	= pCanvasObject.Find("ButtonRestart");
+		buttonPlay		= pCanvasObject.Find("ButtonPlay");
 
 		//Button Next Stage sprite
         buttonNextTurnSprite = buttonRestart.GetComponent<Image>().sprite;

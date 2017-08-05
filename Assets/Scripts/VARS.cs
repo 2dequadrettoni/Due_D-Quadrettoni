@@ -45,7 +45,7 @@ public class VARS : MonoBehaviour {
 			}
 		}
 
-		if ( Camera.main != null ) GLOBALS.TutorialSlot = Camera.main.transform.FindChild( "TutorialSlot" ).GetComponent<SpriteRenderer>();
+		if ( Camera.main != null ) GLOBALS.TutorialSlot = Camera.main.transform.Find( "TutorialSlot" ).GetComponent<SpriteRenderer>();
 
 		// GameManager, StageManager and EventManager
 		{

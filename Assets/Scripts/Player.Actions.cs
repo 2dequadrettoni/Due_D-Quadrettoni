@@ -35,7 +35,7 @@ public partial class Player {
 
 		// Door has a proper point as destination
 		if ( pUsableObject.tag == "Door" )
-			vDestination = pMouseHitthedObject.collider.transform.FindChild( "Origin" ).position;
+			vDestination = pMouseHitthedObject.collider.transform.Find( "Origin" ).position;
 
 
 		if ( Vector3.Distance( vPlanPosition, vDestination ) < fUseDistance*1.2f ) {
