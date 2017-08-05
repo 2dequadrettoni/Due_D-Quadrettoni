@@ -52,6 +52,8 @@ public partial class Platform {
 		if ( GLOBALS.StageManager.IsPlaying ) return;
 		
 		SetUsersAsHighlighted( bIsHighLighted = true );
+		
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
 
 	}
 
@@ -61,6 +63,8 @@ public partial class Platform {
 		if ( GLOBALS.StageManager.IsPlaying ) return;
 		
 		SetUsersAsHighlighted( bIsHighLighted = false );
+
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = null;
 
 	}
 

@@ -4,7 +4,11 @@ using UnityEngine;
 
 public partial class Key : UsableObject {
 
-	
+	public	static	bool			TutorialLvl					= false;
+	[SerializeField]
+	private	Sprite					pTutorialSprite				= null;
+
+
 	private		Door				pDoor						= null;
 
 	private		Animator			pAnimator					= null;

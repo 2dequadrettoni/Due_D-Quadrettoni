@@ -4,6 +4,10 @@ using UnityEngine;
 
 public partial class Switcher : UsableObject {
 	
+	public	static	bool			TutorialLvl					= false;
+	public	static	bool			TutorialLvl_Plane			= false;
+	[SerializeField]
+	private	Sprite					pTutorialSprite				= null;
 
 	////////////////////////////////////////////////////////////////////////
 

@@ -41,6 +41,8 @@ public partial class Key : UsableObject {
 
 		if ( pDoor != null ) pDoor.IsHighLighted = true;
 
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
+
 	}
 
 	private void OnMouseExit() {
@@ -48,6 +50,8 @@ public partial class Key : UsableObject {
 		bIsHighLighted = false;
 
 		if ( pDoor != null ) pDoor.IsHighLighted = false;
+
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = null;
 
 	}
 

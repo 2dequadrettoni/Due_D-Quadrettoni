@@ -6,7 +6,11 @@ using UnityEngine;
 
 public partial class Platform : MonoBehaviour {
 
-	const	bool	bPlatformDebug		= false;
+	const	bool					bPlatformDebug				= false;
+
+	public	static	bool			TutorialLvl					= false;
+	[SerializeField]
+	private	Sprite					pTutorialSprite				= null;
 
 	////////////////////////////////////////////////////////////////////////
 
@@ -41,13 +45,18 @@ public partial class Platform : MonoBehaviour {
 
 	private		List<Switcher>		vSwitchers					= new List<Switcher>();
 
+	////////////////////////////////////////////////////////////////////////
 
 	// PLATFORM
 	private		Transform			pPlatform					= null;
 
+	////////////////////////////////////////////////////////////////////////
+
 	// DOCK 1
 	private		Transform			pDock1						= null;
 	private		Transform			pPoint1						= null;
+
+	////////////////////////////////////////////////////////////////////////
 
 	// DOCK 2
 	private		Transform			pDock2						= null;

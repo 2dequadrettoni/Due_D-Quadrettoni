@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-	FinalTile F1 = null;
-	FinalTile F2 = null;
+	private		FinalTile	F1				= null;
+	private		FinalTile	F2				= null;
+
 
 	private void Start() {
 		
@@ -16,6 +17,34 @@ public class GameManager : MonoBehaviour {
 
 		F1.iDesiredPlayerID = 1;
 		F2.iDesiredPlayerID = 2;
+
+		int index = SceneManager.GetActiveScene().buildIndex;
+		if ( index == 0 ) {
+			Player.TutorialSequence		= true;
+			Door.TutorialLvl			= true;
+			FinalTile.TutorialLvl		= true;
+			Switcher.TutorialLvl_Plane	= true;
+		}
+		else {
+			Player.TutorialSequence		= false;
+			Door.TutorialLvl			= false;
+			FinalTile.TutorialLvl		= false;
+			Switcher.TutorialLvl_Plane	= false;
+		}
+		if ( index == 1 ) {
+			Switcher.TutorialLvl		= true;
+			Platform.TutorialLvl		= true;
+		}
+		else {
+			Switcher.TutorialLvl		= false;
+			Platform.TutorialLvl		= false;
+		}
+		if ( index == 5 ) {
+			Key.TutorialLvl				= true;
+		}
+		else {
+			Key.TutorialLvl				= false;
+		}
 
 	}
 

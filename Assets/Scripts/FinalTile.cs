@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class FinalTile : MonoBehaviour {
 
+	public	static	bool			TutorialLvl					= false;
+	[SerializeField]
+	private	Sprite					pTutorialSprite				= null;
+
 	[HideInInspector]
 	public	int	iDesiredPlayerID = 0;
 
@@ -28,6 +32,23 @@ public class FinalTile : MonoBehaviour {
 		
 		IsInside = false;
 
+	}
+
+
+	private void OnMouseEnter() {
+		
+		if ( GLOBALS.StageManager.IsPlaying ) return;
+
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
+
+	}
+
+
+	private void OnMouseExit() {
+
+		if ( GLOBALS.StageManager.IsPlaying ) return;
+
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = null;
 	}
 
 

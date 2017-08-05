@@ -6,40 +6,48 @@ using UnityEngine;
 
 public partial class Door : UsableObject {
 
-	const	bool	bDoorDebug		= false;
+	const	bool					bDoorDebug					= false;
 
+	public	static	bool			TutorialLvl					= false;
+	[SerializeField]
+	private	Sprite					pTutorialSprite				= null;
+
+	////////////////////////////////////////////////////////////////////////
 
 	//	 KEY AND LOCK STATE
 	[Header("Key and loocked state")]
 	[SerializeField]
-	private		Key							pKey					= null;
+	private		Key					pKey						= null;
 	[SerializeField]
-	private		bool						bLocked					= false;
+	private		bool				bLocked						= false;
 	public		bool Locked {
 		get { return bLocked; }
 	}
 
+	////////////////////////////////////////////////////////////////////////
 
 	//	 INTERNAL VARS
 	[SerializeField]
-	private		bool						bClosed					= false;
+	private		bool				bClosed						= false;
 	public		bool Closed {
 		get { return bClosed; }
 	}
 
-	private		Animator					pAnimator				= null;
-	private		SpriteRenderer				pSpriteRender			= null;
+	private		Animator			pAnimator					= null;
+	private		SpriteRenderer		pSpriteRender				= null;
 
+	////////////////////////////////////////////////////////////////////////
 
 	// LINKED SWITCHERS
 	[Header("Switcher for this door")]
 	[Header("Door must not be unlocked in order to parse switchers")]
 	[SerializeField]
-	private		Switcher[]					vSwitchers				= null;
+	private		Switcher[]			vSwitchers					= null;
 
+	////////////////////////////////////////////////////////////////////////
 
 	// Used for highlighting
-	private		List<Switcher>				vUsers					= new List<Switcher>();
+	private		List<Switcher>		vUsers						= new List<Switcher>();
 
 
 

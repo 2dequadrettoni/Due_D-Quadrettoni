@@ -66,6 +66,8 @@ public partial class Door {
 
 		if ( pKey != null ) pKey.IsHighLighted = true;
 
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
+
 	}
 
 	void	OnMouseExit() {
@@ -75,6 +77,8 @@ public partial class Door {
 		SetUsersAsHighlighted( bIsHighLighted = false );
 
 		if ( pKey != null ) pKey.IsHighLighted = false;
+
+		if ( TutorialLvl && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = null;
 
 	}
 }

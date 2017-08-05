@@ -26,6 +26,8 @@ public static class GLOBALS {
 
 	public	static	Pathfinding		PathFinder		= null;
 
+	public	static	SpriteRenderer	TutorialSlot	= null;
+
 }
 
 
@@ -40,6 +42,8 @@ public class VARS : MonoBehaviour {
 				GLOBALS.UI = o.GetComponent<UI>();
 			}
 		}
+
+		if ( Camera.main != null ) GLOBALS.TutorialSlot = Camera.main.transform.FindChild( "TutorialSlot" ).GetComponent<SpriteRenderer>();
 
 		// GameManager, StageManager and EventManager
 		{

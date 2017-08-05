@@ -14,6 +14,9 @@ public partial class Player: MonoBehaviour {
 	//	DEBUG
 				const bool		bDebug 					= false;
 
+		public	static	bool	TutorialSequence		= false;
+
+
 
 	
 	//	PATHFINDING

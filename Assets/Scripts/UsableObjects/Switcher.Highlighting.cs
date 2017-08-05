@@ -80,6 +80,8 @@ public partial class Switcher {
 
 		this.SetObjectsAsHighlighted( bIsHighLighted = true );
 
+		if ( ( TutorialLvl || TutorialLvl_Plane ) && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
+
 	}
 
 
@@ -88,6 +90,8 @@ public partial class Switcher {
 		if ( GLOBALS.StageManager.IsPlaying ) return;
 
 		this.SetObjectsAsHighlighted( bIsHighLighted = false );
+
+		if ( ( TutorialLvl || TutorialLvl_Plane ) && GLOBALS.TutorialSlot != null ) GLOBALS.TutorialSlot.sprite = null;
 	}
 
 }
