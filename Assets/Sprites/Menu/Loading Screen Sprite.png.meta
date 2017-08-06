@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 23d576ee159f6664b94a58cbefbca6e2
-timeCreated: 1502049630
+timeCreated: 1502060695
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -130,9 +130,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 3045
-        width: 585.1429
-        height: 435
+        y: 3046
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,10 +142,10 @@ TextureImporter:
       name: Loading Screen Sprite_1
       rect:
         serializedVersion: 2
-        x: 585
-        y: 3045
-        width: 585.1429
-        height: 435
+        x: 550
+        y: 3046
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,10 +155,10 @@ TextureImporter:
       name: Loading Screen Sprite_2
       rect:
         serializedVersion: 2
-        x: 1170
-        y: 3045
-        width: 585.1429
-        height: 435
+        x: 1100
+        y: 3046
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,10 +168,10 @@ TextureImporter:
       name: Loading Screen Sprite_3
       rect:
         serializedVersion: 2
-        x: 1755
-        y: 3045
-        width: 585.1429
-        height: 435
+        x: 1650
+        y: 3046
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: Loading Screen Sprite_4
       rect:
         serializedVersion: 2
-        x: 2340
-        y: 3045
-        width: 585.1429
-        height: 435
+        x: 2200
+        y: 3046
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,10 +194,10 @@ TextureImporter:
       name: Loading Screen Sprite_5
       rect:
         serializedVersion: 2
-        x: 2925
-        y: 3045
-        width: 585.1429
-        height: 435
+        x: 2750
+        y: 3046
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,10 +207,10 @@ TextureImporter:
       name: Loading Screen Sprite_6
       rect:
         serializedVersion: 2
-        x: 3510
-        y: 3045
-        width: 585.1429
-        height: 435
+        x: 3300
+        y: 3046
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,9 +221,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 2610
-        width: 585.1429
-        height: 435
+        y: 2612
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -233,10 +233,10 @@ TextureImporter:
       name: Loading Screen Sprite_8
       rect:
         serializedVersion: 2
-        x: 585
-        y: 2610
-        width: 585.1429
-        height: 435
+        x: 550
+        y: 2612
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,10 +246,10 @@ TextureImporter:
       name: Loading Screen Sprite_9
       rect:
         serializedVersion: 2
-        x: 1170
-        y: 2610
-        width: 585.1429
-        height: 435
+        x: 1100
+        y: 2612
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,10 +259,10 @@ TextureImporter:
       name: Loading Screen Sprite_10
       rect:
         serializedVersion: 2
-        x: 1755
-        y: 2610
-        width: 585.1429
-        height: 435
+        x: 1650
+        y: 2612
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,10 +272,10 @@ TextureImporter:
       name: Loading Screen Sprite_11
       rect:
         serializedVersion: 2
-        x: 2340
-        y: 2610
-        width: 585.1429
-        height: 435
+        x: 2200
+        y: 2612
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -285,10 +285,10 @@ TextureImporter:
       name: Loading Screen Sprite_12
       rect:
         serializedVersion: 2
-        x: 2925
-        y: 2610
-        width: 585.1429
-        height: 435
+        x: 2750
+        y: 2612
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -298,10 +298,10 @@ TextureImporter:
       name: Loading Screen Sprite_13
       rect:
         serializedVersion: 2
-        x: 3510
-        y: 2610
-        width: 585.1429
-        height: 435
+        x: 3300
+        y: 2612
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,9 +312,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 2175
-        width: 585.1429
-        height: 435
+        y: 2178
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -324,10 +324,10 @@ TextureImporter:
       name: Loading Screen Sprite_15
       rect:
         serializedVersion: 2
-        x: 585
-        y: 2175
-        width: 585.1429
-        height: 435
+        x: 550
+        y: 2178
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -337,10 +337,10 @@ TextureImporter:
       name: Loading Screen Sprite_16
       rect:
         serializedVersion: 2
-        x: 1170
-        y: 2175
-        width: 585.1429
-        height: 435
+        x: 1100
+        y: 2178
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -350,10 +350,10 @@ TextureImporter:
       name: Loading Screen Sprite_17
       rect:
         serializedVersion: 2
-        x: 1755
-        y: 2175
-        width: 585.1429
-        height: 435
+        x: 1650
+        y: 2178
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,10 +363,10 @@ TextureImporter:
       name: Loading Screen Sprite_18
       rect:
         serializedVersion: 2
-        x: 2340
-        y: 2175
-        width: 585.1429
-        height: 435
+        x: 2200
+        y: 2178
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,10 +376,10 @@ TextureImporter:
       name: Loading Screen Sprite_19
       rect:
         serializedVersion: 2
-        x: 2925
-        y: 2175
-        width: 585.1429
-        height: 435
+        x: 2750
+        y: 2178
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -389,10 +389,10 @@ TextureImporter:
       name: Loading Screen Sprite_20
       rect:
         serializedVersion: 2
-        x: 3510
-        y: 2175
-        width: 585.1429
-        height: 435
+        x: 3300
+        y: 2178
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -403,9 +403,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1740
-        width: 585.1429
-        height: 435
+        y: 1744
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -415,10 +415,10 @@ TextureImporter:
       name: Loading Screen Sprite_22
       rect:
         serializedVersion: 2
-        x: 585
-        y: 1740
-        width: 585.1429
-        height: 435
+        x: 550
+        y: 1744
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -428,10 +428,10 @@ TextureImporter:
       name: Loading Screen Sprite_23
       rect:
         serializedVersion: 2
-        x: 1170
-        y: 1740
-        width: 585.1429
-        height: 435
+        x: 1100
+        y: 1744
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -441,10 +441,10 @@ TextureImporter:
       name: Loading Screen Sprite_24
       rect:
         serializedVersion: 2
-        x: 1755
-        y: 1740
-        width: 585.1429
-        height: 435
+        x: 1650
+        y: 1744
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -454,10 +454,10 @@ TextureImporter:
       name: Loading Screen Sprite_25
       rect:
         serializedVersion: 2
-        x: 2340
-        y: 1740
-        width: 585.1429
-        height: 435
+        x: 2200
+        y: 1744
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -467,10 +467,10 @@ TextureImporter:
       name: Loading Screen Sprite_26
       rect:
         serializedVersion: 2
-        x: 2925
-        y: 1740
-        width: 585.1429
-        height: 435
+        x: 2750
+        y: 1744
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -480,10 +480,10 @@ TextureImporter:
       name: Loading Screen Sprite_27
       rect:
         serializedVersion: 2
-        x: 3510
-        y: 1740
-        width: 585.1429
-        height: 435
+        x: 3300
+        y: 1744
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -494,9 +494,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1305
-        width: 585.1429
-        height: 435
+        y: 1310
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -506,10 +506,10 @@ TextureImporter:
       name: Loading Screen Sprite_29
       rect:
         serializedVersion: 2
-        x: 585
-        y: 1305
-        width: 585.1429
-        height: 435
+        x: 550
+        y: 1310
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -519,10 +519,10 @@ TextureImporter:
       name: Loading Screen Sprite_30
       rect:
         serializedVersion: 2
-        x: 1170
-        y: 1305
-        width: 585.1429
-        height: 435
+        x: 1100
+        y: 1310
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -532,10 +532,10 @@ TextureImporter:
       name: Loading Screen Sprite_31
       rect:
         serializedVersion: 2
-        x: 1755
-        y: 1305
-        width: 585.1429
-        height: 435
+        x: 1650
+        y: 1310
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -545,10 +545,10 @@ TextureImporter:
       name: Loading Screen Sprite_32
       rect:
         serializedVersion: 2
-        x: 2340
-        y: 1305
-        width: 585.1429
-        height: 435
+        x: 2200
+        y: 1310
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -558,10 +558,10 @@ TextureImporter:
       name: Loading Screen Sprite_33
       rect:
         serializedVersion: 2
-        x: 2925
-        y: 1305
-        width: 585.1429
-        height: 435
+        x: 2750
+        y: 1310
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -571,10 +571,10 @@ TextureImporter:
       name: Loading Screen Sprite_34
       rect:
         serializedVersion: 2
-        x: 3510
-        y: 1305
-        width: 585.1429
-        height: 435
+        x: 3300
+        y: 1310
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -585,9 +585,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 870
-        width: 585.1429
-        height: 435
+        y: 876
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -597,10 +597,10 @@ TextureImporter:
       name: Loading Screen Sprite_36
       rect:
         serializedVersion: 2
-        x: 585
-        y: 870
-        width: 585.1429
-        height: 435
+        x: 550
+        y: 876
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -610,10 +610,10 @@ TextureImporter:
       name: Loading Screen Sprite_37
       rect:
         serializedVersion: 2
-        x: 1170
-        y: 870
-        width: 585.1429
-        height: 435
+        x: 1100
+        y: 876
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -623,10 +623,10 @@ TextureImporter:
       name: Loading Screen Sprite_38
       rect:
         serializedVersion: 2
-        x: 1755
-        y: 870
-        width: 585.1429
-        height: 435
+        x: 1650
+        y: 876
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -636,10 +636,10 @@ TextureImporter:
       name: Loading Screen Sprite_39
       rect:
         serializedVersion: 2
-        x: 2340
-        y: 870
-        width: 585.1429
-        height: 435
+        x: 2200
+        y: 876
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -649,10 +649,10 @@ TextureImporter:
       name: Loading Screen Sprite_40
       rect:
         serializedVersion: 2
-        x: 2925
-        y: 870
-        width: 585.1429
-        height: 435
+        x: 2750
+        y: 876
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -662,10 +662,10 @@ TextureImporter:
       name: Loading Screen Sprite_41
       rect:
         serializedVersion: 2
-        x: 3510
-        y: 870
-        width: 585.1429
-        height: 435
+        x: 3300
+        y: 876
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -676,9 +676,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 435
-        width: 585.1429
-        height: 435
+        y: 442
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -688,10 +688,10 @@ TextureImporter:
       name: Loading Screen Sprite_43
       rect:
         serializedVersion: 2
-        x: 585
-        y: 435
-        width: 585.1429
-        height: 435
+        x: 550
+        y: 442
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -701,10 +701,10 @@ TextureImporter:
       name: Loading Screen Sprite_44
       rect:
         serializedVersion: 2
-        x: 1170
-        y: 435
-        width: 585.1429
-        height: 435
+        x: 1100
+        y: 442
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -714,10 +714,10 @@ TextureImporter:
       name: Loading Screen Sprite_45
       rect:
         serializedVersion: 2
-        x: 1755
-        y: 435
-        width: 585.1429
-        height: 435
+        x: 1650
+        y: 442
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -727,10 +727,10 @@ TextureImporter:
       name: Loading Screen Sprite_46
       rect:
         serializedVersion: 2
-        x: 2340
-        y: 435
-        width: 585.1429
-        height: 435
+        x: 2200
+        y: 442
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -740,10 +740,10 @@ TextureImporter:
       name: Loading Screen Sprite_47
       rect:
         serializedVersion: 2
-        x: 2925
-        y: 435
-        width: 585.1429
-        height: 435
+        x: 2750
+        y: 442
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -753,10 +753,10 @@ TextureImporter:
       name: Loading Screen Sprite_48
       rect:
         serializedVersion: 2
-        x: 3510
-        y: 435
-        width: 585.1429
-        height: 435
+        x: 3300
+        y: 442
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -767,9 +767,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 585.1429
-        height: 435
+        y: 8
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -779,10 +779,10 @@ TextureImporter:
       name: Loading Screen Sprite_50
       rect:
         serializedVersion: 2
-        x: 585
-        y: 0
-        width: 585.1429
-        height: 435
+        x: 550
+        y: 8
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -792,10 +792,10 @@ TextureImporter:
       name: Loading Screen Sprite_51
       rect:
         serializedVersion: 2
-        x: 1170
-        y: 0
-        width: 585.1429
-        height: 435
+        x: 1100
+        y: 8
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -805,10 +805,10 @@ TextureImporter:
       name: Loading Screen Sprite_52
       rect:
         serializedVersion: 2
-        x: 1755
-        y: 0
-        width: 585.1429
-        height: 435
+        x: 1650
+        y: 8
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -818,10 +818,10 @@ TextureImporter:
       name: Loading Screen Sprite_53
       rect:
         serializedVersion: 2
-        x: 2340
-        y: 0
-        width: 585.1429
-        height: 435
+        x: 2200
+        y: 8
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -831,10 +831,10 @@ TextureImporter:
       name: Loading Screen Sprite_54
       rect:
         serializedVersion: 2
-        x: 2925
-        y: 0
-        width: 585.1429
-        height: 435
+        x: 2750
+        y: 8
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -844,10 +844,10 @@ TextureImporter:
       name: Loading Screen Sprite_55
       rect:
         serializedVersion: 2
-        x: 3510
-        y: 0
-        width: 585.1429
-        height: 435
+        x: 3300
+        y: 8
+        width: 550
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
