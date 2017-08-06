@@ -26,14 +26,17 @@ public static class AudioManager {
 	// Use this for initialization
 	public	static	void  Initialize ()
 	{
-		Debug.Log( "Audiomanager starting" );
 
 		if ( bInitialized ) return;
+
+		Debug.Log( "Audiomanager starting" );
 
 		vSounds = new List<AudioSrc>();
 		vMusics = new List<AudioSrc>();
 
 		pAudioContainer = new GameObject( "AudioContainer" );
+
+		UnityEngine.Object.DontDestroyOnLoad( pAudioContainer );
 
 		// Sounds
 		{
@@ -108,6 +111,10 @@ public static class AudioManager {
 
 
 	public	static	AudioSource	FindMusic( string name ) {
+
+		Debug.Log( "Finfding  " + name );
+
+		foreach( AudioSrc p in vMusics ) Debug.Log( p.sName );
 
 		return vMusics.Find( sound => sound.sName == name ).pSource;
 
