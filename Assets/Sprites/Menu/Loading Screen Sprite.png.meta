@@ -1,0 +1,860 @@
+fileFormatVersion: 2
+guid: 23d576ee159f6664b94a58cbefbca6e2
+timeCreated: 1502049630
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Loading Screen Sprite_0
+    21300002: Loading Screen Sprite_1
+    21300004: Loading Screen Sprite_2
+    21300006: Loading Screen Sprite_3
+    21300008: Loading Screen Sprite_4
+    21300010: Loading Screen Sprite_5
+    21300012: Loading Screen Sprite_6
+    21300014: Loading Screen Sprite_7
+    21300016: Loading Screen Sprite_8
+    21300018: Loading Screen Sprite_9
+    21300020: Loading Screen Sprite_10
+    21300022: Loading Screen Sprite_11
+    21300024: Loading Screen Sprite_12
+    21300026: Loading Screen Sprite_13
+    21300028: Loading Screen Sprite_14
+    21300030: Loading Screen Sprite_15
+    21300032: Loading Screen Sprite_16
+    21300034: Loading Screen Sprite_17
+    21300036: Loading Screen Sprite_18
+    21300038: Loading Screen Sprite_19
+    21300040: Loading Screen Sprite_20
+    21300042: Loading Screen Sprite_21
+    21300044: Loading Screen Sprite_22
+    21300046: Loading Screen Sprite_23
+    21300048: Loading Screen Sprite_24
+    21300050: Loading Screen Sprite_25
+    21300052: Loading Screen Sprite_26
+    21300054: Loading Screen Sprite_27
+    21300056: Loading Screen Sprite_28
+    21300058: Loading Screen Sprite_29
+    21300060: Loading Screen Sprite_30
+    21300062: Loading Screen Sprite_31
+    21300064: Loading Screen Sprite_32
+    21300066: Loading Screen Sprite_33
+    21300068: Loading Screen Sprite_34
+    21300070: Loading Screen Sprite_35
+    21300072: Loading Screen Sprite_36
+    21300074: Loading Screen Sprite_37
+    21300076: Loading Screen Sprite_38
+    21300078: Loading Screen Sprite_39
+    21300080: Loading Screen Sprite_40
+    21300082: Loading Screen Sprite_41
+    21300084: Loading Screen Sprite_42
+    21300086: Loading Screen Sprite_43
+    21300088: Loading Screen Sprite_44
+    21300090: Loading Screen Sprite_45
+    21300092: Loading Screen Sprite_46
+    21300094: Loading Screen Sprite_47
+    21300096: Loading Screen Sprite_48
+    21300098: Loading Screen Sprite_49
+    21300100: Loading Screen Sprite_50
+    21300102: Loading Screen Sprite_51
+    21300104: Loading Screen Sprite_52
+    21300106: Loading Screen Sprite_53
+    21300108: Loading Screen Sprite_54
+    21300110: Loading Screen Sprite_55
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Loading Screen Sprite_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3045
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_1
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 3045
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_2
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 3045
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_3
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 3045
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_4
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 3045
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_5
+      rect:
+        serializedVersion: 2
+        x: 2925
+        y: 3045
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_6
+      rect:
+        serializedVersion: 2
+        x: 3510
+        y: 3045
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2610
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_8
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 2610
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_9
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 2610
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_10
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 2610
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_11
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 2610
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_12
+      rect:
+        serializedVersion: 2
+        x: 2925
+        y: 2610
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_13
+      rect:
+        serializedVersion: 2
+        x: 3510
+        y: 2610
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2175
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_15
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 2175
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_16
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 2175
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_17
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 2175
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_18
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 2175
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_19
+      rect:
+        serializedVersion: 2
+        x: 2925
+        y: 2175
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_20
+      rect:
+        serializedVersion: 2
+        x: 3510
+        y: 2175
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1740
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_22
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 1740
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_23
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 1740
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_24
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 1740
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_25
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 1740
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_26
+      rect:
+        serializedVersion: 2
+        x: 2925
+        y: 1740
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_27
+      rect:
+        serializedVersion: 2
+        x: 3510
+        y: 1740
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1305
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_29
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 1305
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_30
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 1305
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_31
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 1305
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_32
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 1305
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_33
+      rect:
+        serializedVersion: 2
+        x: 2925
+        y: 1305
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_34
+      rect:
+        serializedVersion: 2
+        x: 3510
+        y: 1305
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 870
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_36
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 870
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_37
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 870
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_38
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 870
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_39
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 870
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_40
+      rect:
+        serializedVersion: 2
+        x: 2925
+        y: 870
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_41
+      rect:
+        serializedVersion: 2
+        x: 3510
+        y: 870
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_42
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 435
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_43
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 435
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_44
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 435
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_45
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 435
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_46
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 435
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_47
+      rect:
+        serializedVersion: 2
+        x: 2925
+        y: 435
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_48
+      rect:
+        serializedVersion: 2
+        x: 3510
+        y: 435
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_49
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_50
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 0
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_51
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 0
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_52
+      rect:
+        serializedVersion: 2
+        x: 1755
+        y: 0
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_53
+      rect:
+        serializedVersion: 2
+        x: 2340
+        y: 0
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_54
+      rect:
+        serializedVersion: 2
+        x: 2925
+        y: 0
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading Screen Sprite_55
+      rect:
+        serializedVersion: 2
+        x: 3510
+        y: 0
+        width: 585.1429
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
