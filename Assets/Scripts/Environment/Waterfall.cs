@@ -15,7 +15,7 @@ public class Waterfall : MonoBehaviour {
 
 		if ( GLOBALS.AudioManager == null ) return;
 
-		pAudioSource =  GLOBALS.AudioManager.Play( "WaterFall", true );
+		pAudioSource =  GLOBALS.AudioManager.Play( "Waterfall", true );
 
 		if ( pAudioSource )
 			pAudioSource.volume = fVolume;
