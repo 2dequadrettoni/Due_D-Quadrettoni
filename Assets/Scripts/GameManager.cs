@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
 
 		// Tutorials
 		int index = SceneManager.GetActiveScene().buildIndex;
-		if ( index == 0 ) {
+		if ( index == 1 ) {
 			InTutorialSequence			= true;
 			UI.TutorialLvl				= true;
 			Door.TutorialLvl			= true;
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour {
 			FinalTile.TutorialLvl		= false;
 			Switcher.TutorialLvl_Plane	= false;
 		}
-		if ( index == 1 ) {
+		if ( index == 2 ) {
 			Switcher.TutorialLvl		= true;
 			Platform.TutorialLvl		= true;
 		}
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour {
 			Switcher.TutorialLvl		= false;
 			Platform.TutorialLvl		= false;
 		}
-		if ( index == 5 ) {
+		if ( index == 6 ) {
 			Key.TutorialLvl				= true;
 		}
 		else {
