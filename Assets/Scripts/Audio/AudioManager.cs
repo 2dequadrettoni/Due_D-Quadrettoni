@@ -1,98 +1,144 @@
-﻿using UnityEngine.Audio;
-using UnityEngine;
+﻿
 using System;
-public class AudioManager : MonoBehaviour {
+using System.Collections.Generic;
+
+using UnityEngine;
+
+
+public struct AudioSrc {
+
+	public	AudioSource	pSource;
+	public	string		sName;
+
+}
+
+
+public static class AudioManager {
 	
-	public Sound[] sounds;
+	private static	List< AudioSrc >		vSounds			= null;
     
-    public Sound[] music;
+    private	static	List< AudioSrc >		vMusics			= null;
 
-	public static AudioManager instance;
+	private	static	GameObject				pAudioContainer	= null;
+
+	private	static	bool					bInitialized	= false;
+
 	// Use this for initialization
-	void Awake () {
-		if (instance == null)
-			instance = this;
-		else {
-			Destroy (gameObject);
-			return;
+	public	static	void  Initialize ()
+	{
+		Debug.Log( "Audiomanager starting" );
+
+		if ( bInitialized ) return;
+
+		vSounds = new List<AudioSrc>();
+		vMusics = new List<AudioSrc>();
+
+		pAudioContainer = new GameObject( "AudioContainer" );
+
+		// Sounds
+		{
+			AudioClip[] vSoundsClip = Resources.LoadAll<AudioClip>( "Audio/Sounds" );
+
+			foreach( AudioClip pAudioClip in vSoundsClip ) {
+
+				AudioSource pAudioSource = pAudioContainer.AddComponent<AudioSource>();
+				pAudioSource.clip = pAudioClip;
+
+				AudioSrc pAudioSrc = new AudioSrc();
+				pAudioSrc.pSource	= pAudioSource;
+				pAudioSrc.sName		= pAudioClip.name;
+
+				vSounds.Add( pAudioSrc );
+			}
+
+			if ( vSounds == null || vSounds.Count == 0 ) Debug.LogWarning( "Error loading sounds" );
+
+			Debug.Log( "sounds loaded " + vSounds.Count );
+
 		}
-        
-		DontDestroyOnLoad (gameObject);
-		foreach (Sound s in sounds) {
+		
+		// Musics
+		{
+			AudioClip[] vMusicsClip = Resources.LoadAll<AudioClip>( "Audio/Musics" );
 
-			s.source = gameObject.AddComponent<AudioSource> ();
+			foreach( AudioClip pAudioClip in vMusicsClip ) {
 
-			s.source.clip = s.clip;
+				AudioSource pAudioSource = pAudioContainer.AddComponent<AudioSource>();
+				pAudioSource.clip = pAudioClip;
 
-			s.source.volume = s.volume;
+				AudioSrc pAudioSrc = new AudioSrc();
+				pAudioSrc.pSource	= pAudioSource;
+				pAudioSrc.sName		= pAudioClip.name;
 
-			s.source.pitch = s.pitch;
+				vMusics.Add( pAudioSrc );
+			}
 
-			s.source.loop = s.loop;
+			if ( vMusics == null || vMusics.Count == 0 ) Debug.LogWarning( "Error loading musics" );
 
+			Debug.Log( "musics loaded " + vMusics.Count );
 
 		}
 
-
-        DontDestroyOnLoad(gameObject);
-        foreach (Sound m in music)
-        {
-
-            m.source = gameObject.AddComponent<AudioSource>();
-
-            m.source.clip = m.clip;
-
-            m.source.volume = m.volume;
-
-            m.source.pitch = m.pitch;
-
-            m.source.loop = m.loop;
-
-
-        }
+		bInitialized = true;
 
     }
 
-	public AudioSource Play(string name, bool loop = false){
+	public	static	AudioSource	FindSound( string name ) {
+
+		return vSounds.Find( sound => sound.sName == name ).pSource;
+
+	}
+
+
+	public	static	AudioSource Play( string name, bool loop = false )
+	{
 			
-		Sound s = Array.Find (sounds, sound => sound.name == name);
+		AudioSource pAudioSource = FindSound( name );
         
-        if (s == null ) {
-			Debug.LogWarning("Sound " + name + "not found");
+        if ( pAudioSource == null ) {
+			Debug.LogWarning( "Sound " + name + " not found" );
 			return null;
 		}
 	
-		s.source.loop = loop;
-		s.source.Play();
-		return s.source;
+		pAudioSource.loop = loop;
+		pAudioSource.Play();
+		return pAudioSource;
 
 	}
 
-    public void PlayMusic(string name)
+
+	public	static	AudioSource	FindMusic( string name ) {
+
+		return vSounds.Find( sound => sound.sName == name ).pSource;
+
+	}
+
+    public	static	AudioSource PlayMusic( string name )
     {
 		
-        Sound m = Array.Find(music, music => music.name == name);
-        if ( m == null )
-        {
-            Debug.LogWarning("Music " + name + "not found");
-            return;
-        }
-		
-		m.source.loop= true;
-        m.source.Play();
+		AudioSource pAudioSource = FindMusic( name );
+        
+        if ( pAudioSource == null ) {
+			Debug.LogWarning( "Music " + name + " not found" );
+			return null;
+		}
+	
+		pAudioSource.loop = true;
+		pAudioSource.Play();
+		return pAudioSource;
 
     }
 
-    public	void StopAll() {
+    public	static	void StopAllSounds() {
 
-		foreach( Sound s in sounds ) if ( s != null && s.source != null ) s.source.Stop();
+		foreach( AudioSrc s in vSounds ) if ( s.pSource != null ) s.pSource.Stop();
 
 	}
 
-    public void StopAllMusics()
+    public	static	void StopAllMusics()
     {
 
-        foreach (Sound m in music ) if ( m != null && m.source != null ) m.source.Stop();
+       foreach( AudioSrc s in vMusics ) if ( s.pSource != null ) s.pSource.Stop();
 
     }
 

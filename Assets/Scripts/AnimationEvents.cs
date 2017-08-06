@@ -13,11 +13,11 @@ public class AnimationEvents : MonoBehaviour {
 
 
 	void	PlaySpawnSound() {
-		GLOBALS.AudioManager.Play( "PG_Spawn" );
+		AudioManager.Play( "PG_Spawn" );
 	}
 
 	void	PlayStepSound() {
-//		GLOBALS.AudioManager.Play( "Plan_Move" );
+//		GLOBALS.AudioManager.Play( "Action_Move" );
 	}
 
 	void	DoorOpened() {

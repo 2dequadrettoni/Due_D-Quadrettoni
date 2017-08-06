@@ -112,7 +112,7 @@ public partial class Switcher : UsableObject {
 
 	public override void OnUse( Player User ) {
 
-		GLOBALS.AudioManager.Play( ( tag == "Switcher" ) ? "Switcher_OnUse" : "Switcher_Plane_OnUse" );
+		AudioManager.Play( ( tag == "Switcher" ) ? "Switcher_OnUse" : "Switcher_plane_OnUse" );
 
 		if ( bUsed ) {
 			OnReset();
