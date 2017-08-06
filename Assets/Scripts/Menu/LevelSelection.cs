@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class ChooseLevels : MonoBehaviour {
-    public GameObject MainMenu;
-    public GameObject LevelCanvas;
+
+
+public class LevelSelection : MonoBehaviour {
+
+    public	GameObject		MainMenuScreen;
+    public	GameObject		LevelSelectionScreen;
+
     // Use this for initialization
     void Start () {
 		
@@ -12,10 +17,10 @@ public class ChooseLevels : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space) && LevelCanvas.activeInHierarchy)
+        if (Input.GetKeyDown(KeyCode.Space) && LevelSelectionScreen.activeInHierarchy)
         {
-            MainMenu.SetActive(true);
-            LevelCanvas.SetActive(false);
+            MainMenuScreen.SetActive(true);
+            LevelSelectionScreen.SetActive(false);
         }
 
     }
@@ -24,7 +29,6 @@ public class ChooseLevels : MonoBehaviour {
 
     public void Loadlevel(int index)
     {
-        print("WTF");
         SceneManager.LoadScene(index);
     }
 

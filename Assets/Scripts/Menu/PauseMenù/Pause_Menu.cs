@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Pause_Menù : MonoBehaviour {
+public class Pause_Menu : MonoBehaviour {
 
     //public GameObject pause;
     public GameObject areYouSure;

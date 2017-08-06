@@ -92,6 +92,9 @@ public class UI : MonoBehaviour {
     Animator nextStageAnimator;
     Sprite buttonNextTurnSprite;
 
+
+	Animator pBlackScreenAnimator;
+
     // Use this for initialization
     private void Start() {
 
@@ -165,6 +168,11 @@ public class UI : MonoBehaviour {
 
 		//Button Next Stage sprite
         buttonNextTurnSprite = buttonRestart.GetComponent<Image>().sprite;
+		
+		// black screen
+		pBlackScreenAnimator = pCanvasObject.Find( "Fade_image" ) .GetComponent<Animator>();
+
+		pBlackScreenAnimator.Play( "Fade_Out" );
     }
 
 
