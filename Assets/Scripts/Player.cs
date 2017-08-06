@@ -149,7 +149,7 @@ public partial class Player: MonoBehaviour {
 	public	void	OnSpawnEnd() {
 		// Set movement tutorial
 		if ( GameManager.InTutorialSequence && GameManager.TutorialStep == 0 ) {
-			GLOBALS.GameManager.NextTutorial(true);
+			GLOBALS.GameManager.NextTutorial();
 		}
 	}
 

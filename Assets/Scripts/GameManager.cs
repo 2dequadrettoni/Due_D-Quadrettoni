@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour {
 			Door.TutorialLvl			= true;
 			FinalTile.TutorialLvl		= true;
 			Switcher.TutorialLvl_Plane	= true;
+			GLOBALS.TutorialOverride	= true;
 		}
 		else {
 			InTutorialSequence			= false;
@@ -58,10 +59,12 @@ public class GameManager : MonoBehaviour {
 			Door.TutorialLvl			= false;
 			FinalTile.TutorialLvl		= false;
 			Switcher.TutorialLvl_Plane	= false;
+			GLOBALS.TutorialOverride	= false;
 		}
 		if ( index == 2 ) {
 			Switcher.TutorialLvl		= true;
 			Platform.TutorialLvl		= true;
+			print("abilitati");
 		}
 		else {
 			Switcher.TutorialLvl		= false;
@@ -76,7 +79,7 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	public	void	NextTutorial( bool bOverride ) {
+	public	void	NextTutorial() {
 
 		TutorialStep++;
 		switch( TutorialStep ) {
@@ -88,8 +91,6 @@ public class GameManager : MonoBehaviour {
 			case 5: {  GLOBALS.TutorialSlot.sprite = pTutorial_4_RestartSprite;		break; }
 			default: { GLOBALS.TutorialSlot.sprite = null;							break; }
 		}
-
-		GLOBALS.TutorialOverride = bOverride;
 
 	}
 

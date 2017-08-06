@@ -83,7 +83,7 @@ public partial class Player {
 					// player selection tutorial sprite
 					if ( GameManager.InTutorialSequence ) {
 						if ( GameManager.TutorialStep == 1 ) {
-							GLOBALS.GameManager.NextTutorial(true);
+							GLOBALS.GameManager.NextTutorial();
 						}
 //						else return; // skip execution if is in tutorial mode
 					}

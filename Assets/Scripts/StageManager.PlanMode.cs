@@ -31,7 +31,7 @@ public partial class StageManager {
 		// next stage tutorial sprite
 		if ( GameManager.InTutorialSequence ) {
 			if ( GameManager.TutorialStep == 2 ) {
-				GLOBALS.GameManager.NextTutorial(true);
+				GLOBALS.GameManager.NextTutorial();
 			}
 	//		else return; // skip execution if is in tutorial mode
 		}
@@ -96,7 +96,7 @@ public partial class StageManager {
 		// Play tutorial sprite
 		if ( GameManager.InTutorialSequence ) {
 			if ( GameManager.TutorialStep == 3 ) {
-				GLOBALS.GameManager.NextTutorial(true);
+				GLOBALS.GameManager.NextTutorial();
 			}
 		}
 		

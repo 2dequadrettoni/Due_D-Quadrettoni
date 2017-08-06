@@ -88,24 +88,45 @@ public partial class StageManager {
 		if (  iSelectedPlayer == 0 ) return;
 
 		if ( !bIsPlaying ) {
+
 			if ( Input.GetKeyDown( KeyCode.Alpha1 ) ) {		// 1
 				SelectPlayer( 1 );
+
 			}
 			if ( Input.GetKeyDown( KeyCode.Alpha2 ) ) {		// 2
 				SelectPlayer( 2 );
 			}
+
+
+			//////////////////////////////////////////////////////////////////////////
+			// RESTARG LEVEL
+			if ( Input.GetKeyDown( KeyCode.R ) ) {	// Backspace
+				GLOBALS.UI.GlowOrangeRestart();
+			}
+			if ( Input.GetKeyUp( KeyCode.R ) ) {		
+				GLOBALS.UI.DefaultRestart();
+				GLOBALS.GameManager.RestartGame();
+			}
+
+			//////////////////////////////////////////////////////////////////////////
+			// PREV STAGE
 			if ( Input.GetKeyDown( KeyCode.Backspace ) ) {	// Backspace
 	//			PrevStage();
+			}
+			if ( Input.GetKeyUp( KeyCode.Backspace ) ) {		
+
 			}
 
 			//////////////////////////////////////////////////////////////////////////
 			// NEXT STAGE
 			if ( Input.GetKeyDown( KeyCode.Space ) ) {		
+				GLOBALS.UI.GlowOrangeNexTurn();
 				NextStage();
 			}
 
 			if ( Input.GetKeyUp( KeyCode.Space ) ) {		
 				GLOBALS.UI.GlowAnimationNextTurn( false );
+				GLOBALS.UI.DefaultNextTurn();
 
 			}
 
@@ -141,7 +162,7 @@ public partial class StageManager {
 		// Play tutorial sprite
 		if ( GameManager.InTutorialSequence ) {
 			if ( GameManager.TutorialStep == 4 ) {
-				GLOBALS.GameManager.NextTutorial(false);
+				GLOBALS.GameManager.NextTutorial();
 				GameManager.InTutorialSequence = false;
 			}
 		}
