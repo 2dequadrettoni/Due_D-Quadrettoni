@@ -109,7 +109,7 @@ public static class AudioManager {
 
 	public	static	AudioSource	FindMusic( string name ) {
 
-		return vSounds.Find( sound => sound.sName == name ).pSource;
+		return vMusics.Find( sound => sound.sName == name ).pSource;
 
 	}
 

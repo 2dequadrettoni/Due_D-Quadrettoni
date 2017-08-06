@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
 	public		Sprite			pTutorial_3_PlaySprite			= null;
 	public		Sprite			pTutorial_4_RestartSprite		= null;
 
+	
+
 	private void Start() {
 		
 		pFinalTile1 = transform.GetChild( 0 ).GetComponent<FinalTile>();
@@ -29,25 +31,21 @@ public class GameManager : MonoBehaviour {
 		pFinalTile1.iDesiredPlayerID = 1;
 		pFinalTile2.iDesiredPlayerID = 2;
 
-		// Level Music
+		int iSceneIndex = SceneManager.GetActiveScene().buildIndex;
 		
-		string sLevelMusicName = "Level" + ( SceneManager.GetActiveScene().buildIndex );
-
-		AudioSource p = AudioManager.FindMusic( sLevelMusicName );
-		print( p== null );
-
+		// Level Music
+		AudioSource p = AudioManager.FindMusic( "Level" + iSceneIndex );
+		print( p == null );
 		if ( p != null && !p.isPlaying ) {
 
 			AudioManager.StopAllMusics();
-			AudioManager.PlayMusic( sLevelMusicName );
+			p.loop= true;
+			p.Play();
 
 		}
-		
-
 
 		// Tutorials
-		int index = SceneManager.GetActiveScene().buildIndex;
-		if ( index == 1 ) {
+		if ( iSceneIndex == 1 ) {
 			InTutorialSequence			= true;
 			UI.TutorialLvl				= true;
 			Door.TutorialLvl			= true;
@@ -63,7 +61,7 @@ public class GameManager : MonoBehaviour {
 			Switcher.TutorialLvl_Plane	= false;
 			GLOBALS.TutorialOverride	= false;
 		}
-		if ( index == 2 ) {
+		if ( iSceneIndex == 2 ) {
 			Switcher.TutorialLvl		= true;
 			Platform.TutorialLvl		= true;
 			print("abilitati");
@@ -72,7 +70,7 @@ public class GameManager : MonoBehaviour {
 			Switcher.TutorialLvl		= false;
 			Platform.TutorialLvl		= false;
 		}
-		if ( index == 6 ) {
+		if ( iSceneIndex == 6 ) {
 			Key.TutorialLvl				= true;
 		}
 		else {
