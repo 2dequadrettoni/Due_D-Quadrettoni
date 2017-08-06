@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour {
 		// Level Music
 		if ( GLOBALS.AudioManager != null && pLevelMusic == null ) {
 
-			string sAudioName = "Level_" + ( SceneManager.GetActiveScene().buildIndex + 1 );
+			string sAudioName = "Level_" + ( SceneManager.GetActiveScene().buildIndex );
 
 			if ( sAudioName != SceneManager.GetActiveScene().name )
 				GLOBALS.AudioManager.PlayMusic( sAudioName );

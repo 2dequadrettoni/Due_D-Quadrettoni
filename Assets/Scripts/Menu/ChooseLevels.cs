@@ -20,11 +20,15 @@ public class ChooseLevels : MonoBehaviour {
 
     }
 
+
+
     public void Loadlevel(int index)
     {
         print("WTF");
         SceneManager.LoadScene(index);
     }
+
+
 
 
 }

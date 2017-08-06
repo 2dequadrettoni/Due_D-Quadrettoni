@@ -16,35 +16,15 @@ public class Menù : MonoBehaviour {
     void Start () {
 		
 	}
-	/*
-	// Update is called once per frame
-	void Update () {
-		
-        if (black.color.a == 0)
-        {
 
-            black.enabled = false;
-        }
-
-	}
-    */
-   public void NewGame()
+    public void NewGame()
     {
-    //    black.enabled = true;
 
-        if (black.color.a == 1)
-        {
-            anim.SetBool("Fade_out", true);
-            anim.SetBool("Fade_in", false);
+        anim.SetBool("Fade_out", false);
+        anim.SetBool("Fade_in", true);
+		anim.speed = 2;
 
-        }
-        else
-        {
-            anim.SetBool("Fade_in", true);
-            anim.SetBool("Fade_out", false);
-
-        }
-        StartCoroutine(Fading());
+        StartCoroutine(Fade_Out());
     }
 
     public void ExitGame ()
@@ -55,10 +35,10 @@ public class Menù : MonoBehaviour {
     
     
 
-    IEnumerator Fading()
+    IEnumerator Fade_Out()
     {
         yield return new WaitUntil(() => black.color.a == 1);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         
     }
     

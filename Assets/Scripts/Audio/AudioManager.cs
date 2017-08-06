@@ -85,14 +85,14 @@ public class AudioManager : MonoBehaviour {
 
     public	void StopAll() {
 
-		foreach( Sound s in sounds ) if ( s != null ) s.source.Stop();
+		foreach( Sound s in sounds ) if ( s != null && s.source != null ) s.source.Stop();
 
 	}
 
     public void StopAllMusics()
     {
 
-        foreach (Sound m in music ) if ( m != null ) m.source.Stop();
+        foreach (Sound m in music ) if ( m != null && m.source != null ) m.source.Stop();
 
     }
 
