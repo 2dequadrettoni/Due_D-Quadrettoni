@@ -37,16 +37,8 @@ public class Menu : MonoBehaviour {
 		LevelSelection_BlackScreenImage	= LevelSelection_BlackScreen.GetComponent<Image>();
 		LevelSelection_BlackScreenImage_Animator = LevelSelection_BlackScreen.GetComponent<Animator>();
 
-
 		AudioManager.Initialize();
 		AudioManager.PlayMusic("Menu_Theme");
-
-		Menu_BlackScreenImage.gameObject.SetActive( true );
-		Menu_BlackScreenImage.enabled = true;
-		Menu_BlackScreenImage_Animator.enabled = true;
-		Menu_BlackScreenImage_Animator.Play( "Fade_Out", 0, 0.0f );
-
-		
 
 	}
 
@@ -55,8 +47,6 @@ public class Menu : MonoBehaviour {
     public void NewGame()
     {
 
-		Menu_BlackScreenImage.enabled = true;
-		Menu_BlackScreenImage_Animator.enabled = true;
 		Menu_BlackScreenImage_Animator.Play( "Fade_In", 0, 0.0f );
 
         StartCoroutine( Fade_Out() );
