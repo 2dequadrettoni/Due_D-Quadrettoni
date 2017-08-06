@@ -6,10 +6,6 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour {
 
-	private	enum	MenuScreenChilds { BACKGROUND, LOGO, BUTTON_NEWGAME, BUTTON_LEVELSELECTION, BUTTON_QUIT, BLACKSCREEN }
-
-//	private	enum	LevelSelectionScreenChilds {  }
-
 
 	public	GameObject		Menu_BlackScreen;
     private	Image			Menu_BlackScreenImage;
@@ -48,8 +44,18 @@ public class Menu : MonoBehaviour {
     {
 
 		Menu_BlackScreenImage_Animator.Play( "Fade_In", 0, 0.0f );
-
         StartCoroutine( Fade_Out() );
+
+    }
+
+
+
+	public void SelectNightmare()
+    {
+        MainMenuScreen.SetActive(false);
+        LevelSelectionScreen.SetActive(true);
+		LoadingScreen.SetActive( false );
+
     }
 
 
@@ -73,15 +79,6 @@ public class Menu : MonoBehaviour {
 		yield return new WaitForSecondsRealtime( 3.0f );
 
         SceneManager.LoadScene( 1 );
-    }
-    
-
-    public void SelectNightmare()
-    {
-        MainMenuScreen.SetActive(false);
-        LevelSelectionScreen.SetActive(true);
-		LoadingScreen.SetActive( false );
-
     }
     
 }
