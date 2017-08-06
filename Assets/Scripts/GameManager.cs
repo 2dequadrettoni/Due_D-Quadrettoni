@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour {
 		
 		// Level Music
 		AudioSource p = AudioManager.FindMusic( "Level" + iSceneIndex );
-		print( p == null );
 		if ( p != null && !p.isPlaying ) {
 
 			AudioManager.StopAllMusics();
