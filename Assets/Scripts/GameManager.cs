@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour {
 	public static bool			InTutorialSequence				= false;
 	public static int			TutorialStep					= 0;
 
-	public static	bool		AlreadyLoaded					= false;
-
 	[Header("Tutorial Sprites")]
 	public		Sprite			pTutorial_0_MoveSprite			= null;
 	public		Sprite			pTutorial_1_SwitchSprite		= null;

@@ -166,6 +166,7 @@ public partial class Player: MonoBehaviour {
 	private	void	Update() {
 
 		if ( !bIsOK ) return;
+		if ( Time.timeScale == 0 ) return;
 
 		// hide icon
 		pPlanTile.gameObject.SetActive( false );
