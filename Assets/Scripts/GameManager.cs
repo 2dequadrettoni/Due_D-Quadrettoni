@@ -126,6 +126,8 @@ public class GameManager : MonoBehaviour {
 
 	public void RestartGame() {
 
+		if ( GameManager.InTutorialSequence && GameManager.TutorialStep < 5 ) return;
+
 		AudioManager.StopAllSounds();
 //		AudioManager.StopAllMusics();
 

@@ -14,6 +14,9 @@ public class Menù : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+		AudioManager.Initialize();
+		AudioManager.PlayMusic("Menu_Theme");
 		
 	}
 
