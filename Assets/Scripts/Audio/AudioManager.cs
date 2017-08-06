@@ -29,8 +29,6 @@ public static class AudioManager {
 
 		if ( bInitialized ) return;
 
-		Debug.Log( "Audiomanager starting" );
-
 		vSounds = new List<AudioSrc>();
 		vMusics = new List<AudioSrc>();
 
@@ -56,8 +54,6 @@ public static class AudioManager {
 
 			if ( vSounds == null || vSounds.Count == 0 ) Debug.LogWarning( "Error loading sounds" );
 
-			Debug.Log( "sounds loaded " + vSounds.Count );
-
 		}
 		
 		// Musics
@@ -77,8 +73,6 @@ public static class AudioManager {
 			}
 
 			if ( vMusics == null || vMusics.Count == 0 ) Debug.LogWarning( "Error loading musics" );
-
-			Debug.Log( "musics loaded " + vMusics.Count );
 
 		}
 
@@ -111,10 +105,6 @@ public static class AudioManager {
 
 
 	public	static	AudioSource	FindMusic( string name ) {
-
-		Debug.Log( "Finfding  " + name );
-
-		foreach( AudioSrc p in vMusics ) Debug.Log( p.sName );
 
 		return vMusics.Find( sound => sound.sName == name ).pSource;
 
