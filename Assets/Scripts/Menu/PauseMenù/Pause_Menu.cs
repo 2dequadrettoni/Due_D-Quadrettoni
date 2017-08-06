@@ -9,18 +9,6 @@ public class Pause_Menu : MonoBehaviour {
     //public GameObject pause;
     public GameObject areYouSure;
 
-
-    // Use this for initialization
-    void Start () {
-
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void ResumeNightmare() {
 
        // pause.SetActive(false);
@@ -44,7 +32,8 @@ public class Pause_Menu : MonoBehaviour {
 
     public void Yes()
     {
-        SceneManager.LoadScene(0);
+		areYouSure.SetActive(false);
+		SceneManager.LoadScene(0);
     }
 
 }

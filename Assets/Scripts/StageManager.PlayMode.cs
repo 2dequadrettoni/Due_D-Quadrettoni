@@ -87,6 +87,16 @@ public partial class StageManager {
 
 		if (  iSelectedPlayer == 0 ) return;
 
+		//////////////////////////////////////////////////////////////////////////
+		// RESTARG LEVEL
+		if ( Input.GetKeyDown( KeyCode.R ) ) {			// R
+			GLOBALS.UI.GlowOrangeRestart();
+		}
+		if ( Input.GetKeyUp( KeyCode.R ) ) {		
+			GLOBALS.UI.DefaultRestart();
+			GLOBALS.GameManager.RestartGame();
+		}
+
 		if ( !bIsPlaying ) {
 
 			if ( Input.GetKeyDown( KeyCode.Alpha1 ) ) {		// 1
@@ -97,25 +107,14 @@ public partial class StageManager {
 				SelectPlayer( 2 );
 			}
 
-
-			//////////////////////////////////////////////////////////////////////////
-			// RESTARG LEVEL
-			if ( Input.GetKeyDown( KeyCode.R ) ) {	// Backspace
-				GLOBALS.UI.GlowOrangeRestart();
-			}
-			if ( Input.GetKeyUp( KeyCode.R ) ) {		
-				GLOBALS.UI.DefaultRestart();
-				GLOBALS.GameManager.RestartGame();
-			}
-
 			//////////////////////////////////////////////////////////////////////////
 			// PREV STAGE
-			if ( Input.GetKeyDown( KeyCode.Backspace ) ) {	// Backspace
-	//			PrevStage();
-			}
-			if ( Input.GetKeyUp( KeyCode.Backspace ) ) {		
-
-			}
+//			if ( Input.GetKeyDown( KeyCode.Backspace ) ) {	// Backspace
+//				PrevStage();
+//			}
+//			if ( Input.GetKeyUp( KeyCode.Backspace ) ) {		
+//
+//			}
 
 			//////////////////////////////////////////////////////////////////////////
 			// NEXT STAGE

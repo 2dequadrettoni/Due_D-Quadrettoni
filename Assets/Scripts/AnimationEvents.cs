@@ -87,14 +87,16 @@ public class AnimationEvents : MonoBehaviour {
 	void DisableObject() {
 		
 		Image pImage = GetComponent<Image>();
-		if ( pImage ) pImage.enabled = false;
+		pImage.raycastTarget = false;
+//		if ( pImage ) pImage.enabled = false;
 
 	}
 
 	void EnableObject() {
 		
 		Image pImage = GetComponent<Image>();
-		if ( pImage ) pImage.enabled = true;
+//		if ( pImage ) pImage.enabled = true;
+		pImage.raycastTarget = true;
 
 	}
 

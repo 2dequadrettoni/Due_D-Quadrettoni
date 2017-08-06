@@ -41,7 +41,7 @@ public class Menu : MonoBehaviour {
 		AudioManager.Initialize();
 		AudioManager.PlayMusic("Menu_Theme");
 
-		Menu_BlackScreenImage.gameObject.gameObject.SetActive( true );
+		Menu_BlackScreenImage.gameObject.SetActive( true );
 		Menu_BlackScreenImage.enabled = true;
 		Menu_BlackScreenImage_Animator.enabled = true;
 		Menu_BlackScreenImage_Animator.Play( "Fade_Out", 0, 0.0f );
@@ -82,13 +82,7 @@ public class Menu : MonoBehaviour {
 
 		yield return new WaitForSecondsRealtime( 3.0f );
 
-		MainMenuScreen.SetActive( true );
-        LevelSelectionScreen.SetActive( false );
-		LoadingScreen.SetActive( false );
-
-        SceneManager.LoadScene(1);
-        
-		yield return null;
+        SceneManager.LoadScene( 1 );
     }
     
 

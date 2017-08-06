@@ -93,6 +93,8 @@ public partial class StageManager {
 
 		if ( iCurrentStage == MAX_STAGES ) return;
 
+		if ( bIsPlaying ) return;
+
 		// Play tutorial sprite
 		if ( GameManager.InTutorialSequence ) {
 			if ( GameManager.TutorialStep == 3 ) {

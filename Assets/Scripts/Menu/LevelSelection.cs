@@ -9,11 +9,6 @@ public class LevelSelection : MonoBehaviour {
 
     public	GameObject		MainMenuScreen;
     public	GameObject		LevelSelectionScreen;
-
-    // Use this for initialization
-    void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
