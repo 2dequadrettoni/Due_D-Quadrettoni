@@ -225,6 +225,13 @@ public class UI : MonoBehaviour {
     }
 
 
+	public void		BlackScreenFadeIn() {
+
+		pBlackScreenAnimator.Play( "Fade_Out" );
+
+	}
+
+
 	public	void	SelectPlayer( int ID ) {
 
 		// Update avatars
@@ -452,10 +459,10 @@ public class UI : MonoBehaviour {
 		}
 
 		if ( bShowLvlCompletedMsg ) {
-
+			
 			if ( SceneManager.GetActiveScene().buildIndex == ( SceneManager.sceneCountInBuildSettings - 1 ) )
 				// final cutscene start
-				SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex + 1 );
+				SceneManager.LoadScene( "Finale"  );
 			else
 				// load next level
 				GUI.Window( 0, DefaultWindow, Show_LvlCompleted_GUI, "Level Completed" );

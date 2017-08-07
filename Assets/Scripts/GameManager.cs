@@ -136,6 +136,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 
+	public void	EndLevelCoroutine( System.Action Func ) {
+
+
+
+		Func();
+
+	}
+
+
 
 	public void	Exit() {
 #if UNITY_EDITOR
