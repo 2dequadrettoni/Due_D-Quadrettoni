@@ -81,7 +81,7 @@ public partial class Menu {
 
 		Menu_BlackScreenImage.color = new Color(1, 1, 1, 1);
 
-		Menu_BlackScreenImage.enabled = false;
+//		Menu_BlackScreenImage.enabled = false;
 		LevelSelection_BlackScreenImage.raycastTarget = false;
 
 

@@ -42,12 +42,15 @@ public class Finale_Cutscene : MonoBehaviour {
 			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Finale/02") );
 			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Finale/03") );
 			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Finale/04") );
+			vCutsceneSprites.Add( Resources.Load<Sprite>("EndCredits") );
 
 		}
 
 
 		AudioManager.Initialize();
 		AudioManager.PlayMusic("Cutscene_Finale");
+
+		Menu.bGameStarted = true;
 
 		Cutscene_BigImage.sprite = pCurrentSprite = vCutsceneSprites[ iCurrentSpriteIndex ];
 
@@ -88,11 +91,12 @@ public class Finale_Cutscene : MonoBehaviour {
 
 		if ( bCutsceneDebug ) print( "ShowCutsceneFrame start" );
 
+
 		bPlaying = true;
 
 		float fCurrentiTime = 0.0f;
 
-		while ( fCurrentiTime < WAIT_TIME ) {
+		while ( fCurrentiTime < WAIT_TIME + ( ( iCurrentSpriteIndex == vCutsceneSprites.Count - 1 ) ? 10 : 0 ) ) {
 
 			fCurrentiTime += Time.unscaledDeltaTime;
 			yield return null;
