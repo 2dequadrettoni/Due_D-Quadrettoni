@@ -208,12 +208,6 @@ public class UI : MonoBehaviour {
 
 		pBlackScreenAnimator.Play( "Fade_Out" );
 
-
-
-
-
-
-
     }
 
 
@@ -461,7 +455,6 @@ public class UI : MonoBehaviour {
             isPause = false;
 			GLOBALS.IsPaused = false;
             pausePrefab.SetActive(false);
-            Debug.Log("resume");
             Time.timeScale = GLOBALS.GameTime;
 		}
 
