@@ -168,27 +168,33 @@ public class UI : MonoBehaviour {
 
 		{
 			Button Button = pCanvasObject.Find("ButtonSelectP1").GetComponent<Button>();
+			Button.onClick.RemoveAllListeners();
 			Button.onClick.AddListener( () => GLOBALS.StageManager.SelectPlayer( 1 ) );
 		}
 		{
 			Button Button = pCanvasObject.Find("ButtonSelectP2").GetComponent<Button>();
+			Button.onClick.RemoveAllListeners();
 			Button.onClick.AddListener( () => GLOBALS.StageManager.SelectPlayer( 2 ) );
 		}
 
 		{	// next
 			Button Button = buttonNextTurn.GetComponent<Button>();
+			Button.onClick.RemoveAllListeners();
 			Button.onClick.AddListener( () => GLOBALS.StageManager.NextStage() );
 		}
 		{	// pause
 			Button Button = buttonPause.GetComponent<Button>();
+			Button.onClick.RemoveAllListeners();
 			Button.onClick.AddListener( () => GLOBALS.UI.OnPause() );
 		}
 		{	// restart
 			Button Button = buttonRestart.GetComponent<Button>();
+			Button.onClick.RemoveAllListeners();
 			Button.onClick.AddListener( () => GLOBALS.GameManager.RestartGame() );
 		}
 		{	// play
 			Button Button = buttonPlay.GetComponent<Button>();
+			Button.onClick.RemoveAllListeners();
 			Button.onClick.AddListener( () => GLOBALS.StageManager.Play() );
 		}
 
