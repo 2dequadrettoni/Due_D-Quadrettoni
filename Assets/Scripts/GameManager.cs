@@ -48,7 +48,11 @@ public class GameManager : MonoBehaviour {
 			Door.TutorialLvl			= true;
 			FinalTile.TutorialLvl		= true;
 			Switcher.TutorialLvl_Plane	= true;
-			GLOBALS.TutorialOverride	= true;
+			if ( TutorialStep < 4 )
+				GLOBALS.TutorialOverride	= true;
+			else {
+				GLOBALS.TutorialOverride	= false;
+			}
 		}
 		else {
 			InTutorialSequence			= false;
@@ -61,7 +65,6 @@ public class GameManager : MonoBehaviour {
 		if ( iSceneIndex == 2 ) {
 			Switcher.TutorialLvl		= true;
 			Platform.TutorialLvl		= true;
-			print("abilitati");
 		}
 		else {
 			Switcher.TutorialLvl		= false;

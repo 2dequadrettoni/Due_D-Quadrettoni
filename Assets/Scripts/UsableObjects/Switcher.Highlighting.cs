@@ -80,6 +80,10 @@ public partial class Switcher {
 
 		this.SetObjectsAsHighlighted( bIsHighLighted = true );
 
+		print( ( TutorialLvl || TutorialLvl_Plane ) );
+		print( GLOBALS.TutorialSlot != null );
+		print( GLOBALS.TutorialOverride == false );
+
 		if ( ( TutorialLvl || TutorialLvl_Plane ) && GLOBALS.TutorialSlot != null && !GLOBALS.TutorialOverride ) GLOBALS.TutorialSlot.sprite = pTutorialSprite;
 
 	}
