@@ -227,7 +227,7 @@ public class UI : MonoBehaviour {
 
 	public void		BlackScreenFadeIn() {
 
-		pBlackScreenAnimator.Play( "Fade_Out" );
+		pBlackScreenAnimator.Play( "Fade_In" );
 
 	}
 
@@ -436,6 +436,15 @@ public class UI : MonoBehaviour {
 			SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex + 1 );
 			bShowLvlCompletedMsg = false;
 			return;
+		}
+
+		if ( GUI.Button( new Rect( ( DefaultWindow.width / 4f ) + 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "MAIN MENU" ) ) {
+
+			Time.timeScale = GLOBALS.GameTime;
+			GLOBALS.TutorialOverride = false;
+			GameManager.InTutorialSequence = false;
+			GameManager.TutorialStep = 0;
+			SceneManager.LoadScene(0);
 		}
 
 		if ( GUI.Button( new Rect( ( DefaultWindow.width / 2f ) + 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "EXIT" ) ) {

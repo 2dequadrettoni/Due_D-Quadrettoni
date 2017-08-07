@@ -99,5 +99,13 @@ public class AnimationEvents : MonoBehaviour {
 		pImage.raycastTarget = true;
 
 	}
+	
+
+	void OnBlackScreenFadeInCompleted() {
+
+		GLOBALS.UI.ShowLvlCompletedMsg();
+
+	}
+
 
 }

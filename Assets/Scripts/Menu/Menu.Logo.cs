@@ -7,7 +7,7 @@ public partial class Menu {
 
 	const		float			LOGO_WAIT_TIME = 3.0f;
 
-	private		AudioSource		pSource;
+	private static		AudioSource		pSource;
 
 
 	public	void	ShowLogo() {
@@ -21,9 +21,8 @@ public partial class Menu {
 		pSource.volume = 1.0f;
 		pSource.pitch = 1.0f;
 		pSource.loop = false;
+
 		pSource.Play();
-
-
 
 		StartCoroutine( ShowLogoCoroutine() );
 

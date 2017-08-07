@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour {
 
 		}
 
+		GLOBALS.CurrentLevel = iSceneIndex;
+
 		// Tutorials
 		if ( iSceneIndex == 1 ) {
 			InTutorialSequence			= true;
@@ -106,8 +108,6 @@ public class GameManager : MonoBehaviour {
 
 			SaveLoad.SaveLevel( GLOBALS.CurrentLevel );
 
-			GLOBALS.UI.ShowLvlCompletedMsg();
-
 			AudioManager.Play( "Level_End" );
 
 			GLOBALS.StageManager.Stop( false );
@@ -117,6 +117,8 @@ public class GameManager : MonoBehaviour {
 
 			GLOBALS.Player2.IsInAnimationOverride = true;
 			GLOBALS.Player2.PlayWinAnimation();
+
+			GLOBALS.UI.BlackScreenFadeIn();
 
 		}
 
@@ -135,14 +137,6 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-
-	public void	EndLevelCoroutine( System.Action Func ) {
-
-
-
-		Func();
-
-	}
 
 
 

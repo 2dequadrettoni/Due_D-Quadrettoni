@@ -22,7 +22,7 @@ public class Waterfall : MonoBehaviour {
 
 	private void OnDestroy() {
 		
-		if ( bIsOK ) pAudioSource.Stop();
+		if ( pAudioSource != null ) pAudioSource.Stop();
 
 	}
 
