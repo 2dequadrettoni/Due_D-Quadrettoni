@@ -59,7 +59,7 @@ public class LevelManager : MonoBehaviour
         {
          
 			vButtons[i].GetComponent<Button>().interactable = true;
-			vButtons[i].GetComponent<Button>().onClick.AddListener( () => pMenu.Loadlevel( i + 1 ) );
+			vButtons[i].GetComponent<Button>().onClick.AddListener( () => pMenu.Loadlevel( i ) );
 			vButtons[i].GetComponent<Image>().sprite = Array.Find( vUnlockedNumberSprites, sprite => sprite.name == ( i + 1 ).ToString() );
 			//	qui settare immagine del lucchetto aperto
 
