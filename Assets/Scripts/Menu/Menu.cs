@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Menu : MonoBehaviour {
+public partial class Menu : MonoBehaviour {
 
 
 	public	GameObject		Menu_BlackScreen;
@@ -19,11 +19,21 @@ public class Menu : MonoBehaviour {
 	private	Image			Loading_BlackScreenImage;
 	private	Animator		Loading_BlackScreenImage_Animator;
 
+	public	GameObject		Cutscene_BlackScreen;
+	private	Image			Cutscene_BlackScreenImage;
+	private	Animator		Cutscene_BlackScreenImage_Animator;
+	private	Image			Cutscene_BigImage;
+
 	public GameObject		MainMenuScreen;
 	public GameObject		LevelSelectionScreen;
 	public GameObject		LoadingScreen;
+	public GameObject		CutsceneScreen;
+
 
 	private	bool			bEnabled		= false;
+
+
+	private int				iLevelToLoad	= 0;
 
 
 	// Use this for initialization
@@ -32,6 +42,7 @@ public class Menu : MonoBehaviour {
 		MainMenuScreen.SetActive( true );
 		LevelSelectionScreen.SetActive( false );
 		LoadingScreen.SetActive( false );
+		CutsceneScreen.SetActive( false );
 
 		Menu_BlackScreenImage						= Menu_BlackScreen.GetComponent<Image>();
 
@@ -40,6 +51,27 @@ public class Menu : MonoBehaviour {
 
 		Loading_BlackScreenImage					= Loading_BlackScreen.GetComponent<Image>();
 		Loading_BlackScreenImage_Animator			= Loading_BlackScreen.GetComponent<Animator>();
+
+		Cutscene_BlackScreenImage					= Cutscene_BlackScreen.GetComponent<Image>();
+		Cutscene_BlackScreenImage_Animator			= Cutscene_BlackScreen.GetComponent<Animator>();
+
+		Cutscene_BigImage							= CutsceneScreen.transform.GetChild( 0 ).GetComponent<Image>();
+
+		if ( vCutsceneSprites == null ) {
+
+			vCutsceneSprites = new List<Sprite>();
+
+			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Starting/00") );
+			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Starting/01") );
+			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Starting/02") );
+			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Starting/03") );
+			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Starting/04") );
+			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Starting/05") );
+
+		}
+
+
+		print( vCutsceneSprites.Count );
 
 
 		AudioManager.Initialize();
@@ -54,8 +86,9 @@ public class Menu : MonoBehaviour {
 	public void NewGame()
 	{	
 		if ( !bEnabled ) return;
-		print( "enabled" );
+
 		Menu_BlackScreenImage.enabled = true;
+		iLevelToLoad = 1;
 		StartCoroutine( Menu_BlackImage_FadeIn() );
 
 	}
@@ -104,7 +137,11 @@ public class Menu : MonoBehaviour {
 
 	void OnFadeInCompleted() {
 
-		SceneManager.LoadScene( 1 );
+		MainMenuScreen.SetActive( false );
+		LevelSelectionScreen.SetActive( false );
+		LoadingScreen.SetActive( false );
+		CutsceneScreen.SetActive( true );
+		StartCutscene();
 
 	}
 
@@ -141,6 +178,7 @@ public class Menu : MonoBehaviour {
 		}
 
 		Menu_BlackScreenImage.color = new Color(1, 1, 1, 1);
+		Menu_BlackScreenImage.enabled = false;
 
 		MainMenuScreen.SetActive( false );
 		LevelSelectionScreen.SetActive( false );
@@ -170,7 +208,6 @@ public class Menu : MonoBehaviour {
 
 		Loading_BlackScreenImage.color = new Color(1, 1, 1, 0);
 
-
 		yield return new WaitForSecondsRealtime(Random.Range(4, 7));
 
 		OnFadeInCompleted();
@@ -198,152 +235,6 @@ public class Menu : MonoBehaviour {
 		Menu_BlackScreenImage.color = new Color(1, 1, 1, 0);
 
 		OnFadeOutCompleted();
-
-	}
-
-
-
-
-
-
-
-
-
-
-	// selector che scompare al caricamento
-	IEnumerator Selector_BlackImage_FadeIn( int scene_index )
-	{
-
-		yield return new WaitForEndOfFrame();
-
-		while (LevelSelection_BlackScreenImage.color.a < 1)
-		{
-
-			float i = LevelSelection_BlackScreenImage.color.a + (Time.deltaTime * 3);
-			LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-		MainMenuScreen.SetActive(false);
-		LevelSelectionScreen.SetActive(false);
-		LoadingScreen.SetActive(true);
-
-
-		// LOADING SCREEN
-
-
-		Loading_BlackScreenImage.enabled = true;
-		Menu_BlackScreenImage.raycastTarget = false;
-
-		yield return new WaitForEndOfFrame();
-
-		while (Loading_BlackScreenImage.color.a > 0)
-		{
-
-			float i = Loading_BlackScreenImage.color.a - ( Time.deltaTime * 3 );
-			Loading_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		Loading_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-
-		yield return new WaitForSecondsRealtime(Random.Range(4, 7));
-
-
-
-
-		SceneManager.LoadScene(scene_index);
-
-	}
-
-
-
-
-	// selector che compare
-	IEnumerator Selector_BlackImage_FadeOut () {
-
-
-		yield return new WaitForEndOfFrame();
-
-		Menu_BlackScreenImage.enabled = true;
-		LevelSelection_BlackScreenImage.raycastTarget = true;
-
-		Menu_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-		while ( Menu_BlackScreenImage.color.a < 1 ) {
-			
-			float i = Menu_BlackScreenImage.color.a + ( Time.deltaTime * 3 );
-			Menu_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		Menu_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-		Menu_BlackScreenImage.enabled = false;
-		LevelSelection_BlackScreenImage.raycastTarget = false;
-
-
-		// SHOE SELECTOR
-
-
-		LevelSelection_BlackScreenImage.enabled = true;
-		LevelSelection_BlackScreenImage.raycastTarget = true;
-
-		yield return new WaitForEndOfFrame();
-
-		MainMenuScreen.SetActive(false);
-		LevelSelectionScreen.SetActive(true);
-		LoadingScreen.SetActive( false );
-
-		LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-		while ( LevelSelection_BlackScreenImage.color.a > 0 ) {
-			
-			float i = LevelSelection_BlackScreenImage.color.a - ( Time.deltaTime * 3 );
-			LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-		LevelSelection_BlackScreenImage.raycastTarget = false;
-		LevelSelection_BlackScreenImage.enabled = false;
-
-	}
-
-
-
-
-
-	// selector che scompare per il menu
-	IEnumerator Selector_BlackImage_FadeOutToMenu () {
-
-		LevelSelection_BlackScreenImage.enabled = true;
-		LevelSelection_BlackScreenImage.raycastTarget = true;
-
-		yield return new WaitForEndOfFrame();
-
-		while ( LevelSelection_BlackScreenImage.color.a < 1 ) {
-			
-			float i = LevelSelection_BlackScreenImage.color.a + ( Time.deltaTime * 3 );
-			LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-
-
-		// SHOW MENU
-		SceneManager.LoadScene(0);
 
 	}
 	
