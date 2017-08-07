@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Waterfall : MonoBehaviour {
 
-	private	bool	bIsOK = false;
+	private	bool	bIsOK = true;
 	[SerializeField][Range(0.0f, 1.0f )]
 	private	float	fVolume	 = 1.0f;
 
@@ -15,14 +13,16 @@ public class Waterfall : MonoBehaviour {
 
 		pAudioSource =  AudioManager.Play( "Waterfall", true );
 
-		if ( pAudioSource )
+		if ( pAudioSource != null )
 			pAudioSource.volume = fVolume;
+		else
+			bIsOK = false;
 		
 	}
 
 	private void OnDestroy() {
 		
-		if ( pAudioSource != null ) pAudioSource.Stop();
+		if ( bIsOK ) pAudioSource.Stop();
 
 	}
 

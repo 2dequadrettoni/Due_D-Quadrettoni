@@ -5,6 +5,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
+#pragma warning disable CS0162 // Unreachable code detected
+#pragma warning disable CS0414 // Var assigned but never used
+
+
 public class UI : MonoBehaviour {
 
 	[SerializeField]
@@ -420,14 +424,11 @@ public class UI : MonoBehaviour {
 	// LevelCompleted Window
 	void Show_LvlCompleted_GUI( int windowID ) {
 
-		if ( SceneManager.GetActiveScene().buildIndex + 1 < SceneManager.sceneCountInBuildSettings ) {
+		if ( GUI.Button( new Rect( ( DefaultWindow.width / 6f ) - 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "NEXT LEVEL" ) ) {
 
-			if ( GUI.Button( new Rect( ( DefaultWindow.width / 6f ) - 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "NEXT LEVEL" ) ) {
-
-				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-				bShowLvlCompletedMsg = false;
-				return;
-			}
+			SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex + 1 );
+			bShowLvlCompletedMsg = false;
+			return;
 		}
 
 		if ( GUI.Button( new Rect( ( DefaultWindow.width / 2f ) + 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
@@ -451,7 +452,13 @@ public class UI : MonoBehaviour {
 		}
 
 		if ( bShowLvlCompletedMsg ) {
-			GUI.Window( 0, DefaultWindow, Show_LvlCompleted_GUI, "Level Completed" );
+
+			if ( SceneManager.GetActiveScene().buildIndex == ( SceneManager.sceneCountInBuildSettings - 1 ) )
+				// final cutscene start
+				SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex + 1 );
+			else
+				// load next level
+				GUI.Window( 0, DefaultWindow, Show_LvlCompleted_GUI, "Level Completed" );
 		}
 
 	}
@@ -526,3 +533,7 @@ public class UI : MonoBehaviour {
     }
 
 }
+
+
+#pragma warning restore CS0414 // Var assigned but never used
+#pragma warning restore CS0162 // Unreachable code detected
