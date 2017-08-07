@@ -128,6 +128,11 @@ public partial class Player {
 		if ( !pMouseHitthedObject.collider ) return;
 
 		Vector3 vDestination = pMouseHitthedObject.collider.gameObject.transform.position;
+
+		Node pCurrentNode = GLOBALS.PathFinder.NodeFromWorldPoint( vPlanPosition );
+		Node pDestinationnode = GLOBALS.PathFinder.NodeFromWorldPoint( vDestination );
+
+		if ( pCurrentNode == pDestinationnode ) return;
 					
 		this.Steps_Set( vPlanStageDestination = vDestination );
 

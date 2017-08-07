@@ -1,27 +1,27 @@
 fileFormatVersion: 2
 guid: 0b5feb24fc7c6b24dbf9d2ae49aac1e0
-timeCreated: 1502098808
+timeCreated: 1502111575
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: numeri_0
-    21300002: numeri_1
-    21300004: numeri_2
-    21300006: numeri_3
-    21300008: numeri_4
-    21300010: numeri_5
-    21300012: numeri_6
-    21300014: numeri_7
-    21300016: numeri_8
-    21300018: numeri_9
-    21300020: numeri_10
-    21300022: numeri_11
-    21300024: numeri_12
-    21300026: numeri_13
-    21300028: numeri_14
-    21300030: numeri_15
-    21300032: numeri_16
-    21300034: numeri_17
+    21300000: 1
+    21300002: 10
+    21300004: 18
+    21300006: 2
+    21300008: 9
+    21300010: 11
+    21300012: 15
+    21300014: 6
+    21300016: 8
+    21300018: 3
+    21300020: 7
+    21300022: 12
+    21300024: 4
+    21300026: 16
+    21300028: 13
+    21300030: 5
+    21300032: 17
+    21300034: 14
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -104,7 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: numeri_0
+      name: 1
       rect:
         serializedVersion: 2
         x: 10
@@ -112,12 +112,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_1
+      name: 10
       rect:
         serializedVersion: 2
         x: 170
@@ -125,12 +125,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_2
+      name: 18
       rect:
         serializedVersion: 2
         x: 170
@@ -138,12 +138,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_3
+      name: 2
       rect:
         serializedVersion: 2
         x: 10
@@ -151,12 +151,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_4
+      name: 9
       rect:
         serializedVersion: 2
         x: 7
@@ -164,12 +164,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_5
+      name: 11
       rect:
         serializedVersion: 2
         x: 173
@@ -177,12 +177,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_6
+      name: 15
       rect:
         serializedVersion: 2
         x: 173
@@ -190,12 +190,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_7
+      name: 6
       rect:
         serializedVersion: 2
         x: 8
@@ -203,12 +203,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_8
+      name: 8
       rect:
         serializedVersion: 2
         x: 11
@@ -216,12 +216,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_9
+      name: 3
       rect:
         serializedVersion: 2
         x: 13
@@ -229,12 +229,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_10
+      name: 7
       rect:
         serializedVersion: 2
         x: 10
@@ -242,12 +242,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_11
+      name: 12
       rect:
         serializedVersion: 2
         x: 165
@@ -255,12 +255,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_12
+      name: 4
       rect:
         serializedVersion: 2
         x: 10
@@ -268,12 +268,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_13
+      name: 16
       rect:
         serializedVersion: 2
         x: 170
@@ -281,12 +281,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_14
+      name: 13
       rect:
         serializedVersion: 2
         x: 168
@@ -294,12 +294,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_15
+      name: 5
       rect:
         serializedVersion: 2
         x: 11
@@ -307,12 +307,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_16
+      name: 17
       rect:
         serializedVersion: 2
         x: 172
@@ -320,12 +320,12 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: numeri_17
+      name: 14
       rect:
         serializedVersion: 2
         x: 170
@@ -333,7 +333,7 @@ TextureImporter:
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

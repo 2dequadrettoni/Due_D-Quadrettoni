@@ -16,7 +16,14 @@ public class Pause_Menu : MonoBehaviour {
         GLOBALS.UI.OnPause();
     }
 
-    public void EndNightmare()
+
+	private void Update() {
+		
+		if ( Input.GetKeyDown( KeyCode.Escape ) ) No();
+
+	}
+
+	public void EndNightmare()
     {
        // pause.SetActive(false);
         areYouSure.SetActive(true);

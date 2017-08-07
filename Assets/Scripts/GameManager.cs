@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour {
 	private void Update() {
 
 
-		if ( Input.GetKeyDown( KeyCode.Escape ) ) Application.Quit();
+		if ( Input.GetKeyDown( KeyCode.Escape ) ) GLOBALS.UI.OnPause();
 
 
 		if ( GLOBALS.StageManager.IsPlaying && pFinalTile1.IsInside && pFinalTile2.IsInside ) {

@@ -1,27 +1,27 @@
 fileFormatVersion: 2
-guid: c0fb35cdf305b7449ac7d95f304d537c
-timeCreated: 1502099206
+guid: f6bb43f822a7b4a44aa9288fc8ae59a3
+timeCreated: 1502111512
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Numeri livelli sbloccati_0
-    21300002: Numeri livelli sbloccati_1
-    21300004: Numeri livelli sbloccati_2
-    21300006: Numeri livelli sbloccati_3
-    21300008: Numeri livelli sbloccati_4
-    21300010: Numeri livelli sbloccati_5
-    21300012: Numeri livelli sbloccati_6
-    21300014: Numeri livelli sbloccati_7
-    21300016: Numeri livelli sbloccati_8
-    21300018: Numeri livelli sbloccati_9
-    21300020: Numeri livelli sbloccati_10
-    21300022: Numeri livelli sbloccati_11
-    21300024: Numeri livelli sbloccati_12
-    21300026: Numeri livelli sbloccati_13
-    21300028: Numeri livelli sbloccati_14
-    21300030: Numeri livelli sbloccati_15
-    21300032: Numeri livelli sbloccati_16
-    21300034: Numeri livelli sbloccati_17
+    21300000: 1
+    21300002: 8
+    21300004: 10
+    21300006: 2
+    21300008: 3
+    21300010: 11
+    21300012: 16
+    21300014: 13
+    21300016: 12
+    21300018: 4
+    21300020: 5
+    21300022: 14
+    21300024: 6
+    21300026: 7
+    21300028: 15
+    21300030: 9
+    21300032: 17
+    21300034: 18
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -104,236 +104,236 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_0
+      name: 1
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 820
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: 8
       rect:
         serializedVersion: 2
         x: 8
-        y: 816
+        y: 173
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_1
+      name: 10
       rect:
         serializedVersion: 2
-        x: 10
-        y: 360
+        x: 175
+        y: 819
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_2
+      name: 2
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 730
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: 3
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 646
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: 11
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 730
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: 16
       rect:
         serializedVersion: 2
         x: 180
-        y: 817
+        y: 265
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_3
+      name: 13
       rect:
         serializedVersion: 2
-        x: 7
-        y: 741
+        x: 179
+        y: 561
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_4
+      name: 12
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 642
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: 4
       rect:
         serializedVersion: 2
         x: 10
-        y: 209
+        y: 561
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_5
-      rect:
-        serializedVersion: 2
-        x: 181
-        y: 734
-        width: 70
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Numeri livelli sbloccati_6
+      name: 5
       rect:
         serializedVersion: 2
         x: 8
-        y: 674
+        y: 466
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_7
+      name: 14
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 466
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: 6
       rect:
         serializedVersion: 2
         x: 10
-        y: 284
+        y: 370
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_8
-      rect:
-        serializedVersion: 2
-        x: 183
-        y: 671
-        width: 70
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Numeri livelli sbloccati_9
+      name: 7
       rect:
         serializedVersion: 2
         x: 8
-        y: 599
+        y: 266
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_10
+      name: 15
       rect:
         serializedVersion: 2
-        x: 181
-        y: 595
+        x: 176
+        y: 372
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_11
-      rect:
-        serializedVersion: 2
-        x: 182
-        y: 519
-        width: 70
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Numeri livelli sbloccati_12
+      name: 9
       rect:
         serializedVersion: 2
         x: 10
-        y: 523
+        y: 67
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_13
+      name: 17
       rect:
         serializedVersion: 2
-        x: 183
-        y: 354
+        x: 178
+        y: 176
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Numeri livelli sbloccati_14
+      name: 18
       rect:
         serializedVersion: 2
-        x: 183
-        y: 195
+        x: 180
+        y: 67
         width: 70
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Numeri livelli sbloccati_15
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 441
-        width: 70
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Numeri livelli sbloccati_16
-      rect:
-        serializedVersion: 2
-        x: 181
-        y: 438
-        width: 70
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Numeri livelli sbloccati_17
-      rect:
-        serializedVersion: 2
-        x: 183
-        y: 275
-        width: 70
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

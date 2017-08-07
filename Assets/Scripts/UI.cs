@@ -90,13 +90,21 @@ public class UI : MonoBehaviour {
 	GameObject pausePrefab;
     Transform buttonNextTurn, buttonPause, buttonRestart, buttonPlay;
     Animator nextStageAnimator;
+
     Sprite buttonNextTurnSprite;
+	Sprite buttonPauseSprite;
+	Sprite buttonRestartSprite;
+
+
+	public GameObject FadeImage = null;
 
 
 	Animator pBlackScreenAnimator;
 
     // Use this for initialization
     private void Start() {
+
+		if ( FadeImage != null ) FadeImage.SetActive( true );
 
 		Cursor.SetCursor( pCursorSprite.texture, Vector2.zero, CursorMode.Auto );
 
@@ -201,7 +209,9 @@ public class UI : MonoBehaviour {
 
 
 		//Button Next Stage sprite
-        buttonNextTurnSprite = buttonRestart.GetComponent<Image>().sprite;
+        buttonNextTurnSprite = buttonNextTurn.GetComponent<Image>().sprite;
+		buttonPauseSprite	= buttonPause.GetComponent<Image>().sprite;
+		buttonRestartSprite = buttonRestart.GetComponent<Image>().sprite;
 		
 		// black screen
 		pBlackScreenAnimator = pCanvasObject.Find( "Fade_image" ) .GetComponent<Animator>();
@@ -492,12 +502,12 @@ public class UI : MonoBehaviour {
 
     public void GlowOrangePause()
     {
-        buttonNextTurnSprite = orangePause;
+        buttonPauseSprite = orangePause;
     }
 
     public void GlowOrangeRestart()
     {
-        buttonNextTurnSprite = orangeRestart;
+        buttonRestartSprite = orangeRestart;
     }
 
     public void DefaultNextTurn()
@@ -507,12 +517,12 @@ public class UI : MonoBehaviour {
 
     public void DefaultPause()
     {
-        buttonNextTurnSprite = defaultPause;
+        buttonPauseSprite = defaultPause;
     }
 
     public void DefaultRestart()
     {
-        buttonNextTurnSprite = defaultRestart;
+        buttonRestartSprite = defaultRestart;
     }
 
 }

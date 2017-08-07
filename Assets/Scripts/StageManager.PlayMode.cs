@@ -126,7 +126,6 @@ public partial class StageManager {
 			if ( Input.GetKeyUp( KeyCode.Space ) ) {		
 				GLOBALS.UI.GlowAnimationNextTurn( false );
 				GLOBALS.UI.DefaultNextTurn();
-
 			}
 
 			//////////////////////////////////////////////////////////////////////////
