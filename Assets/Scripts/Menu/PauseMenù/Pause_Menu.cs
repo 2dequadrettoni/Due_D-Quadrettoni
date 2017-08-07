@@ -33,7 +33,11 @@ public class Pause_Menu : MonoBehaviour {
     public void Yes()
     {
 		areYouSure.SetActive(false);
-		SceneManager.LoadScene(0);
+        Time.timeScale = GLOBALS.GameTime;
+        GLOBALS.TutorialOverride = false;
+        GameManager.InTutorialSequence = false;
+        GameManager.TutorialStep = 0;
+        SceneManager.LoadScene(0);
     }
 
 }
