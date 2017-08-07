@@ -17,7 +17,7 @@ public class AnimationEvents : MonoBehaviour {
 	}
 
 	void	PlayStepSound() {
-//		GLOBALS.AudioManager.Play( "Action_Move" );
+		AudioManager.Play( "Action_Move" );
 	}
 
 	void	DoorOpened() {

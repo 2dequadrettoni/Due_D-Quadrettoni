@@ -117,10 +117,8 @@ public partial class StageManager {
 			}
 
 		}
-		
-		if ( bPlanDebug ) Debug.Log( "UI_Next_Stage" );
 
-//		GLOBALS.AudioManager.Play( "NextStage" );
+		AudioManager.Play( "NextStage" );
 
 		// Update cursors position
 		GLOBALS.UI.CursorsStep( iCurrentStage + 1 );

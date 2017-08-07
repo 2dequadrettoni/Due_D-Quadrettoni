@@ -58,7 +58,7 @@ public partial class StageManager {
 		// Hide tutorial image while playing
 		GLOBALS.TutorialSlot.sprite = null;
 
-		AudioManager.Play( "UI_Button_Play" );
+		AudioManager.Play( "Play_Button" );
 
 		// HAVE FUN
 		bIsPlaying = true;
