@@ -166,6 +166,34 @@ public class UI : MonoBehaviour {
         buttonRestart	= pCanvasObject.Find("ButtonRestart");
 		buttonPlay		= pCanvasObject.Find("ButtonPlay");
 
+		{
+			Button Button = pCanvasObject.Find("ButtonSelectP1").GetComponent<Button>();
+			Button.onClick.AddListener( () => GLOBALS.StageManager.SelectPlayer( 1 ) );
+		}
+		{
+			Button Button = pCanvasObject.Find("ButtonSelectP2").GetComponent<Button>();
+			Button.onClick.AddListener( () => GLOBALS.StageManager.SelectPlayer( 2 ) );
+		}
+
+		{	// next
+			Button Button = buttonNextTurn.GetComponent<Button>();
+			Button.onClick.AddListener( () => GLOBALS.StageManager.NextStage() );
+		}
+		{	// pause
+			Button Button = buttonPause.GetComponent<Button>();
+			Button.onClick.AddListener( () => GLOBALS.UI.OnPause() );
+		}
+		{	// restart
+			Button Button = buttonRestart.GetComponent<Button>();
+			Button.onClick.AddListener( () => GLOBALS.GameManager.RestartGame() );
+		}
+		{	// play
+			Button Button = buttonPlay.GetComponent<Button>();
+			Button.onClick.AddListener( () => GLOBALS.StageManager.Play() );
+		}
+
+
+
 		//Button Next Stage sprite
         buttonNextTurnSprite = buttonRestart.GetComponent<Image>().sprite;
 		
@@ -173,6 +201,13 @@ public class UI : MonoBehaviour {
 		pBlackScreenAnimator = pCanvasObject.Find( "Fade_image" ) .GetComponent<Animator>();
 
 		pBlackScreenAnimator.Play( "Fade_Out" );
+
+
+
+
+
+
+
     }
 
 
