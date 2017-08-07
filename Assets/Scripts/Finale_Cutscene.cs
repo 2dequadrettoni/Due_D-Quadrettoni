@@ -1,17 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using UnityEngine.UI;
-
 using UnityEngine.SceneManagement;
 
 #pragma warning disable CS0162 // Unreachable code detected
-#pragma warning disable CS0414 // Var assigned but never used
+#pragma warning disable CS0414 // Var assigned but never use
 
+public class Finale_Cutscene : MonoBehaviour {
 
-public partial class Menu {
-	
 	const		bool			bCutsceneDebug = false;
 
 	const		float			WAIT_TIME = 3.0f;
@@ -24,11 +21,33 @@ public partial class Menu {
 
 	private		bool			bPlaying = false;
 
+	private	Image				Cutscene_BigImage;
 
-	private	void	StartCutscene() {
+	public	GameObject			CutsceneScreen;
 
-		AudioManager.StopAllMusics();
-		AudioManager.PlayMusic( "Cutscene_Start" );
+	public Image				Cutscene_BlackScreenImage;
+
+
+	// Use this for initialization
+	void Start () {
+
+		Cutscene_BigImage = CutsceneScreen.transform.GetChild( 0 ).GetComponent<Image>();
+
+		if ( vCutsceneSprites == null ) {
+
+			vCutsceneSprites = new List<Sprite>();
+
+			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Finale/00") );
+			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Finale/01") );
+			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Finale/02") );
+			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Finale/03") );
+			vCutsceneSprites.Add( Resources.Load<Sprite>("Cutscene/Finale/04") );
+
+		}
+
+
+		AudioManager.Initialize();
+		AudioManager.PlayMusic("Cutscene_Finale");
 
 		Cutscene_BigImage.sprite = pCurrentSprite = vCutsceneSprites[ iCurrentSpriteIndex ];
 
@@ -37,11 +56,8 @@ public partial class Menu {
 		// fa scomparire l'immagine nera
 		StartCoroutine( Cutscene_BlackImage_FadeOut() );
 
-//		SceneManager.LoadScene( 0 );
-
 	}
-
-
+	
 	private void EndCutsceneFrameCallback() {
 
 		iCurrentSpriteIndex++;
@@ -61,7 +77,9 @@ public partial class Menu {
 		if ( bCutsceneDebug ) print( "EndCutsceneFrameCallback finished" );
 
 		StopAllCoroutines();
-		SceneManager.LoadScene( iLevelToLoad );
+		AudioManager.StopAllMusics();
+		AudioManager.StopAllSounds();
+		SceneManager.LoadScene( 0 );
 
 	}
 
@@ -143,10 +161,6 @@ public partial class Menu {
 		StartCoroutine( ShowCutsceneFrame() );
 
 	}
-
-
-
-
 
 }
 

@@ -1,7 +1,5 @@
-﻿
-using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 
@@ -23,6 +21,8 @@ public static class AudioManager {
 
 	private	static	bool					bInitialized	= false;
 
+//	private	static	AudioFader				pAudioFader		= null;
+
 	// Use this for initialization
 	public	static	void  Initialize ()
 	{
@@ -35,6 +35,8 @@ public static class AudioManager {
 		pAudioContainer = new GameObject( "AudioContainer" );
 
 		UnityEngine.Object.DontDestroyOnLoad( pAudioContainer );
+
+//		pAudioFader = pAudioContainer.AddComponent<AudioFader>();
 
 		// Sounds
 		{
@@ -99,6 +101,9 @@ public static class AudioManager {
 	
 		pAudioSource.loop = loop;
 		pAudioSource.Play();
+
+		
+
 		return pAudioSource;
 
 	}
@@ -119,12 +124,18 @@ public static class AudioManager {
 			Debug.LogWarning( "Music " + name + " not found" );
 			return null;
 		}
-	
+
 		pAudioSource.loop = true;
 		pAudioSource.Play();
+
+		AudioFadeScript.FadeIn( pAudioSource, 2 );
+
+//		pAudioFader.FadeIn( pAudioSource );
+
 		return pAudioSource;
 
     }
+
 
     public	static	void StopAllSounds() {
 

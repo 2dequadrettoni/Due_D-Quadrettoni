@@ -36,6 +36,8 @@ public partial class StageManager {
 	//		else return; // skip execution if is in tutorial mode
 		}
 
+		AudioManager.Play( "PG_Switch" );
+
 		PlayerID = Mathf.Clamp( PlayerID, 1, 2 );
 
 		// Switch to player 1

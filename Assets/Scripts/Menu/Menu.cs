@@ -6,23 +6,23 @@ using UnityEngine.UI;
 
 public partial class Menu : MonoBehaviour {
 
+	static	public	bool	bGameStarted	= false;
 
 	public	GameObject		Menu_BlackScreen;
 	private	Image			Menu_BlackScreenImage;
-	private	Animator		Menu_BlackScreenImage_Animator;
 
 	public	GameObject		LevelSelection_BlackScreen;
 	private	Image			LevelSelection_BlackScreenImage;
-	private	Animator		LevelSelection_BlackScreenImage_Animator;
 
 	public	GameObject		Loading_BlackScreen;
 	private	Image			Loading_BlackScreenImage;
-	private	Animator		Loading_BlackScreenImage_Animator;
 
 	public	GameObject		Cutscene_BlackScreen;
 	private	Image			Cutscene_BlackScreenImage;
-	private	Animator		Cutscene_BlackScreenImage_Animator;
 	private	Image			Cutscene_BigImage;
+
+	public	GameObject		Logo_BlackScreen;
+	private	Image			Logo_BlackScreenImage;
 
 	public GameObject		MainMenuScreen;
 	public GameObject		LevelSelectionScreen;
@@ -32,30 +32,36 @@ public partial class Menu : MonoBehaviour {
 
 	private	bool			bEnabled		= false;
 
-
 	private int				iLevelToLoad	= 0;
 
 
 	// Use this for initialization
 	void Start () {
 
-		MainMenuScreen.SetActive( true );
-		LevelSelectionScreen.SetActive( false );
-		LoadingScreen.SetActive( false );
-		CutsceneScreen.SetActive( false );
+		AudioManager.Initialize();
+
+		if ( !bGameStarted ) {
+			MainMenuScreen.SetActive( false );
+			LevelSelectionScreen.SetActive( false );
+			LoadingScreen.SetActive( false );
+			CutsceneScreen.SetActive( false );
+			Logo_BlackScreen.SetActive( true );
+		}
+		else{
+			MainMenuScreen.SetActive( true );
+			LevelSelectionScreen.SetActive( false );
+			LoadingScreen.SetActive( false );
+			CutsceneScreen.SetActive( false );
+			Logo_BlackScreen.SetActive( false );
+		}
 
 		Menu_BlackScreenImage						= Menu_BlackScreen.GetComponent<Image>();
 
 		LevelSelection_BlackScreenImage				= LevelSelection_BlackScreen.GetComponent<Image>();
-		LevelSelection_BlackScreenImage_Animator	= LevelSelection_BlackScreen.GetComponent<Animator>();
-
 		Loading_BlackScreenImage					= Loading_BlackScreen.GetComponent<Image>();
-		Loading_BlackScreenImage_Animator			= Loading_BlackScreen.GetComponent<Animator>();
-
 		Cutscene_BlackScreenImage					= Cutscene_BlackScreen.GetComponent<Image>();
-		Cutscene_BlackScreenImage_Animator			= Cutscene_BlackScreen.GetComponent<Animator>();
-
 		Cutscene_BigImage							= CutsceneScreen.transform.GetChild( 0 ).GetComponent<Image>();
+		Logo_BlackScreenImage						= Logo_BlackScreen.GetComponent<Image>();
 
 		if ( vCutsceneSprites == null ) {
 
@@ -71,13 +77,21 @@ public partial class Menu : MonoBehaviour {
 		}
 
 
-		print( vCutsceneSprites.Count );
+
+		if ( bGameStarted ) {
+
+			
+			AudioManager.PlayMusic("Menu_Theme");
+
+			StartCoroutine( Menu_BlackImage_FadeOut() );
+
+			return;
+		}
 
 
-		AudioManager.Initialize();
-		AudioManager.PlayMusic("Menu_Theme");
+		ShowLogo();
 
-		StartCoroutine( Menu_BlackImage_FadeOut() );
+		bGameStarted = true;
 
 	}
 
@@ -109,7 +123,12 @@ public partial class Menu : MonoBehaviour {
 	public void ExitGame ()
 	{
 		if ( !bEnabled ) return;
-		Application.Quit();
+
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#else
+			Application.Quit();
+#endif
 	}
 
 
@@ -151,6 +170,10 @@ public partial class Menu : MonoBehaviour {
 		Menu_BlackScreenImage.enabled = false;
 
 	}
+
+
+
+
 
 
 
