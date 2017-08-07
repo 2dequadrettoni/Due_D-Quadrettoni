@@ -37,7 +37,7 @@ public class Menu : MonoBehaviour {
 		AudioManager.Initialize();
 		AudioManager.PlayMusic("Menu_Theme");
 
-		StartCoroutine( BlackImage_FadeOut() );
+		StartCoroutine( Menu_BlackImage_FadeOut() );
 
 	}
 
@@ -48,7 +48,7 @@ public class Menu : MonoBehaviour {
 		if ( !bEnabled ) return;
 		print( "enabled" );
 		Menu_BlackScreenImage.enabled = true;
-        StartCoroutine( BlackImage_FadeIn() );
+        StartCoroutine( Menu_BlackImage_FadeIn() );
 
     }
 
@@ -74,16 +74,39 @@ public class Menu : MonoBehaviour {
 		Application.Quit();
     }
 
+    public void Back()
+    {
+        if (!bEnabled) return;
+        LevelSelectionScreen.SetActive(false);
+        MainMenuScreen.SetActive(true);
+    }
+
+
+    public void Loadlevel(int index)
+    {
+        LevelSelection_BlackScreenImage.enabled = true;
+        StartCoroutine(Selector_BlackImage_FadeIn(index));
+    }
 
 
 
-	void	OnFadeInCompleted() {
+
+
+
+    void OnFadeInCompleted() {
 
 		SceneManager.LoadScene( 1 );
 
 	}
 
-	IEnumerator BlackImage_FadeIn () {
+	void	OnFadeOutCompleted() {
+		bEnabled = true;
+		Menu_BlackScreenImage.raycastTarget = false;
+		Menu_BlackScreenImage.enabled = false;
+
+	}
+
+	IEnumerator Menu_BlackImage_FadeIn () {
 
 		Menu_BlackScreenImage.raycastTarget = true;
 
@@ -111,15 +134,9 @@ public class Menu : MonoBehaviour {
 
 	}
 
-	void	OnFadeOutCompleted() {
-		bEnabled = true;
-		Menu_BlackScreenImage.raycastTarget = false;
-		Menu_BlackScreenImage.enabled = false;
-
-	}
 
 
-	IEnumerator BlackImage_FadeOut () {
+	IEnumerator Menu_BlackImage_FadeOut () {
 
 		yield return new WaitForEndOfFrame();
 
@@ -140,5 +157,38 @@ public class Menu : MonoBehaviour {
 		OnFadeOutCompleted();
 
 	}
-    
+
+
+
+
+
+
+
+
+    IEnumerator Selector_BlackImage_FadeIn( int scene_index )
+    {
+
+        yield return new WaitForEndOfFrame();
+
+        while (LevelSelection_BlackScreenImage.color.a < 1)
+        {
+
+            float i = LevelSelection_BlackScreenImage.color.a + (Time.deltaTime);
+            LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, i);
+            yield return null;
+
+        }
+
+        LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, 1);
+
+        MainMenuScreen.SetActive(false);
+        LevelSelectionScreen.SetActive(false);
+        LoadingScreen.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(Random.Range(7, 9));
+
+        SceneManager.LoadScene(scene_index);
+
+    }
+
 }

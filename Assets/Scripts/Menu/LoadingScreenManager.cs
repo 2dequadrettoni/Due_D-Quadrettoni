@@ -27,8 +27,9 @@ public class LoadingScreenManager : MonoBehaviour {
 				async.allowSceneActivation = true;
 			}
 
-			yield return null;	
+			 yield return null;	
 		}
+        
 
 	}
 }
