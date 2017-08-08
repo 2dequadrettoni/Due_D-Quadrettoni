@@ -132,9 +132,14 @@ public partial class Platform : MonoBehaviour {
 			fInterpolant	= Mathf.Clamp01( fInterpolant );
 			GLOBALS.StageManager.RemoveActiveObject();
 			transform.position = Vector3.Lerp( vStartPosition, vEndPosition, fInterpolant );
-			if ( pPlayer ) pPlayer.transform.position = transform.position;
-			if ( pPlayer && pPlayer.FindPath ( ( ( (int)fInterpolant + 1 ) == iStartpoint ) ?  pDock1.position : pDock2.position ) )
-				pPlayer.Move();
+			if ( pPlayer ) {
+				pPlayer.transform.position = transform.position;
+
+				if ( pPlayer.FindPath ( ( ( (int)fInterpolant + 1 ) == iStartpoint ) ?  pDock1.position : pDock2.position ) )
+					pPlayer.Move();
+
+//				pPlayer.UnLink( this );
+			}
 
 			return;
 		}
@@ -155,7 +160,7 @@ public partial class Platform : MonoBehaviour {
 	}
 
 
-	private void OnTriggerStay( Collider other ) {
+	private void OnTriggerEnter( Collider other ) {
 		
 		if ( !bActive && GLOBALS.StageManager.IsPlaying && !bHasPlayerInside && other.tag == "Player" ) {
 
