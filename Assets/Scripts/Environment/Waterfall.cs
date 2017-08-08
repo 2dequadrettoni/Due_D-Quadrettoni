@@ -2,7 +2,6 @@
 
 public class Waterfall : MonoBehaviour {
 
-	private	bool	bIsOK = true;
 	[SerializeField][Range(0.0f, 1.0f )]
 	private	float	fVolume	 = 1.0f;
 
@@ -15,8 +14,6 @@ public class Waterfall : MonoBehaviour {
 
 		if ( pAudioSource != null )
 			pAudioSource.volume = fVolume;
-		else
-			bIsOK = false;
 		
 	}
 

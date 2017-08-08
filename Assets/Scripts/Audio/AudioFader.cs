@@ -34,16 +34,11 @@ public class AudioFader : MonoBehaviour {
 		audioSource.volume = 0;
 		audioSource.Play();
 
-		print( audioSource.volume );
-
 		while (audioSource.volume < 1.0f)
 		{
 			audioSource.volume += Time.unscaledDeltaTime / FadeTime;
-			print( audioSource.volume );
 			yield return null;
 		}
-
-		print( audioSource.volume );
  
 		audioSource.volume = 1f;
 

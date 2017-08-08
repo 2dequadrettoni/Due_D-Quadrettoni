@@ -234,7 +234,10 @@ public partial class StageManager {
 
 				if ( PA1.IsValid() && ( PA1.GetType() == ActionType.MOVE || PA1.GetType() == ActionType.MOVE_USE ) && !pPlayer1.IsBusy() ) {
 					if ( !pPlayer1.FindPath( PA1.GetDestination() ) ) {
-						AudioManager.Play( "PG_PathNotFound" );
+
+						pPlayer1.Destroy();
+
+//						AudioManager.Play( "PG_PathNotFound" );
 						GLOBALS.UI.ShowUnreachableMsg( "Player1" );
 						bIsPlaying = bIsOK = false;
 						pPlayer2.Stop();
@@ -254,7 +257,10 @@ public partial class StageManager {
 
 				if ( PA2.IsValid() && ( PA2.GetType() == ActionType.MOVE || PA2.GetType() == ActionType.MOVE_USE ) && !pPlayer2.IsBusy() ) {
 					if ( !pPlayer2.FindPath( PA2.GetDestination() ) ) {
-						AudioManager.Play( "PG_PathNotFound" );
+
+						pPlayer2.Destroy();
+
+//						AudioManager.Play( "PG_PathNotFound" );
 						GLOBALS.UI.ShowUnreachableMsg( "Player2" );
 						bIsPlaying = bIsOK = false;
 						pPlayer1.Stop();

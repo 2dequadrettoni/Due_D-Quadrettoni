@@ -146,6 +146,13 @@ public partial class Player: MonoBehaviour {
 	}
 
 
+	public	void	Spawn() {
+
+		pAnimator.Play( "Spawn", -1, 0.0f );
+
+	}
+
+
 	public	void	OnSpawnEnd() {
 		// Set movement tutorial
 		if ( GameManager.InTutorialSequence && GameManager.TutorialStep == 0 ) {

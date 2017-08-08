@@ -4,6 +4,21 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
+struct GO_Position {
+	public GameObject	o;
+	public Vector3		Position;
+	private bool		bDone;
+	public GO_Position( GameObject o, Vector3 Position ) {
+		this.o = o;
+		this.Position = Position;
+		bDone = false;
+	}
+	public bool IsDone() { return bDone; }
+	public void SetDone() { bDone = true; }
+}
+
+
+
 public class GameManager : MonoBehaviour {
 
 	private		FinalTile		pFinalTile1						= null;
@@ -19,7 +34,7 @@ public class GameManager : MonoBehaviour {
 	public		Sprite			pTutorial_3_PlaySprite			= null;
 	public		Sprite			pTutorial_4_RestartSprite		= null;
 
-	
+	List<GO_Position> vObjects;
 
 	private void Start() {
 		
@@ -79,6 +94,74 @@ public class GameManager : MonoBehaviour {
 		else {
 			Key.TutorialLvl				= false;
 		}
+
+		StartLevelComposition();
+
+	}
+
+
+	private	void	StartLevelComposition() {
+
+		GameObject[] vKeys				= GameObject.FindGameObjectsWithTag("Key");
+		GameObject[] vPlatforms			= GameObject.FindGameObjectsWithTag("Platform");
+		GameObject[] vSwitchers			= GameObject.FindGameObjectsWithTag("Switcher");
+		GameObject[] vSwitchers_Plane	= GameObject.FindGameObjectsWithTag("Plane_Switcher");
+		GameObject[] vDoors				= GameObject.FindGameObjectsWithTag("Door");
+		GameObject[] vTiles				= GameObject.FindGameObjectsWithTag("Tiles");
+		GameObject[] vOthers			= GameObject.FindGameObjectsWithTag("Other");
+
+		vObjects = new List<GO_Position>( vKeys.Length + vPlatforms.Length + vSwitchers.Length + vSwitchers_Plane.Length + vDoors.Length + vTiles.Length + vOthers.Length );
+
+		{
+			foreach( GameObject GO in vKeys				)	{ AddObj( GO ); }
+			foreach( GameObject GO in vPlatforms		)	{ AddObj( GO ); }
+			foreach( GameObject GO in vSwitchers		)	{ AddObj( GO ); }
+			foreach( GameObject GO in vSwitchers_Plane	)	{ AddObj( GO ); }
+			foreach( GameObject GO in vDoors			)	{ AddObj( GO ); }
+			foreach( GameObject GO in vTiles			)	{ AddObj( GO ); }
+			foreach( GameObject GO in vOthers			)	{ AddObj( GO ); }
+		}
+
+		StartCoroutine( LevelCompositionCoroutine() );
+
+	}
+
+
+	private void AddObj( GameObject o ) {
+
+		GO_Position p = new GO_Position( o, o.transform.position );
+		vObjects.Add( p );
+
+		o.transform.position = new Vector3( Random.Range( -100, 100 ), Random.Range( -100, 100 ), Random.Range( -100, 100 ) );
+
+	}
+
+	IEnumerator LevelCompositionCoroutine() {
+
+		int iCurrentObjectLeft = vObjects.Count;
+
+		while ( iCurrentObjectLeft > 0 ) {
+			foreach( GO_Position p in vObjects	) {
+
+				if ( p.IsDone() ) continue;
+
+				if ( Vector3.Distance( p.o.transform.position, p.Position ) > 0.001f ) {
+
+					p.o.transform.position = Vector3.LerpUnclamped( p.o.transform.position, p.Position, Time.unscaledDeltaTime * 3.0f );
+				}
+				else {
+					p.o.transform.position = p.Position;
+					p.SetDone();
+					iCurrentObjectLeft--;
+				}
+
+			}
+
+			yield return null;
+		}
+
+		GLOBALS.Player1.Spawn();
+		GLOBALS.Player2.Spawn();
 
 	}
 
