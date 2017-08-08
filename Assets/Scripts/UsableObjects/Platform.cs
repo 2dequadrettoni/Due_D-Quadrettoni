@@ -205,7 +205,7 @@ public partial class Platform : MonoBehaviour {
 
 	private void OnTriggerStay( Collider other ) {
 		
-		if ( pPlayer != null && !pPlayer.IsBusy() && pPlayer.Linked ) {
+		if ( pPlayer != null && pPlayer.IsBusy() && pPlayer.Linked ) {
 			pPlayer.UnLink( this );
 			bHasPlayerInside = false;
 			return;
