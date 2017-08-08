@@ -15,7 +15,7 @@ public static class AudioManager {
 	
 	private static	List< AudioSrc >		vSounds			= null;
     
-    private	static	List< AudioSrc >		vMusics			= null;
+	private	static	List< AudioSrc >		vMusics			= null;
 
 	private	static	GameObject				pAudioContainer	= null;
 
@@ -24,8 +24,7 @@ public static class AudioManager {
 	private	static	AudioFader				pAudioFader		= null;
 
 	// Use this for initialization
-	public	static	void  Initialize ()
-	{
+	public	static	void  Initialize () {
 
 		if ( bInitialized ) return;
 
@@ -80,7 +79,7 @@ public static class AudioManager {
 
 		bInitialized = true;
 
-    }
+	}
 
 	public	static	AudioSource	FindSound( string name ) {
 
@@ -89,20 +88,17 @@ public static class AudioManager {
 	}
 
 
-	public	static	AudioSource Play( string name, bool loop = false )
-	{
+	public	static	AudioSource Play( string name, bool loop = false ) {
 			
 		AudioSource pAudioSource = FindSound( name );
         
-        if ( pAudioSource == null ) {
+		if ( pAudioSource == null ) {
 			Debug.LogWarning( "Sound " + name + " not found" );
 			return null;
 		}
 	
 		pAudioSource.loop = loop;
 		pAudioSource.Play();
-
-		
 
 		return pAudioSource;
 
@@ -115,7 +111,15 @@ public static class AudioManager {
 
 	}
 
-	public	static	AudioSource PlayMusic( string name, float FadeTime = 3.0f )
+	public	static	AudioSource FadeInMusic( AudioSource pAudioSource, float FadeTime = 3.0f ) {
+
+		pAudioSource.loop = true;
+		pAudioFader.FadeIn( pAudioSource, FadeTime );
+
+		return pAudioSource;
+	}
+
+	public	static	AudioSource FadeInMusic( string name, float FadeTime = 3.0f )
 	{
 		
 		AudioSource pAudioSource = FindMusic( name );
@@ -127,35 +131,55 @@ public static class AudioManager {
 
 		pAudioSource.loop = true;
 
-	//		AudioFadeScript.FadeIn( pAudioSource, 2 );
-
 		pAudioFader.FadeIn( pAudioSource, FadeTime );
 
 		return pAudioSource;
 
 	}
 
-	public	static	AudioSource PlayMusic( AudioSource pAudioSource, float FadeTime = 3.0f ) {
+
+	public	static	AudioSource FadeOutMusic( AudioSource pAudioSource, float FadeTime = 3.0f ) {
 
 		pAudioSource.loop = true;
-		pAudioFader.FadeIn( pAudioSource, FadeTime );
+		pAudioFader.FadeOut( pAudioSource, FadeTime );
 
 		return pAudioSource;
 	}
 
 
-    public	static	void StopAllSounds() {
+	public	static	AudioSource FadeOutMusic( string name, float FadeTime = 3.0f ) {
+		
+		AudioSource pAudioSource = FindMusic( name );
+        
+		if ( pAudioSource == null ) {
+			Debug.LogWarning( "Music " + name + " not found" );
+			return null;
+		}
+
+		pAudioSource.loop = true;
+
+		pAudioFader.FadeOut( pAudioSource, FadeTime );
+
+		return pAudioSource;
+
+	}
+
+
+	public	static	void StopAllSounds() {
 
 		foreach( AudioSrc s in vSounds ) if ( s.pSource != null ) s.pSource.Stop();
 
 	}
 
-    public	static	void StopAllMusics()
-    {
+	public	static	void StopAllMusics( bool bInstant = false ) {
 
-       foreach( AudioSrc s in vMusics ) if ( s.pSource != null ) s.pSource.Stop();
+		foreach( AudioSrc s in vMusics ) if ( s.pSource != null )
+			if ( bInstant )
+				s.pSource.Stop();
+			else
+				FadeOutMusic( s.pSource );
 
-    }
+	}
 
 }
 			 
