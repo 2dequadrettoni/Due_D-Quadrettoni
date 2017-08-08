@@ -140,8 +140,8 @@ public class GameManager : MonoBehaviour {
 
 		int iCurrentObjectLeft = vObjects.Count;
 
-		GLOBALS.Player1.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-		GLOBALS.Player2.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+		GLOBALS.Player1.pSpriteRenderer.enabled = false;
+		GLOBALS.Player2.pSpriteRenderer.enabled = false;
 
 		while ( iCurrentObjectLeft > 0 ) {
 			foreach( GO_Position p in vObjects	) {
@@ -163,8 +163,8 @@ public class GameManager : MonoBehaviour {
 			yield return null;
 		}
 
-		GLOBALS.Player1.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-		GLOBALS.Player2.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+		GLOBALS.Player1.pSpriteRenderer.enabled = true;
+		GLOBALS.Player2.pSpriteRenderer.enabled = true;
 
 		GLOBALS.Player1.Spawn();
 		GLOBALS.Player2.Spawn();

@@ -99,6 +99,9 @@ public partial class Player: MonoBehaviour {
 
 	//	UNITY STUFF
 	private		SpriteRenderer	pRenderer				= null;
+	public		SpriteRenderer	pSpriteRenderer {
+		get { return pRenderer; }
+	}
 	private		SpriteRenderer	pCursorRenderer			= null;
 	private		Animator		pAnimator				= null;
 	private		Transform		pPlanTile				= null;
