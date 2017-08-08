@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour {
 
 	private void Start() {
 		
+		AudioManager.LoadResources();
+
 		pFinalTile1 = transform.GetChild( 0 ).GetComponent<FinalTile>();
 		pFinalTile2 = transform.GetChild( 1 ).GetComponent<FinalTile>();
 

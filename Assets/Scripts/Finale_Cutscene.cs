@@ -46,8 +46,6 @@ public class Finale_Cutscene : MonoBehaviour {
 
 		}
 
-
-		AudioManager.Initialize();
 		AudioManager.FadeInMusic( "Cutscene_Finale", 0.0f );
 
 		Menu.bGameStarted = true;

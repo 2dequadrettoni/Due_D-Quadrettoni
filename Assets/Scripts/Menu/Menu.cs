@@ -38,8 +38,6 @@ public partial class Menu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		AudioManager.Initialize();
-
 		if ( !bGameStarted ) {
 			MainMenuScreen.SetActive( false );
 			LevelSelectionScreen.SetActive( false );
@@ -80,8 +78,7 @@ public partial class Menu : MonoBehaviour {
 
 		if ( bGameStarted ) {
 
-			
-			AudioManager.FadeInMusic("Menu_Theme");
+			AudioManager.FadeInMusic( "Menu_Theme" );
 
 			StartCoroutine( Menu_BlackImage_FadeOut() );
 

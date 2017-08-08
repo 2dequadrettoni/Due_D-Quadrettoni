@@ -32,6 +32,9 @@ public partial class Menu {
 
 	IEnumerator ShowLogoCoroutine() {
 
+		// start loading sounds
+		AudioManager.LoadResources();
+
 		// LOGO FADE IN
 
 		Logo_BlackScreenImage.raycastTarget = true;
@@ -72,8 +75,6 @@ public partial class Menu {
 		LoadingScreen.SetActive( false );
 		CutsceneScreen.SetActive( false );
 		Logo_BlackScreen.SetActive( false );
-
-		AudioManager.FadeInMusic("Menu_Theme");
 
 		StartCoroutine( Menu_BlackImage_FadeOut() );
 

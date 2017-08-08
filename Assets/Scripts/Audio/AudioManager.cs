@@ -23,10 +23,14 @@ public static class AudioManager {
 
 	private	static	AudioFader				pAudioFader		= null;
 
+	public	static	bool					Loaded			= false;
+
 	// Use this for initialization
-	public	static	void  Initialize () {
+	public	static	void  LoadResources () {
 
 		if ( bInitialized ) return;
+
+		bInitialized = true;
 
 		vSounds = new List<AudioSrc>();
 		vMusics = new List<AudioSrc>();
@@ -77,7 +81,7 @@ public static class AudioManager {
 
 		}
 
-		bInitialized = true;
+		Loaded = true;
 
 	}
 

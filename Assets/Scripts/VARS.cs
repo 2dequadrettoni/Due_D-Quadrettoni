@@ -54,8 +54,6 @@ public class VARS : MonoBehaviour {
 				GLOBALS.EventManager	= GM.GetComponent<EventManager>();
 			}
 			else GLOBALS.UI.ShowMessage( "Error", "Cannot find GameManager object", delegate { Application.Quit(); } );
-
-			AudioManager.Initialize();
 		}
 
 		{//	Player 1
