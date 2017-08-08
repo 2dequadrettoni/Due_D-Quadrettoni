@@ -73,7 +73,7 @@ public partial class Menu {
 		CutsceneScreen.SetActive( false );
 		Logo_BlackScreen.SetActive( false );
 
-		AudioManager.PlayMusic("Menu_Theme");
+		AudioManager.FadeInMusic("Menu_Theme");
 
 		StartCoroutine( Menu_BlackImage_FadeOut() );
 

@@ -87,6 +87,14 @@ public static class AudioManager {
 
 	}
 
+	public	static	AudioSource Play( AudioSource pAudioSource, bool loop = false ) {
+
+		pAudioSource.loop = loop;
+		pAudioSource.Play();
+
+		return pAudioSource;
+
+	}
 
 	public	static	AudioSource Play( string name, bool loop = false ) {
 			
@@ -97,10 +105,7 @@ public static class AudioManager {
 			return null;
 		}
 	
-		pAudioSource.loop = loop;
-		pAudioSource.Play();
-
-		return pAudioSource;
+		return Play( pAudioSource, loop );
 
 	}
 
@@ -129,11 +134,7 @@ public static class AudioManager {
 			return null;
 		}
 
-		pAudioSource.loop = true;
-
-		pAudioFader.FadeIn( pAudioSource, FadeTime );
-
-		return pAudioSource;
+		return FadeInMusic( pAudioSource, FadeTime );
 
 	}
 

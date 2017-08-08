@@ -28,7 +28,7 @@ public partial class Menu {
 	private	void	StartCutscene() {
 
 		AudioManager.StopAllMusics();
-		AudioManager.PlayMusic( "Cutscene_Start" );
+		AudioManager.FadeInMusic( "Cutscene_Start" );
 
 		Cutscene_BigImage.sprite = pCurrentSprite = vCutsceneSprites[ iCurrentSpriteIndex ];
 

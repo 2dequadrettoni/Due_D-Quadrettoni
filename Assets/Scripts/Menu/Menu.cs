@@ -81,7 +81,7 @@ public partial class Menu : MonoBehaviour {
 		if ( bGameStarted ) {
 
 			
-			AudioManager.PlayMusic("Menu_Theme");
+			AudioManager.FadeInMusic("Menu_Theme");
 
 			StartCoroutine( Menu_BlackImage_FadeOut() );
 
