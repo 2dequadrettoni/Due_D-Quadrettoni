@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
 			AudioManager.StopAllMusics();
 
 			p.loop= true;
-			AudioManager.PlayMusic( p, 5.0f );
+			AudioManager.FadeInMusic( p, 5.0f );
 
 		}
 
