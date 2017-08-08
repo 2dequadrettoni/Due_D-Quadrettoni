@@ -55,12 +55,14 @@ public partial class Platform : MonoBehaviour {
 	// DOCK 1
 	private		Transform			pDock1						= null;
 	private		Transform			pPoint1						= null;
+	private		Platform_Dock		pPlatform_Dock1				= null;
 
 	////////////////////////////////////////////////////////////////////////
 
 	// DOCK 2
 	private		Transform			pDock2						= null;
 	private		Transform			pPoint2						= null;
+	private		Platform_Dock		pPlatform_Dock2				= null;
 	
 
 	// Use this for initialization
@@ -72,10 +74,12 @@ public partial class Platform : MonoBehaviour {
 		// DOCK 1
 		pDock1		= transform.parent.transform.GetChild( 1 );
 		pPoint1		= pDock1.GetChild( 0 );
+		pPlatform_Dock1 = pDock1.GetComponent<Platform_Dock>();
 
 		// DOCK 1
 		pDock2		= transform.parent.transform.GetChild( 2 );
 		pPoint2		= pDock2.GetChild( 0 );
+		pPlatform_Dock2 = pDock2.GetComponent<Platform_Dock>();
 
 
 		if ( iStartpoint == 1 ) {
@@ -133,8 +137,10 @@ public partial class Platform : MonoBehaviour {
 			GLOBALS.StageManager.RemoveActiveObject();
 			transform.position = Vector3.Lerp( vStartPosition, vEndPosition, fInterpolant );
 			if ( pPlayer ) pPlayer.transform.position = transform.position;
-			if ( pPlayer && pPlayer.FindPath ( ( ( (int)fInterpolant + 1 ) == iStartpoint ) ?  pDock1.position : pDock2.position ) )
+			if ( pPlayer && pPlayer.FindPath ( ( ( (int)fInterpolant + 1 ) == iStartpoint ) ?  pDock1.position : pDock2.position ) ) {
 				pPlayer.Move();
+				pPlayer.IsOnDock = true;
+			}
 
 			return;
 		}
@@ -158,6 +164,8 @@ public partial class Platform : MonoBehaviour {
 	private void OnTriggerStay( Collider other ) {
 		
 		if ( !bActive && GLOBALS.StageManager.IsPlaying && !bHasPlayerInside && other.tag == "Player" ) {
+
+			if ( !pPlatform_Dock1.PlayerOn && !pPlatform_Dock2.PlayerOn ) return;
 
 			Player pPlayer = other.GetComponent<Player>();
 			if ( !pPlayer.Linked && !pPlayer.IsBusy() ) {
