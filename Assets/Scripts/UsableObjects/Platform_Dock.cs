@@ -9,18 +9,30 @@ public class Platform_Dock : MonoBehaviour {
 
 	public	bool	PlayerOn = false;
 
+	public	bool	CurrentPlatformDock = false;
+
+	public	Player	CurrentPlayer = null;
+
 
 	private void OnTriggerStay( Collider other ) {
 		
-		if ( GLOBALS.StageManager.IsPlaying && other.tag == "Player" )
+		if ( GLOBALS.StageManager.IsPlaying && other.tag == "Player" ) {
+
+			CurrentPlayer = ( other.name == "Player1" ) ? GLOBALS.Player1 : GLOBALS.Player2;
+
 			PlayerOn = true;
+		}
 
 	}
 
 	private void OnTriggerExit( Collider other ) {
 
-		if ( GLOBALS.StageManager.IsPlaying && other.tag == "Player" )
+		if ( GLOBALS.StageManager.IsPlaying && other.tag == "Player" ) {
+
+			CurrentPlayer = null;
+
 			PlayerOn = false;
+		}
 		
 	}
 

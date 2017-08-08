@@ -63,6 +63,8 @@ public partial class Platform : MonoBehaviour {
 	private		Transform			pDock2						= null;
 	private		Transform			pPoint2						= null;
 	private		Platform_Dock		pPlatform_Dock2				= null;
+
+	private		
 	
 
 	// Use this for initialization
@@ -85,10 +87,14 @@ public partial class Platform : MonoBehaviour {
 		if ( iStartpoint == 1 ) {
 			vStartPosition	= pPoint1.position;
 			vEndPosition	= pPoint2.position;
+			pPlatform_Dock1.CurrentPlatformDock = true;
+			pPlatform_Dock1.CurrentPlatformDock = false;
 		}
 		else {
 			vStartPosition	= pPoint2.position;
 			vEndPosition	= pPoint1.position;
+			pPlatform_Dock1.CurrentPlatformDock = false;
+			pPlatform_Dock1.CurrentPlatformDock = true;
 		}
 		transform.position	= vStartPosition;
 
@@ -118,6 +124,28 @@ public partial class Platform : MonoBehaviour {
 			bIsHighLighted = false;
 		}
 		this.UpdateHighLighting();
+		/*
+
+		if ( !bActive && GLOBALS.StageManager.IsPlaying && !bHasPlayerInside ) {
+
+			Player pPlayer = null;
+
+			if ( pPlatform_Dock1.PlayerOn && ( pPlayer = pPlatform_Dock1.CurrentPlayer ) ||
+				( pPlatform_Dock2.PlayerOn && ( pPlayer = pPlatform_Dock2.CurrentPlayer ) ) ) {
+
+				if ( !pPlayer.Linked && !pPlayer.IsBusy() ) {
+					pPlayer.Stop();
+					pPlayer.SetIdle();
+					pPlayer.Link( this );
+					bHasPlayerInside = true;
+					pPlayer.transform.position = transform.position;
+					this.pPlayer = pPlayer;
+					print( "Player " + pPlayer.ID + " ENTER platform" );
+				}
+			}
+
+		}
+		*/
 
 	}
 
@@ -136,10 +164,24 @@ public partial class Platform : MonoBehaviour {
 			fInterpolant	= Mathf.Clamp01( fInterpolant );
 			GLOBALS.StageManager.RemoveActiveObject();
 			transform.position = Vector3.Lerp( vStartPosition, vEndPosition, fInterpolant );
-			if ( pPlayer ) pPlayer.transform.position = transform.position;
-			if ( pPlayer && pPlayer.FindPath ( ( ( (int)fInterpolant + 1 ) == iStartpoint ) ?  pDock1.position : pDock2.position ) ) {
-				pPlayer.Move();
-				pPlayer.IsOnDock = true;
+
+			if ( ( (int)fInterpolant + 1 ) == iStartpoint ) {
+				pPlatform_Dock1.CurrentPlatformDock = true;
+				pPlatform_Dock2.CurrentPlatformDock = false;
+			}
+			else {
+				pPlatform_Dock1.CurrentPlatformDock = false;
+				pPlatform_Dock2.CurrentPlatformDock = true;
+			}
+
+
+			if ( bHasPlayerInside ) {
+
+				pPlayer.transform.position = transform.position;
+
+				if ( pPlayer.FindPath ( ( ( (int)fInterpolant + 1 ) == iStartpoint ) ?  pDock1.position : pDock2.position ) ) {
+					pPlayer.Move();
+				}
 			}
 
 			return;
@@ -159,10 +201,16 @@ public partial class Platform : MonoBehaviour {
 		AudioManager.Play( "Platform_OnUse" );
 		bActive = true;
 	}
-
+	
 
 	private void OnTriggerStay( Collider other ) {
 		
+		if ( pPlayer != null && !pPlayer.IsBusy() && pPlayer.Linked ) {
+			pPlayer.UnLink( this );
+			bHasPlayerInside = false;
+			return;
+		}
+
 		if ( !bActive && GLOBALS.StageManager.IsPlaying && !bHasPlayerInside && other.tag == "Player" ) {
 
 			if ( !pPlatform_Dock1.PlayerOn && !pPlatform_Dock2.PlayerOn ) return;
@@ -180,7 +228,7 @@ public partial class Platform : MonoBehaviour {
 		}
 
 	}
-
+	
 	private void OnTriggerExit( Collider other ) {
 		
 		if ( GLOBALS.StageManager.IsPlaying && bHasPlayerInside && other.tag == "Player" ) {

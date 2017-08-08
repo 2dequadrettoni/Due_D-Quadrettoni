@@ -53,7 +53,6 @@ public partial class Player: MonoBehaviour {
 	public		Platform LinkedObject {
 		get{ return pLinkedObject; }
 	}
-	public		bool			IsOnDock				= false;
 
 
 	// INVENTORY
