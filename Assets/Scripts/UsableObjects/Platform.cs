@@ -160,7 +160,7 @@ public partial class Platform : MonoBehaviour {
 	}
 
 
-	private void OnTriggerEnter( Collider other ) {
+	private void OnTriggerStay( Collider other ) {
 		
 		if ( !bActive && GLOBALS.StageManager.IsPlaying && !bHasPlayerInside && other.tag == "Player" ) {
 
