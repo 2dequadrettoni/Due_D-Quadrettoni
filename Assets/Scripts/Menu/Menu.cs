@@ -76,7 +76,7 @@ public partial class Menu : MonoBehaviour {
 
 		}
 
-
+//		Time.timeScale = 0.25f;
 
 		if ( bGameStarted ) {
 

@@ -36,8 +36,9 @@ public class GameManager : MonoBehaviour {
 		if ( p != null && !p.isPlaying ) {
 
 			AudioManager.StopAllMusics();
+
 			p.loop= true;
-			p.Play();
+			AudioManager.PlayMusic( p, 5.0f );
 
 		}
 

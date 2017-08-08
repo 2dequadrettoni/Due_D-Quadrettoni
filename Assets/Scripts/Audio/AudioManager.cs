@@ -21,7 +21,7 @@ public static class AudioManager {
 
 	private	static	bool					bInitialized	= false;
 
-//	private	static	AudioFader				pAudioFader		= null;
+	private	static	AudioFader				pAudioFader		= null;
 
 	// Use this for initialization
 	public	static	void  Initialize ()
@@ -36,7 +36,7 @@ public static class AudioManager {
 
 		UnityEngine.Object.DontDestroyOnLoad( pAudioContainer );
 
-//		pAudioFader = pAudioContainer.AddComponent<AudioFader>();
+		pAudioFader = pAudioContainer.AddComponent<AudioFader>();
 
 		// Sounds
 		{
@@ -115,26 +115,33 @@ public static class AudioManager {
 
 	}
 
-    public	static	AudioSource PlayMusic( string name )
-    {
+	public	static	AudioSource PlayMusic( string name, float FadeTime = 3.0f )
+	{
 		
 		AudioSource pAudioSource = FindMusic( name );
         
-        if ( pAudioSource == null ) {
+		if ( pAudioSource == null ) {
 			Debug.LogWarning( "Music " + name + " not found" );
 			return null;
 		}
 
 		pAudioSource.loop = true;
-		pAudioSource.Play();
 
-		AudioFadeScript.FadeIn( pAudioSource, 2 );
+	//		AudioFadeScript.FadeIn( pAudioSource, 2 );
 
-//		pAudioFader.FadeIn( pAudioSource );
+		pAudioFader.FadeIn( pAudioSource, FadeTime );
 
 		return pAudioSource;
 
-    }
+	}
+
+	public	static	AudioSource PlayMusic( AudioSource pAudioSource, float FadeTime = 3.0f ) {
+
+		pAudioSource.loop = true;
+		pAudioFader.FadeIn( pAudioSource, FadeTime );
+
+		return pAudioSource;
+	}
 
 
     public	static	void StopAllSounds() {
