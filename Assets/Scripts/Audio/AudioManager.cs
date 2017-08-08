@@ -157,11 +157,7 @@ public static class AudioManager {
 			return null;
 		}
 
-		pAudioSource.loop = true;
-
-		pAudioFader.FadeOut( pAudioSource, FadeTime );
-
-		return pAudioSource;
+		return FadeOutMusic( pAudioSource, FadeTime );
 
 	}
 
@@ -172,7 +168,7 @@ public static class AudioManager {
 
 	}
 
-	public	static	void StopAllMusics( bool bInstant = false ) {
+	public	static	void StopAllMusics( bool bInstant = true ) {
 
 		foreach( AudioSrc s in vMusics ) if ( s.pSource != null )
 			if ( bInstant )
