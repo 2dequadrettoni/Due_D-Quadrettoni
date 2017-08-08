@@ -55,14 +55,14 @@ public partial class Platform : MonoBehaviour {
 	// DOCK 1
 	private		Transform			pDock1						= null;
 	private		Transform			pPoint1						= null;
-	private		Platform_Dock		pPlatform_Dock1				= null;
+//	private		Platform_Dock		pPlatform_Dock1				= null;
 
 	////////////////////////////////////////////////////////////////////////
 
 	// DOCK 2
 	private		Transform			pDock2						= null;
 	private		Transform			pPoint2						= null;
-	private		Platform_Dock		pPlatform_Dock2				= null;
+//	private		Platform_Dock		pPlatform_Dock2				= null;
 
 	private		
 	
@@ -76,25 +76,25 @@ public partial class Platform : MonoBehaviour {
 		// DOCK 1
 		pDock1		= transform.parent.transform.GetChild( 1 );
 		pPoint1		= pDock1.GetChild( 0 );
-		pPlatform_Dock1 = pDock1.GetComponent<Platform_Dock>();
+//		pPlatform_Dock1 = pDock1.GetComponent<Platform_Dock>();
 
 		// DOCK 1
 		pDock2		= transform.parent.transform.GetChild( 2 );
 		pPoint2		= pDock2.GetChild( 0 );
-		pPlatform_Dock2 = pDock2.GetComponent<Platform_Dock>();
+//		pPlatform_Dock2 = pDock2.GetComponent<Platform_Dock>();
 
 
 		if ( iStartpoint == 1 ) {
 			vStartPosition	= pPoint1.position;
 			vEndPosition	= pPoint2.position;
-			pPlatform_Dock1.CurrentPlatformDock = true;
-			pPlatform_Dock1.CurrentPlatformDock = false;
+//			pPlatform_Dock1.CurrentPlatformDock = true;
+//			pPlatform_Dock1.CurrentPlatformDock = false;
 		}
 		else {
 			vStartPosition	= pPoint2.position;
 			vEndPosition	= pPoint1.position;
-			pPlatform_Dock1.CurrentPlatformDock = false;
-			pPlatform_Dock1.CurrentPlatformDock = true;
+//			pPlatform_Dock1.CurrentPlatformDock = false;
+//			pPlatform_Dock1.CurrentPlatformDock = true;
 		}
 		transform.position	= vStartPosition;
 
@@ -164,7 +164,7 @@ public partial class Platform : MonoBehaviour {
 			fInterpolant	= Mathf.Clamp01( fInterpolant );
 			GLOBALS.StageManager.RemoveActiveObject();
 			transform.position = Vector3.Lerp( vStartPosition, vEndPosition, fInterpolant );
-
+			/*
 			if ( ( (int)fInterpolant + 1 ) == iStartpoint ) {
 				pPlatform_Dock1.CurrentPlatformDock = true;
 				pPlatform_Dock2.CurrentPlatformDock = false;
@@ -173,7 +173,7 @@ public partial class Platform : MonoBehaviour {
 				pPlatform_Dock1.CurrentPlatformDock = false;
 				pPlatform_Dock2.CurrentPlatformDock = true;
 			}
-
+			*/
 
 			if ( bHasPlayerInside ) {
 
@@ -181,6 +181,7 @@ public partial class Platform : MonoBehaviour {
 
 				if ( pPlayer.FindPath ( ( ( (int)fInterpolant + 1 ) == iStartpoint ) ?  pDock1.position : pDock2.position ) ) {
 					pPlayer.Move();
+					pPlayer = null;
 				}
 			}
 
@@ -213,7 +214,7 @@ public partial class Platform : MonoBehaviour {
 
 		if ( !bActive && GLOBALS.StageManager.IsPlaying && !bHasPlayerInside && other.tag == "Player" ) {
 
-			if ( !pPlatform_Dock1.PlayerOn && !pPlatform_Dock2.PlayerOn ) return;
+	//		if ( !pPlatform_Dock1.PlayerOn && !pPlatform_Dock2.PlayerOn ) return;
 
 			Player pPlayer = other.GetComponent<Player>();
 			if ( !pPlayer.Linked && !pPlayer.IsBusy() ) {

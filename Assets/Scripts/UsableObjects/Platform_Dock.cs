@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Platform_Dock : MonoBehaviour {
 
-
+	/*
 	public	bool	PlayerOn = false;
 
 	public	bool	CurrentPlatformDock = false;
@@ -34,7 +34,7 @@ public class Platform_Dock : MonoBehaviour {
 			PlayerOn = false;
 		}
 		
-	}
+	}*/
 
 
 }
