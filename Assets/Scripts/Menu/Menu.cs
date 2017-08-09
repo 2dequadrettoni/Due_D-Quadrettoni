@@ -78,8 +78,6 @@ public partial class Menu : MonoBehaviour {
 
 		if ( bGameStarted ) {
 
-			AudioManager.FadeInMusic( "Menu_Theme" );
-
 			StartCoroutine( Menu_BlackImage_FadeOut() );
 
 			return;
@@ -162,6 +160,7 @@ public partial class Menu : MonoBehaviour {
 	}
 
 	void	OnFadeOutCompleted() {
+
 		bEnabled = true;
 		Menu_BlackScreenImage.raycastTarget = false;
 		Menu_BlackScreenImage.enabled = false;
@@ -229,6 +228,18 @@ public partial class Menu : MonoBehaviour {
 		Loading_BlackScreenImage.color = new Color(1, 1, 1, 0);
 
 		yield return new WaitForSecondsRealtime(Random.Range(4, 7));
+
+		yield return new WaitForEndOfFrame();
+
+		while (Loading_BlackScreenImage.color.a < 1)
+		{
+			float i = Loading_BlackScreenImage.color.a + ( Time.deltaTime * 3 );
+			Loading_BlackScreenImage.color = new Color(1, 1, 1, i);
+			yield return null;
+
+		}
+
+		Loading_BlackScreenImage.color = new Color(1, 1, 1, 1);
 
 		OnFadeInCompleted();
 

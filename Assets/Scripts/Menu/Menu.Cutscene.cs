@@ -35,7 +35,7 @@ public partial class Menu {
 		Cutscene_BlackScreenImage.enabled = true;
 
 		// fa scomparire l'immagine nera
-		StartCoroutine( Cutscene_BlackImage_FadeOut() );
+		StartCoroutine( Cutscene_BlackImage_FadeOut( () => StartCoroutine( ShowCutsceneFrame() ) ) );
 
 //		SceneManager.LoadScene( 0 );
 
@@ -53,7 +53,7 @@ public partial class Menu {
 			if ( bCutsceneDebug ) print( "EndCutsceneFrameCallback continue" );
 
 			// fade black image out
-			StartCoroutine( Cutscene_BlackImage_FadeOut() );
+			StartCoroutine( Cutscene_BlackImage_FadeOut( () => StartCoroutine( ShowCutsceneFrame() ) ) );
 
 			return;
 		}
@@ -85,13 +85,13 @@ public partial class Menu {
 
 		bPlaying = false;
 
-		StartCoroutine( Cutscene_BlackImage_FadeIn() );
+		StartCoroutine( Cutscene_BlackImage_FadeIn( () => EndCutsceneFrameCallback() ) );
 
 	}
 
 
 
-	IEnumerator Cutscene_BlackImage_FadeIn () {
+	IEnumerator Cutscene_BlackImage_FadeIn ( System.Action EndCallback ) {
 
 		if ( bCutsceneDebug ) print( "Cutscene_BlackImage_FadeIn start" );
 
@@ -112,7 +112,7 @@ public partial class Menu {
 
 		if ( bCutsceneDebug ) print( "Cutscene_BlackImage_FadeIn processing end" );
 
-		EndCutsceneFrameCallback();
+		EndCallback();
 
 	}
 
@@ -120,7 +120,7 @@ public partial class Menu {
 
 
 
-	IEnumerator Cutscene_BlackImage_FadeOut () {
+	IEnumerator Cutscene_BlackImage_FadeOut ( System.Action EndCallback ) {
 
 		if ( bCutsceneDebug ) print( "Cutscene_BlackImage_FadeOut start" );
 
@@ -140,7 +140,7 @@ public partial class Menu {
 
 		Cutscene_BlackScreenImage.color = new Color(1, 1, 1, 0);
 
-		StartCoroutine( ShowCutsceneFrame() );
+		EndCallback();
 
 	}
 

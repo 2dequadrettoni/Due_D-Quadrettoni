@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 
 struct GO_Position {
 	public GameObject	o;
-	public Vector3		Position;
+	public Vector3		Original_Position;
+	public Vector3		Decom_Position;
 	private bool		bDone;
-	public GO_Position( GameObject o, Vector3 Position ) {
+	public GO_Position( GameObject o, Vector3 Original_Position, Vector3 Decom_Position ) {
 		this.o = o;
-		this.Position = Position;
+		this.Original_Position = Original_Position;
+		this.Decom_Position = Decom_Position;
 		bDone = false;
 	}
 	public bool IsDone() { return bDone; }
@@ -34,7 +36,7 @@ public class GameManager : MonoBehaviour {
 	public		Sprite			pTutorial_3_PlaySprite			= null;
 	public		Sprite			pTutorial_4_RestartSprite		= null;
 
-	List<GO_Position> vObjects;
+	private		List<GO_Position> vObjects						= null;
 
 	private void Start() {
 		
@@ -131,10 +133,12 @@ public class GameManager : MonoBehaviour {
 
 	private void AddObj( GameObject o ) {
 
-		GO_Position p = new GO_Position( o, o.transform.position );
+		Vector3 vDecom_Position = new Vector3( Random.Range( -100, 100 ), Random.Range( -100, 100 ), Random.Range( -100, 100 ) );
+
+		GO_Position p = new GO_Position( o, o.transform.position, vDecom_Position );
 		vObjects.Add( p );
 
-		o.transform.position = new Vector3( Random.Range( -100, 100 ), Random.Range( -100, 100 ), Random.Range( -100, 100 ) );
+		o.transform.position = vDecom_Position;
 
 	}
 
@@ -150,12 +154,12 @@ public class GameManager : MonoBehaviour {
 
 				if ( p.IsDone() ) continue;
 
-				if ( Vector3.Distance( p.o.transform.position, p.Position ) > 0.001f ) {
+				if ( Vector3.Distance( p.o.transform.position, p.Original_Position ) > 0.001f ) {
 
-					p.o.transform.position = Vector3.LerpUnclamped( p.o.transform.position, p.Position, Time.unscaledDeltaTime * 3.0f );
+					p.o.transform.position = Vector3.LerpUnclamped( p.o.transform.position, p.Original_Position, Time.unscaledDeltaTime * 3.0f );
 				}
 				else {
-					p.o.transform.position = p.Position;
+					p.o.transform.position = p.Original_Position;
 					p.SetDone();
 					iCurrentObjectLeft--;
 				}
@@ -170,6 +174,37 @@ public class GameManager : MonoBehaviour {
 
 		GLOBALS.Player1.Spawn();
 		GLOBALS.Player2.Spawn();
+
+	}
+
+	IEnumerator LevelDecompositionCoroutine() {
+
+		int iCurrentObjectLeft = vObjects.Count;
+
+		yield return new WaitForSecondsRealtime( 1.0f );
+
+		while ( iCurrentObjectLeft > 0 ) {
+			foreach( GO_Position p in vObjects	) {
+
+				if ( p.IsDone() ) continue;
+
+				if ( Vector3.Distance( p.o.transform.position, p.Decom_Position ) > 0.001f ) {
+
+					p.o.transform.position = Vector3.LerpUnclamped( p.o.transform.position, p.Decom_Position, Time.unscaledDeltaTime * 0.5f );
+				}
+				else {
+					p.o.transform.position = p.Decom_Position;
+					p.SetDone();
+					iCurrentObjectLeft--;
+				}
+
+			}
+
+			yield return null;
+		}
+
+		GLOBALS.Player1.pSpriteRenderer.enabled = false;
+		GLOBALS.Player2.pSpriteRenderer.enabled = false;
 
 	}
 
@@ -211,6 +246,8 @@ public class GameManager : MonoBehaviour {
 			GLOBALS.Player2.PlayWinAnimation();
 
 			GLOBALS.UI.BlackScreenFadeIn();
+
+			StartCoroutine( LevelDecompositionCoroutine() );
 
 		}
 
