@@ -94,7 +94,7 @@ public class AnimationEvents : MonoBehaviour {
 		if ( GLOBALS.StageManager.IsPlaying )
 				GLOBALS.StageManager.Stop( true );
 
-		UnityEngine.SceneManagement.SceneManager.LoadScene( UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1 );
+		UnityEngine.SceneManagement.SceneManager.LoadScene( GLOBALS.CurrentLevel + 1 );
 
 
 	}

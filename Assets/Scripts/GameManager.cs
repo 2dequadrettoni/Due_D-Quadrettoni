@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour {
 
 	private		List<GO_Position> vObjects						= null;
 
+	private		bool			bInLevelTransition				= false;
+
 	private void Start() {
 		
 		AudioManager.LoadResources();
@@ -57,7 +59,7 @@ public class GameManager : MonoBehaviour {
 			AudioManager.StopAllMusics();
 
 			p.loop= true;
-			AudioManager.FadeInMusic( p, 5.0f );
+			AudioManager.FadeInMusic( p, 8.0f );
 
 		}
 
@@ -117,13 +119,13 @@ public class GameManager : MonoBehaviour {
 		vObjects = new List<GO_Position>( vKeys.Length + vPlatforms.Length + vSwitchers.Length + vSwitchers_Plane.Length + vDoors.Length + vTiles.Length + vOthers.Length );
 
 		{
-			foreach( GameObject GO in vKeys				)	{ AddObj( GO ); }
-			foreach( GameObject GO in vPlatforms		)	{ AddObj( GO ); }
-			foreach( GameObject GO in vSwitchers		)	{ AddObj( GO ); }
-			foreach( GameObject GO in vSwitchers_Plane	)	{ AddObj( GO ); }
-			foreach( GameObject GO in vDoors			)	{ AddObj( GO ); }
-			foreach( GameObject GO in vTiles			)	{ AddObj( GO ); }
-			foreach( GameObject GO in vOthers			)	{ AddObj( GO ); }
+			foreach( GameObject GO in vKeys				)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
+			foreach( GameObject GO in vPlatforms		)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
+			foreach( GameObject GO in vSwitchers		)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
+			foreach( GameObject GO in vSwitchers_Plane	)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
+			foreach( GameObject GO in vDoors			)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
+			foreach( GameObject GO in vTiles			)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
+			foreach( GameObject GO in vOthers			)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
 		}
 
 		StartCoroutine( LevelCompositionCoroutine() );
@@ -133,7 +135,11 @@ public class GameManager : MonoBehaviour {
 
 	private void AddObj( GameObject o ) {
 
-		Vector3 vDecom_Position = new Vector3( Random.Range( -100, 100 ), Random.Range( -100, 100 ), Random.Range( -100, 100 ) );
+		Vector3 vDecom_Position = new Vector3 ( 
+			Random.Range( -10, 10 ) * vObjects.Count + Random.Range( -10, 10 ),
+			Random.Range( -10, 10 ) * vObjects.Count + Random.Range( -10, 10 ),
+			Random.Range( -10, 10 ) * vObjects.Count + Random.Range( -10, 10 )
+		);
 
 		GO_Position p = new GO_Position( o, o.transform.position, vDecom_Position );
 		vObjects.Add( p );
@@ -150,13 +156,14 @@ public class GameManager : MonoBehaviour {
 		GLOBALS.Player2.pSpriteRenderer.enabled = false;
 
 		while ( iCurrentObjectLeft > 0 ) {
+
 			foreach( GO_Position p in vObjects	) {
 
 				if ( p.IsDone() ) continue;
 
 				if ( Vector3.Distance( p.o.transform.position, p.Original_Position ) > 0.001f ) {
 
-					p.o.transform.position = Vector3.LerpUnclamped( p.o.transform.position, p.Original_Position, Time.unscaledDeltaTime * 3.0f );
+					p.o.transform.position = Vector3.LerpUnclamped( p.o.transform.position, p.Original_Position, Time.unscaledDeltaTime * Random.Range( 2.5f, 3.5f ) );
 				}
 				else {
 					p.o.transform.position = p.Original_Position;
@@ -175,22 +182,27 @@ public class GameManager : MonoBehaviour {
 		GLOBALS.Player1.Spawn();
 		GLOBALS.Player2.Spawn();
 
+		bInLevelTransition = false;
+
 	}
 
 	IEnumerator LevelDecompositionCoroutine() {
+
+		bInLevelTransition = true;
 
 		int iCurrentObjectLeft = vObjects.Count;
 
 		yield return new WaitForSecondsRealtime( 1.0f );
 
 		while ( iCurrentObjectLeft > 0 ) {
+
 			foreach( GO_Position p in vObjects	) {
 
 				if ( p.IsDone() ) continue;
 
 				if ( Vector3.Distance( p.o.transform.position, p.Decom_Position ) > 0.001f ) {
 
-					p.o.transform.position = Vector3.LerpUnclamped( p.o.transform.position, p.Decom_Position, Time.unscaledDeltaTime * 0.5f );
+					p.o.transform.position = Vector3.LerpUnclamped( p.o.transform.position, p.Decom_Position, Time.unscaledDeltaTime * Random.Range( 0.4f, 0.5f ) );
 				}
 				else {
 					p.o.transform.position = p.Decom_Position;
@@ -257,12 +269,20 @@ public class GameManager : MonoBehaviour {
 
 	public void RestartGame() {
 
+		if ( bInLevelTransition ) return;
+
 		if ( GameManager.InTutorialSequence && GameManager.TutorialStep < 5 ) return;
 
 		AudioManager.StopAllSounds();
 //		AudioManager.StopAllMusics();
 
-		SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
+		GLOBALS.CurrentLevel--;
+
+		GLOBALS.UI.BlackScreenFadeIn();
+
+		StartCoroutine( LevelDecompositionCoroutine() );
+
+//		SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
 
 	}
 

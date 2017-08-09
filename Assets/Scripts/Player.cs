@@ -155,6 +155,12 @@ public partial class Player: MonoBehaviour {
 
 	}
 
+	public	void	GoAway() {
+
+		pAnimator.Play( "Destroy", 0, 0.0f );
+
+	}
+
 
 	public	void	OnSpawnEnd() {
 		// Set movement tutorial
@@ -210,7 +216,7 @@ public partial class Player: MonoBehaviour {
 
 	public void Destroy() {
 		Stop();
-		pAnimator.Play( "Destroy", 0, 0.0f );
+		GoAway();
 		AudioManager.Play( "PG_Death" );
 
 	}
