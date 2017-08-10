@@ -4,6 +4,8 @@
 
 public static class GLOBALS {
 
+	public	static	Logger			Logger				= null;
+
 	public	static	int				CurrentLevel		= -1;
 
 	public	static	UI				UI					= null;

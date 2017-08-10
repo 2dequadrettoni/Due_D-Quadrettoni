@@ -14,7 +14,7 @@ public partial class Menu {
 
 		AudioClip vSoundsClip = Resources.Load<AudioClip>( "Audio/Sounds/Incidente" );
 
-		GameObject o = new GameObject( "bumbaudio" );
+		GameObject o = new GameObject( "dunpaudio" );
 
 		pSource = o.AddComponent<AudioSource>();
 		pSource.clip = vSoundsClip;
@@ -32,8 +32,9 @@ public partial class Menu {
 
 	IEnumerator ShowLogoCoroutine() {
 
+		GLOBALS.Logger = new Logger();
 		// start loading sounds
-		AudioManager.LoadResources();
+		StartCoroutine( AudioManager.LoadResources() );
 
 		// LOGO FADE IN
 
@@ -75,6 +76,10 @@ public partial class Menu {
 		LoadingScreen.SetActive( false );
 		CutsceneScreen.SetActive( false );
 		Logo_BlackScreen.SetActive( false );
+
+		while ( AudioManager.Loaded == false ) yield return null;
+		
+		GLOBALS.Logger.Close();
 
 		AudioManager.FadeInMusic( "Menu_Theme" );
 

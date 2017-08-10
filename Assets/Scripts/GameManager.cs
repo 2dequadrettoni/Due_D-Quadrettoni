@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour {
 
 	private void Start() {
 		
-		AudioManager.LoadResources();
+//		StartCoroutine( AudioManager.LoadResources() );
 
 		pFinalTile1 = transform.GetChild( 0 ).GetComponent<FinalTile>();
 		pFinalTile2 = transform.GetChild( 1 ).GetComponent<FinalTile>();
@@ -119,13 +119,13 @@ public class GameManager : MonoBehaviour {
 		vObjects = new List<GO_Position>( vKeys.Length + vPlatforms.Length + vSwitchers.Length + vSwitchers_Plane.Length + vDoors.Length + vTiles.Length + vOthers.Length );
 
 		{
-			foreach( GameObject GO in vKeys				)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
-			foreach( GameObject GO in vPlatforms		)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
-			foreach( GameObject GO in vSwitchers		)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
-			foreach( GameObject GO in vSwitchers_Plane	)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
-			foreach( GameObject GO in vDoors			)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
-			foreach( GameObject GO in vTiles			)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
-			foreach( GameObject GO in vOthers			)	{ if ( GO.transform.parent == null ) AddObj( GO ); }
+			foreach( GameObject GO in vKeys				)	{ AddObj( GO ); }
+			foreach( GameObject GO in vPlatforms		)	{ AddObj( GO ); }
+			foreach( GameObject GO in vSwitchers		)	{ AddObj( GO ); }
+			foreach( GameObject GO in vSwitchers_Plane	)	{ AddObj( GO ); }
+			foreach( GameObject GO in vDoors			)	{ AddObj( GO ); }
+			foreach( GameObject GO in vTiles			)	{ if ( !GO.transform.parent || ( GO.transform.parent && GO.transform.parent.tag != "Platform" ) ) AddObj( GO ); }
+			foreach( GameObject GO in vOthers			)	{ AddObj( GO ); }
 		}
 
 		StartCoroutine( LevelCompositionCoroutine() );
@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour {
 		Vector3 vDecom_Position = new Vector3 ( 
 			Random.Range( -10, 10 ) * vObjects.Count + Random.Range( -10, 10 ),
 			Random.Range( -10, 10 ) * vObjects.Count + Random.Range( -10, 10 ),
-			Random.Range( -10, 10 ) * vObjects.Count + Random.Range( -10, 10 )
+			0.0f
 		);
 
 		GO_Position p = new GO_Position( o, o.transform.position, vDecom_Position );
@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour {
 
 				if ( p.IsDone() ) continue;
 
-				if ( Vector3.Distance( p.o.transform.position, p.Decom_Position ) > 0.001f ) {
+				if ( Vector3.Distance( p.o.transform.position, p.Decom_Position ) > 0.1f ) {
 
 					p.o.transform.position = Vector3.LerpUnclamped( p.o.transform.position, p.Decom_Position, Time.unscaledDeltaTime * Random.Range( 0.4f, 0.5f ) );
 				}
