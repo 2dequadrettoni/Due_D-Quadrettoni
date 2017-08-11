@@ -13,23 +13,20 @@ public class Logger {
 
 	private	const string LOG_FILE_NAME = "game.log";
 
-	private	StreamWriter pWriter = null;
-
 	public Logger(  ) {
 
-		pWriter = new StreamWriter( LOG_FILE_NAME );
+		new FileStream( LOG_FILE_NAME, FileMode.OpenOrCreate, FileAccess.ReadWrite ).Close();
+
+		StreamWriter pWriter = new StreamWriter( LOG_FILE_NAME, true );
+		pWriter.WriteLine( "Logger Initialized\n" );
+		pWriter.Flush();
+		pWriter.Close();
 	}
 
 	public void Write( string logMessage ) {
+		StreamWriter pWriter = new StreamWriter( LOG_FILE_NAME, true );
 		pWriter.WriteLine( logMessage + "\n" );
 		pWriter.Flush();
-	}
-
-	public void Flush() {
-		pWriter.Flush();
-	}
-
-	public void Close() {
 		pWriter.Close();
 	}
 

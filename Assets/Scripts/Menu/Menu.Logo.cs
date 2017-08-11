@@ -24,6 +24,11 @@ public partial class Menu {
 
 		pSource.Play();
 
+		GLOBALS.Logger = new Logger();
+
+		// start loading sounds
+		AudioManager.LoadResources();
+
 		StartCoroutine( ShowLogoCoroutine() );
 
 	}
@@ -31,10 +36,6 @@ public partial class Menu {
 
 
 	IEnumerator ShowLogoCoroutine() {
-
-		GLOBALS.Logger = new Logger();
-		// start loading sounds
-		StartCoroutine( AudioManager.LoadResources() );
 
 		// LOGO FADE IN
 
@@ -77,9 +78,7 @@ public partial class Menu {
 		CutsceneScreen.SetActive( false );
 		Logo_BlackScreen.SetActive( false );
 
-		while ( AudioManager.Loaded == false ) yield return null;
-		
-		GLOBALS.Logger.Close();
+//		while ( AudioManager.Loaded == false ) yield return null;
 
 		AudioManager.FadeInMusic( "Menu_Theme" );
 

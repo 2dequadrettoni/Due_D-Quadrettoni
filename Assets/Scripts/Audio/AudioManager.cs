@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.IO;
+
 public struct AudioSrc {
 
 	public	AudioSource	pSource;
@@ -25,10 +27,9 @@ public static class AudioManager {
 	public	static	bool					Loaded			= false;
 
 	// Use this for initialization
-	public	static	IEnumerator  LoadResources () {
+	public	static	void  LoadResources () {
 
-		if ( bInitialized ) yield break;
-		Loaded = true;
+		if ( bInitialized ) return;
 		bInitialized = true;
 
 		vSounds = new List<AudioSrc>();
@@ -40,49 +41,9 @@ public static class AudioManager {
 
 		pAudioFader = pAudioContainer.AddComponent<AudioFader>();
 
-
 		// Sounds
 		{
-
-			List<AudioClip> vSoundsClip = new List<AudioClip>();
-			
-			string[] sFileNames = System.IO.Directory.GetFiles(  Application.dataPath + "/Resources/Audio/Sounds" );
-
-			if ( sFileNames == null )
-				GLOBALS.Logger.Write ( "No Sounds" );
-			else
-				GLOBALS.Logger.Write ( "Sounds " + sFileNames.Length );
-
-			foreach( string sFile in sFileNames ) {
-
-				// Skip meta files
-				if ( sFile[ sFile.Length - 1 ] == 'a' && sFile[ sFile.Length - 2 ] == 't' && sFile[ sFile.Length - 3 ] == 'e' && sFile[ sFile.Length - 4 ] == 'm' ) continue;
-
-				// Get resource path
-				int StartIndex = sFile.LastIndexOf( "Resources" ) + ("Resources/").Length;
-				string sResourcesPath = sFile.Substring( StartIndex );
-				sResourcesPath = sResourcesPath.Substring( 0, sResourcesPath.LastIndexOf( '.' ) );
-
-				GLOBALS.Logger.Write ( "Loading " + sResourcesPath );
-
-				// Async load
-				ResourceRequest pResourceRequest = Resources.LoadAsync<AudioClip>( sResourcesPath );
-				yield return pResourceRequest;
-
-				if ( pResourceRequest.asset == null ) {
-					Debug.Log( " Cannot load sound  " + sResourcesPath );
-					continue;
-				}
-				else Debug.Log( " Loaded sound  " + sResourcesPath );
-
-				AudioClip pAudioClip = pResourceRequest.asset as AudioClip;
-				vSoundsClip.Add( pAudioClip );
-
-				GLOBALS.Logger.Write ( "Loaded " );
-
-				yield return null;
-
-			}
+			AudioClip[] vSoundsClip = Resources.LoadAll<AudioClip>( "Audio/Sounds" );
 
 			foreach( AudioClip pAudioClip in vSoundsClip ) {
 
@@ -98,48 +59,11 @@ public static class AudioManager {
 
 			if ( vSounds == null || vSounds.Count == 0 ) Debug.LogWarning( "Error loading sounds" );
 
-
 		}
-
-		/*
+		
 		// Musics
 		{
-
-			List<AudioClip> vMusicsClip = new List<AudioClip>();
-
-			string[] sFileNames = System.IO.Directory.GetFiles(  Application.dataPath + "/Resources/Audio/Musics" );
-
-			GLOBALS.Logger.Write ( "Musics " + sFileNames.Length );
-			
-			foreach( string sFile in sFileNames ) {
-
-				if ( sFile[ sFile.Length - 1 ] == 'a' && sFile[ sFile.Length - 2 ] == 't' && sFile[ sFile.Length - 3 ] == 'e' && sFile[ sFile.Length - 4 ] == 'm' ) continue;
-
-				int StartIndex = sFile.LastIndexOf( "Resources" ) + ("Resources/").Length;
-
-				string sResourcesPath = sFile.Substring( StartIndex );
-
-				sResourcesPath = sResourcesPath.Substring( 0, sResourcesPath.LastIndexOf( '.' ) );
-
-				GLOBALS.Logger.Write ( "Loading " + sResourcesPath );
-
-				ResourceRequest pResourceRequest = Resources.LoadAsync<AudioClip>( sResourcesPath );
-				yield return pResourceRequest;
-
-				if ( pResourceRequest.asset == null ) {
-					Debug.Log( " Cannot load music  " + sResourcesPath );
-					continue;
-				}
-				Debug.Log( " Loaded music  " + sResourcesPath );
-
-				AudioClip pAudioClip = pResourceRequest.asset as AudioClip;
-				vMusicsClip.Add( pAudioClip );
-
-				GLOBALS.Logger.Write ( "Loaded " );
-
-				yield return null;
-
-			}
+			AudioClip[] vMusicsClip = Resources.LoadAll<AudioClip>( "Audio/Musics" );
 
 			foreach( AudioClip pAudioClip in vMusicsClip ) {
 
@@ -156,8 +80,8 @@ public static class AudioManager {
 			if ( vMusics == null || vMusics.Count == 0 ) Debug.LogWarning( "Error loading musics" );
 
 		}
-		*/
 		
+		Loaded = true;
 
 	}
 
