@@ -17,15 +17,15 @@ public class Logger {
 
 		new FileStream( LOG_FILE_NAME, FileMode.OpenOrCreate, FileAccess.ReadWrite ).Close();
 
-		StreamWriter pWriter = new StreamWriter( LOG_FILE_NAME, true );
-		pWriter.WriteLine( "Logger Initialized\n" );
+		StreamWriter pWriter = new StreamWriter( LOG_FILE_NAME );
+		pWriter.WriteLine( "Logger Initialized" );
 		pWriter.Flush();
 		pWriter.Close();
 	}
 
 	public void Write( string logMessage ) {
 		StreamWriter pWriter = new StreamWriter( LOG_FILE_NAME, true );
-		pWriter.WriteLine( logMessage + "\n" );
+		pWriter.WriteLine( UnityEngine.Time.unscaledTime + " - " + logMessage );
 		pWriter.Flush();
 		pWriter.Close();
 	}

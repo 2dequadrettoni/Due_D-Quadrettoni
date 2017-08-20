@@ -5,9 +5,9 @@ using UnityEngine;
 public partial class Menu {
 
 
-	const		float			LOGO_WAIT_TIME = 3.0f;
+	const float			LOGO_WAIT_TIME = 3.0f;
 
-	private static		AudioSource		pSource;
+	private static		AudioSource		pLogoSource;	
 
 
 	public	void	ShowLogo() {
@@ -16,18 +16,17 @@ public partial class Menu {
 
 		GameObject o = new GameObject( "dunpaudio" );
 
-		pSource = o.AddComponent<AudioSource>();
-		pSource.clip = vSoundsClip;
-		pSource.volume = 1.0f;
-		pSource.pitch = 1.0f;
-		pSource.loop = false;
-
-		pSource.Play();
+		pLogoSource = o.AddComponent<AudioSource>();
+		pLogoSource.clip = vSoundsClip;
+		pLogoSource.volume = 1.0f;
+		pLogoSource.pitch = 1.0f;
+		pLogoSource.loop = false;
 
 		GLOBALS.Logger = new Logger();
 
-		// start loading sounds
-		AudioManager.LoadResources();
+		Fader.Initialize();
+		Fader.Show();
+		AudioManager.Initialize();
 
 		StartCoroutine( ShowLogoCoroutine() );
 
@@ -37,52 +36,34 @@ public partial class Menu {
 
 	IEnumerator ShowLogoCoroutine() {
 
-		// LOGO FADE IN
+		yield return new WaitForSecondsRealtime( 1.0f );
 
-		Logo_BlackScreenImage.raycastTarget = true;
-		Logo_BlackScreenImage.color = new Color(1, 1, 1, 1);
+		// start loading sounds
+		StartCoroutine( AudioManager.LoadResources() );
 
-		yield return new WaitForSecondsRealtime( 2 );
-
-		while ( Logo_BlackScreenImage.color.a > 0 ) {
-			float i = Logo_BlackScreenImage.color.a - ( Time.deltaTime * 2 );
-			Logo_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		Logo_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-
+		pLogoSource.Play();
+		yield return new WaitForSecondsRealtime( 6.5f );
+		Logo_Animator.Play( "Animate" );
+		
 		// LOGO STAY DURING SOUND
-		while( pSource.isPlaying ) {
+		while( pLogoSource.isPlaying ) yield return null;
 
-			yield return null;
-		}
-
+		Destroy( pLogoSource.gameObject );
 
 		// LOGO FADE OUT
+		StartCoroutine( Fader.Hide( TRANSITION_TIME ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
-		while ( Logo_BlackScreenImage.color.a < 1 ) {
-			float i = Logo_BlackScreenImage.color.a + ( Time.deltaTime * 2 );
-			Logo_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
+		// WAIT FOR AUDIO RESOURCES LOAD COMPLETE
+		while ( AudioManager.Loaded == false ) yield return null;
 
-		}
-
-		Logo_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-		MainMenuScreen.SetActive( true );
-		LevelSelectionScreen.SetActive( false );
-		LoadingScreen.SetActive( false );
-		CutsceneScreen.SetActive( false );
-		Logo_BlackScreen.SetActive( false );
-
-//		while ( AudioManager.Loaded == false ) yield return null;
-
+		// FINALLY GO TO MENU CANVAS
+		ShowCanvas( Menu_Canvas.MAINMENU );
 		AudioManager.FadeInMusic( "Menu_Theme" );
 
-		StartCoroutine( Menu_BlackImage_FadeOut() );
+		// SHOW IT, ENABLE IT AT END
+		StartCoroutine( Fader.Show( TRANSITION_TIME, () => bMenuEnabled = true ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
 	}
 

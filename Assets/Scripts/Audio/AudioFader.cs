@@ -6,41 +6,55 @@ using UnityEngine;
 public class AudioFader : MonoBehaviour {
 
 	public void FadeOut ( AudioSource audioSource, float FadeTime) {
+
 		StartCoroutine( FadeOutCoroutine( audioSource, FadeTime ) );
+
 	}
 
-	IEnumerator FadeOutCoroutine(AudioSource audioSource, float FadeTime) {
+	public void FadeIn ( AudioSource audioSource, float FadeTime) {
+
+		StartCoroutine( FadeInCoroutine( audioSource, FadeTime ) );
+
+	}
+
+
+
+
+	IEnumerator FadeOutCoroutine( AudioSource audioSource, float fFadeTime ) {
 
 		float startVolume = audioSource.volume;
- 
-		while (audioSource.volume > 0)
-		{
-			audioSource.volume -= startVolume * Time.unscaledDeltaTime / FadeTime;
- 
+
+		float fFadingTimer = fFadeTime;
+
+		while ( fFadingTimer > 0.0f ) {
+			fFadingTimer -= Time.unscaledDeltaTime;
+			audioSource.volume = startVolume * ( fFadingTimer / fFadeTime );
 			yield return null;
+
 		}
- 
+
 		audioSource.Stop();
 		audioSource.volume = startVolume;
 
 	}
 
-	public void FadeIn ( AudioSource audioSource, float FadeTime) {
-		StartCoroutine( FadeInCoroutine( audioSource, FadeTime ) );
-	}
- 
-	IEnumerator FadeInCoroutine(AudioSource audioSource, float FadeTime) {
+
+
+	IEnumerator FadeInCoroutine( AudioSource audioSource, float fFadeTime ) {
  
 		audioSource.volume = 0;
 		audioSource.Play();
 
-		while (audioSource.volume < 1.0f)
-		{
-			audioSource.volume += Time.unscaledDeltaTime / FadeTime;
+		float fFadingTimer = fFadeTime;
+
+		while ( fFadingTimer > 0.0f ) {
+			fFadingTimer -= Time.unscaledDeltaTime;
+			audioSource.volume = 1.0f - ( fFadingTimer / fFadeTime );
 			yield return null;
-		}
+
+		} 
  
-		audioSource.volume = 1f;
+		audioSource.volume = 1.0f;
 
 	}
 

@@ -6,60 +6,35 @@ using UnityEngine.UI;
 
 public partial class Menu : MonoBehaviour {
 
-	static	public	bool	bGameStarted	= false;
-
-	public	GameObject		Menu_BlackScreen;
-	private	Image			Menu_BlackScreenImage;
-
-	public	GameObject		LevelSelection_BlackScreen;
-	private	Image			LevelSelection_BlackScreenImage;
-
-	public	GameObject		Loading_BlackScreen;
-	private	Image			Loading_BlackScreenImage;
-
-	public	GameObject		Cutscene_BlackScreen;
-	private	Image			Cutscene_BlackScreenImage;
-	private	Image			Cutscene_BigImage;
-
-	public	GameObject		Logo_BlackScreen;
-	private	Image			Logo_BlackScreenImage;
-
-	public GameObject		MainMenuScreen;
-	public GameObject		LevelSelectionScreen;
-	public GameObject		LoadingScreen;
-	public GameObject		CutsceneScreen;
+	public GameObject		CanvasLogo				= null;
+	public GameObject		CanvasMainMenu			= null;
+	public GameObject		CanvasSelector			= null;
+	public GameObject		CanvasLoading			= null;
+	public GameObject		CanvasCutscene			= null;
 
 
-	private	bool			bEnabled		= false;
+	enum Menu_Canvas{ LOGO, MAINMENU, SELECTOR, LOADING, CUTSCENE }
+	private	Menu_Canvas iCurrentCanvas				= 0;
 
-	private int				iLevelToLoad	= 0;
+	const	float			TRANSITION_TIME			= 1.0f;
+
+	static	public	bool	bGameStarted			= false;
+
+	private	Image			Cutscene_BigImage		= null;
+
+	private	Animator		Logo_Animator			= null;
+
+	private	bool			bMenuEnabled			= false;
+
+	private int				iLevelToLoad			= 0;
 
 
 	// Use this for initialization
 	void Start () {
 
-		if ( !bGameStarted ) {
-			MainMenuScreen.SetActive( false );
-			LevelSelectionScreen.SetActive( false );
-			LoadingScreen.SetActive( false );
-			CutsceneScreen.SetActive( false );
-			Logo_BlackScreen.SetActive( true );
-		}
-		else{
-			MainMenuScreen.SetActive( true );
-			LevelSelectionScreen.SetActive( false );
-			LoadingScreen.SetActive( false );
-			CutsceneScreen.SetActive( false );
-			Logo_BlackScreen.SetActive( false );
-		}
+		Cutscene_BigImage	= CanvasCutscene.transform.GetChild( 0 ).GetComponent<Image>();
+		Logo_Animator		= CanvasLogo.transform.GetChild( 1 ).GetComponent<Animator>();
 
-		Menu_BlackScreenImage						= Menu_BlackScreen.GetComponent<Image>();
-
-		LevelSelection_BlackScreenImage				= LevelSelection_BlackScreen.GetComponent<Image>();
-		Loading_BlackScreenImage					= Loading_BlackScreen.GetComponent<Image>();
-		Cutscene_BlackScreenImage					= Cutscene_BlackScreen.GetComponent<Image>();
-		Cutscene_BigImage							= CutsceneScreen.transform.GetChild( 0 ).GetComponent<Image>();
-		Logo_BlackScreenImage						= Logo_BlackScreen.GetComponent<Image>();
 
 		if ( vCutsceneSprites == null ) {
 
@@ -74,198 +49,139 @@ public partial class Menu : MonoBehaviour {
 
 		}
 
-//		Time.timeScale = 0.25f;
-
-		if ( bGameStarted ) {
-
-			StartCoroutine( Menu_BlackImage_FadeOut() );
-
+		if ( !bGameStarted ) {
+			ShowCanvas( Menu_Canvas.LOGO );
+			ShowLogo();
+			bGameStarted = true;
+			bMenuEnabled = false;
 			return;
 		}
+		else{
+			ShowCanvas( Menu_Canvas.MAINMENU );
+		}
 
-
-		ShowLogo();
-
-		bGameStarted = true;
+		StartCoroutine( Fader.Show( 3, () => bMenuEnabled = true ) );
 
 	}
 
+	private void Update() {
+		
+		if ( Input.GetKeyDown( KeyCode.Escape ) && iCurrentCanvas == Menu_Canvas.LOGO ) {
 
+			if ( AudioManager.Loaded && bMenuEnabled == false ) {
 
-	public void NewGame()
-	{	
-		if ( !bEnabled ) return;
+				print( "showing menu" );
 
-		Menu_BlackScreenImage.enabled = true;
+				Fader.Hide();
+
+				StopAllCoroutines();
+
+				pLogoSource.Stop();
+				Destroy( pLogoSource.gameObject );
+
+				ShowCanvas( Menu_Canvas.MAINMENU );
+				AudioManager.FadeInMusic( "Menu_Theme" );
+
+				// SHOW MENU, ENABLE IT AT END
+				StartCoroutine( Fader.Show( TRANSITION_TIME, () => bMenuEnabled = true ) );
+
+			}
+
+		}
+
+	}
+
+	private	void	ShowCanvas( Menu_Canvas i ) {
+		
+		iCurrentCanvas = i;
+		CanvasLogo.SetActive(				( i == Menu_Canvas.LOGO		) ? true : false );
+		CanvasMainMenu.SetActive(			( i == Menu_Canvas.MAINMENU ) ? true : false );
+		CanvasSelector.SetActive(			( i == Menu_Canvas.SELECTOR ) ? true : false );
+		CanvasLoading.SetActive(			( i == Menu_Canvas.LOADING  ) ? true : false );
+		CanvasCutscene.SetActive(			( i == Menu_Canvas.CUTSCENE ) ? true : false );
+
+	}
+
+	public void NewGame() {
+
+		if ( !bMenuEnabled ) return;
 		iLevelToLoad = 1;
-		StartCoroutine( Menu_BlackImage_FadeIn() );
+		StartCoroutine( Menu_To_Cutscene() );
 
 	}
 
 
 
-	public void SelectNightmare()
-	{
+	public void SelectNightmare() {
 
-		if ( !bEnabled ) return;
-
-		StartCoroutine( Selector_BlackImage_FadeOut() );
+		if ( !bMenuEnabled ) return;
+		StartCoroutine( Menu_To_Selector() );
 
 	}
 
 
 
-	public void ExitGame ()
-	{
-		if ( !bEnabled ) return;
+	public void ExitGame () {
 
+		if ( !bMenuEnabled ) return;
 #if UNITY_EDITOR
 			UnityEditor.EditorApplication.isPlaying = false;
 #else
 			Application.Quit();
 #endif
+	
 	}
 
 
-	public void Back()
-	{
-		if (!bEnabled) return;
+	public void Back() {
 
-		StartCoroutine(Selector_BlackImage_FadeOutToMenu());
-
-	}
-
-
-
-	public void Loadlevel(int index)
-	{
-		LevelSelection_BlackScreenImage.enabled = true;
-		StartCoroutine(Selector_BlackImage_FadeIn(index));
-	}
-
-
-
-
-
-
-
-	void OnFadeInCompleted() {
-
-		MainMenuScreen.SetActive( false );
-		LevelSelectionScreen.SetActive( false );
-		LoadingScreen.SetActive( false );
-		CutsceneScreen.SetActive( true );
-		StartCutscene();
-
-	}
-
-	void	OnFadeOutCompleted() {
-
-		bEnabled = true;
-		Menu_BlackScreenImage.raycastTarget = false;
-		Menu_BlackScreenImage.enabled = false;
+		if (!bMenuEnabled) return;
+		StartCoroutine(Selector_To_Menu());
 
 	}
 
 
 
+	public void Loadlevel(int index) {
 
+		StartCoroutine( Selector_To_Loading_To_Game( index ) );
 
-
-
-
-
-
-
+	}
 
 
 
 
 	// menu che scompare al new game
-	IEnumerator Menu_BlackImage_FadeIn () {
+	IEnumerator Menu_To_Cutscene () {
 
-		Menu_BlackScreenImage.raycastTarget = true;
-
-		yield return new WaitForEndOfFrame();
-
-		while ( Menu_BlackScreenImage.color.a < 1 ) {
-
-			float i = Menu_BlackScreenImage.color.a + ( Time.deltaTime * 3 );
-			Menu_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		Menu_BlackScreenImage.color = new Color(1, 1, 1, 1);
-		Menu_BlackScreenImage.enabled = false;
-
-		MainMenuScreen.SetActive( false );
-		LevelSelectionScreen.SetActive( false );
-		LoadingScreen.SetActive( true );
-
-
-
+		StartCoroutine( Fader.Hide( TRANSITION_TIME ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
 		// LOADING SCREEN
+		ShowCanvas( Menu_Canvas.LOADING );
 
+		StartCoroutine( Fader.Show( TRANSITION_TIME ) );
+		yield return new WaitForSecondsRealtime( Random.Range( 4, 7 ) );
 
+		StartCoroutine( Fader.Hide( 0.8f ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
-
-		Loading_BlackScreenImage.enabled = true;
-		Menu_BlackScreenImage.raycastTarget = false;
-
-		yield return new WaitForEndOfFrame();
-
-		while (Loading_BlackScreenImage.color.a > 0)
-		{
-
-			float i = Loading_BlackScreenImage.color.a - ( Time.deltaTime * 3 );
-			Loading_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		Loading_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-		yield return new WaitForSecondsRealtime(Random.Range(4, 7));
-
-		yield return new WaitForEndOfFrame();
-
-		while (Loading_BlackScreenImage.color.a < 1)
-		{
-			float i = Loading_BlackScreenImage.color.a + ( Time.deltaTime * 3 );
-			Loading_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		Loading_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-		OnFadeInCompleted();
+		ShowCanvas( Menu_Canvas.CUTSCENE );
+		StartCutscene();
 
 	}
 
+	IEnumerator Menu_To_Selector () {
 
 
+		StartCoroutine( Fader.Hide( TRANSITION_TIME ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
+		// SHOW SELECTOR
+		ShowCanvas( Menu_Canvas.SELECTOR );
 
-
-	// menu che compare
-	IEnumerator Menu_BlackImage_FadeOut () {
-
-		yield return new WaitForEndOfFrame();
-
-		while ( Menu_BlackScreenImage.color.a > 0 ) {
-			
-			float i = Menu_BlackScreenImage.color.a - ( Time.deltaTime * 3 );
-			Menu_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		Menu_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-		OnFadeOutCompleted();
+		StartCoroutine( Fader.Show( TRANSITION_TIME ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
 	}
 	

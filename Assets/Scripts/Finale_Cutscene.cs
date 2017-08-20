@@ -23,15 +23,13 @@ public class Finale_Cutscene : MonoBehaviour {
 
 	private	Image				Cutscene_BigImage;
 
-	public	GameObject			CutsceneScreen;
-
-	public Image				Cutscene_BlackScreenImage;
+	public	GameObject			Canvas_Cutscene;
 
 
 	// Use this for initialization
 	void Start () {
 
-		Cutscene_BigImage = CutsceneScreen.transform.GetChild( 0 ).GetComponent<Image>();
+		Cutscene_BigImage = Canvas_Cutscene.transform.GetChild( 0 ).GetComponent<Image>();
 
 		if ( vCutsceneSprites == null ) {
 
@@ -52,7 +50,6 @@ public class Finale_Cutscene : MonoBehaviour {
 
 		Cutscene_BigImage.sprite = pCurrentSprite = vCutsceneSprites[ iCurrentSpriteIndex ];
 
-		Cutscene_BlackScreenImage.enabled = true;
 
 		// fa scomparire l'immagine nera
 		StartCoroutine( Cutscene_BlackImage_FadeOut() );
@@ -113,26 +110,8 @@ public class Finale_Cutscene : MonoBehaviour {
 
 	IEnumerator Cutscene_BlackImage_FadeIn () {
 
-		if ( bCutsceneDebug ) print( "Cutscene_BlackImage_FadeIn start" );
-
-		yield return new WaitForEndOfFrame();
-
-		Cutscene_BlackScreenImage.raycastTarget = true;
-		Cutscene_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-		while ( Cutscene_BlackScreenImage.color.a < 1 ) {
-
-			float i = Cutscene_BlackScreenImage.color.a + ( Time.deltaTime * 3 );
-			Cutscene_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		Cutscene_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-		if ( bCutsceneDebug ) print( "Cutscene_BlackImage_FadeIn processing end" );
-
-		EndCutsceneFrameCallback();
+		StartCoroutine( Fader.Hide( 2, () => EndCutsceneFrameCallback() ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
 	}
 
@@ -141,26 +120,9 @@ public class Finale_Cutscene : MonoBehaviour {
 
 
 	IEnumerator Cutscene_BlackImage_FadeOut () {
-
-		if ( bCutsceneDebug ) print( "Cutscene_BlackImage_FadeOut start" );
-
-		yield return new WaitForEndOfFrame();
-
-		Cutscene_BlackScreenImage.raycastTarget = true;
-		Cutscene_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-		while ( Cutscene_BlackScreenImage.color.a > 0 ) {
-			float i = Cutscene_BlackScreenImage.color.a - ( Time.deltaTime * 3 );
-			Cutscene_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		if ( bCutsceneDebug ) print( "Cutscene_BlackImage_FadeOut processing end" );
-
-		Cutscene_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-		StartCoroutine( ShowCutsceneFrame() );
+		
+		StartCoroutine( Fader.Hide( 2, () => StartCoroutine( ShowCutsceneFrame() ) ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
 	}
 

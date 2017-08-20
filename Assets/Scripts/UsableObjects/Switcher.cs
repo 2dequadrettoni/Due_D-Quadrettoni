@@ -32,13 +32,13 @@ public partial class Switcher : UsableObject {
 			pAnimator = transform.GetChild( 0 ).GetComponent<Animator>();
 
 			if ( !pAnimator ) {
-				GLOBALS.UI.ShowMessage( "Invalid switcher", "A switcher object has not sprite with animator component", GLOBALS.GameManager.Exit );
+				GLOBALS.UI.ShowMessage( "Invalid switcher", "A switcher object has not sprite with animator component", GameManager.Exit );
 				return;
 			}
 
 			}
 		else {
-			GLOBALS.UI.ShowMessage( "Invalid switcher", "A switcher object has not sprite as child", GLOBALS.GameManager.Exit );
+			GLOBALS.UI.ShowMessage( "Invalid switcher", "A switcher object has not sprite as child", GameManager.Exit );
 			Destroy( gameObject );
 		}
 

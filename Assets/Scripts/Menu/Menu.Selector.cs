@@ -7,136 +7,30 @@ using UnityEngine.SceneManagement;
 public partial class Menu {
 	
 	// selector che scompare al caricamento
-	IEnumerator Selector_BlackImage_FadeIn( int scene_index )
-	{
+	IEnumerator Selector_To_Loading_To_Game( int scene_index ) {
 
-		yield return new WaitForEndOfFrame();
-
-		while (LevelSelection_BlackScreenImage.color.a < 1)
-		{
-
-			float i = LevelSelection_BlackScreenImage.color.a + (Time.deltaTime * 3);
-			LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-		MainMenuScreen.SetActive(false);
-		LevelSelectionScreen.SetActive(false);
-		LoadingScreen.SetActive(true);
-
+		StartCoroutine( Fader.Hide( TRANSITION_TIME ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
 		// LOADING SCREEN
+		ShowCanvas( Menu_Canvas.LOADING );
 
-
-		Loading_BlackScreenImage.enabled = true;
-		Menu_BlackScreenImage.raycastTarget = false;
-
-		yield return new WaitForEndOfFrame();
-
-		while (Loading_BlackScreenImage.color.a > 0)
-		{
-
-			float i = Loading_BlackScreenImage.color.a - ( Time.deltaTime * 3 );
-			Loading_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		Loading_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-
+		StartCoroutine( Fader.Show( TRANSITION_TIME ) );
 		yield return new WaitForSecondsRealtime(Random.Range(4, 7));
 
+		StartCoroutine( Fader.Hide( 0.8f ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
-
-
-		SceneManager.LoadScene(scene_index);
-
-	}
-
-
-
-
-	// selector che compare
-	IEnumerator Selector_BlackImage_FadeOut () {
-
-
-		yield return new WaitForEndOfFrame();
-
-		Menu_BlackScreenImage.enabled = true;
-		LevelSelection_BlackScreenImage.raycastTarget = true;
-
-		Menu_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-		while ( Menu_BlackScreenImage.color.a < 1 ) {
-			
-			float i = Menu_BlackScreenImage.color.a + ( Time.deltaTime * 3 );
-			Menu_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		Menu_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-//		Menu_BlackScreenImage.enabled = false;
-		LevelSelection_BlackScreenImage.raycastTarget = false;
-
-
-		// SHOE SELECTOR
-
-
-		LevelSelection_BlackScreenImage.enabled = true;
-		LevelSelection_BlackScreenImage.raycastTarget = true;
-
-		yield return new WaitForEndOfFrame();
-
-		MainMenuScreen.SetActive(false);
-		LevelSelectionScreen.SetActive(true);
-		LoadingScreen.SetActive( false );
-
-		LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-		while ( LevelSelection_BlackScreenImage.color.a > 0 ) {
-			
-			float i = LevelSelection_BlackScreenImage.color.a - ( Time.deltaTime * 3 );
-			LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-		LevelSelection_BlackScreenImage.raycastTarget = false;
-		LevelSelection_BlackScreenImage.enabled = false;
+		SceneManager.LoadScene( scene_index );
 
 	}
-
-
-
 
 
 	// selector che scompare per il menu
-	IEnumerator Selector_BlackImage_FadeOutToMenu () {
+	IEnumerator Selector_To_Menu () {
 
-		LevelSelection_BlackScreenImage.enabled = true;
-		LevelSelection_BlackScreenImage.raycastTarget = true;
-
-		yield return new WaitForEndOfFrame();
-
-		while ( LevelSelection_BlackScreenImage.color.a < 1 ) {
-			
-			float i = LevelSelection_BlackScreenImage.color.a + ( Time.deltaTime * 3 );
-			LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		LevelSelection_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-
+		StartCoroutine( Fader.Hide( TRANSITION_TIME ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
 		// SHOW MENU
 		SceneManager.LoadScene(0);

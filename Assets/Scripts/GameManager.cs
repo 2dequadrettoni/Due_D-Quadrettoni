@@ -4,19 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-struct GO_Position {
-	public GameObject	o;
-	public Vector3		Original_Position;
-	public Vector3		Decom_Position;
-	private bool		bDone;
-	public GO_Position( GameObject o, Vector3 Original_Position, Vector3 Decom_Position ) {
-		this.o = o;
+public class GO_Position {
+	public GameObject	obj					= null;
+	public Vector3		Original_Position	= Vector3.zero;
+	public Vector3		Decom_Position		= Vector3.zero;
+	public float		Interpolant			= 0.0f;
+	public float		Distance			= 0.0f;
+	public bool			Done				= false;
+
+	public GO_Position( GameObject oobj, Vector3 Original_Position, Vector3 Decom_Position ) {
+		this.obj = oobj;
 		this.Original_Position = Original_Position;
 		this.Decom_Position = Decom_Position;
-		bDone = false;
 	}
-	public bool IsDone() { return bDone; }
-	public void SetDone() { bDone = true; }
 }
 
 
@@ -41,8 +41,9 @@ public class GameManager : MonoBehaviour {
 	private		bool			bInLevelTransition				= false;
 
 	private void Start() {
-		
-//		StartCoroutine( AudioManager.LoadResources() );
+
+		Fader.Hide();
+		StartCoroutine( Fader.Show( 1 ) );
 
 		pFinalTile1 = transform.GetChild( 0 ).GetComponent<FinalTile>();
 		pFinalTile2 = transform.GetChild( 1 ).GetComponent<FinalTile>();
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour {
 
 			AudioManager.StopAllMusics();
 
-			p.loop= true;
+			p.loop = true;
 			AudioManager.FadeInMusic( p, 8.0f );
 
 		}
@@ -67,11 +68,11 @@ public class GameManager : MonoBehaviour {
 
 		// Tutorials
 		if ( iSceneIndex == 1 ) {
-			InTutorialSequence			= true;
-			UI.TutorialLvl				= true;
-			Door.TutorialLvl			= true;
-			FinalTile.TutorialLvl		= true;
-			Switcher.TutorialLvl_Plane	= true;
+			InTutorialSequence				= true;
+			UI.TutorialLvl					= true;
+			Door.TutorialLvl				= true;
+			FinalTile.TutorialLvl			= true;
+			Switcher.TutorialLvl_Plane		= true;
 			if ( TutorialStep < 4 )
 				GLOBALS.TutorialOverride	= true;
 			else {
@@ -79,26 +80,26 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		else {
-			InTutorialSequence			= false;
-			UI.TutorialLvl				= false;
-			Door.TutorialLvl			= false;
-			FinalTile.TutorialLvl		= false;
-			Switcher.TutorialLvl_Plane	= false;
-			GLOBALS.TutorialOverride	= false;
+			InTutorialSequence				= false;
+			UI.TutorialLvl					= false;
+			Door.TutorialLvl				= false;
+			FinalTile.TutorialLvl			= false;
+			Switcher.TutorialLvl_Plane		= false;
+			GLOBALS.TutorialOverride		= false;
 		}
 		if ( iSceneIndex == 2 ) {
-			Switcher.TutorialLvl		= true;
-			Platform.TutorialLvl		= true;
+			Switcher.TutorialLvl			= true;
+			Platform.TutorialLvl			= true;
 		}
 		else {
-			Switcher.TutorialLvl		= false;
-			Platform.TutorialLvl		= false;
+			Switcher.TutorialLvl			= false;
+			Platform.TutorialLvl			= false;
 		}
 		if ( iSceneIndex == 6 ) {
-			Key.TutorialLvl				= true;
+			Key.TutorialLvl					= true;
 		}
 		else {
-			Key.TutorialLvl				= false;
+			Key.TutorialLvl					= false;
 		}
 
 		StartLevelComposition();
@@ -135,13 +136,24 @@ public class GameManager : MonoBehaviour {
 
 	private void AddObj( GameObject o ) {
 
-		Vector3 vDecom_Position = new Vector3 ( 
-			Random.Range( -10, 10 ) * vObjects.Count + Random.Range( -10, 10 ),
-			Random.Range( -10, 10 ) * vObjects.Count + Random.Range( -10, 10 ),
-			0.0f
+
+		Vector3 vDecom_Position = Camera.main.ViewportToWorldPoint(
+			new Vector3(
+				Random.Range( 1.1f, 4.0f ) * ( Random.Range( 0, 100 ) > 50 ? 1 : -1 ),
+				0.0f,
+				Random.Range( 1.1f, 4.0f ) * ( Random.Range( 0, 100 ) > 50 ? 1 : -1 )
+			)
 		);
 
+		/*
+		Vector3 vDecom_Position = new Vector3 ( 
+			Random.Range( -0.2f, 0.3f ) * vObjects.Count + Random.Range( -20, 21 ),
+			0.0f,
+			Random.Range( -0.2f, 0.3f ) * vObjects.Count + Random.Range( -20, 21 )
+		);
+		*/
 		GO_Position p = new GO_Position( o, o.transform.position, vDecom_Position );
+		p.Distance = Vector3.Distance( o.transform.position, vDecom_Position );
 		vObjects.Add( p );
 
 		o.transform.position = vDecom_Position;
@@ -157,19 +169,20 @@ public class GameManager : MonoBehaviour {
 
 		while ( iCurrentObjectLeft > 0 ) {
 
-			foreach( GO_Position p in vObjects	) {
+			for ( int i = 0; i < vObjects.Count; i++ ) {
+				GO_Position p = vObjects[i];
 
-				if ( p.IsDone() ) continue;
+				if ( p.Done ) continue;
 
-				if ( Vector3.Distance( p.o.transform.position, p.Original_Position ) > 0.001f ) {
-
-					p.o.transform.position = Vector3.LerpUnclamped( p.o.transform.position, p.Original_Position, Time.unscaledDeltaTime * Random.Range( 2.5f, 3.5f ) );
-				}
-				else {
-					p.o.transform.position = p.Original_Position;
-					p.SetDone();
+				p.Interpolant += Time.unscaledDeltaTime / p.Distance * 40.0f;
+				
+				if ( p.Interpolant > 1.0f ) {
+					p.Done = true;
 					iCurrentObjectLeft--;
+					print( iCurrentObjectLeft );
 				}
+				
+				p.obj.transform.position = Vector3.Lerp( p.Decom_Position, p.Original_Position, p.Interpolant );
 
 			}
 
@@ -196,19 +209,19 @@ public class GameManager : MonoBehaviour {
 
 		while ( iCurrentObjectLeft > 0 ) {
 
-			foreach( GO_Position p in vObjects	) {
+			for ( int i = 0; i < vObjects.Count; i++ ) {
+				GO_Position p = vObjects[i];
 
-				if ( p.IsDone() ) continue;
+				if ( p.Done ) continue;
 
-				if ( Vector3.Distance( p.o.transform.position, p.Decom_Position ) > 0.1f ) {
-
-					p.o.transform.position = Vector3.LerpUnclamped( p.o.transform.position, p.Decom_Position, Time.unscaledDeltaTime * Random.Range( 0.4f, 0.5f ) );
-				}
-				else {
-					p.o.transform.position = p.Decom_Position;
-					p.SetDone();
+				if ( p.Interpolant > 1.0f ) {
+					p.Done = true;
 					iCurrentObjectLeft--;
+					print( iCurrentObjectLeft );
 				}
+
+				p.Interpolant += Time.deltaTime * 8;
+				p.obj.transform.position = Vector3.Lerp( p.obj.transform.position, p.Decom_Position, p.Interpolant );
 
 			}
 
@@ -235,7 +248,14 @@ public class GameManager : MonoBehaviour {
 
 	}
 
+	static public void NextScene() {
 
+		if ( GLOBALS.StageManager.IsPlaying )
+				GLOBALS.StageManager.Stop( true );
+
+		UnityEngine.SceneManagement.SceneManager.LoadScene( GLOBALS.CurrentLevel + 1 );
+
+	}
 
 	private void Update() {
 
@@ -257,7 +277,7 @@ public class GameManager : MonoBehaviour {
 			GLOBALS.Player2.IsInAnimationOverride = true;
 			GLOBALS.Player2.PlayWinAnimation();
 
-			GLOBALS.UI.BlackScreenFadeIn();
+			StartCoroutine ( Fader.Hide( 2, () => GameManager.NextScene() ) );
 
 			StartCoroutine( LevelDecompositionCoroutine() );
 
@@ -278,23 +298,30 @@ public class GameManager : MonoBehaviour {
 
 		GLOBALS.CurrentLevel--;
 
-		GLOBALS.UI.BlackScreenFadeIn();
+		StartCoroutine ( Fader.Hide( 2, () => GameManager.NextScene() ) );
 
 		StartCoroutine( LevelDecompositionCoroutine() );
-
-//		SceneManager.LoadScene ( SceneManager.GetActiveScene().name );
 
 	}
 
 
 
 
-	public void	Exit() {
+	public static void	Exit( string LogMessage = null ) {
+
+		if ( LogMessage != null ) GLOBALS.Logger.Write( LogMessage );
+		Exit();
+
+	}
+
+	public static void	Exit() {
+
 #if UNITY_EDITOR
-			UnityEditor.EditorApplication.isPlaying = false;
+		UnityEditor.EditorApplication.isPlaying = false;
 #else
-			Application.Quit();
+		Application.Quit();
 #endif
+
 	}
 
 

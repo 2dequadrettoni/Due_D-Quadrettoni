@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 using System.IO;
 
@@ -24,12 +25,16 @@ public static class AudioManager {
 
 	private	static	AudioFader				pAudioFader		= null;
 
-	public	static	bool					Loaded			= false;
+	private	static	bool					bLoaded			= false;
 
-	// Use this for initialization
-	public	static	void  LoadResources () {
+	public	static	bool					Loaded {
+		get { return bLoaded; }
+	}
+
+	public	static	void	Initialize() {
 
 		if ( bInitialized ) return;
+
 		bInitialized = true;
 
 		vSounds = new List<AudioSrc>();
@@ -41,11 +46,40 @@ public static class AudioManager {
 
 		pAudioFader = pAudioContainer.AddComponent<AudioFader>();
 
+	}
+
+
+	// Use this for initialization
+	public	static	IEnumerator  LoadResources () {
+
+		if ( !bInitialized ) yield break;
+		
+		GLOBALS.Logger.Write( "AudioManager:Loading audio resources" );
+
 		// Sounds
 		{
-			AudioClip[] vSoundsClip = Resources.LoadAll<AudioClip>( "Audio/Sounds" );
+			GLOBALS.Logger.Write( "AudioManager:Loading Sounds" );
 
-			foreach( AudioClip pAudioClip in vSoundsClip ) {
+			ResourceRequest pResourceRequest = Resources.LoadAsync ( "Sounds" );
+
+			while( !pResourceRequest.isDone ) yield return pResourceRequest;
+
+			Sounds_Scriptable pSoundsResources = pResourceRequest.asset as Sounds_Scriptable;
+
+			foreach( string sAudioClip in pSoundsResources.vSoundsClip ) { 
+
+				if ( sAudioClip == null ) {
+					Debug.Log( "music loading failed" );
+					continue;
+				}
+
+				GLOBALS.Logger.Write( "AudioManager:Loading " + sAudioClip );
+
+				ResourceRequest pResourceRequestAsset = Resources.LoadAsync<AudioClip>( sAudioClip );
+
+				while( !pResourceRequestAsset.isDone ) yield return pResourceRequestAsset;
+
+				AudioClip pAudioClip = pResourceRequestAsset.asset as AudioClip;
 
 				AudioSource pAudioSource = pAudioContainer.AddComponent<AudioSource>();
 				pAudioSource.clip = pAudioClip;
@@ -55,17 +89,43 @@ public static class AudioManager {
 				pAudioSrc.sName		= pAudioClip.name;
 
 				vSounds.Add( pAudioSrc );
+
+				yield return null;
+
+//				Debug.Log( " Loaded  " + pAudioClip.name );
+				
 			}
 
 			if ( vSounds == null || vSounds.Count == 0 ) Debug.LogWarning( "Error loading sounds" );
+
+			GLOBALS.Logger.Write( "AudioManager:Sounds loaded" );
 
 		}
 		
 		// Musics
 		{
-			AudioClip[] vMusicsClip = Resources.LoadAll<AudioClip>( "Audio/Musics" );
+			GLOBALS.Logger.Write( "AudioManager:Loading Musics" );
 
-			foreach( AudioClip pAudioClip in vMusicsClip ) {
+			ResourceRequest pResourceRequest = Resources.LoadAsync ( "Musics" );
+			
+			while( !pResourceRequest.isDone ) yield return pResourceRequest;
+
+			Musics_Scriptable pMusicsResources = pResourceRequest.asset as Musics_Scriptable;
+
+			foreach( string sAudioClip in pMusicsResources.vMusicsClip ) { 
+
+				if ( sAudioClip == null ) {
+					Debug.Log( "music loading failed" );
+					continue;
+				}
+
+				GLOBALS.Logger.Write( "AudioManager:Loading " + sAudioClip );
+
+				ResourceRequest pResourceRequestAsset = Resources.LoadAsync<AudioClip>( sAudioClip );
+
+				while( !pResourceRequestAsset.isDone ) yield return pResourceRequestAsset;
+
+				AudioClip pAudioClip = pResourceRequestAsset.asset as AudioClip;
 
 				AudioSource pAudioSource = pAudioContainer.AddComponent<AudioSource>();
 				pAudioSource.clip = pAudioClip;
@@ -75,13 +135,21 @@ public static class AudioManager {
 				pAudioSrc.sName		= pAudioClip.name;
 
 				vMusics.Add( pAudioSrc );
+
+				yield return null;
+
+//				Debug.Log( " Loaded  " + pAudioClip.name );
+				
 			}
 
 			if ( vMusics == null || vMusics.Count == 0 ) Debug.LogWarning( "Error loading musics" );
 
+			GLOBALS.Logger.Write( "AudioManager:Musics loaded" );
+
 		}
 		
-		Loaded = true;
+		Debug.Log( "loaded" );
+		bLoaded = true;
 
 	}
 
@@ -120,7 +188,7 @@ public static class AudioManager {
 
 	}
 
-	public	static	AudioSource FadeInMusic( AudioSource pAudioSource, float FadeTime = 3.0f ) {
+	public	static	AudioSource FadeInMusic( AudioSource pAudioSource, float FadeTime = 4.0f ) {
 
 		pAudioSource.loop = true;
 		pAudioFader.FadeIn( pAudioSource, FadeTime );
@@ -128,7 +196,7 @@ public static class AudioManager {
 		return pAudioSource;
 	}
 
-	public	static	AudioSource FadeInMusic( string name, float FadeTime = 3.0f )
+	public	static	AudioSource FadeInMusic( string name, float FadeTime = 4.0f )
 	{
 		
 		AudioSource pAudioSource = FindMusic( name );
@@ -143,7 +211,7 @@ public static class AudioManager {
 	}
 
 
-	public	static	AudioSource FadeOutMusic( AudioSource pAudioSource, float FadeTime = 3.0f ) {
+	public	static	AudioSource FadeOutMusic( AudioSource pAudioSource, float FadeTime = 4.0f ) {
 
 		pAudioSource.loop = true;
 		pAudioFader.FadeOut( pAudioSource, FadeTime );
@@ -152,7 +220,7 @@ public static class AudioManager {
 	}
 
 
-	public	static	AudioSource FadeOutMusic( string name, float FadeTime = 3.0f ) {
+	public	static	AudioSource FadeOutMusic( string name, float FadeTime = 4.0f ) {
 		
 		AudioSource pAudioSource = FindMusic( name );
         
@@ -174,11 +242,13 @@ public static class AudioManager {
 
 	public	static	void StopAllMusics( bool bInstant = true ) {
 
-		foreach( AudioSrc s in vMusics ) if ( s.pSource != null )
-			if ( bInstant )
-				s.pSource.Stop();
-			else
-				FadeOutMusic( s.pSource );
+		foreach( AudioSrc s in vMusics )
+			if ( s.pSource != null && s.pSource.isPlaying ) {
+				if ( bInstant )
+					s.pSource.Stop();
+				else
+					FadeOutMusic( s.pSource );
+			}
 
 	}
 

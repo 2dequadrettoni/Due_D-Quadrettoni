@@ -27,17 +27,13 @@ public partial class Menu {
 
 	private	void	StartCutscene() {
 
-		AudioManager.StopAllMusics();
-		AudioManager.FadeInMusic( "Cutscene_Start" );
+		AudioManager.StopAllMusics( false );
+		AudioManager.FadeInMusic( "Cutscene_Start", 6 );
 
 		Cutscene_BigImage.sprite = pCurrentSprite = vCutsceneSprites[ iCurrentSpriteIndex ];
 
-		Cutscene_BlackScreenImage.enabled = true;
-
 		// fa scomparire l'immagine nera
 		StartCoroutine( Cutscene_BlackImage_FadeOut( () => StartCoroutine( ShowCutsceneFrame() ) ) );
-
-//		SceneManager.LoadScene( 0 );
 
 	}
 
@@ -93,26 +89,8 @@ public partial class Menu {
 
 	IEnumerator Cutscene_BlackImage_FadeIn ( System.Action EndCallback ) {
 
-		if ( bCutsceneDebug ) print( "Cutscene_BlackImage_FadeIn start" );
-
-		yield return new WaitForEndOfFrame();
-
-		Cutscene_BlackScreenImage.raycastTarget = true;
-		Cutscene_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-		while ( Cutscene_BlackScreenImage.color.a < 1 ) {
-
-			float i = Cutscene_BlackScreenImage.color.a + ( Time.deltaTime * 3 );
-			Cutscene_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		Cutscene_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-		if ( bCutsceneDebug ) print( "Cutscene_BlackImage_FadeIn processing end" );
-
-		EndCallback();
+		StartCoroutine( Fader.Hide( 2, EndCallback ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
 	}
 
@@ -122,25 +100,8 @@ public partial class Menu {
 
 	IEnumerator Cutscene_BlackImage_FadeOut ( System.Action EndCallback ) {
 
-		if ( bCutsceneDebug ) print( "Cutscene_BlackImage_FadeOut start" );
-
-		yield return new WaitForEndOfFrame();
-
-		Cutscene_BlackScreenImage.raycastTarget = true;
-		Cutscene_BlackScreenImage.color = new Color(1, 1, 1, 1);
-
-		while ( Cutscene_BlackScreenImage.color.a > 0 ) {
-			float i = Cutscene_BlackScreenImage.color.a - ( Time.deltaTime * 3 );
-			Cutscene_BlackScreenImage.color = new Color(1, 1, 1, i);
-			yield return null;
-
-		}
-
-		if ( bCutsceneDebug ) print( "Cutscene_BlackImage_FadeOut processing end" );
-
-		Cutscene_BlackScreenImage.color = new Color(1, 1, 1, 0);
-
-		EndCallback();
+		StartCoroutine( Fader.Show( 2, EndCallback ) );
+		while ( !Fader.FadeCompleted ) yield return null;
 
 	}
 

@@ -99,16 +99,10 @@ public class UI : MonoBehaviour {
 	Sprite buttonPauseSprite;
 	Sprite buttonRestartSprite;
 
-
-	public GameObject FadeImage = null;
-
-
 	Animator pBlackScreenAnimator;
 
     // Use this for initialization
     private void Start() {
-
-		if ( FadeImage != null ) FadeImage.SetActive( true );
 
 		Cursor.SetCursor( pCursorSprite.texture, Vector2.zero, CursorMode.Auto );
 
@@ -216,20 +210,8 @@ public class UI : MonoBehaviour {
         buttonNextTurnSprite = buttonNextTurn.GetComponent<Image>().sprite;
 		buttonPauseSprite	= buttonPause.GetComponent<Image>().sprite;
 		buttonRestartSprite = buttonRestart.GetComponent<Image>().sprite;
-		
-		// black screen
-		pBlackScreenAnimator = pCanvasObject.Find( "Fade_image" ) .GetComponent<Animator>();
-
-		pBlackScreenAnimator.Play( "Fade_Out" );
 
     }
-
-
-	public void		BlackScreenFadeIn() {
-
-		pBlackScreenAnimator.Play( "Fade_In" );
-
-	}
 
 
 	public	void	SelectPlayer( int ID ) {
@@ -423,7 +405,7 @@ public class UI : MonoBehaviour {
 		}
 
 		if ( GUI.Button( new Rect( ( DefaultWindow.width / 2f ) + 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
-			GLOBALS.GameManager.Exit();
+			GameManager.Exit();
 		}
         
     }
@@ -448,7 +430,7 @@ public class UI : MonoBehaviour {
 		}
 
 		if ( GUI.Button( new Rect( ( DefaultWindow.width / 2f ) + 50.0f, DefaultWindow.height / 1.5f, 100f, 20f ), "EXIT" ) ) {
-			GLOBALS.GameManager.Exit();
+			GameManager.Exit();
 		}
         
     }

@@ -37,15 +37,32 @@ public static class GLOBALS {
 public class VARS : MonoBehaviour {
 
 	private void Awake() {
+		
+		GLOBALS.Logger.Write( "Finding Scene essential game objects" );
 
 		{//	UI
 			GameObject o = GameObject.Find( "UI" );
 			if ( o ) {
 				GLOBALS.UI = o.GetComponent<UI>();
 			}
+			else GameManager.Exit( "UI not found, exiting.." );
 		}
 
-		if ( Camera.main != null ) GLOBALS.TutorialSlot = Camera.main.transform.Find( "TutorialSlot" ).GetComponent<SpriteRenderer>();
+		{
+			if ( Camera.main != null ) {
+				Transform  pTutorialSlot = Camera.main.transform.Find( "TutorialSlot" );
+				if ( pTutorialSlot != null )
+					GLOBALS.TutorialSlot =  pTutorialSlot.GetComponent<SpriteRenderer>();
+				else {
+					GameManager.Exit( "Camera has not child 'TutorialSlot' " );
+				}
+			} else GameManager.Exit( "No camera tagged as Main Camera" );
+
+		}
+
+
+
+		
 
 		// GameManager, StageManager and EventManager
 		{
@@ -55,7 +72,7 @@ public class VARS : MonoBehaviour {
 				GLOBALS.StageManager	= GM.GetComponent<StageManager>();
 				GLOBALS.EventManager	= GM.GetComponent<EventManager>();
 			}
-			else GLOBALS.UI.ShowMessage( "Error", "Cannot find GameManager object", delegate { Application.Quit(); } );
+			else GameManager.Exit( "GameManager not found, exiting.." );
 		}
 
 		{//	Player 1
@@ -63,6 +80,7 @@ public class VARS : MonoBehaviour {
 			if ( o ) {
 				GLOBALS.Player1 = o.GetComponent<Player>();
 			}
+			else GameManager.Exit( "Player1 not found, exiting.." );
 		}
 
 		{//	Player 2
@@ -70,6 +88,7 @@ public class VARS : MonoBehaviour {
 			if ( o ) {
 				GLOBALS.Player2 = o.GetComponent<Player>();
 			}
+			else GameManager.Exit( "Player2 not found, exiting.." );
 		}
 
 		{//	pathFinder
@@ -77,7 +96,10 @@ public class VARS : MonoBehaviour {
 			if ( o ) {
 				GLOBALS.PathFinder = o.GetComponent<Pathfinding>();
 			}
+			else GameManager.Exit( "PathFinder not found, exiting.." );
 		}
+
+		GLOBALS.Logger.Write( "All essentials found" );
 
 	}
 

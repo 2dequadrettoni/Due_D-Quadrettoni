@@ -84,20 +84,4 @@ public class AnimationEvents : MonoBehaviour {
 
 	}
 
-
-	
-
-	void OnBlackScreenFadeInCompleted() {
-
-//		GLOBALS.UI.ShowLvlCompletedMsg();
-
-		if ( GLOBALS.StageManager.IsPlaying )
-				GLOBALS.StageManager.Stop( true );
-
-		UnityEngine.SceneManagement.SceneManager.LoadScene( GLOBALS.CurrentLevel + 1 );
-
-
-	}
-
-
 }
