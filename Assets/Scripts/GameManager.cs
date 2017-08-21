@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour {
 	private void Start() {
 
 		Fader.Hide();
-		StartCoroutine( Fader.Show( 1 ) );
+		StartCoroutine( Fader.Show( 2.0f ) );
 
 		pFinalTile1 = transform.GetChild( 0 ).GetComponent<FinalTile>();
 		pFinalTile2 = transform.GetChild( 1 ).GetComponent<FinalTile>();
@@ -139,9 +139,9 @@ public class GameManager : MonoBehaviour {
 
 		Vector3 vDecom_Position = Camera.main.ViewportToWorldPoint(
 			new Vector3(
-				Random.Range( 1.1f, 4.0f ) * ( Random.Range( 0, 100 ) > 50 ? 1 : -1 ),
-				0.0f,
-				Random.Range( 1.1f, 4.0f ) * ( Random.Range( 0, 100 ) > 50 ? 1 : -1 )
+				Random.Range( 1.1f, 3.5f ) * ( Random.Range( 0, 100 ) > 50 ? 1 : -1 ),
+				Random.Range( 1.1f, 3.5f ) * ( Random.Range( 0, 100 ) > 50 ? 1 : -1 ),
+				Random.Range( 1.1f, 3.5f ) * ( Random.Range( 0, 100 ) > 50 ? 1 : -1 )
 			)
 		);
 
@@ -164,8 +164,12 @@ public class GameManager : MonoBehaviour {
 
 		int iCurrentObjectLeft = vObjects.Count;
 
-		GLOBALS.Player1.pSpriteRenderer.enabled = false;
-		GLOBALS.Player2.pSpriteRenderer.enabled = false;
+
+		GLOBALS.Player1.Hide();
+		GLOBALS.Player2.Hide();
+
+
+		UnityEditor.Selection.activeObject = GLOBALS.Player2.transform.GetChild(0).gameObject;
 
 		while ( iCurrentObjectLeft > 0 ) {
 
@@ -174,8 +178,8 @@ public class GameManager : MonoBehaviour {
 
 				if ( p.Done ) continue;
 
-				p.Interpolant += Time.unscaledDeltaTime / p.Distance * 40.0f;
-				
+				p.Interpolant += Time.unscaledDeltaTime / p.Distance * 50f;
+					
 				if ( p.Interpolant > 1.0f ) {
 					p.Done = true;
 					iCurrentObjectLeft--;
@@ -189,8 +193,10 @@ public class GameManager : MonoBehaviour {
 			yield return null;
 		}
 
-		GLOBALS.Player1.pSpriteRenderer.enabled = true;
-		GLOBALS.Player2.pSpriteRenderer.enabled = true;
+		for ( int i = 0; i < vObjects.Count; i++ ) vObjects[i].Done = false;
+
+		GLOBALS.Player1.Show();
+		GLOBALS.Player2.Show();
 
 		GLOBALS.Player1.Spawn();
 		GLOBALS.Player2.Spawn();
@@ -214,22 +220,24 @@ public class GameManager : MonoBehaviour {
 
 				if ( p.Done ) continue;
 
+				p.Interpolant += Time.unscaledDeltaTime / p.Distance * 200f;
+					
 				if ( p.Interpolant > 1.0f ) {
 					p.Done = true;
+					p.Interpolant = 0.0f;
 					iCurrentObjectLeft--;
 					print( iCurrentObjectLeft );
 				}
-
-				p.Interpolant += Time.deltaTime * 8;
-				p.obj.transform.position = Vector3.Lerp( p.obj.transform.position, p.Decom_Position, p.Interpolant );
+				
+				p.obj.transform.position = Vector3.Lerp( p.Original_Position, p.Decom_Position, p.Interpolant );
 
 			}
 
 			yield return null;
 		}
 
-		GLOBALS.Player1.pSpriteRenderer.enabled = false;
-		GLOBALS.Player2.pSpriteRenderer.enabled = false;
+		GLOBALS.Player1.Hide();
+		GLOBALS.Player2.Hide();
 
 	}
 
@@ -253,7 +261,7 @@ public class GameManager : MonoBehaviour {
 		if ( GLOBALS.StageManager.IsPlaying )
 				GLOBALS.StageManager.Stop( true );
 
-		UnityEngine.SceneManagement.SceneManager.LoadScene( GLOBALS.CurrentLevel + 1 );
+		SceneManager.LoadScene( GLOBALS.CurrentLevel + 1 );
 
 	}
 
@@ -298,9 +306,9 @@ public class GameManager : MonoBehaviour {
 
 		GLOBALS.CurrentLevel--;
 
-		StartCoroutine ( Fader.Hide( 2, () => GameManager.NextScene() ) );
-
 		StartCoroutine( LevelDecompositionCoroutine() );
+
+		StartCoroutine ( Fader.Hide( 2, () => GameManager.NextScene() ) );
 
 	}
 

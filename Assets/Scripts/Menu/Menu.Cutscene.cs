@@ -32,8 +32,7 @@ public partial class Menu {
 
 		Cutscene_BigImage.sprite = pCurrentSprite = vCutsceneSprites[ iCurrentSpriteIndex ];
 
-		// fa scomparire l'immagine nera
-		StartCoroutine( Cutscene_BlackImage_FadeOut( () => StartCoroutine( ShowCutsceneFrame() ) ) );
+		StartCoroutine( Cutscene_Show( () => StartCoroutine( ShowCutsceneFrame() ) ) );
 
 	}
 
@@ -48,8 +47,7 @@ public partial class Menu {
 
 			if ( bCutsceneDebug ) print( "EndCutsceneFrameCallback continue" );
 
-			// fade black image out
-			StartCoroutine( Cutscene_BlackImage_FadeOut( () => StartCoroutine( ShowCutsceneFrame() ) ) );
+			StartCoroutine( Cutscene_Show( () => StartCoroutine( ShowCutsceneFrame() ) ) );
 
 			return;
 		}
@@ -81,13 +79,13 @@ public partial class Menu {
 
 		bPlaying = false;
 
-		StartCoroutine( Cutscene_BlackImage_FadeIn( () => EndCutsceneFrameCallback() ) );
+		StartCoroutine( Cutscene_Hide( () => EndCutsceneFrameCallback() ) );
 
 	}
 
 
 
-	IEnumerator Cutscene_BlackImage_FadeIn ( System.Action EndCallback ) {
+	IEnumerator Cutscene_Hide ( System.Action EndCallback ) {
 
 		StartCoroutine( Fader.Hide( 2, EndCallback ) );
 		while ( !Fader.FadeCompleted ) yield return null;
@@ -98,15 +96,12 @@ public partial class Menu {
 
 
 
-	IEnumerator Cutscene_BlackImage_FadeOut ( System.Action EndCallback ) {
+	IEnumerator Cutscene_Show ( System.Action EndCallback ) {
 
 		StartCoroutine( Fader.Show( 2, EndCallback ) );
 		while ( !Fader.FadeCompleted ) yield return null;
 
 	}
-
-
-
 
 
 }

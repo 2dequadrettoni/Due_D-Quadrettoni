@@ -32,11 +32,13 @@ public partial class Player {
 
 		//		if ( EventSystem.current.IsPointerOverGameObject() ) return;
 
+		if ( GLOBALS.IsPaused ) return;
+
 		// Trace always mouse poited position
-		bool pHittResult = Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitthedObject );
+		bool pHitResult = Physics.Raycast( Camera.main.ScreenPointToRay( Input.mousePosition ), out pMouseHitthedObject );
 
 		// Semi trasparent square sprite for current destination tile
-		if ( pHittResult ) SetPlainTile();
+		if ( pHitResult ) SetPlainTile();
 
 		
 		// WAIT ACTION
@@ -48,7 +50,7 @@ public partial class Player {
 		// GOTO - USE ACTION
 		if ( Input.GetMouseButtonDown( 0 ) ) {
 
-			if ( pHittResult ) {
+			if ( pHitResult ) {
 
 				UsableObject pUsableObject = pMouseHitthedObject.collider.gameObject.GetComponent<UsableObject>();
 

@@ -103,7 +103,10 @@ public partial class Player: MonoBehaviour {
 		get { return pRenderer; }
 	}
 	private		SpriteRenderer	pCursorRenderer			= null;
-	private		Animator		pAnimator				= null;
+	private		Animator		pAnimator_				= null;
+	public		Animator		pAnimator {
+		get { return pAnimator_; }
+	}
 	private		Transform		pPlanTile				= null;
 	private		Transform		pMainStepTile			= null;
 
@@ -119,7 +122,7 @@ public partial class Player: MonoBehaviour {
 	private void Start() {
 
 		pRenderer			= transform.Find( "Sprite" ).GetComponent<SpriteRenderer>();
-		pAnimator			= transform.Find( "Sprite" ).GetComponent<Animator>();
+		pAnimator_			= transform.Find( "Sprite" ).GetComponent<Animator>();
 		pCursorRenderer		= transform.Find( "Cursor" ).GetComponent<SpriteRenderer>();
 		
 		pPlanTile			= transform.Find( "PlanTile" );
@@ -149,15 +152,28 @@ public partial class Player: MonoBehaviour {
 	}
 
 
+	public	void	Show() {
+
+		pAnimator_.enabled = pSpriteRenderer.enabled = true;
+
+	}
+
+	public	void	Hide() {
+
+		pAnimator_.enabled = pSpriteRenderer.enabled = false;
+
+	}
+
+
 	public	void	Spawn() {
 
-		pAnimator.Play( "Spawn", -1, 0.0f );
+		pAnimator_.Play( "Spawn", -1, 0.0f );
 
 	}
 
 	public	void	GoAway() {
 
-		pAnimator.Play( "Destroy", 0, 0.0f );
+		pAnimator_.Play( "Destroy", 0, 0.0f );
 
 	}
 
@@ -174,7 +190,7 @@ public partial class Player: MonoBehaviour {
 
 		pCursorRenderer.enabled = value;
 
-		pAnimator.Play( ( value ) ? "Selected" : "Idle_Up" );
+		pAnimator_.Play( ( value ) ? "Selected" : "Idle_Up" );
 
 	}
 	
@@ -210,7 +226,7 @@ public partial class Player: MonoBehaviour {
 
 	public void PlayWinAnimation() {
 
-		pAnimator.Play( "Win", 0, 0.0f );
+		pAnimator_.Play( "Win", 0, 0.0f );
 
 	}
 
